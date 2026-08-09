@@ -1,0 +1,431 @@
+// Trek Cameroon — Prisma schema
+// Database: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------- enums
+
+enum Role {
+  USER
+  GUIDE
+  ADMIN
+}
+
+enum Region {
+  ADAMAWA
+  CENTRE
+  EAST
+  FAR_NORTH
+  LITTORAL
+  NORTH
+  NORTH_WEST
+  SOUTH
+  SOUTH_WEST
+  WEST
+}
+
+enum Difficulty {
+  EASY
+  MODERATE
+  HARD
+  EXPERT
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  REFUNDED
+}
+
+enum MembershipTier {
+  FREE
+  PREMIUM
+}
+
+enum GuidePlan {
+  NONE
+  BASIC
+  PRO
+}
+
+enum GroupMemberRole {
+  OWNER
+  MODERATOR
+  MEMBER
+}
+
+enum ListingKind {
+  ACCOMMODATION
+  EQUIPMENT
+}
+
+// ---------------------------------------------------------------- users
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  passwordHash String
+  name         String
+  role         Role           @default(USER)
+  avatarUrl    String?
+  bio          String?
+  phone        String?
+  region       Region?
+  tier         MembershipTier @default(FREE)
+  tierExpires  DateTime?
+  isActive     Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  guideProfile GuideProfile?
+  reviews      Review[]
+  favorites    Favorite[]
+  photos       Photo[]
+  bookings     Booking[]
+  groups       GroupMember[]
+  ownedGroups  HikingGroup[]  @relation("GroupOwner")
+  tickets      EventTicket[]
+
+  @@index([role])
+}
+
+model GuideProfile {
+  id              String         @id @default(cuid())
+  userId          String         @unique
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  headline        String
+  bio             String
+  yearsExperience Int            @default(0)
+  languages       String[]       @default([])
+  certifications  String[]       @default([])
+  regions         Region[]       @default([])
+  dayRateXAF      Int            @default(0)
+  phone           String?
+  whatsapp        String?
+  status          ApprovalStatus @default(PENDING)
+  reviewedAt      DateTime?
+  reviewNote      String?
+  plan            GuidePlan      @default(NONE)
+  planExpires     DateTime?
+  ratingAvg       Float          @default(0)
+  ratingCount     Int            @default(0)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  tours Tour[]
+
+  @@index([status])
+}
+
+// ---------------------------------------------------------------- trails
+
+model Trail {
+  id              String     @id @default(cuid())
+  slug            String     @unique
+  name            String
+  summary         String
+  description     String
+  region          Region
+  nearestTown     String
+  difficulty      Difficulty
+  distanceKm      Float
+  elevationGainM  Int
+  durationMinutes Int
+  summitM         Int?
+  startLat        Float
+  startLng        Float
+  // GeoJSON LineString of the route, drawn on the Leaflet map
+  routeGeoJson    Json?
+  bestMonths      String[]   @default([])
+  hazards         String[]   @default([])
+  waterSources    String?
+  permitRequired  Boolean    @default(false)
+  permitInfo      String?
+  gettingThere    String?
+  coverImage      String?
+  published       Boolean    @default(true)
+  ratingAvg       Float      @default(0)
+  ratingCount     Int        @default(0)
+  viewCount       Int        @default(0)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  waypoints Waypoint[]
+  reviews   Review[]
+  favorites Favorite[]
+  photos    Photo[]
+  tours     Tour[]
+
+  @@index([region, difficulty])
+  @@index([published])
+}
+
+model Waypoint {
+  id          String  @id @default(cuid())
+  trailId     String
+  trail       Trail   @relation(fields: [trailId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  lat         Float
+  lng         Float
+  elevationM  Int?
+  order       Int     @default(0)
+
+  @@index([trailId])
+}
+
+model Review {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trailId   String
+  trail     Trail          @relation(fields: [trailId], references: [id], onDelete: Cascade)
+  rating    Int
+  title     String
+  body      String
+  hikedOn   DateTime?
+  status    ApprovalStatus @default(APPROVED)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@unique([userId, trailId])
+  @@index([trailId, status])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trailId   String
+  trail     Trail    @relation(fields: [trailId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, trailId])
+  @@index([userId])
+}
+
+// ---------------------------------------------------------------- gallery / photo marketplace
+
+model Photo {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trailId   String?
+  trail     Trail?         @relation(fields: [trailId], references: [id], onDelete: SetNull)
+  url       String
+  publicId  String
+  width     Int?
+  height    Int?
+  caption   String?
+  takenAt   DateTime?
+  status    ApprovalStatus @default(PENDING)
+  // photography marketplace
+  forSale   Boolean        @default(false)
+  priceXAF  Int?
+  licence   String?
+  salesCount Int           @default(0)
+  createdAt DateTime       @default(now())
+
+  @@index([status, createdAt])
+  @@index([trailId])
+}
+
+// ---------------------------------------------------------------- tours & bookings
+
+model Tour {
+  id            String   @id @default(cuid())
+  guideId       String
+  guide         GuideProfile @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  trailId       String?
+  trail         Trail?   @relation(fields: [trailId], references: [id], onDelete: SetNull)
+  title         String
+  description   String
+  priceXAF      Int
+  maxGroupSize  Int      @default(8)
+  durationDays  Int      @default(1)
+  includes      String[] @default([])
+  excludes      String[] @default([])
+  meetingPoint  String?
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  schedules TourSchedule[]
+  bookings  Booking[]
+
+  @@index([guideId])
+}
+
+model TourSchedule {
+  id          String   @id @default(cuid())
+  tourId      String
+  tour        Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  startDate   DateTime
+  endDate     DateTime
+  capacity    Int
+  seatsBooked Int      @default(0)
+  cancelled   Boolean  @default(false)
+
+  bookings Booking[]
+
+  @@index([tourId, startDate])
+}
+
+model Booking {
+  id             String        @id @default(cuid())
+  reference      String        @unique
+  userId         String
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tourId         String
+  tour           Tour          @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  scheduleId     String
+  schedule       TourSchedule  @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  participants   Int           @default(1)
+  subtotalXAF    Int
+  commissionXAF  Int
+  totalXAF       Int
+  status         BookingStatus @default(PENDING)
+  paymentStatus  PaymentStatus @default(UNPAID)
+  contactPhone   String?
+  notes          String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([tourId, status])
+}
+
+// ---------------------------------------------------------------- community
+
+model HikingGroup {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  region      Region?
+  coverImage  String?
+  ownerId     String
+  owner       User     @relation("GroupOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  isPrivate   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  members GroupMember[]
+}
+
+model GroupMember {
+  id       String          @id @default(cuid())
+  groupId  String
+  group    HikingGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role     GroupMemberRole @default(MEMBER)
+  joinedAt DateTime        @default(now())
+
+  @@unique([groupId, userId])
+}
+
+// ---------------------------------------------------------------- safety content (CMS)
+
+model SafetyGuideline {
+  id        String   @id @default(cuid())
+  category  String
+  title     String
+  body      String
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+
+  @@index([category, order])
+}
+
+// ---------------------------------------------------------------- monetization: partners, gear, events, ads
+
+model Listing {
+  id           String      @id @default(cuid())
+  kind         ListingKind
+  name         String
+  description  String
+  imageUrl     String?
+  region       Region?
+  town         String?
+  priceFromXAF Int?
+  affiliateUrl String
+  partnerName  String?
+  commissionPct Float      @default(10)
+  featured     Boolean     @default(false)
+  published    Boolean     @default(true)
+  clickCount   Int         @default(0)
+  createdAt    DateTime    @default(now())
+
+  @@index([kind, published])
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  region      Region?
+  location    String
+  startDate   DateTime
+  endDate     DateTime
+  priceXAF    Int      @default(0)
+  capacity    Int
+  ticketsSold Int      @default(0)
+  coverImage  String?
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  tickets EventTicket[]
+}
+
+model EventTicket {
+  id            String        @id @default(cuid())
+  reference     String        @unique
+  eventId       String
+  event         Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quantity      Int           @default(1)
+  totalXAF      Int
+  paymentStatus PaymentStatus @default(UNPAID)
+  createdAt     DateTime      @default(now())
+
+  @@index([eventId])
+}
+
+model AdSlot {
+  id          String   @id @default(cuid())
+  placement   String
+  advertiser  String
+  imageUrl    String
+  targetUrl   String
+  weight      Int      @default(1)
+  startsAt    DateTime @default(now())
+  endsAt      DateTime?
+  impressions Int      @default(0)
+  clicks      Int      @default(0)
+  active      Boolean  @default(true)
+
+  @@index([placement, active])
+}

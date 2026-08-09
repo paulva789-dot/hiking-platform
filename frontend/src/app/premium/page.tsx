@@ -1,0 +1,215 @@
+'use client';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { api, ApiError } from '@/lib/api';
+import { useAuth } from '@/lib/auth-context';
+import { formatDate, formatXAF } from '@/lib/format';
+import { Alert, Spinner } from '@/components/ui';
+
+const PLANS = [
+  { months: 1, priceXAF: 3500, label: 'Monthly' },
+  { months: 6, priceXAF: 18000, label: '6 months', save: '14%' },
+  { months: 12, priceXAF: 30000, label: '12 months', save: '29%' },
+];
+
+const FEATURES = [
+  {
+    title: 'Offline trail packs',
+    body: 'Download the route, numbered waypoints, hazards, permit notes and emergency numbers for any trail as a file on your phone. Above 2,000 m on Mount Cameroon and Mount Oku there is no signal — this is the difference between having the information and not.',
+  },
+  {
+    title: 'Advanced navigation data',
+    body: 'Full GeoJSON route geometry and waypoint elevations, exportable into whatever mapping app you already use.',
+  },
+  {
+    title: 'Safety alerts',
+    body: 'Conditions and access changes for the trails you have saved — permit rule changes, seasonal closures, regional security advisories.',
+  },
+  {
+    title: 'Exclusive routes',
+    body: 'Variant routes and lesser-known approaches contributed by verified guides, not published on the public trail pages.',
+  },
+  {
+    title: 'Personalised recommendations',
+    body: 'Suggestions built from what you have saved, reviewed and booked — and from the difficulty level you have actually proven.',
+  },
+];
+
+export default function PremiumPage() {
+  const { user, isPremium, refresh } = useAuth();
+  const router = useRouter();
+  const [selected, setSelected] = useState(PLANS[1]);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [done, setDone] = useState(false);
+
+  const activate = async () => {
+    if (!user) {
+      router.push('/login?next=/premium');
+      return;
+    }
+
+    setBusy(true);
+    setError(null);
+    try {
+      await api.post('/content/membership', { months: selected.months });
+      await refresh();
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Could not activate Premium');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="pb-20">
+      <header className="bg-forest-950 py-16 text-white">
+        <div className="section text-center">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-amber-400">
+            Trek Cameroon Premium
+          </p>
+          <h1 className="mx-auto max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+            The information you need most is the information you cannot download at 3,000 m
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-basalt-300">
+            Everything on this site stays free. Premium is for the part that matters when the signal
+            drops: offline packs, navigation data, and alerts on the trails you have saved.
+          </p>
+
+          {isPremium && (
+            <div className="mx-auto mt-8 max-w-md rounded-xl bg-amber-400/15 p-5 ring-1 ring-amber-400/30">
+              <p className="font-display text-lg font-semibold text-amber-200">
+                You are a Premium member
+              </p>
+              {user?.tierExpires && (
+                <p className="mt-1 text-sm text-basalt-300">
+                  Active until {formatDate(user.tierExpires)}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <div className="section grid gap-10 py-14 lg:grid-cols-[1fr_380px]">
+        <div>
+          <h2 className="font-display text-2xl font-semibold text-basalt-900">What you get</h2>
+          <ul className="mt-6 space-y-5">
+            {FEATURES.map((f) => (
+              <li key={f.title} className="flex gap-4">
+                <span
+                  className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-forest-700 text-xs font-bold text-white"
+                  aria-hidden
+                >
+                  ✓
+                </span>
+                <div>
+                  <h3 className="font-display text-base font-semibold text-basalt-900">{f.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-basalt-600">{f.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 rounded-xl border border-basalt-200 bg-white p-6">
+            <h3 className="font-display text-base font-semibold text-basalt-900">
+              What stays free, permanently
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-basalt-600">
+              Every trail page, every distance and duration, every hazard warning, the interactive
+              map, the safety guidelines, the guide directory and booking. The problem this platform
+              exists to fix is people not hiking because the information is wrong or missing —
+              putting that behind a paywall would be self-defeating.
+            </p>
+          </div>
+        </div>
+
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <div className="card p-6">
+            {done ? (
+              <div className="space-y-4 text-center">
+                <p className="font-display text-xl font-semibold text-forest-800">
+                  Premium is active
+                </p>
+                <p className="text-sm text-basalt-600">
+                  Offline packs are now available on every trail page.
+                </p>
+                <Link href="/trails" className="btn-primary w-full">
+                  Browse trails
+                </Link>
+              </div>
+            ) : (
+              <>
+                <h2 className="font-display text-lg font-semibold text-basalt-900">Choose a plan</h2>
+
+                <div className="mt-4 space-y-2">
+                  {PLANS.map((plan) => (
+                    <button
+                      key={plan.months}
+                      type="button"
+                      onClick={() => setSelected(plan)}
+                      aria-pressed={selected.months === plan.months}
+                      className={`flex w-full items-center justify-between rounded-lg border-2 px-4 py-3 text-left transition-colors ${
+                        selected.months === plan.months
+                          ? 'border-forest-700 bg-forest-50'
+                          : 'border-basalt-200 hover:border-basalt-300'
+                      }`}
+                    >
+                      <span>
+                        <span className="block text-sm font-semibold text-basalt-900">
+                          {plan.label}
+                        </span>
+                        {plan.save && (
+                          <span className="text-xs font-medium text-forest-700">
+                            Save {plan.save}
+                          </span>
+                        )}
+                      </span>
+                      <span className="text-right">
+                        <span className="block font-display text-lg font-semibold text-basalt-900">
+                          {formatXAF(plan.priceXAF)}
+                        </span>
+                        <span className="text-xs text-basalt-500">
+                          {formatXAF(Math.round(plan.priceXAF / plan.months))}/mo
+                        </span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                {error && (
+                  <div className="mt-4">
+                    <Alert tone="danger">{error}</Alert>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => void activate()}
+                  disabled={busy}
+                  className="btn-accent mt-5 w-full"
+                >
+                  {busy && <Spinner className="h-4 w-4" />}
+                  {!user
+                    ? 'Sign in to subscribe'
+                    : isPremium
+                      ? `Extend by ${selected.months} month${selected.months > 1 ? 's' : ''}`
+                      : 'Activate Premium'}
+                </button>
+
+                <p className="mt-3 text-xs leading-relaxed text-basalt-500">
+                  This demo activates the membership immediately. In production this button hands
+                  off to a payment provider — MTN Mobile Money, Orange Money or card — and the
+                  membership is activated by the provider&rsquo;s webhook.
+                </p>
+              </>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}

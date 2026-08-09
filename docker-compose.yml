@@ -1,0 +1,26 @@
+# Spins up just the database. Run the API and the frontend on the host with
+# `npm run dev` in each folder — you want their hot reload during development.
+#
+#   docker compose up -d
+#
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: trek-cameroon-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: trek_cameroon
+    ports:
+      - '5432:5432'
+    volumes:
+      - trek_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d trek_cameroon']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  trek_pgdata:
