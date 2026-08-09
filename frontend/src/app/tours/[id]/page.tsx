@@ -39,24 +39,25 @@ export default async function TourPage({ params }: { params: Params }) {
   const { tour, schedules } = data;
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
           <nav aria-label="Breadcrumb" className="mb-5 text-xs text-basalt-500">
-            <Link href="/guides" className="hover:text-basalt-900">
+            <Link href="/guides" className="hover:text-basalt-900 dark:text-basalt-50">
               Guides
             </Link>
             <span className="mx-2">/</span>
-            <Link href={`/guides/${tour.guide.id}`} className="hover:text-basalt-900">
+            <Link href={`/guides/${tour.guide.id}`} className="hover:text-basalt-900 dark:text-basalt-50">
               {tour.guide.user.name}
             </Link>
           </nav>
 
           <div className="flex flex-wrap gap-2">
+            <span className="flag-chip">{tour.country}</span>
             <span className="chip bg-laterite-100 text-laterite-800 ring-laterite-200">
               {tour.durationDays} day{tour.durationDays > 1 ? 's' : ''}
             </span>
-            <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+            <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
               Max {tour.maxGroupSize} people
             </span>
             {tour.trail?.region && (
@@ -66,7 +67,7 @@ export default async function TourPage({ params }: { params: Params }) {
             )}
           </div>
 
-          <h1 className="mt-4 max-w-4xl font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="mt-4 max-w-4xl font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             {tour.title}
           </h1>
 
@@ -84,8 +85,8 @@ export default async function TourPage({ params }: { params: Params }) {
       <div className="section grid gap-10 py-10 lg:grid-cols-[1fr_380px]">
         <div className="space-y-10">
           <section>
-            <h2 className="font-display text-xl font-semibold text-basalt-900">What this tour is</h2>
-            <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-basalt-700">
+            <h2 className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">What this tour is</h2>
+            <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-basalt-700 dark:text-basalt-300">
               {tour.description}
             </p>
           </section>
@@ -99,7 +100,7 @@ export default async function TourPage({ params }: { params: Params }) {
                   </h3>
                   <ul className="mt-3 space-y-2">
                     {tour.includes.map((item) => (
-                      <li key={item} className="flex gap-2 text-sm text-basalt-700">
+                      <li key={item} className="flex gap-2 text-sm text-basalt-700 dark:text-basalt-300">
                         <span className="text-forest-600" aria-hidden>
                           ✓
                         </span>
@@ -112,12 +113,12 @@ export default async function TourPage({ params }: { params: Params }) {
 
               {tour.excludes.length > 0 && (
                 <div className="card p-5">
-                  <h3 className="font-display text-base font-semibold text-basalt-700">
+                  <h3 className="font-display text-base font-semibold text-basalt-700 dark:text-basalt-300">
                     Not included
                   </h3>
                   <ul className="mt-3 space-y-2">
                     {tour.excludes.map((item) => (
-                      <li key={item} className="flex gap-2 text-sm text-basalt-600">
+                      <li key={item} className="flex gap-2 text-sm text-basalt-600 dark:text-basalt-300">
                         <span className="text-basalt-400" aria-hidden>
                           ✕
                         </span>
@@ -132,26 +133,26 @@ export default async function TourPage({ params }: { params: Params }) {
 
           {tour.meetingPoint && (
             <section className="card p-5">
-              <h3 className="font-display text-base font-semibold text-basalt-900">Meeting point</h3>
-              <p className="mt-2 text-sm leading-relaxed text-basalt-700">{tour.meetingPoint}</p>
+              <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Meeting point</h3>
+              <p className="mt-2 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">{tour.meetingPoint}</p>
             </section>
           )}
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-basalt-900">Your guide</h2>
+            <h2 className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">Your guide</h2>
             <Link
               href={`/guides/${tour.guide.id}`}
               className="card mt-3 flex gap-4 p-5 transition-shadow hover:shadow-md"
             >
               <Avatar name={tour.guide.user.name} src={tour.guide.user.avatarUrl} size="lg" />
               <div className="min-w-0">
-                <p className="font-display text-lg font-semibold text-basalt-900">
+                <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                   {tour.guide.user.name}
                 </p>
                 {tour.guide.ratingAvg !== undefined && (
                   <Stars rating={tour.guide.ratingAvg} count={tour.guide.ratingCount} />
                 )}
-                <p className="mt-1.5 text-sm text-basalt-600">{tour.guide.headline}</p>
+                <p className="mt-1.5 text-sm text-basalt-600 dark:text-basalt-300">{tour.guide.headline}</p>
                 <p className="mt-2 text-xs text-basalt-500">
                   {tour.guide.yearsExperience} years guiding
                   {tour.guide.languages?.length
@@ -163,9 +164,9 @@ export default async function TourPage({ params }: { params: Params }) {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-basalt-900">All departures</h2>
+            <h2 className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">All departures</h2>
             {schedules.length === 0 ? (
-              <p className="mt-3 text-sm text-basalt-600">No upcoming departures scheduled.</p>
+              <p className="mt-3 text-sm text-basalt-600 dark:text-basalt-300">No upcoming departures scheduled.</p>
             ) : (
               <ul className="mt-3 divide-y divide-basalt-100 overflow-hidden rounded-xl border border-basalt-200 bg-white">
                 {schedules.map((s) => {

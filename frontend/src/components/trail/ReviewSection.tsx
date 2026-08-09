@@ -44,7 +44,7 @@ export function ReviewSection({
   return (
     <section id="reviews" className="scroll-mt-24">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <h2 className="font-display text-2xl font-semibold text-basalt-900">
+        <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
           Reviews from people who hiked it
         </h2>
         {user ? (
@@ -61,7 +61,7 @@ export function ReviewSection({
       {totalReviews > 0 && (
         <div className="card mb-6 grid gap-6 p-6 sm:grid-cols-[auto_1fr]">
           <div className="text-center sm:border-r sm:border-basalt-100 sm:pr-6">
-            <p className="font-display text-4xl font-semibold text-basalt-900">
+            <p className="font-display text-4xl font-semibold text-basalt-900 dark:text-basalt-50">
               {ratingAvg.toFixed(1)}
             </p>
             <Stars rating={ratingAvg} />
@@ -72,7 +72,7 @@ export function ReviewSection({
           <ul className="space-y-1.5 self-center">
             {breakdown.map((b) => (
               <li key={b.rating} className="flex items-center gap-3 text-xs">
-                <span className="w-8 shrink-0 font-medium text-basalt-600">{b.rating}★</span>
+                <span className="w-8 shrink-0 font-medium text-basalt-600 dark:text-basalt-300">{b.rating}★</span>
                 <div className="h-2 flex-1 overflow-hidden rounded-full bg-basalt-100">
                   <div
                     className="h-full rounded-full bg-amber-400"
@@ -92,7 +92,7 @@ export function ReviewSection({
 
       {reviews.length === 0 ? (
         <div className="card p-8 text-center">
-          <p className="text-sm text-basalt-600">
+          <p className="text-sm text-basalt-600 dark:text-basalt-300">
             No reviews yet. If you have hiked this one, your notes on conditions, timings and the
             guide you used are exactly what the next person needs.
           </p>
@@ -105,7 +105,7 @@ export function ReviewSection({
                 <div className="flex items-center gap-3">
                   <Avatar name={review.user.name} src={review.user.avatarUrl} />
                   <div>
-                    <p className="font-semibold text-basalt-900">{review.user.name}</p>
+                    <p className="font-semibold text-basalt-900 dark:text-basalt-50">{review.user.name}</p>
                     <p className="text-xs text-basalt-500">
                       {relativeTime(review.createdAt)}
                       {review.hikedOn && ` · hiked ${formatDate(review.hikedOn)}`}
@@ -115,10 +115,10 @@ export function ReviewSection({
                 <Stars rating={review.rating} />
               </div>
 
-              <h3 className="mt-4 font-display text-base font-semibold text-basalt-900">
+              <h3 className="mt-4 font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
                 {review.title}
               </h3>
-              <p className="mt-1.5 whitespace-pre-line text-sm leading-relaxed text-basalt-700">
+              <p className="mt-1.5 whitespace-pre-line text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">
                 {review.body}
               </p>
 

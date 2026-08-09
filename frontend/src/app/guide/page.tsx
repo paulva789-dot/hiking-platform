@@ -19,6 +19,7 @@ import {
 } from '@/components/ui';
 import { GuideProfileForm } from './GuideProfileForm';
 import { TourManager } from './TourManager';
+import { PaymentPanel } from '@/components/PaymentPanel';
 
 interface DashboardData {
   profile: (GuideProfile & { tours: Tour[] }) | null;
@@ -79,14 +80,14 @@ export default function GuideWorkspace() {
   );
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-8">
           <div className="flex flex-wrap items-center gap-4">
             <Avatar name={user!.name} src={user!.avatarUrl} size="lg" />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="font-display text-2xl font-semibold text-basalt-900">
+                <h1 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
                   Guide workspace
                 </h1>
                 {profile && <StatusBadge status={profile.status} />}
@@ -117,7 +118,7 @@ export default function GuideWorkspace() {
                   className={`shrink-0 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors ${
                     tab === t
                       ? 'border-forest-700 text-forest-800'
-                      : 'border-transparent text-basalt-600 hover:border-basalt-300 hover:text-basalt-900'
+                      : 'border-transparent text-basalt-600 dark:text-basalt-300 hover:border-basalt-300 hover:text-basalt-900 dark:text-basalt-50'
                   }`}
                 >
                   {t}
@@ -145,13 +146,16 @@ export default function GuideWorkspace() {
         )}
 
         {!profile ? (
-          <div>
-            <SectionHeading
-              eyebrow="Step 1 of 1"
-              title="Create your guide profile"
-              description="This is what hikers see, and what we verify against. Be specific about what you actually run and where — vague profiles take longer to approve."
-            />
-            <GuideProfileForm onSaved={load} />
+          <div className="space-y-8">
+            <GuideRequirements />
+            <div>
+              <SectionHeading
+                eyebrow="Step 1 of 1"
+                title="Create your guide profile"
+                description="This is what hikers see, and what we verify against. Be specific about what you actually run and where — vague profiles take longer to approve."
+              />
+              <GuideProfileForm onSaved={load} />
+            </div>
           </div>
         ) : (
           <>
@@ -189,10 +193,10 @@ export default function GuideWorkspace() {
                         <li key={b.id} className="card flex flex-wrap items-center gap-4 p-5">
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2">
-                              <h3 className="font-semibold text-basalt-900">{b.tour.title}</h3>
+                              <h3 className="font-semibold text-basalt-900 dark:text-basalt-50">{b.tour.title}</h3>
                               <StatusBadge status={b.status} />
                             </div>
-                            <p className="mt-1 text-sm text-basalt-600">
+                            <p className="mt-1 text-sm text-basalt-600 dark:text-basalt-300">
                               {formatDateRange(b.schedule.startDate, b.schedule.endDate)} ·{' '}
                               {b.participants} {b.participants === 1 ? 'person' : 'people'}
                             </p>
@@ -202,7 +206,7 @@ export default function GuideWorkspace() {
                               </p>
                             )}
                           </div>
-                          <p className="font-display text-lg font-semibold text-basalt-900">
+                          <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                             {formatXAF(b.totalXAF)}
                           </p>
                         </li>
@@ -284,23 +288,23 @@ function GuideBookings({ bookings, onChange }: { bookings: Booking[]; onChange: 
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-basalt-900">{b.tour.title}</h3>
+                  <h3 className="font-semibold text-basalt-900 dark:text-basalt-50">{b.tour.title}</h3>
                   <StatusBadge status={b.status} />
                   {b.paymentStatus === 'PAID' && (
                     <span className="chip bg-forest-100 text-forest-800 ring-forest-200">Paid</span>
                   )}
                 </div>
-                <p className="mt-1 text-sm text-basalt-600">
+                <p className="mt-1 text-sm text-basalt-600 dark:text-basalt-300">
                   {formatDateRange(b.schedule.startDate, b.schedule.endDate)} · {b.participants}{' '}
                   {b.participants === 1 ? 'person' : 'people'}
                 </p>
                 {b.user && (
-                  <p className="mt-1 text-sm text-basalt-700">
+                  <p className="mt-1 text-sm text-basalt-700 dark:text-basalt-300">
                     <strong>{b.user.name}</strong> · {b.contactPhone ?? b.user.phone ?? b.user.email}
                   </p>
                 )}
                 {b.notes && (
-                  <p className="mt-2 rounded-lg bg-basalt-50 px-3 py-2 text-sm text-basalt-700">
+                  <p className="mt-2 rounded-lg bg-basalt-50 px-3 py-2 text-sm text-basalt-700 dark:text-basalt-300">
                     &ldquo;{b.notes}&rdquo;
                   </p>
                 )}
@@ -308,7 +312,7 @@ function GuideBookings({ bookings, onChange }: { bookings: Booking[]; onChange: 
               </div>
 
               <div className="shrink-0 text-right">
-                <p className="font-display text-lg font-semibold text-basalt-900">
+                <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                   {formatXAF(b.totalXAF)}
                 </p>
                 <p className="text-xs text-basalt-500">
@@ -381,21 +385,39 @@ const PLANS = [
 ];
 
 function Membership({ profile, onChange }: { profile: GuideProfile; onChange: () => void }) {
-  const [busy, setBusy] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [checkout, setCheckout] = useState<{ plan: 'BASIC' | 'PRO'; months: number; priceXAF: number } | null>(
+    null
+  );
 
-  const activate = async (plan: 'BASIC' | 'PRO', months: number) => {
-    setBusy(plan);
-    setError(null);
-    try {
-      await api.post('/guides/me/membership', { plan, months });
-      onChange();
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'Could not activate the plan');
-    } finally {
-      setBusy(null);
-    }
-  };
+  if (checkout) {
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={() => setCheckout(null)}
+          className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800"
+        >
+          ← Back to plans
+        </button>
+        <SectionHeading
+          title="Pay with Mobile Money"
+          description={`${checkout.plan} plan · ${checkout.months} month${checkout.months > 1 ? 's' : ''} · ${formatXAF(checkout.priceXAF)}`}
+        />
+        <div className="card max-w-sm p-6">
+          <PaymentPanel
+            purpose="GUIDE_PLAN"
+            extra={{ months: checkout.months, guidePlan: checkout.plan }}
+            amountXAF={checkout.priceXAF}
+            onSuccess={() => {
+              setCheckout(null);
+              onChange();
+            }}
+            onCancel={() => setCheckout(null)}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -411,12 +433,6 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
         </Alert>
       )}
 
-      {error && (
-        <div className="mt-4">
-          <Alert tone="danger">{error}</Alert>
-        </div>
-      )}
-
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
         {PLANS.map((p) => (
           <div
@@ -424,20 +440,20 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
             className={`card p-6 ${profile.plan === p.plan ? 'border-forest-400 ring-2 ring-forest-200' : ''}`}
           >
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-xl font-semibold text-basalt-900">{p.plan}</h3>
+              <h3 className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{p.plan}</h3>
               {profile.plan === p.plan && (
                 <span className="chip bg-forest-100 text-forest-800 ring-forest-200">Current</span>
               )}
             </div>
 
-            <p className="mt-2 font-display text-2xl font-semibold text-basalt-900">
+            <p className="mt-2 font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
               {formatXAF(p.priceXAF)}
               <span className="text-sm font-normal text-basalt-500"> / month</span>
             </p>
 
             <ul className="mt-4 space-y-2">
               {p.features.map((f) => (
-                <li key={f} className="flex gap-2 text-sm text-basalt-700">
+                <li key={f} className="flex gap-2 text-sm text-basalt-700 dark:text-basalt-300">
                   <span className="text-forest-600" aria-hidden>
                     ✓
                   </span>
@@ -449,19 +465,16 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
             <div className="mt-5 flex gap-2">
               <button
                 type="button"
-                onClick={() => void activate(p.plan, 1)}
-                disabled={busy !== null}
+                onClick={() => setCheckout({ plan: p.plan, months: 1, priceXAF: p.priceXAF })}
                 className="btn-secondary flex-1 text-xs"
               >
                 1 month
               </button>
               <button
                 type="button"
-                onClick={() => void activate(p.plan, 12)}
-                disabled={busy !== null}
+                onClick={() => setCheckout({ plan: p.plan, months: 12, priceXAF: p.priceXAF * 12 })}
                 className="btn-accent flex-1 text-xs"
               >
-                {busy === p.plan && <Spinner className="h-3 w-3" />}
                 12 months
               </button>
             </div>
@@ -470,9 +483,89 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
       </div>
 
       <p className="mt-5 text-xs leading-relaxed text-basalt-500">
-        This demo activates plans immediately. In production these buttons hand off to a payment
-        provider — MTN Mobile Money, Orange Money or card — and the plan is activated by the
-        provider&rsquo;s webhook.
+        Pay with MTN Mobile Money or Orange Money, via Flutterwave or Intouch. Your plan activates
+        as soon as the payment is confirmed.
+      </p>
+    </div>
+  );
+}
+
+// ----------------------------------------------------------- requirements
+
+const GUIDE_SKILLS = [
+  'Wilderness first aid — recognising and responding to altitude sickness, heat exhaustion and injuries with no ambulance nearby',
+  'Route-finding on unmarked or partially marked trails, including in fog and low visibility',
+  'Group management — pacing a mixed-fitness group and making the call to turn back',
+  'Working local knowledge of at least one region: water sources, weather patterns, hazards and permit rules',
+  'Basic spoken English and French; a local language is a strong plus for rural regions',
+  'Clear, calm communication under pressure — safety briefings, incident handling, difficult conversations with clients',
+];
+
+const GUIDE_NECESSITIES = [
+  'A government-issued ID and, where applicable, an official mountain-guide registration (e.g. Mount CEO for Mount Cameroon)',
+  'Your own reliable first-aid kit, sized for your group',
+  'A phone that can hold offline maps of your routes',
+  'Public liability awareness — know what you are and are not responsible for on a paid tour',
+  'Established relationships with porters, cooks or transport where your tours need them',
+  'A bank account or mobile money account (MTN MoMo / Orange Money) to receive payouts',
+];
+
+function GuideRequirements() {
+  return (
+    <div className="card p-6">
+      <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
+        What it takes to become a guide here
+      </h2>
+      <p className="mt-2 max-w-2xl text-sm text-basalt-600 dark:text-basalt-300">
+        We verify every application before tours go live. Profiles that clearly show the skills and
+        necessities below get approved faster — vague ones go back with questions.
+      </p>
+
+      <div className="mt-5 grid gap-6 sm:grid-cols-2">
+        <div>
+          <h3 className="text-xs font-bold uppercase tracking-wide text-basalt-500">Skills we look for</h3>
+          <ul className="mt-3 space-y-2.5">
+            {GUIDE_SKILLS.map((skill) => (
+              <li key={skill} className="flex items-start gap-2 text-sm text-basalt-700 dark:text-basalt-300">
+                <span className="flag-star mt-0.5" aria-hidden>
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
+                    <path d="M12 1.5l2.9 6.6 7.1.7-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.7 7.1-.7z" />
+                  </svg>
+                </span>
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-xs font-bold uppercase tracking-wide text-basalt-500">
+            What you need to have ready
+          </h3>
+          <ul className="mt-3 space-y-2.5">
+            {GUIDE_NECESSITIES.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-sm text-basalt-700 dark:text-basalt-300">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  className="mt-0.5 h-4 w-4 shrink-0 text-forest-600"
+                  aria-hidden
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20 6L9 17l-5-5" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <p className="mt-5 rounded-lg bg-basalt-50 p-3.5 text-xs leading-relaxed text-basalt-600 dark:text-basalt-300 ring-1 ring-inset ring-basalt-100">
+        None of this needs to be perfect on day one — certifications and languages can be added later.
+        What we actually reject applications for is vagueness: name the specific trails or regions you
+        run, your real years of experience, and certifications we can check.
       </p>
     </div>
   );

@@ -55,6 +55,17 @@ export const requireRole =
     return next();
   };
 
+/** Requires an active Premium membership (or admin). Must run after requireAuth. */
+export const requirePremium = (req, _res, next) => {
+  if (!req.user) return next(unauthorized());
+  if (req.user.role === 'ADMIN') return next();
+  const active = req.user.tier === 'PREMIUM' && (!req.user.tierExpires || req.user.tierExpires > new Date());
+  if (!active) {
+    return next(forbidden('Starting a group is a Premium feature — free accounts can apply to join one instead'));
+  }
+  return next();
+};
+
 /** Loads the signed-in guide's approved profile onto req.guide. */
 export const requireApprovedGuide = async (req, _res, next) => {
   if (!req.user) return next(unauthorized());

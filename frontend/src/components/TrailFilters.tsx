@@ -50,7 +50,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
   return (
     <aside className="space-y-6" aria-label="Trail filters">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-lg font-semibold text-basalt-900">Filters</h2>
+        <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Filters</h2>
         {activeCount > 0 && (
           <button
             type="button"
@@ -90,7 +90,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
                 className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors disabled:opacity-40 ${
                   active
                     ? 'bg-forest-700 font-semibold text-white'
-                    : 'text-basalt-700 hover:bg-basalt-100'
+                    : 'text-basalt-700 dark:text-basalt-300 hover:bg-basalt-100'
                 }`}
               >
                 <span>{DIFFICULTY_LABELS[level]}</span>
@@ -115,7 +115,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
                 className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors disabled:opacity-40 ${
                   active
                     ? 'bg-forest-700 font-semibold text-white'
-                    : 'text-basalt-700 hover:bg-basalt-100'
+                    : 'text-basalt-700 dark:text-basalt-300 hover:bg-basalt-100'
                 }`}
               >
                 <span>{REGION_LABELS[region]}</span>
@@ -136,7 +136,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
                 type="button"
                 onClick={() => setParam('maxDurationMinutes', active ? null : opt.value)}
                 className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                  active ? 'bg-forest-700 font-semibold text-white' : 'text-basalt-700 hover:bg-basalt-100'
+                  active ? 'bg-forest-700 font-semibold text-white' : 'text-basalt-700 dark:text-basalt-300 hover:bg-basalt-100'
                 }`}
               >
                 {opt.label}

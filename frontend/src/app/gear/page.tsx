@@ -57,13 +57,13 @@ export default async function GearPage() {
   ).catch(() => ({ listings: [] as Listing[] }));
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Gear and kit
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             The checklist first, the shop second. Most of what goes wrong on these trails is a kit
             problem — a bag that is not warm enough, or boots with no grip on wet rock.
           </p>
@@ -74,10 +74,10 @@ export default async function GearPage() {
         <div className="grid gap-5 lg:grid-cols-3">
           {CHECKLIST.map((block) => (
             <div key={block.title} className="card p-6">
-              <h2 className="font-display text-lg font-semibold text-basalt-900">{block.title}</h2>
+              <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{block.title}</h2>
               <ul className="mt-4 space-y-2.5">
                 {block.items.map((item) => (
-                  <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-basalt-700">
+                  <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-forest-500" aria-hidden />
                     <span>{item}</span>
                   </li>
@@ -88,8 +88,8 @@ export default async function GearPage() {
         </div>
 
         <section className="mt-12">
-          <h2 className="font-display text-2xl font-semibold text-basalt-900">Where to buy it</h2>
-          <p className="mt-2 max-w-2xl text-sm text-basalt-600">
+          <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">Where to buy it</h2>
+          <p className="mt-2 max-w-2xl text-sm text-basalt-600 dark:text-basalt-300">
             Listings from partner retailers. We earn a commission on purchases made through these
             links, which costs you nothing and is how the trail information stays free.
           </p>
@@ -110,7 +110,7 @@ export default async function GearPage() {
           </div>
         </section>
 
-        <p className="mt-10 text-center text-sm text-basalt-600">
+        <p className="mt-10 text-center text-sm text-basalt-600 dark:text-basalt-300">
           Read the{' '}
           <Link href="/safety" className="font-semibold text-forest-700 hover:underline">
             full safety guidelines

@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Gallery
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Cameroon&rsquo;s landscapes as hikers actually find them — volcanic summits, crater lakes,
             rainforest and the Kapsiki plain. Photographers can list images for licence; the
             platform takes a commission and the photographer keeps the rest.

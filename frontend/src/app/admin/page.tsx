@@ -101,7 +101,7 @@ export default function AdminAnalytics() {
             <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">
               Recognised revenue
             </p>
-            <p className="mt-2 font-display text-3xl font-semibold text-basalt-900">
+            <p className="mt-2 font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50">
               {formatXAF(totalRevenue)}
             </p>
             <p className="mt-1 text-xs text-basalt-500">
@@ -126,7 +126,7 @@ export default function AdminAnalytics() {
             <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">
               Gross booking volume
             </p>
-            <p className="mt-2 font-display text-3xl font-semibold text-basalt-900">
+            <p className="mt-2 font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50">
               {formatXAF(bookings.grossVolumeXAF)}
             </p>
             <p className="mt-1 text-xs text-basalt-500">
@@ -136,10 +136,10 @@ export default function AdminAnalytics() {
             <div className="mt-5 space-y-2">
               {bookings.byStatus.map((s) => (
                 <div key={s.status} className="flex items-center justify-between text-sm">
-                  <span className="text-basalt-600">
+                  <span className="text-basalt-600 dark:text-basalt-300">
                     {s.status.charAt(0) + s.status.slice(1).toLowerCase()}
                   </span>
-                  <span className="font-semibold text-basalt-900">{s.count}</span>
+                  <span className="font-semibold text-basalt-900 dark:text-basalt-50">{s.count}</span>
                 </div>
               ))}
             </div>
@@ -151,20 +151,20 @@ export default function AdminAnalytics() {
             </p>
             <dl className="mt-4 space-y-3 text-sm">
               <div className="flex justify-between">
-                <dt className="text-basalt-600">Affiliate click-throughs</dt>
-                <dd className="font-semibold text-basalt-900">{revenueStreams.affiliateClicks}</dd>
+                <dt className="text-basalt-600 dark:text-basalt-300">Affiliate click-throughs</dt>
+                <dd className="font-semibold text-basalt-900 dark:text-basalt-50">{revenueStreams.affiliateClicks}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-basalt-600">Ad impressions</dt>
-                <dd className="font-semibold text-basalt-900">{revenueStreams.adImpressions}</dd>
+                <dt className="text-basalt-600 dark:text-basalt-300">Ad impressions</dt>
+                <dd className="font-semibold text-basalt-900 dark:text-basalt-50">{revenueStreams.adImpressions}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-basalt-600">Ad clicks</dt>
-                <dd className="font-semibold text-basalt-900">{revenueStreams.adClicks}</dd>
+                <dt className="text-basalt-600 dark:text-basalt-300">Ad clicks</dt>
+                <dd className="font-semibold text-basalt-900 dark:text-basalt-50">{revenueStreams.adClicks}</dd>
               </div>
               <div className="flex justify-between border-t border-basalt-100 pt-3">
-                <dt className="text-basalt-600">Click-through rate</dt>
-                <dd className="font-semibold text-basalt-900">
+                <dt className="text-basalt-600 dark:text-basalt-300">Click-through rate</dt>
+                <dd className="font-semibold text-basalt-900 dark:text-basalt-50">
                   {revenueStreams.adImpressions > 0
                     ? `${((revenueStreams.adClicks / revenueStreams.adImpressions) * 100).toFixed(2)}%`
                     : '—'}
@@ -178,7 +178,7 @@ export default function AdminAnalytics() {
       {/* ------------------------------------------------------ distribution */}
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="card p-6">
-          <h3 className="font-display text-lg font-semibold text-basalt-900">Trails by region</h3>
+          <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Trails by region</h3>
           <BarList
             items={trailsByRegion.map((r) => ({
               label: REGION_LABELS[r.region],
@@ -188,7 +188,7 @@ export default function AdminAnalytics() {
         </div>
 
         <div className="card p-6">
-          <h3 className="font-display text-lg font-semibold text-basalt-900">
+          <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
             Trails by difficulty
           </h3>
           <BarList
@@ -206,7 +206,7 @@ export default function AdminAnalytics() {
       {/* ------------------------------------------------------------- tops */}
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="card p-6">
-          <h3 className="font-display text-lg font-semibold text-basalt-900">Most viewed trails</h3>
+          <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Most viewed trails</h3>
           <ul className="mt-4 divide-y divide-basalt-100">
             {topTrails.map((trail, i) => (
               <li key={trail.id} className="flex items-center gap-3 py-3 first:pt-0">
@@ -214,7 +214,7 @@ export default function AdminAnalytics() {
                 <div className="min-w-0 flex-1">
                   <Link
                     href={`/trails/${trail.slug}`}
-                    className="truncate text-sm font-semibold text-basalt-900 hover:text-forest-700"
+                    className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50 hover:text-forest-700"
                   >
                     {trail.name}
                   </Link>
@@ -223,7 +223,7 @@ export default function AdminAnalytics() {
                     {trail.ratingCount} review{trail.ratingCount === 1 ? '' : 's'}
                   </p>
                 </div>
-                <span className="shrink-0 text-sm font-semibold text-basalt-700">
+                <span className="shrink-0 text-sm font-semibold text-basalt-700 dark:text-basalt-300">
                   {trail.viewCount.toLocaleString()}
                 </span>
               </li>
@@ -232,7 +232,7 @@ export default function AdminAnalytics() {
         </div>
 
         <div className="card p-6">
-          <h3 className="font-display text-lg font-semibold text-basalt-900">Top-rated guides</h3>
+          <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Top-rated guides</h3>
           {topGuides.length === 0 ? (
             <p className="mt-4 text-sm text-basalt-500">No approved guides yet.</p>
           ) : (
@@ -242,7 +242,7 @@ export default function AdminAnalytics() {
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/guides/${guide.id}`}
-                      className="truncate text-sm font-semibold text-basalt-900 hover:text-forest-700"
+                      className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50 hover:text-forest-700"
                     >
                       {guide.user.name}
                     </Link>
@@ -272,8 +272,8 @@ function RevenueRow({ label, value, total }: { label: string; value: number; tot
   return (
     <div>
       <div className="flex justify-between text-sm">
-        <dt className="text-basalt-600">{label}</dt>
-        <dd className="font-semibold text-basalt-900">{formatCompactXAF(value)}</dd>
+        <dt className="text-basalt-600 dark:text-basalt-300">{label}</dt>
+        <dd className="font-semibold text-basalt-900 dark:text-basalt-50">{formatCompactXAF(value)}</dd>
       </div>
       <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-basalt-100">
         <div className="h-full rounded-full bg-forest-600" style={{ width: `${pct}%` }} />
@@ -289,7 +289,7 @@ function BarList({ items }: { items: { label: string; value: number; color?: str
     <ul className="mt-4 space-y-2.5">
       {items.map((item) => (
         <li key={item.label} className="flex items-center gap-3 text-sm">
-          <span className="w-24 shrink-0 truncate text-basalt-600">{item.label}</span>
+          <span className="w-24 shrink-0 truncate text-basalt-600 dark:text-basalt-300">{item.label}</span>
           <div className="h-5 flex-1 overflow-hidden rounded bg-basalt-100">
             <div
               className="flex h-full items-center justify-end rounded pr-2 text-[10px] font-bold text-white"

@@ -36,15 +36,15 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
   const tours = guide.tours ?? [];
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
           <nav aria-label="Breadcrumb" className="mb-6 text-xs text-basalt-500">
-            <Link href="/guides" className="hover:text-basalt-900">
+            <Link href="/guides" className="hover:text-basalt-900 dark:text-basalt-50">
               Guides
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-basalt-700">{guide.user.name}</span>
+            <span className="text-basalt-700 dark:text-basalt-300">{guide.user.name}</span>
           </nav>
 
           <div className="flex flex-wrap items-start gap-6">
@@ -52,7 +52,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
 
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-3">
-                <h1 className="font-display text-3xl font-semibold text-basalt-900">
+                <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50">
                   {guide.user.name}
                 </h1>
                 <span className="chip bg-forest-100 text-forest-800 ring-forest-200">Verified</span>
@@ -61,9 +61,9 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                 )}
               </div>
 
-              <p className="mt-2 text-lg text-basalt-700">{guide.headline}</p>
+              <p className="mt-2 text-lg text-basalt-700 dark:text-basalt-300">{guide.headline}</p>
 
-              <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-basalt-600">
+              <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-basalt-600 dark:text-basalt-300">
                 <Stars rating={guide.ratingAvg} count={guide.ratingCount} />
                 <span>{guide.yearsExperience} years guiding</span>
                 <span>Speaks {guide.languages.join(', ')}</span>
@@ -74,7 +74,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
               <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">
                 Day rate from
               </p>
-              <p className="font-display text-2xl font-semibold text-basalt-900">
+              <p className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
                 {formatXAF(guide.dayRateXAF)}
               </p>
               {tours.length > 0 && (
@@ -100,8 +100,8 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
       <div className="section grid gap-10 py-10 lg:grid-cols-[1fr_300px]">
         <div className="space-y-10">
           <section>
-            <h2 className="font-display text-2xl font-semibold text-basalt-900">About</h2>
-            <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-basalt-700">
+            <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">About</h2>
+            <p className="mt-3 whitespace-pre-line text-[15px] leading-relaxed text-basalt-700 dark:text-basalt-300">
               {guide.bio}
             </p>
           </section>
@@ -114,7 +114,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
 
             {tours.length === 0 ? (
               <div className="card p-6">
-                <p className="text-sm text-basalt-600">
+                <p className="text-sm text-basalt-600 dark:text-basalt-300">
                   This guide has not published a scheduled tour yet. Contact them directly using the
                   details in the sidebar.
                 </p>
@@ -129,9 +129,12 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                     <li key={tour.id} className="card p-5">
                       <div className="flex flex-wrap items-start justify-between gap-4">
                         <div className="min-w-0 flex-1">
-                          <h3 className="font-display text-lg font-semibold text-basalt-900">
-                            {tour.title}
-                          </h3>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
+                              {tour.title}
+                            </h3>
+                            <span className="flag-chip">{tour.country}</span>
+                          </div>
                           {tour.trail && (
                             <Link
                               href={`/trails/${tour.trail.slug}`}
@@ -140,7 +143,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                               On {tour.trail.name} →
                             </Link>
                           )}
-                          <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-basalt-600">
+                          <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                             {tour.description}
                           </p>
                           <p className="mt-2 text-xs text-basalt-500">
@@ -155,7 +158,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                               {open.slice(0, 3).map((s) => (
                                 <span
                                   key={s.id}
-                                  className="chip bg-basalt-100 text-basalt-700 ring-basalt-200"
+                                  className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200"
                                 >
                                   {formatDateRange(s.startDate, s.endDate)} ·{' '}
                                   {s.capacity - s.seatsBooked} left
@@ -166,7 +169,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                         </div>
 
                         <div className="shrink-0 text-right">
-                          <p className="font-display text-xl font-semibold text-basalt-900">
+                          <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
                             {formatXAF(tour.priceXAF)}
                           </p>
                           <p className="text-xs text-basalt-500">per person</p>
@@ -185,7 +188,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
 
         <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
           <div className="card p-5">
-            <h3 className="font-display text-base font-semibold text-basalt-900">Covers</h3>
+            <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Covers</h3>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {guide.regions.map((r) => (
                 <Link
@@ -197,16 +200,30 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                 </Link>
               ))}
             </div>
+            {guide.countries && guide.countries.length > 0 && (
+              <>
+                <p className="mt-4 text-[10px] font-bold uppercase tracking-wide text-basalt-400">
+                  Countries
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {guide.countries.map((c) => (
+                    <span key={c} className="flag-chip">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {guide.certifications.length > 0 && (
             <div className="card p-5">
-              <h3 className="font-display text-base font-semibold text-basalt-900">
+              <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
                 Certifications
               </h3>
               <ul className="mt-3 space-y-2">
                 {guide.certifications.map((cert) => (
-                  <li key={cert} className="flex gap-2 text-sm text-basalt-700">
+                  <li key={cert} className="flex gap-2 text-sm text-basalt-700 dark:text-basalt-300">
                     <span className="text-forest-600" aria-hidden>
                       ✓
                     </span>
@@ -219,7 +236,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
 
           {(guide.phone || guide.whatsapp) && (
             <div className="card p-5">
-              <h3 className="font-display text-base font-semibold text-basalt-900">Contact</h3>
+              <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Contact</h3>
               {guide.phone && (
                 <a
                   href={`tel:${guide.phone}`}

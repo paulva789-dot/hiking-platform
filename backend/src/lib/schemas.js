@@ -15,8 +15,25 @@ export const REGIONS = [
 
 export const DIFFICULTIES = ['EASY', 'MODERATE', 'HARD', 'EXPERT'];
 
+/**
+ * Guides and tours are not limited to Cameroon — bookings can cover any of
+ * these Central African (ECCAS/CEMAC) countries. Trail content stays
+ * Cameroon-only.
+ */
+export const CENTRAL_AFRICA_COUNTRIES = [
+  'Cameroon',
+  'Gabon',
+  'Republic of the Congo',
+  'Democratic Republic of the Congo',
+  'Central African Republic',
+  'Equatorial Guinea',
+  'Chad',
+  'São Tomé and Príncipe',
+];
+
 export const regionEnum = z.enum(REGIONS);
 export const difficultyEnum = z.enum(DIFFICULTIES);
+export const countryEnum = z.enum(CENTRAL_AFRICA_COUNTRIES);
 
 export const cuid = z.string().min(1);
 
@@ -142,6 +159,7 @@ export const guideProfileSchema = z.object({
   languages: z.array(z.string().trim()).min(1).max(10),
   certifications: z.array(z.string().trim()).max(15).default([]),
   regions: z.array(regionEnum).min(1).max(10),
+  countries: z.array(countryEnum).min(1).max(CENTRAL_AFRICA_COUNTRIES.length).default(['Cameroon']),
   dayRateXAF: z.coerce.number().int().min(0).max(10_000_000),
   phone: z.string().trim().max(30).optional(),
   whatsapp: z.string().trim().max(30).optional(),
@@ -153,6 +171,7 @@ export const tourSchema = z.object({
   trailId: cuid.nullish(),
   title: z.string().trim().min(5).max(160),
   description: z.string().trim().min(30).max(6000),
+  country: countryEnum.default('Cameroon'),
   priceXAF: z.coerce.number().int().min(0).max(50_000_000),
   maxGroupSize: z.coerce.number().int().min(1).max(60),
   durationDays: z.coerce.number().int().min(1).max(30),
@@ -189,6 +208,38 @@ export const groupSchema = z.object({
   coverImage: z.string().url().nullish(),
   isPrivate: z.boolean().default(false),
 });
+
+// ------------------------------------------------------------------ payments
+
+/** Cameroonian MSISDN — accepts +237, 237 or local 6XXXXXXXX/2XXXXXXXX forms. */
+export const cameroonPhone = z
+  .string()
+  .trim()
+  .regex(/^(\+?237)?[62]\d{8}$/, 'Enter a valid Cameroon phone number, e.g. 6XXXXXXXX');
+
+const premiumInitiateSchema = z.object({
+  purpose: z.literal('PREMIUM_MEMBERSHIP'),
+  months: z.coerce.number().int().refine((m) => [1, 6, 12].includes(m), {
+    message: 'months must be 1, 6 or 12',
+  }),
+  provider: z.enum(['FLUTTERWAVE', 'INTOUCH']),
+  method: z.enum(['MTN_MOMO', 'ORANGE_MONEY']),
+  phone: cameroonPhone,
+});
+
+const guidePlanInitiateSchema = z.object({
+  purpose: z.literal('GUIDE_PLAN'),
+  guidePlan: z.enum(['BASIC', 'PRO']),
+  months: z.coerce.number().int().min(1).max(24),
+  provider: z.enum(['FLUTTERWAVE', 'INTOUCH']),
+  method: z.enum(['MTN_MOMO', 'ORANGE_MONEY']),
+  phone: cameroonPhone,
+});
+
+export const paymentInitiateSchema = z.discriminatedUnion('purpose', [
+  premiumInitiateSchema,
+  guidePlanInitiateSchema,
+]);
 
 // ------------------------------------------------------------------ weather
 

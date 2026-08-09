@@ -34,14 +34,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-8">
           <div className="flex flex-wrap items-center gap-4">
             <Avatar name={user.name} src={user.avatarUrl} size="lg" />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="font-display text-2xl font-semibold text-basalt-900">{user.name}</h1>
+                <h1 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">{user.name}</h1>
                 {isPremium && (
                   <span className="chip bg-amber-100 text-amber-900 ring-amber-200">Premium</span>
                 )}
@@ -70,7 +70,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   className={`shrink-0 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors ${
                     active
                       ? 'border-forest-700 text-forest-800'
-                      : 'border-transparent text-basalt-600 hover:border-basalt-300 hover:text-basalt-900'
+                      : 'border-transparent text-basalt-600 dark:text-basalt-300 hover:border-basalt-300 hover:text-basalt-900 dark:text-basalt-50'
                   }`}
                 >
                   {tab.label}

@@ -66,7 +66,7 @@ export function BookingWidget({
       <div className="card space-y-4 border-forest-300 bg-forest-50 p-6">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-forest-700">Seat reserved</p>
-          <h3 className="mt-1 font-display text-xl font-semibold text-basalt-900">{tourTitle}</h3>
+          <h3 className="mt-1 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{tourTitle}</h3>
         </div>
 
         <dl className="space-y-2 text-sm">
@@ -99,8 +99,8 @@ export function BookingWidget({
   if (openSchedules.length === 0) {
     return (
       <div className="card p-6">
-        <h3 className="font-display text-lg font-semibold text-basalt-900">No open dates</h3>
-        <p className="mt-2 text-sm text-basalt-600">
+        <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">No open dates</h3>
+        <p className="mt-2 text-sm text-basalt-600 dark:text-basalt-300">
           Every scheduled departure for this tour is full or past. Message the guide directly, or
           check the other tours on this trail.
         </p>
@@ -111,7 +111,7 @@ export function BookingWidget({
   return (
     <form onSubmit={submit} className="card space-y-4 p-6">
       <div>
-        <p className="font-display text-2xl font-semibold text-basalt-900">{formatXAF(priceXAF)}</p>
+        <p className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">{formatXAF(priceXAF)}</p>
         <p className="text-xs text-basalt-500">per person · max {maxGroupSize} in a group</p>
       </div>
 
@@ -192,7 +192,7 @@ export function BookingWidget({
 
       <dl className="space-y-1.5 border-t border-basalt-100 pt-4 text-sm">
         <Row label={`${formatXAF(priceXAF)} × ${participants}`} value={formatXAF(subtotal)} />
-        <div className="flex justify-between border-t border-basalt-100 pt-2 font-semibold text-basalt-900">
+        <div className="flex justify-between border-t border-basalt-100 pt-2 font-semibold text-basalt-900 dark:text-basalt-50">
           <dt>Total</dt>
           <dd>{formatXAF(subtotal)}</dd>
         </div>
@@ -216,8 +216,8 @@ export function BookingWidget({
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex justify-between gap-4">
-      <dt className="text-basalt-600">{label}</dt>
-      <dd className="text-right text-basalt-900">{value}</dd>
+      <dt className="text-basalt-600 dark:text-basalt-300">{label}</dt>
+      <dd className="text-right text-basalt-900 dark:text-basalt-50">{value}</dd>
     </div>
   );
 }

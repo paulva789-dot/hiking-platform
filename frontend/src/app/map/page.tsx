@@ -17,13 +17,13 @@ export default async function MapPage() {
   }));
 
   return (
-    <div className="bg-basalt-50">
-      <div className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 dark:bg-basalt-950">
+      <div className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-8">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Trail map
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             All {trails.length} destinations plotted on OpenStreetMap. Line colour is the difficulty
             rating; click any pin for the numbers and a link to the full trail page.
           </p>

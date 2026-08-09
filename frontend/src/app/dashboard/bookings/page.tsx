@@ -67,7 +67,7 @@ export default function BookingsPage() {
         <>
           {upcoming.length > 0 && (
             <section>
-              <h2 className="mb-4 font-display text-lg font-semibold text-basalt-900">Upcoming</h2>
+              <h2 className="mb-4 font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Upcoming</h2>
               <ul className="space-y-4">
                 {upcoming.map((booking) => (
                   <BookingRow
@@ -83,7 +83,7 @@ export default function BookingsPage() {
 
           {past.length > 0 && (
             <section>
-              <h2 className="mb-4 font-display text-lg font-semibold text-basalt-900">
+              <h2 className="mb-4 font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                 Past and cancelled
               </h2>
               <ul className="space-y-4">
@@ -117,7 +117,7 @@ function BookingRow({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-display text-lg font-semibold text-basalt-900">
+            <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
               {booking.tour.title}
             </h3>
             <StatusBadge status={booking.status} />
@@ -157,7 +157,7 @@ function BookingRow({
         </div>
 
         <div className="shrink-0 text-right">
-          <p className="font-display text-xl font-semibold text-basalt-900">
+          <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
             {formatXAF(booking.totalXAF)}
           </p>
           <p className="text-xs text-basalt-500">

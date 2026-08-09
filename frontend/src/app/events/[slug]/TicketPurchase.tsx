@@ -52,8 +52,8 @@ export function TicketPurchase({
     return (
       <div className="card space-y-3 border-forest-300 bg-forest-50 p-6">
         <p className="text-xs font-bold uppercase tracking-wide text-forest-700">Tickets reserved</p>
-        <h3 className="font-display text-lg font-semibold text-basalt-900">{title}</h3>
-        <p className="text-sm text-basalt-700">
+        <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{title}</h3>
+        <p className="text-sm text-basalt-700 dark:text-basalt-300">
           Reference <code className="font-mono font-semibold">{ticket.reference}</code> ·{' '}
           {ticket.quantity} ticket{ticket.quantity > 1 ? 's' : ''} · {formatXAF(ticket.totalXAF)}
         </p>
@@ -70,8 +70,8 @@ export function TicketPurchase({
   if (ticketsLeft <= 0) {
     return (
       <div className="card p-6">
-        <h3 className="font-display text-lg font-semibold text-basalt-900">Sold out</h3>
-        <p className="mt-2 text-sm text-basalt-600">
+        <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Sold out</h3>
+        <p className="mt-2 text-sm text-basalt-600 dark:text-basalt-300">
           Every ticket for this event has gone. Check the events page for what else is coming up.
         </p>
       </div>
@@ -83,7 +83,7 @@ export function TicketPurchase({
   return (
     <form onSubmit={submit} className="card space-y-4 p-6">
       <div>
-        <p className="font-display text-2xl font-semibold text-basalt-900">
+        <p className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
           {priceXAF === 0 ? 'Free' : formatXAF(priceXAF)}
         </p>
         <p className="text-xs text-basalt-500">per ticket · {ticketsLeft} remaining</p>
@@ -106,7 +106,7 @@ export function TicketPurchase({
         <p className="mt-1 text-xs text-basalt-500">Maximum {max} per person.</p>
       </div>
 
-      <div className="flex justify-between border-t border-basalt-100 pt-4 font-semibold text-basalt-900">
+      <div className="flex justify-between border-t border-basalt-100 pt-4 font-semibold text-basalt-900 dark:text-basalt-50">
         <span>Total</span>
         <span>{formatXAF(priceXAF * quantity)}</span>
       </div>

@@ -70,7 +70,7 @@ export default function MyPhotosPage() {
                   </div>
 
                   {photo.caption && (
-                    <p className="mt-2 line-clamp-2 text-sm text-basalt-700">{photo.caption}</p>
+                    <p className="mt-2 line-clamp-2 text-sm text-basalt-700 dark:text-basalt-300">{photo.caption}</p>
                   )}
                   {photo.trail && (
                     <p className="mt-1 text-xs text-basalt-500">{photo.trail.name}</p>
@@ -168,7 +168,7 @@ function UploadForm({ trails, onUploaded }: { trails: TrailCard[]; onUploaded: (
             accept="image/jpeg,image/png,image/webp,image/avif"
             onChange={onFileChange}
             required
-            className="block w-full text-sm text-basalt-600 file:mr-3 file:rounded-lg file:border-0 file:bg-forest-700 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-forest-800"
+            className="block w-full text-sm text-basalt-600 dark:text-basalt-300 file:mr-3 file:rounded-lg file:border-0 file:bg-forest-700 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-forest-800"
           />
           {preview && (
             // eslint-disable-next-line @next/next/no-img-element

@@ -115,11 +115,11 @@ function PhotoQueue() {
                 loading="lazy"
               />
               <div className="p-4">
-                <p className="text-sm font-semibold text-basalt-900">{photo.user.name}</p>
+                <p className="text-sm font-semibold text-basalt-900 dark:text-basalt-50">{photo.user.name}</p>
                 {photo.user.email && <p className="text-xs text-basalt-500">{photo.user.email}</p>}
 
                 {photo.caption && (
-                  <p className="mt-2 text-sm leading-relaxed text-basalt-700">{photo.caption}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">{photo.caption}</p>
                 )}
 
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -230,8 +230,8 @@ function ReviewQueue() {
                   </Link>
                 </div>
 
-                <p className="mt-2 font-semibold text-basalt-900">{review.title}</p>
-                <p className="mt-1 text-sm leading-relaxed text-basalt-700">{review.body}</p>
+                <p className="mt-2 font-semibold text-basalt-900 dark:text-basalt-50">{review.title}</p>
+                <p className="mt-1 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">{review.body}</p>
                 <p className="mt-2 text-xs text-basalt-500">
                   {review.user.name} ({review.user.email}) · {relativeTime(review.createdAt)}
                 </p>
@@ -272,7 +272,7 @@ function ReviewQueue() {
           >
             Previous
           </button>
-          <span className="px-3 py-2 text-sm text-basalt-600">
+          <span className="px-3 py-2 text-sm text-basalt-600 dark:text-basalt-300">
             Page {pagination.page} of {pagination.pages}
           </span>
           <button

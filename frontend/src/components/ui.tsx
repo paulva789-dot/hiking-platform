@@ -14,7 +14,7 @@ const STATUS_CLASSES: Record<ApprovalStatus | BookingStatus, string> = {
   APPROVED: 'bg-forest-100 text-forest-800 ring-forest-200',
   REJECTED: 'bg-red-100 text-red-900 ring-red-200',
   CONFIRMED: 'bg-forest-100 text-forest-800 ring-forest-200',
-  CANCELLED: 'bg-basalt-200 text-basalt-700 ring-basalt-300',
+  CANCELLED: 'bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300',
   COMPLETED: 'bg-blue-100 text-blue-900 ring-blue-200',
 };
 
@@ -69,7 +69,7 @@ export function Stat({
         <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">{label}</p>
         {icon}
       </div>
-      <p className="mt-2 font-display text-2xl font-semibold text-basalt-900">{value}</p>
+      <p className="mt-2 font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">{value}</p>
       {hint && <p className="mt-1 text-xs text-basalt-500">{hint}</p>}
     </div>
   );
@@ -92,8 +92,8 @@ export function EmptyState({
           <circle cx="7" cy="6" r="2" />
         </svg>
       </div>
-      <h3 className="font-display text-lg font-semibold text-basalt-900">{title}</h3>
-      <p className="max-w-md text-sm text-basalt-600">{message}</p>
+      <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{title}</h3>
+      <p className="max-w-md text-sm text-basalt-600 dark:text-basalt-300">{message}</p>
       {action && (
         <Link href={action.href} className="btn-primary mt-2">
           {action.label}
@@ -143,8 +143,8 @@ export function SectionHeading({
         {eyebrow && (
           <p className="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-forest-700">{eyebrow}</p>
         )}
-        <h2 className="font-display text-2xl font-semibold text-basalt-900 sm:text-3xl">{title}</h2>
-        {description && <p className="mt-2 max-w-2xl text-sm text-basalt-600">{description}</p>}
+        <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-3xl">{title}</h2>
+        {description && <p className="mt-2 max-w-2xl text-sm text-basalt-600 dark:text-basalt-300">{description}</p>}
       </div>
       {action}
     </div>
@@ -170,7 +170,7 @@ export function Skeleton({ className = 'h-4 w-full' }: { className?: string }) {
 
 export function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">{children}</span>
+    <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">{children}</span>
   );
 }
 

@@ -1,5 +1,24 @@
 import type { Difficulty, Region } from './types';
 
+/**
+ * Guides and tours are not limited to Cameroon — bookings can cover any of
+ * these Central African (ECCAS/CEMAC) countries. Trail content stays
+ * Cameroon-only, since that's the only country we have real, checked route
+ * data for.
+ */
+export const CENTRAL_AFRICA_COUNTRIES = [
+  'Cameroon',
+  'Gabon',
+  'Republic of the Congo',
+  'Democratic Republic of the Congo',
+  'Central African Republic',
+  'Equatorial Guinea',
+  'Chad',
+  'São Tomé and Príncipe',
+] as const;
+
+export type CentralAfricaCountry = (typeof CENTRAL_AFRICA_COUNTRIES)[number];
+
 export const REGION_LABELS: Record<Region, string> = {
   ADAMAWA: 'Adamawa',
   CENTRE: 'Centre',

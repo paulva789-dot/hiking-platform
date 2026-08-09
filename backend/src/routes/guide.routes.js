@@ -4,6 +4,7 @@ import { asyncHandler, badRequest, forbidden, notFound } from '../lib/errors.js'
 import { requireApprovedGuide, requireAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import {
+  countryEnum,
   guideProfileSchema,
   paginationQuery,
   regionEnum,
@@ -22,6 +23,7 @@ const GUIDE_CARD = {
   languages: true,
   certifications: true,
   regions: true,
+  countries: true,
   dayRateXAF: true,
   ratingAvg: true,
   ratingCount: true,
@@ -34,12 +36,16 @@ const GUIDE_CARD = {
 /** GET /api/guides — approved guides only. PRO members surface first. */
 router.get(
   '/',
-  validate(paginationQuery.extend({ region: regionEnum.optional(), q: z.string().optional() }), 'query'),
+  validate(
+    paginationQuery.extend({ region: regionEnum.optional(), country: countryEnum.optional(), q: z.string().optional() }),
+    'query'
+  ),
   asyncHandler(async (req, res) => {
-    const { page, limit, region, q } = req.query;
+    const { page, limit, region, country, q } = req.query;
 
     const where = { status: 'APPROVED' };
     if (region) where.regions = { has: region };
+    if (country) where.countries = { has: country };
     if (q) {
       where.OR = [
         { headline: { contains: q, mode: 'insensitive' } },
@@ -174,30 +180,8 @@ router.get(
   })
 );
 
-/**
- * POST /api/guides/me/membership — activate a paid guide plan.
- * A real deployment swaps this for a payment-provider webhook (MTN MoMo /
- * Orange Money / Stripe); the state machine it drives is already here.
- */
-router.post(
-  '/me/membership',
-  requireAuth,
-  validate(z.object({ plan: z.enum(['BASIC', 'PRO']), months: z.coerce.number().int().min(1).max(24) })),
-  asyncHandler(async (req, res) => {
-    const profile = await prisma.guideProfile.findUnique({ where: { userId: req.user.id } });
-    if (!profile) throw badRequest('Create a guide profile first');
-
-    const base = profile.planExpires && profile.planExpires > new Date() ? profile.planExpires : new Date();
-    const planExpires = new Date(base);
-    planExpires.setMonth(planExpires.getMonth() + req.body.months);
-
-    const updated = await prisma.guideProfile.update({
-      where: { id: profile.id },
-      data: { plan: req.body.plan, planExpires },
-    });
-    res.json({ profile: updated });
-  })
-);
+// Guide plans (BASIC/PRO) are activated via POST /api/payments/initiate —
+// MTN MoMo / Orange Money through Flutterwave or Intouch — same as Premium.
 
 // ------------------------------------------------------- tours
 

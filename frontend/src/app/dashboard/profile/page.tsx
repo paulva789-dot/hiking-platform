@@ -161,7 +161,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-4 py-2.5 first:pt-0 last:pb-0">
       <dt className="text-basalt-500">{label}</dt>
-      <dd className="text-right font-medium text-basalt-900">{value}</dd>
+      <dd className="text-right font-medium text-basalt-900 dark:text-basalt-50">{value}</dd>
     </div>
   );
 }
@@ -209,7 +209,7 @@ function AvatarUpload({
           accept="image/jpeg,image/png,image/webp,image/avif"
           onChange={() => void upload()}
           disabled={busy}
-          className="mt-2 block w-full text-sm text-basalt-600 file:mr-3 file:rounded-lg file:border-0 file:bg-basalt-100 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-basalt-800 hover:file:bg-basalt-200"
+          className="mt-2 block w-full text-sm text-basalt-600 dark:text-basalt-300 file:mr-3 file:rounded-lg file:border-0 file:bg-basalt-100 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-basalt-800 hover:file:bg-basalt-200"
         />
         {busy && <p className="mt-2 text-xs text-basalt-500">Uploading…</p>}
         {error && <p className="mt-2 text-xs text-red-700">{error}</p>}

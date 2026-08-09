@@ -44,11 +44,11 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
       </div>
 
       <div className="p-4">
-        <h3 className="font-display text-base font-semibold leading-snug text-basalt-900 group-hover:text-forest-800">
+        <h3 className="font-display text-base font-semibold leading-snug text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
           {trail.name}
         </h3>
         <p className="mt-1 text-xs text-basalt-500">Nearest town: {trail.nearestTown}</p>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-basalt-600">{trail.summary}</p>
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{trail.summary}</p>
 
         <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-basalt-100 pt-3 text-center">
           <Metric label="Distance" value={formatDistance(trail.distanceKm)} />

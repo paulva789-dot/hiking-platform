@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { api, ApiError } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
 import { formatDate, formatXAF } from '@/lib/format';
-import { Alert, Spinner } from '@/components/ui';
+import { PaymentPanel } from '@/components/PaymentPanel';
 
 const PLANS = [
   { months: 1, priceXAF: 3500, label: 'Monthly' },
@@ -41,27 +40,20 @@ export default function PremiumPage() {
   const { user, isPremium, refresh } = useAuth();
   const router = useRouter();
   const [selected, setSelected] = useState(PLANS[1]);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [paying, setPaying] = useState(false);
   const [done, setDone] = useState(false);
 
-  const activate = async () => {
+  const startCheckout = () => {
     if (!user) {
       router.push('/login?next=/premium');
       return;
     }
+    setPaying(true);
+  };
 
-    setBusy(true);
-    setError(null);
-    try {
-      await api.post('/content/membership', { months: selected.months });
-      await refresh();
-      setDone(true);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'Could not activate Premium');
-    } finally {
-      setBusy(false);
-    }
+  const onPaid = async () => {
+    await refresh();
+    setDone(true);
   };
 
   return (
@@ -69,7 +61,7 @@ export default function PremiumPage() {
       <header className="bg-forest-950 py-16 text-white">
         <div className="section text-center">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-amber-400">
-            Trek Cameroon Premium
+            MongoTrek Premium
           </p>
           <h1 className="mx-auto max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
             The information you need most is the information you cannot download at 3,000 m
@@ -96,7 +88,7 @@ export default function PremiumPage() {
 
       <div className="section grid gap-10 py-14 lg:grid-cols-[1fr_380px]">
         <div>
-          <h2 className="font-display text-2xl font-semibold text-basalt-900">What you get</h2>
+          <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">What you get</h2>
           <ul className="mt-6 space-y-5">
             {FEATURES.map((f) => (
               <li key={f.title} className="flex gap-4">
@@ -107,18 +99,18 @@ export default function PremiumPage() {
                   ✓
                 </span>
                 <div>
-                  <h3 className="font-display text-base font-semibold text-basalt-900">{f.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-basalt-600">{f.body}</p>
+                  <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">{f.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{f.body}</p>
                 </div>
               </li>
             ))}
           </ul>
 
           <div className="mt-10 rounded-xl border border-basalt-200 bg-white p-6">
-            <h3 className="font-display text-base font-semibold text-basalt-900">
+            <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
               What stays free, permanently
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-basalt-600">
+            <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
               Every trail page, every distance and duration, every hazard warning, the interactive
               map, the safety guidelines, the guide directory and booking. The problem this platform
               exists to fix is people not hiking because the information is wrong or missing —
@@ -134,16 +126,39 @@ export default function PremiumPage() {
                 <p className="font-display text-xl font-semibold text-forest-800">
                   Premium is active
                 </p>
-                <p className="text-sm text-basalt-600">
+                <p className="text-sm text-basalt-600 dark:text-basalt-300">
                   Offline packs are now available on every trail page.
                 </p>
                 <Link href="/trails" className="btn-primary w-full">
                   Browse trails
                 </Link>
               </div>
+            ) : paying ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setPaying(false)}
+                  className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800"
+                >
+                  ← Change plan
+                </button>
+                <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
+                  Pay with Mobile Money
+                </h2>
+                <p className="mt-1 mb-4 text-sm text-basalt-600 dark:text-basalt-300">
+                  {selected.label} · {formatXAF(selected.priceXAF)}
+                </p>
+                <PaymentPanel
+                  purpose="PREMIUM_MEMBERSHIP"
+                  extra={{ months: selected.months }}
+                  amountXAF={selected.priceXAF}
+                  onSuccess={() => void onPaid()}
+                  onCancel={() => setPaying(false)}
+                />
+              </>
             ) : (
               <>
-                <h2 className="font-display text-lg font-semibold text-basalt-900">Choose a plan</h2>
+                <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Choose a plan</h2>
 
                 <div className="mt-4 space-y-2">
                   {PLANS.map((plan) => (
@@ -159,7 +174,7 @@ export default function PremiumPage() {
                       }`}
                     >
                       <span>
-                        <span className="block text-sm font-semibold text-basalt-900">
+                        <span className="block text-sm font-semibold text-basalt-900 dark:text-basalt-50">
                           {plan.label}
                         </span>
                         {plan.save && (
@@ -169,7 +184,7 @@ export default function PremiumPage() {
                         )}
                       </span>
                       <span className="text-right">
-                        <span className="block font-display text-lg font-semibold text-basalt-900">
+                        <span className="block font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                           {formatXAF(plan.priceXAF)}
                         </span>
                         <span className="text-xs text-basalt-500">
@@ -180,30 +195,17 @@ export default function PremiumPage() {
                   ))}
                 </div>
 
-                {error && (
-                  <div className="mt-4">
-                    <Alert tone="danger">{error}</Alert>
-                  </div>
-                )}
-
-                <button
-                  type="button"
-                  onClick={() => void activate()}
-                  disabled={busy}
-                  className="btn-accent mt-5 w-full"
-                >
-                  {busy && <Spinner className="h-4 w-4" />}
+                <button type="button" onClick={startCheckout} className="btn-accent mt-5 w-full">
                   {!user
                     ? 'Sign in to subscribe'
                     : isPremium
                       ? `Extend by ${selected.months} month${selected.months > 1 ? 's' : ''}`
-                      : 'Activate Premium'}
+                      : 'Continue to payment'}
                 </button>
 
                 <p className="mt-3 text-xs leading-relaxed text-basalt-500">
-                  This demo activates the membership immediately. In production this button hands
-                  off to a payment provider — MTN Mobile Money, Orange Money or card — and the
-                  membership is activated by the provider&rsquo;s webhook.
+                  Pay with MTN Mobile Money or Orange Money, via Flutterwave or Intouch. Your
+                  membership activates as soon as the payment is confirmed.
                 </p>
               </>
             )}

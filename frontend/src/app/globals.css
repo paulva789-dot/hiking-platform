@@ -6,6 +6,15 @@
   :root {
     --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    /* Tells the browser which palette to use for native UI — form controls,
+       scrollbars, <select> dropdowns — so they follow OUR theme instead of
+       fighting the OS's own light/dark setting (the classic cause of
+       invisible white-on-white or black-on-black text inside a <select>). */
+    color-scheme: light;
+  }
+
+  :root.dark {
+    color-scheme: dark;
   }
 
   html {
@@ -13,7 +22,7 @@
   }
 
   body {
-    @apply bg-basalt-50 text-basalt-900 antialiased;
+    @apply bg-basalt-50 text-basalt-900 antialiased dark:bg-basalt-950 dark:text-basalt-100;
   }
 
   h1,
@@ -24,7 +33,7 @@
 
   /* Focus rings must stay visible — a lot of this site is forms and filters. */
   :focus-visible {
-    @apply outline-none ring-2 ring-forest-500 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-2 ring-forest-500 ring-offset-2 ring-offset-white dark:ring-offset-basalt-950;
   }
 }
 
@@ -39,7 +48,8 @@
   }
 
   .btn-secondary {
-    @apply btn bg-white text-basalt-800 ring-1 ring-inset ring-basalt-300 hover:bg-basalt-50;
+    @apply btn bg-white text-basalt-800 ring-1 ring-inset ring-basalt-300 hover:bg-basalt-50
+           dark:bg-basalt-900 dark:text-basalt-100 dark:ring-basalt-700 dark:hover:bg-basalt-800;
   }
 
   .btn-accent {
@@ -47,7 +57,7 @@
   }
 
   .btn-ghost {
-    @apply btn text-basalt-700 hover:bg-basalt-100;
+    @apply btn text-basalt-700 hover:bg-basalt-100 dark:text-basalt-300 dark:hover:bg-basalt-800;
   }
 
   .btn-danger {
@@ -55,17 +65,18 @@
   }
 
   .card {
-    @apply rounded-xl border border-basalt-200 bg-white shadow-sm;
+    @apply rounded-xl border border-basalt-200 bg-white shadow-sm dark:border-basalt-800 dark:bg-basalt-900;
   }
 
   .input {
     @apply w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-sm text-basalt-900 shadow-sm
            ring-1 ring-inset ring-basalt-300 placeholder:text-basalt-400
-           focus:ring-2 focus:ring-inset focus:ring-forest-600;
+           focus:ring-2 focus:ring-inset focus:ring-forest-600
+           dark:bg-basalt-900 dark:text-basalt-100 dark:ring-basalt-700 dark:placeholder:text-basalt-500;
   }
 
   .label {
-    @apply mb-1.5 block text-sm font-medium text-basalt-800;
+    @apply mb-1.5 block text-sm font-medium text-basalt-800 dark:text-basalt-200;
   }
 
   .chip {
@@ -77,17 +88,37 @@
   }
 
   .prose-trail {
-    @apply space-y-4 text-[15px] leading-relaxed text-basalt-700;
+    @apply space-y-4 text-[15px] leading-relaxed text-basalt-700 dark:text-basalt-300;
   }
 
   .skeleton {
-    @apply relative overflow-hidden rounded-lg bg-basalt-200;
+    @apply relative overflow-hidden rounded-lg bg-basalt-200 dark:bg-basalt-800;
   }
 
   .skeleton::after {
     @apply absolute inset-0 -translate-x-full animate-shimmer
            bg-gradient-to-r from-transparent via-white/60 to-transparent;
     content: '';
+  }
+
+  /* ---- Cameroon flag accents ------------------------------------------
+     A thin animated tricolour bar used as a brand accent (header top edge,
+     section dividers, card highlights) plus a small twinkling star badge
+     that echoes the star on the flag.                                    */
+  .flag-bar {
+    @apply h-[3px] w-full bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow;
+  }
+
+  .flag-bar-static {
+    @apply h-[3px] w-full bg-flag-gradient;
+  }
+
+  .flag-star {
+    @apply inline-grid h-4 w-4 shrink-0 animate-star-twinkle place-items-center text-cameroon-yellow;
+  }
+
+  .flag-chip {
+    @apply chip bg-cameroon-green/10 text-cameroon-green ring-cameroon-green/30;
   }
 }
 
@@ -119,4 +150,48 @@
 
 .leaflet-control-attribution {
   @apply text-[10px];
+}
+
+/* User "you are here" marker: a solid dot with an expanding pulse ring. */
+.user-location-marker {
+  position: relative;
+}
+
+.user-location-marker .dot {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #2563eb;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.user-location-marker .pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #2563eb;
+  animation: locate-pulse 1.8s ease-out infinite;
+}
+
+.locate-btn {
+  @apply flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 text-xs font-semibold text-basalt-800
+         shadow-md ring-1 ring-basalt-300 transition-colors hover:bg-basalt-50 disabled:cursor-wait disabled:opacity-60
+         dark:bg-basalt-900 dark:text-basalt-100 dark:ring-basalt-700 dark:hover:bg-basalt-800;
+}
+
+.locate-btn.is-active {
+  @apply bg-forest-700 text-white ring-forest-700 hover:bg-forest-800;
+}
+
+.map-layer-toggle {
+  @apply flex overflow-hidden rounded-lg shadow-md ring-1 ring-basalt-300;
+}
+
+.map-layer-toggle button {
+  @apply bg-white px-3 py-2 text-xs font-semibold text-basalt-700 transition-colors hover:bg-basalt-50;
+}
+
+.map-layer-toggle button.is-active {
+  @apply bg-forest-700 text-white hover:bg-forest-800;
 }

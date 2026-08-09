@@ -106,16 +106,16 @@ function SafetyManager() {
             <li key={item.id} className="card flex flex-wrap items-start justify-between gap-4 p-4">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+                  <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
                     {item.category}
                   </span>
                   <span className="text-xs text-basalt-400">order {item.order}</span>
                   {!item.published && (
-                    <span className="chip bg-basalt-200 text-basalt-700 ring-basalt-300">Hidden</span>
+                    <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">Hidden</span>
                   )}
                 </div>
-                <h3 className="mt-1.5 font-semibold text-basalt-900">{item.title}</h3>
-                <p className="mt-1 line-clamp-2 text-sm text-basalt-600">{item.body}</p>
+                <h3 className="mt-1.5 font-semibold text-basalt-900 dark:text-basalt-50">{item.title}</h3>
+                <p className="mt-1 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{item.body}</p>
               </div>
               <div className="flex shrink-0 gap-2">
                 <button type="button" onClick={() => setEditing(item)} className="btn-secondary text-xs">
@@ -238,7 +238,7 @@ function SafetyForm({
         />
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-basalt-700">
+      <label className="flex items-center gap-2 text-sm text-basalt-700 dark:text-basalt-300">
         <input
           type="checkbox"
           checked={published}
@@ -321,18 +321,18 @@ function ListingManager() {
             <li key={l.id} className="card flex flex-wrap items-start justify-between gap-4 p-4">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+                  <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
                     {l.kind === 'ACCOMMODATION' ? 'Stay' : 'Gear'}
                   </span>
                   {l.featured && (
                     <span className="chip bg-amber-100 text-amber-900 ring-amber-200">Featured</span>
                   )}
                   {!l.published && (
-                    <span className="chip bg-basalt-200 text-basalt-700 ring-basalt-300">Hidden</span>
+                    <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">Hidden</span>
                   )}
                 </div>
-                <h3 className="mt-1.5 font-semibold text-basalt-900">{l.name}</h3>
-                <p className="mt-1 line-clamp-2 text-sm text-basalt-600">{l.description}</p>
+                <h3 className="mt-1.5 font-semibold text-basalt-900 dark:text-basalt-50">{l.name}</h3>
+                <p className="mt-1 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{l.description}</p>
                 <p className="mt-1 text-xs text-basalt-500">
                   {l.priceFromXAF ? `From ${formatXAF(l.priceFromXAF)} · ` : ''}
                   {l.commissionPct}% commission · {l.clickCount} click-throughs
@@ -565,7 +565,7 @@ function ListingForm({
       </div>
 
       <div className="flex gap-6">
-        <label className="flex items-center gap-2 text-sm text-basalt-700">
+        <label className="flex items-center gap-2 text-sm text-basalt-700 dark:text-basalt-300">
           <input
             type="checkbox"
             checked={form.featured}
@@ -574,7 +574,7 @@ function ListingForm({
           />
           Featured
         </label>
-        <label className="flex items-center gap-2 text-sm text-basalt-700">
+        <label className="flex items-center gap-2 text-sm text-basalt-700 dark:text-basalt-300">
           <input
             type="checkbox"
             checked={form.published}
@@ -650,15 +650,15 @@ function EventManager() {
             <li key={e.id} className="card flex flex-wrap items-start justify-between gap-4 p-4">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-basalt-900">{e.title}</h3>
+                  <h3 className="font-semibold text-basalt-900 dark:text-basalt-50">{e.title}</h3>
                   {!e.published && (
-                    <span className="chip bg-basalt-200 text-basalt-700 ring-basalt-300">Hidden</span>
+                    <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">Hidden</span>
                   )}
                 </div>
                 <p className="mt-1 text-xs text-basalt-500">
                   {formatDate(e.startDate)} · {e.location} · {formatXAF(e.priceXAF)}
                 </p>
-                <p className="mt-1 text-xs text-basalt-600">
+                <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                   {e.ticketsSold} of {e.capacity} sold · {e._count.tickets} orders ·{' '}
                   {formatXAF(e.ticketsSold * e.priceXAF)} gross
                 </p>
@@ -933,12 +933,12 @@ function AdManager() {
               />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="font-semibold text-basalt-900">{ad.advertiser}</p>
-                  <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+                  <p className="font-semibold text-basalt-900 dark:text-basalt-50">{ad.advertiser}</p>
+                  <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
                     {ad.placement}
                   </span>
                   {!ad.active && (
-                    <span className="chip bg-basalt-200 text-basalt-700 ring-basalt-300">Paused</span>
+                    <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">Paused</span>
                   )}
                 </div>
                 <p className="mt-1 text-xs text-basalt-500">

@@ -140,7 +140,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
       </header>
 
       {/* -------------------------------------------------------- key facts */}
-      <section className="border-b border-basalt-200 bg-white">
+      <section className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <dl className="section grid grid-cols-2 divide-basalt-200 py-6 sm:grid-cols-4 sm:divide-x">
           <KeyFact label="Distance" value={formatDistance(trail.distanceKm)} sub="round trip" />
           <KeyFact
@@ -165,7 +165,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
         {/* ------------------------------------------------------ main column */}
         <div className="space-y-12">
           <section>
-            <h2 className="font-display text-2xl font-semibold text-basalt-900">About this hike</h2>
+            <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">About this hike</h2>
             <div className="prose-trail mt-4">
               {trail.description.split('\n\n').map((para, i) => (
                 <p key={i}>{para}</p>
@@ -192,7 +192,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                     </span>
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-baseline gap-x-3">
-                        <h3 className="font-semibold text-basalt-900">{wp.name}</h3>
+                        <h3 className="font-semibold text-basalt-900 dark:text-basalt-50">{wp.name}</h3>
                         {wp.elevationM !== null && (
                           <span className="text-xs font-medium text-basalt-500">
                             {wp.elevationM.toLocaleString()} m
@@ -200,7 +200,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                         )}
                       </div>
                       {wp.description && (
-                        <p className="mt-1 text-sm leading-relaxed text-basalt-600">{wp.description}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{wp.description}</p>
                       )}
                     </div>
                   </li>
@@ -250,7 +250,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               )}
               {trail.bestMonths.length > 0 && (
                 <div className="card p-5 sm:col-span-2">
-                  <h3 className="font-display text-base font-semibold text-basalt-900">
+                  <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
                     Best months to hike
                   </h3>
                   <div className="mt-3 flex flex-wrap gap-1.5">
@@ -279,7 +279,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 
             {trail.tours.length === 0 ? (
               <div className="card p-6">
-                <p className="text-sm text-basalt-600">
+                <p className="text-sm text-basalt-600 dark:text-basalt-300">
                   No guide currently lists a scheduled tour for this trail. Browse the guide
                   directory and contact someone covering {REGION_LABELS[trail.region]} directly.
                 </p>
@@ -293,7 +293,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                   <li key={tour.id} className="card p-5">
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div className="min-w-0 flex-1">
-                        <h3 className="font-display text-lg font-semibold text-basalt-900">
+                        <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                           {tour.title}
                         </h3>
                         <p className="mt-1 text-xs text-basalt-500">
@@ -301,7 +301,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                           {tour.durationDays} day{tour.durationDays > 1 ? 's' : ''} · max{' '}
                           {tour.maxGroupSize} people
                         </p>
-                        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-basalt-600">
+                        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                           {tour.description}
                         </p>
 
@@ -313,7 +313,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                               </span>
                             ))}
                             {tour.includes.length > 4 && (
-                              <span className="chip bg-basalt-100 text-basalt-600 ring-basalt-200">
+                              <span className="chip bg-basalt-100 text-basalt-600 dark:text-basalt-300 ring-basalt-200">
                                 +{tour.includes.length - 4} more
                               </span>
                             )}
@@ -332,7 +332,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                       </div>
 
                       <div className="shrink-0 text-right">
-                        <p className="font-display text-xl font-semibold text-basalt-900">
+                        <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
                           {formatXAF(tour.priceXAF)}
                         </p>
                         <p className="text-xs text-basalt-500">per person</p>
@@ -401,8 +401,8 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
           </div>
 
           <div className="card p-5">
-            <h3 className="font-display text-base font-semibold text-basalt-900">Trailhead</h3>
-            <p className="mt-2 font-mono text-sm text-basalt-700">
+            <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Trailhead</h3>
+            <p className="mt-2 font-mono text-sm text-basalt-700 dark:text-basalt-300">
               {trail.startLat.toFixed(4)}, {trail.startLng.toFixed(4)}
             </p>
             <a
@@ -444,7 +444,7 @@ function KeyFact({ label, value, sub }: { label: string; value: string; sub?: st
   return (
     <div className="px-2 py-2 text-center sm:px-4">
       <dt className="text-[11px] font-bold uppercase tracking-wide text-basalt-400">{label}</dt>
-      <dd className="mt-1 font-display text-xl font-semibold text-basalt-900">{value}</dd>
+      <dd className="mt-1 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{value}</dd>
       {sub && <p className="mt-0.5 text-xs leading-snug text-basalt-500">{sub}</p>}
     </div>
   );
@@ -467,14 +467,14 @@ function InfoCard({
     >
       <h3
         className={`font-display text-base font-semibold ${
-          tone === 'warn' ? 'text-amber-900' : 'text-basalt-900'
+          tone === 'warn' ? 'text-amber-900' : 'text-basalt-900 dark:text-basalt-50'
         }`}
       >
         {title}
       </h3>
       <p
         className={`mt-2 text-sm leading-relaxed ${
-          tone === 'warn' ? 'text-amber-900' : 'text-basalt-600'
+          tone === 'warn' ? 'text-amber-900' : 'text-basalt-600 dark:text-basalt-300'
         }`}
       >
         {body}

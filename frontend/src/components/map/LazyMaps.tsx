@@ -26,3 +26,8 @@ export const SingleTrailMap = dynamic(
   () => import('./TrailMapView').then((m) => m.SingleTrailMap),
   { ssr: false, loading: () => <MapSkeleton height="420px" /> }
 );
+
+export const CameroonSitesMap = dynamic(
+  () => import('./TrailMapView').then((m) => m.CameroonSitesMap),
+  { ssr: false, loading: () => <MapSkeleton height="480px" /> }
+);

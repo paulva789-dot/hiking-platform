@@ -178,7 +178,7 @@ export function GalleryBrowser() {
                 <div className="flex items-center gap-3">
                   <Avatar name={lightbox.user.name} src={lightbox.user.avatarUrl} />
                   <div>
-                    <p className="font-semibold text-basalt-900">{lightbox.user.name}</p>
+                    <p className="font-semibold text-basalt-900 dark:text-basalt-50">{lightbox.user.name}</p>
                     {lightbox.createdAt && (
                       <p className="text-xs text-basalt-500">{relativeTime(lightbox.createdAt)}</p>
                     )}
@@ -190,7 +190,7 @@ export function GalleryBrowser() {
               </div>
 
               {lightbox.caption && (
-                <p className="mt-4 text-sm leading-relaxed text-basalt-700">{lightbox.caption}</p>
+                <p className="mt-4 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">{lightbox.caption}</p>
               )}
 
               {lightbox.trail && (

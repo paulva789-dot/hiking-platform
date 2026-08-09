@@ -33,11 +33,11 @@ export default async function EventPage({ params }: { params: Params }) {
   if (!event) notFound();
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
           <nav aria-label="Breadcrumb" className="mb-5 text-xs text-basalt-500">
-            <Link href="/events" className="hover:text-basalt-900">
+            <Link href="/events" className="hover:text-basalt-900 dark:text-basalt-50">
               Events
             </Link>
           </nav>
@@ -48,21 +48,21 @@ export default async function EventPage({ params }: { params: Params }) {
                 {REGION_LABELS[event.region]}
               </span>
             )}
-            <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+            <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
               {formatDateRange(event.startDate, event.endDate)}
             </span>
           </div>
 
-          <h1 className="mt-4 max-w-3xl font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="mt-4 max-w-3xl font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             {event.title}
           </h1>
-          <p className="mt-2 text-basalt-600">{event.location}</p>
+          <p className="mt-2 text-basalt-600 dark:text-basalt-300">{event.location}</p>
         </div>
       </header>
 
       <div className="section grid gap-10 py-10 lg:grid-cols-[1fr_360px]">
         <div>
-          <p className="whitespace-pre-line text-[15px] leading-relaxed text-basalt-700">
+          <p className="whitespace-pre-line text-[15px] leading-relaxed text-basalt-700 dark:text-basalt-300">
             {event.description}
           </p>
 
@@ -93,7 +93,7 @@ function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div className="card p-4">
       <dt className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">{label}</dt>
-      <dd className="mt-1 text-sm font-semibold text-basalt-900">{value}</dd>
+      <dd className="mt-1 text-sm font-semibold text-basalt-900 dark:text-basalt-50">{value}</dd>
     </div>
   );
 }

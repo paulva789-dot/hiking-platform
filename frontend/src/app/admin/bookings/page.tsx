@@ -95,7 +95,7 @@ export default function AdminBookingsPage() {
                       <p className="mt-0.5 text-xs text-basalt-400">{relativeTime(b.createdAt)}</p>
                     </Td>
                     <Td className="max-w-[220px]">
-                      <span className="block truncate font-medium text-basalt-900">
+                      <span className="block truncate font-medium text-basalt-900 dark:text-basalt-50">
                         {b.tour.title}
                       </span>
                     </Td>
@@ -103,12 +103,12 @@ export default function AdminBookingsPage() {
                       <span className="block text-basalt-800">{b.user?.name}</span>
                       <span className="block text-xs text-basalt-500">{b.user?.email}</span>
                     </Td>
-                    <Td className="text-basalt-700">{b.tour.guide?.user.name ?? '—'}</Td>
-                    <Td className="whitespace-nowrap text-basalt-700">
+                    <Td className="text-basalt-700 dark:text-basalt-300">{b.tour.guide?.user.name ?? '—'}</Td>
+                    <Td className="whitespace-nowrap text-basalt-700 dark:text-basalt-300">
                       {formatDateRange(b.schedule.startDate, b.schedule.endDate)}
                     </Td>
-                    <Td className="text-center text-basalt-700">{b.participants}</Td>
-                    <Td className="whitespace-nowrap text-right font-semibold text-basalt-900">
+                    <Td className="text-center text-basalt-700 dark:text-basalt-300">{b.participants}</Td>
+                    <Td className="whitespace-nowrap text-right font-semibold text-basalt-900 dark:text-basalt-50">
                       {formatXAF(b.totalXAF)}
                     </Td>
                     <Td className="whitespace-nowrap text-right font-semibold text-forest-700">
@@ -129,10 +129,10 @@ export default function AdminBookingsPage() {
               </tbody>
               <tfoot className="border-t-2 border-basalt-200 bg-basalt-50 font-semibold">
                 <tr>
-                  <Td colSpan={6} className="text-basalt-600">
+                  <Td colSpan={6} className="text-basalt-600 dark:text-basalt-300">
                     Page total ({bookings.length} bookings)
                   </Td>
-                  <Td className="whitespace-nowrap text-right text-basalt-900">
+                  <Td className="whitespace-nowrap text-right text-basalt-900 dark:text-basalt-50">
                     {formatXAF(totals.gross)}
                   </Td>
                   <Td className="whitespace-nowrap text-right text-forest-700">
@@ -154,7 +154,7 @@ export default function AdminBookingsPage() {
               >
                 Previous
               </button>
-              <span className="px-3 py-2 text-sm text-basalt-600">
+              <span className="px-3 py-2 text-sm text-basalt-600 dark:text-basalt-300">
                 Page {pagination.page} of {pagination.pages} · {pagination.total} total
               </span>
               <button

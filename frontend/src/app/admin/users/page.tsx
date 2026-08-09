@@ -131,7 +131,7 @@ export default function AdminUsersPage() {
                         <div className="flex items-center gap-3">
                           <Avatar name={u.name} src={u.avatarUrl} size="sm" />
                           <div className="min-w-0">
-                            <p className="truncate font-medium text-basalt-900">
+                            <p className="truncate font-medium text-basalt-900 dark:text-basalt-50">
                               {u.name}
                               {isMe && <span className="ml-1 text-xs text-basalt-400">(you)</span>}
                             </p>
@@ -144,7 +144,7 @@ export default function AdminUsersPage() {
                         </div>
                       </td>
 
-                      <td className="px-4 py-3 text-xs text-basalt-600">
+                      <td className="px-4 py-3 text-xs text-basalt-600 dark:text-basalt-300">
                         {u._count.bookings} bookings
                         <br />
                         {u._count.reviews} reviews · {u._count.photos} photos
@@ -209,7 +209,7 @@ export default function AdminUsersPage() {
               >
                 Previous
               </button>
-              <span className="px-3 py-2 text-sm text-basalt-600">
+              <span className="px-3 py-2 text-sm text-basalt-600 dark:text-basalt-300">
                 Page {pagination.page} of {pagination.pages} · {pagination.total} users
               </span>
               <button

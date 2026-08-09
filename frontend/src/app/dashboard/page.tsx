@@ -106,10 +106,10 @@ export default function DashboardOverview() {
               <li key={booking.id} className="card flex flex-wrap items-center gap-4 p-5">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-semibold text-basalt-900">{booking.tour.title}</h3>
+                    <h3 className="font-semibold text-basalt-900 dark:text-basalt-50">{booking.tour.title}</h3>
                     <StatusBadge status={booking.status} />
                   </div>
-                  <p className="mt-1 text-sm text-basalt-600">
+                  <p className="mt-1 text-sm text-basalt-600 dark:text-basalt-300">
                     {formatDateRange(booking.schedule.startDate, booking.schedule.endDate)} ·{' '}
                     {booking.participants} {booking.participants === 1 ? 'person' : 'people'}
                     {booking.tour.guide && ` · with ${booking.tour.guide.user.name}`}
@@ -117,7 +117,7 @@ export default function DashboardOverview() {
                   <p className="mt-1 font-mono text-xs text-basalt-400">{booking.reference}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-display text-lg font-semibold text-basalt-900">
+                  <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                     {formatXAF(booking.totalXAF)}
                   </p>
                   <StatusBadge status={booking.paymentStatus === 'PAID' ? 'APPROVED' : 'PENDING'} />
@@ -152,7 +152,7 @@ export default function DashboardOverview() {
             {favorites.slice(0, 6).map((fav) => (
               <li key={fav.id}>
                 <Link href={`/trails/${fav.trail.slug}`} className="card block p-4 hover:shadow-md">
-                  <p className="font-semibold text-basalt-900">{fav.trail.name}</p>
+                  <p className="font-semibold text-basalt-900 dark:text-basalt-50">{fav.trail.name}</p>
                   <p className="mt-1 text-xs text-basalt-500">
                     Saved {formatDate(fav.createdAt)}
                   </p>
@@ -171,14 +171,14 @@ export default function DashboardOverview() {
             {tickets.map((ticket) => (
               <li key={ticket.id} className="card flex flex-wrap items-center gap-4 p-5">
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-semibold text-basalt-900">{ticket.event.title}</h3>
-                  <p className="mt-1 text-sm text-basalt-600">
+                  <h3 className="font-semibold text-basalt-900 dark:text-basalt-50">{ticket.event.title}</h3>
+                  <p className="mt-1 text-sm text-basalt-600 dark:text-basalt-300">
                     {formatDate(ticket.event.startDate)} · {ticket.event.location}
                   </p>
                   <p className="mt-1 font-mono text-xs text-basalt-400">{ticket.reference}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-basalt-900">{formatXAF(ticket.totalXAF)}</p>
+                  <p className="font-semibold text-basalt-900 dark:text-basalt-50">{formatXAF(ticket.totalXAF)}</p>
                   <p className="text-xs text-basalt-500">
                     {ticket.quantity} ticket{ticket.quantity > 1 ? 's' : ''}
                   </p>

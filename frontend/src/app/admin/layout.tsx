@@ -49,7 +49,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="bg-basalt-50 pb-20">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
       <header className="border-b border-basalt-200 bg-basalt-950 text-white">
         <div className="section py-6">
           <div className="flex flex-wrap items-center justify-between gap-3">

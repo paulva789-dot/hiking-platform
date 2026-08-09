@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { api, ApiError } from '@/lib/api';
-import { formatDateRange, formatXAF } from '@/lib/format';
+import { CENTRAL_AFRICA_COUNTRIES, formatDateRange, formatXAF } from '@/lib/format';
 import type { Tour, TrailCard } from '@/lib/types';
 import { Alert, EmptyState, SectionHeading, Spinner } from '@/components/ui';
 
@@ -97,24 +97,25 @@ export function TourManager({
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-display text-lg font-semibold text-basalt-900">
+                    <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                       {tour.title}
                     </h3>
                     <span
                       className={`chip ${
                         tour.published
                           ? 'bg-forest-100 text-forest-800 ring-forest-200'
-                          : 'bg-basalt-200 text-basalt-700 ring-basalt-300'
+                          : 'bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300'
                       }`}
                     >
                       {tour.published ? 'Published' : 'Draft'}
                     </span>
                   </div>
 
-                  {tour.trail && (
-                    <p className="mt-1 text-xs text-basalt-500">On {tour.trail.name}</p>
-                  )}
-                  <p className="mt-2 line-clamp-2 text-sm text-basalt-600">{tour.description}</p>
+                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-basalt-500">
+                    {tour.trail && <span>On {tour.trail.name}</span>}
+                    <span className="flag-chip">{tour.country}</span>
+                  </div>
+                  <p className="mt-2 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{tour.description}</p>
                   <p className="mt-2 text-xs text-basalt-500">
                     {formatXAF(tour.priceXAF)} pp · {tour.durationDays} day
                     {tour.durationDays > 1 ? 's' : ''} · max {tour.maxGroupSize} ·{' '}
@@ -313,6 +314,7 @@ function TourForm({
 }) {
   const [title, setTitle] = useState(tour?.title ?? '');
   const [description, setDescription] = useState(tour?.description ?? '');
+  const [country, setCountry] = useState(tour?.country ?? 'Cameroon');
   const [trailId, setTrailId] = useState(tour?.trailId ?? '');
   const [priceXAF, setPrice] = useState(String(tour?.priceXAF ?? ''));
   const [maxGroupSize, setMax] = useState(String(tour?.maxGroupSize ?? 8));
@@ -331,6 +333,7 @@ function TourForm({
     const payload = {
       title,
       description,
+      country,
       trailId: trailId || null,
       priceXAF: Number(priceXAF),
       maxGroupSize: Number(maxGroupSize),
@@ -357,7 +360,7 @@ function TourForm({
 
   return (
     <form onSubmit={submit} className="card space-y-4 border-forest-300 p-6">
-      <h3 className="font-display text-lg font-semibold text-basalt-900">
+      <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
         {tour ? 'Edit tour' : 'New tour'}
       </h3>
 
@@ -377,27 +380,50 @@ function TourForm({
         />
       </div>
 
-      <div>
-        <label htmlFor="tour-trail" className="label">
-          Which trail?
-        </label>
-        <select
-          id="tour-trail"
-          value={trailId}
-          onChange={(e) => setTrailId(e.target.value)}
-          className="input"
-        >
-          <option value="">Not tied to a listed trail</option>
-          {trails.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.name}
-            </option>
-          ))}
-        </select>
-        <p className="mt-1 text-xs text-basalt-500">
-          Linking a trail puts this tour on that trail&rsquo;s page, which is where most bookings
-          come from.
-        </p>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label htmlFor="tour-trail" className="label">
+            Which trail?
+          </label>
+          <select
+            id="tour-trail"
+            value={trailId}
+            onChange={(e) => setTrailId(e.target.value)}
+            className="input"
+          >
+            <option value="">Not tied to a listed trail</option>
+            {trails.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1 text-xs text-basalt-500">
+            Linking a trail puts this tour on that trail&rsquo;s page, which is where most bookings
+            come from.
+          </p>
+        </div>
+
+        <div>
+          <label htmlFor="tour-country" className="label">
+            Country
+          </label>
+          <select
+            id="tour-country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            className="input"
+          >
+            {CENTRAL_AFRICA_COUNTRIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1 text-xs text-basalt-500">
+            Not limited to Cameroon — pick wherever this specific tour actually runs.
+          </p>
+        </div>
       </div>
 
       <div>

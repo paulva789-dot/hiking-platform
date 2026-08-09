@@ -19,13 +19,13 @@ export default async function EventsPage() {
   }));
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Events
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Camping weekends, training days, outdoor festivals and nature excursions. Tickets are
             sold here; capacity is real and limited.
           </p>
@@ -67,7 +67,7 @@ export default async function EventsPage() {
                           </span>
                         )}
                         {soldOut ? (
-                          <span className="chip bg-basalt-200 text-basalt-700 ring-basalt-300">
+                          <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">
                             Sold out
                           </span>
                         ) : (
@@ -79,18 +79,18 @@ export default async function EventsPage() {
                         )}
                       </div>
 
-                      <h2 className="mt-2 font-display text-xl font-semibold text-basalt-900 group-hover:text-forest-800">
+                      <h2 className="mt-2 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
                         {event.title}
                       </h2>
                       <p className="mt-1 text-xs text-basalt-500">
                         {formatDateRange(event.startDate, event.endDate)} · {event.location}
                       </p>
-                      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-basalt-600">
+                      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                         {event.description}
                       </p>
 
                       <div className="mt-4 flex items-center justify-between border-t border-basalt-100 pt-4">
-                        <p className="font-display text-lg font-semibold text-basalt-900">
+                        <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                           {event.priceXAF === 0 ? 'Free' : formatXAF(event.priceXAF)}
                         </p>
                         <span className="text-xs font-semibold text-forest-700 group-hover:underline">

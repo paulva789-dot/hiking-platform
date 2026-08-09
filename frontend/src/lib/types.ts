@@ -149,6 +149,8 @@ export interface GuideCard {
   languages: string[];
   certifications: string[];
   regions: Region[];
+  /** Central African countries this guide runs tours in — not limited to Cameroon. */
+  countries: string[];
   dayRateXAF: number;
   ratingAvg: number;
   ratingCount: number;
@@ -182,6 +184,8 @@ export interface TourSummary {
   id: string;
   title: string;
   description: string;
+  /** Which CEMAC country this specific tour runs in — defaults to Cameroon. */
+  country: string;
   priceXAF: number;
   maxGroupSize: number;
   durationDays: number;
@@ -313,6 +317,27 @@ export interface Weather {
   daily: WeatherDay[];
   fetchedAt: string;
   cached?: boolean;
+}
+
+// ------------------------------------------------------------ payments
+
+export type PaymentProvider = 'FLUTTERWAVE' | 'INTOUCH';
+export type PaymentMethod = 'MTN_MOMO' | 'ORANGE_MONEY';
+export type PaymentAttemptStatus = 'PENDING' | 'SUCCESSFUL' | 'FAILED';
+
+export interface PaymentInitiateResponse {
+  reference: string;
+  status: PaymentAttemptStatus;
+  amountXAF: number;
+  instructions: string;
+}
+
+export interface PaymentStatusResponse {
+  reference: string;
+  status: PaymentAttemptStatus;
+  amountXAF: number;
+  purpose: 'PREMIUM_MEMBERSHIP' | 'GUIDE_PLAN';
+  failureReason: string | null;
 }
 
 export interface Pagination {

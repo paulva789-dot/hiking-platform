@@ -79,6 +79,28 @@ enum ListingKind {
   EQUIPMENT
 }
 
+enum PaymentProvider {
+  FLUTTERWAVE
+  INTOUCH
+}
+
+enum PaymentMethod {
+  MTN_MOMO
+  ORANGE_MONEY
+}
+
+enum PaymentPurpose {
+  PREMIUM_MEMBERSHIP
+  GUIDE_PLAN
+}
+
+/** Named PaymentAttemptStatus, not PaymentStatus, to avoid colliding with the existing booking PaymentStatus enum. */
+enum PaymentAttemptStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+}
+
 // ---------------------------------------------------------------- users
 
 model User {
@@ -105,6 +127,7 @@ model User {
   groups       GroupMember[]
   ownedGroups  HikingGroup[]  @relation("GroupOwner")
   tickets      EventTicket[]
+  payments     Payment[]
 
   @@index([role])
 }
@@ -119,6 +142,8 @@ model GuideProfile {
   languages       String[]       @default([])
   certifications  String[]       @default([])
   regions         Region[]       @default([])
+  /** Central African countries this guide runs tours in — booking is not limited to Cameroon. */
+  countries       String[]       @default(["Cameroon"])
   dayRateXAF      Int            @default(0)
   phone           String?
   whatsapp        String?
@@ -260,6 +285,8 @@ model Tour {
   trail         Trail?   @relation(fields: [trailId], references: [id], onDelete: SetNull)
   title         String
   description   String
+  /** Which CEMAC country this specific tour runs in — a guide's tours aren't all in the same one. */
+  country       String   @default("Cameroon")
   priceXAF      Int
   maxGroupSize  Int      @default(8)
   durationDays  Int      @default(1)
@@ -313,6 +340,37 @@ model Booking {
 
   @@index([userId])
   @@index([tourId, status])
+}
+
+// ---------------------------------------------------------------- payments (MTN MoMo / Orange Money)
+
+/**
+ * One record per checkout attempt against Flutterwave or Intouch, for either
+ * a Premium membership purchase or a guide plan purchase. The webhook/callback
+ * handlers flip status to SUCCESSFUL and grant the entitlement idempotently.
+ */
+model Payment {
+  id            String               @id @default(cuid())
+  reference     String               @unique
+  userId        String
+  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider      PaymentProvider
+  method        PaymentMethod
+  purpose       PaymentPurpose
+  phone         String
+  amountXAF     Int
+  // PREMIUM_MEMBERSHIP
+  months        Int?
+  // GUIDE_PLAN
+  guidePlan     GuidePlan?
+  status        PaymentAttemptStatus @default(PENDING)
+  providerRef   String?
+  failureReason String?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  @@index([userId])
+  @@index([status])
 }
 
 // ---------------------------------------------------------------- community

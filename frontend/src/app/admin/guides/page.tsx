@@ -98,7 +98,7 @@ export default function AdminGuidesPage() {
 
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-display text-lg font-semibold text-basalt-900">
+                    <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                       {guide.user.name}
                     </h3>
                     <StatusBadge status={guide.status} />
@@ -116,7 +116,7 @@ export default function AdminGuidesPage() {
                   </p>
 
                   <p className="mt-3 font-medium text-basalt-800">{guide.headline}</p>
-                  <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-basalt-600">
+                  <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                     {guide.bio}
                   </p>
 
@@ -136,7 +136,7 @@ export default function AdminGuidesPage() {
                   </dl>
 
                   {guide.reviewNote && (
-                    <p className="mt-3 rounded-lg bg-basalt-50 px-3 py-2 text-xs text-basalt-600">
+                    <p className="mt-3 rounded-lg bg-basalt-50 px-3 py-2 text-xs text-basalt-600 dark:text-basalt-300">
                       Previous note: {guide.reviewNote}
                     </p>
                   )}

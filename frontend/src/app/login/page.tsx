@@ -48,8 +48,8 @@ function LoginForm() {
     <div className="section flex min-h-[calc(100vh-4rem)] items-center justify-center py-12">
       <div className="w-full max-w-md">
         <div className="card p-8">
-          <h1 className="font-display text-2xl font-semibold text-basalt-900">Welcome back</h1>
-          <p className="mt-1.5 text-sm text-basalt-600">
+          <h1 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">Welcome back</h1>
+          <p className="mt-1.5 text-sm text-basalt-600 dark:text-basalt-300">
             Sign in to save trails, book guides and upload photos.
           </p>
 
@@ -92,7 +92,7 @@ function LoginForm() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-basalt-600">
+          <p className="mt-6 text-center text-sm text-basalt-600 dark:text-basalt-300">
             No account?{' '}
             <Link href="/register" className="font-semibold text-forest-700 hover:underline">
               Create one free

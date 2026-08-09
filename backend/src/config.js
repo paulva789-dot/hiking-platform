@@ -35,6 +35,21 @@ export const config = {
     photo: num(process.env.PHOTO_COMMISSION_PCT, 20),
   },
 
+  // MTN Mobile Money / Orange Money collection, via either gateway.
+  flutterwave: {
+    secretKey: process.env.FLUTTERWAVE_SECRET_KEY || '',
+    publicKey: process.env.FLUTTERWAVE_PUBLIC_KEY || '',
+    webhookHash: process.env.FLUTTERWAVE_WEBHOOK_HASH || '',
+    baseUrl: process.env.FLUTTERWAVE_BASE_URL || 'https://api.flutterwave.com/v3',
+  },
+  intouch: {
+    loginApi: process.env.INTOUCH_LOGIN_API || '',
+    passwordApi: process.env.INTOUCH_PASSWORD_API || '',
+    partnerId: process.env.INTOUCH_PARTNER_ID || '',
+    baseUrl: process.env.INTOUCH_BASE_URL || 'https://api.intouchpay.co/api',
+    callbackSecret: process.env.INTOUCH_CALLBACK_SECRET || '',
+  },
+
   seed: {
     adminEmail: process.env.SEED_ADMIN_EMAIL || 'admin@trekcameroon.cm',
     adminPassword: process.env.SEED_ADMIN_PASSWORD || 'Admin@12345',

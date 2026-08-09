@@ -5,10 +5,13 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
 import { Avatar } from './ui';
+import { ThemeToggle } from './ThemeToggle';
+import { LogoMark, LogoText } from './Logo';
 
 const NAV = [
   { href: '/trails', label: 'Trails' },
   { href: '/map', label: 'Map' },
+  { href: '/sites', label: 'Cameroon Sites' },
   { href: '/guides', label: 'Guides' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/events', label: 'Events' },
@@ -31,16 +34,18 @@ export function SiteHeader() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-basalt-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-basalt-200 bg-white/95 backdrop-blur dark:border-basalt-800 dark:bg-basalt-950/95">
+      <div className="flag-bar" aria-hidden />
       <div className="section flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-forest-700 text-white" aria-hidden>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2 20h20L14 6l-3 5-2-3z" />
-            </svg>
+            <LogoMark />
           </span>
-          <span className="font-display text-lg font-semibold tracking-tight text-basalt-900">
-            Trek<span className="text-forest-700">Cameroon</span>
+          <LogoText className="font-display text-lg font-semibold tracking-tight text-basalt-900 dark:text-basalt-50" />
+          <span className="flag-star ml-0.5" aria-hidden>
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
+              <path d="M12 1.5l2.9 6.6 7.1.7-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.7 7.1-.7z" />
+            </svg>
           </span>
         </Link>
 
@@ -51,8 +56,8 @@ export function SiteHeader() {
               href={item.href}
               className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 isActive(item.href)
-                  ? 'bg-forest-50 text-forest-800'
-                  : 'text-basalt-600 hover:bg-basalt-100 hover:text-basalt-900'
+                  ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
+                  : 'text-basalt-600 dark:text-basalt-300 hover:bg-basalt-100 hover:text-basalt-900 dark:text-basalt-400 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
               }`}
             >
               {item.label}
@@ -61,6 +66,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           {loading ? (
             <div className="h-9 w-24 animate-pulse rounded-lg bg-basalt-200" />
           ) : user ? (
@@ -84,10 +90,10 @@ export function SiteHeader() {
               {menuOpen && (
                 <div
                   role="menu"
-                  className="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg"
+                  className="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
                 >
-                  <div className="border-b border-basalt-100 px-4 py-3">
-                    <p className="truncate text-sm font-semibold text-basalt-900">{user.name}</p>
+                  <div className="border-b border-basalt-100 px-4 py-3 dark:border-basalt-800">
+                    <p className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50">{user.name}</p>
                     <p className="truncate text-xs text-basalt-500">{user.email}</p>
                   </div>
                   <MenuLink href="/dashboard">My dashboard</MenuLink>
@@ -106,7 +112,7 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={() => void logout()}
-                    className="w-full border-t border-basalt-100 px-4 py-2.5 text-left text-sm text-basalt-700 hover:bg-basalt-50"
+                    className="w-full border-t border-basalt-100 px-4 py-2.5 text-left text-sm text-basalt-700 dark:text-basalt-300 hover:bg-basalt-50 dark:border-basalt-800 dark:text-basalt-300 dark:hover:bg-basalt-800"
                   >
                     Sign out
                   </button>
@@ -142,14 +148,19 @@ export function SiteHeader() {
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-basalt-200 bg-white px-4 py-3 lg:hidden" aria-label="Mobile">
+        <nav
+          className="border-t border-basalt-200 bg-white px-4 py-3 dark:border-basalt-800 dark:bg-basalt-950 lg:hidden"
+          aria-label="Mobile"
+        >
           <div className="grid grid-cols-2 gap-1">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={`rounded-lg px-3 py-2.5 text-sm font-medium ${
-                  isActive(item.href) ? 'bg-forest-50 text-forest-800' : 'text-basalt-700'
+                  isActive(item.href)
+                    ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
+                    : 'text-basalt-700 dark:text-basalt-300 dark:text-basalt-300'
                 }`}
               >
                 {item.label}
@@ -169,7 +180,11 @@ export function SiteHeader() {
 
 function MenuLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} role="menuitem" className="block px-4 py-2.5 text-sm text-basalt-700 hover:bg-basalt-50">
+    <Link
+      href={href}
+      role="menuitem"
+      className="block px-4 py-2.5 text-sm text-basalt-700 dark:text-basalt-300 hover:bg-basalt-50 dark:text-basalt-300 dark:hover:bg-basalt-800"
+    >
       {children}
     </Link>
   );

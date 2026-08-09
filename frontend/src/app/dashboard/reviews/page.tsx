@@ -48,7 +48,7 @@ export default function MyReviewsPage() {
                   {review.trail && (
                     <Link
                       href={`/trails/${review.trail.slug}`}
-                      className="font-display text-lg font-semibold text-basalt-900 hover:text-forest-800"
+                      className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50 hover:text-forest-800"
                     >
                       {review.trail.name}
                     </Link>
@@ -72,8 +72,8 @@ export default function MyReviewsPage() {
                 </button>
               </div>
 
-              <h3 className="mt-3 font-semibold text-basalt-900">{review.title}</h3>
-              <p className="mt-1.5 whitespace-pre-line text-sm leading-relaxed text-basalt-700">
+              <h3 className="mt-3 font-semibold text-basalt-900 dark:text-basalt-50">{review.title}</h3>
+              <p className="mt-1.5 whitespace-pre-line text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">
                 {review.body}
               </p>
             </li>

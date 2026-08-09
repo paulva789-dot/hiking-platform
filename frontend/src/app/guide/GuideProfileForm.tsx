@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { api, ApiError } from '@/lib/api';
-import { ALL_REGIONS, REGION_LABELS } from '@/lib/format';
+import { ALL_REGIONS, CENTRAL_AFRICA_COUNTRIES, REGION_LABELS } from '@/lib/format';
 import type { GuideProfile, Region } from '@/lib/types';
 import { Alert, Spinner } from '@/components/ui';
 
@@ -26,6 +26,7 @@ export function GuideProfileForm({
   const [languages, setLanguages] = useState((existing?.languages ?? []).join(', '));
   const [certifications, setCerts] = useState((existing?.certifications ?? []).join(', '));
   const [regions, setRegions] = useState<Region[]>(existing?.regions ?? []);
+  const [countries, setCountries] = useState<string[]>(existing?.countries ?? ['Cameroon']);
   const [dayRateXAF, setRate] = useState(String(existing?.dayRateXAF ?? ''));
   const [phone, setPhone] = useState(existing?.phone ?? '');
   const [whatsapp, setWhatsapp] = useState(existing?.whatsapp ?? '');
@@ -39,10 +40,19 @@ export function GuideProfileForm({
       prev.includes(region) ? prev.filter((r) => r !== region) : [...prev, region]
     );
 
+  const toggleCountry = (country: string) =>
+    setCountries((prev) =>
+      prev.includes(country) ? prev.filter((c) => c !== country) : [...prev, country]
+    );
+
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (regions.length === 0) {
       setError('Choose at least one region you guide in');
+      return;
+    }
+    if (countries.length === 0) {
+      setError('Choose at least one country you run tours in');
       return;
     }
 
@@ -57,6 +67,7 @@ export function GuideProfileForm({
         languages: toList(languages),
         certifications: toList(certifications),
         regions,
+        countries,
         dayRateXAF: Number(dayRateXAF || 0),
         phone: phone || undefined,
         whatsapp: whatsapp || undefined,
@@ -164,7 +175,7 @@ export function GuideProfileForm({
                 className={`chip transition-colors ${
                   active
                     ? 'bg-forest-700 text-white ring-forest-700'
-                    : 'bg-white text-basalt-700 ring-basalt-300 hover:bg-basalt-100'
+                    : 'bg-white text-basalt-700 dark:bg-basalt-900 dark:text-basalt-300 dark:ring-basalt-700 ring-basalt-300 hover:bg-basalt-100 dark:hover:bg-basalt-800'
                 }`}
               >
                 {REGION_LABELS[r]}
@@ -172,6 +183,34 @@ export function GuideProfileForm({
             );
           })}
         </div>
+        <p className="mt-1 text-xs text-basalt-500">Cameroon&rsquo;s regions — where your Cameroon tours run.</p>
+      </div>
+
+      <div>
+        <span className="label">Countries you run tours in</span>
+        <div className="flex flex-wrap gap-2">
+          {CENTRAL_AFRICA_COUNTRIES.map((c) => {
+            const active = countries.includes(c);
+            return (
+              <button
+                key={c}
+                type="button"
+                onClick={() => toggleCountry(c)}
+                aria-pressed={active}
+                className={`chip transition-colors ${
+                  active
+                    ? 'bg-cameroon-green text-white ring-cameroon-green'
+                    : 'bg-white text-basalt-700 dark:bg-basalt-900 dark:text-basalt-300 dark:ring-basalt-700 ring-basalt-300 hover:bg-basalt-100 dark:hover:bg-basalt-800'
+                }`}
+              >
+                {c}
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-1 text-xs text-basalt-500">
+          Not limited to Cameroon — tick any Central African country where you actually lead trips.
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">

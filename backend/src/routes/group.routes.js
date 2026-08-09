@@ -3,7 +3,7 @@ import slugify from 'slugify';
 import crypto from 'node:crypto';
 import { prisma } from '../lib/prisma.js';
 import { asyncHandler, badRequest, forbidden, notFound } from '../lib/errors.js';
-import { optionalAuth, requireAuth } from '../middleware/auth.js';
+import { optionalAuth, requireAuth, requirePremium } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import { groupSchema } from '../lib/schemas.js';
 
@@ -68,10 +68,11 @@ router.get(
   })
 );
 
-/** POST /api/groups — creator becomes OWNER member. */
+/** POST /api/groups — Premium only. Creator becomes OWNER member. */
 router.post(
   '/',
   requireAuth,
+  requirePremium,
   validate(groupSchema),
   asyncHandler(async (req, res) => {
     const group = await prisma.hikingGroup.create({

@@ -18,13 +18,13 @@ export default async function StayPage() {
   ).catch(() => ({ listings: [] as Listing[] }));
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Where to stay
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Guesthouses, lodges, campsites and community homestays close to the trailheads. Booking
             through these links supports the platform at no extra cost to you — and in the case of
             the community homestays, funds the conservation projects that run them.

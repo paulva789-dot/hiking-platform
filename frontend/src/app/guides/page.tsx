@@ -24,23 +24,24 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
   ).catch(() => ({ guides: [], pagination: { page: 1, limit: 24, total: 0, pages: 1 } }));
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Registered guides
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Every guide here has been verified by us before their tours went live. Rates are theirs.
             On Mount Cameroon, in Bénoué and in the Dja, a registered guide is not optional — it is
-            enforced at the gate.
+            enforced at the gate. Booking is not limited to Cameroon — some guides run trips across
+            Central Africa.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2">
             <Link
               href="/guides"
               className={`chip ${
-                !region ? 'bg-forest-700 text-white ring-forest-700' : 'bg-white text-basalt-700 ring-basalt-300'
+                !region ? 'bg-forest-700 text-white ring-forest-700' : 'bg-white text-basalt-700 dark:bg-basalt-900 dark:text-basalt-300 dark:ring-basalt-700 ring-basalt-300'
               }`}
             >
               All regions
@@ -52,7 +53,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                 className={`chip ${
                   region === r
                     ? 'bg-forest-700 text-white ring-forest-700'
-                    : 'bg-white text-basalt-700 ring-basalt-300 hover:bg-basalt-100'
+                    : 'bg-white text-basalt-700 dark:bg-basalt-900 dark:text-basalt-300 dark:ring-basalt-700 ring-basalt-300 hover:bg-basalt-100 dark:hover:bg-basalt-800'
                 }`}
               >
                 {REGION_LABELS[r]}
@@ -63,8 +64,8 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
       </header>
 
       <div className="section py-8">
-        <p className="mb-5 text-sm text-basalt-600">
-          <span className="font-semibold text-basalt-900">{pagination.total}</span> verified guide
+        <p className="mb-5 text-sm text-basalt-600 dark:text-basalt-300">
+          <span className="font-semibold text-basalt-900 dark:text-basalt-50">{pagination.total}</span> verified guide
           {pagination.total === 1 ? '' : 's'}
           {region && ` covering ${REGION_LABELS[region as keyof typeof REGION_LABELS]}`}
         </p>
@@ -87,7 +88,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                   <Avatar name={guide.user.name} src={guide.user.avatarUrl} size="lg" />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="truncate font-display text-lg font-semibold text-basalt-900">
+                      <p className="truncate font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                         {guide.user.name}
                       </p>
                       {guide.plan === 'PRO' && (
@@ -103,7 +104,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                 </div>
 
                 <p className="mt-4 font-medium leading-snug text-basalt-800">{guide.headline}</p>
-                <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-basalt-600">
+                <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                   {guide.bio}
                 </p>
 
@@ -113,6 +114,13 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                       {REGION_LABELS[r]}
                     </span>
                   ))}
+                  {guide.countries
+                    ?.filter((c) => c !== 'Cameroon')
+                    .map((c) => (
+                      <span key={c} className="flag-chip">
+                        {c}
+                      </span>
+                    ))}
                 </div>
 
                 <div className="mt-4 flex items-end justify-between border-t border-basalt-100 pt-4">
@@ -120,7 +128,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                     <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">
                       Day rate from
                     </p>
-                    <p className="font-display text-lg font-semibold text-basalt-900">
+                    <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                       {formatXAF(guide.dayRateXAF)}
                     </p>
                   </div>
@@ -140,7 +148,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
         <div className="mt-12 rounded-2xl bg-forest-950 p-8 text-white sm:p-10">
           <SectionHeading
             eyebrow="For guides"
-            title="List your services on Trek Cameroon"
+            title="List your services on MongoTrek"
           />
           <p className="-mt-2 max-w-2xl text-basalt-300">
             Create a profile, get verified, publish tours with real departure dates, and take

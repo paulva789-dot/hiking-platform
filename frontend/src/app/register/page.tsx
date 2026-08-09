@@ -60,10 +60,10 @@ function RegisterForm() {
     <div className="section flex min-h-[calc(100vh-4rem)] items-center justify-center py-12">
       <div className="w-full max-w-lg">
         <div className="card p-8">
-          <h1 className="font-display text-2xl font-semibold text-basalt-900">
+          <h1 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
             {asGuide ? 'Apply as a guide' : 'Create your account'}
           </h1>
-          <p className="mt-1.5 text-sm text-basalt-600">
+          <p className="mt-1.5 text-sm text-basalt-600 dark:text-basalt-300">
             {asGuide
               ? 'Register, then fill in your guide profile. We verify every guide before their tours go live — usually within a few days.'
               : 'Free. Save trails, write reviews, upload photos and book guided tours.'}
@@ -168,7 +168,7 @@ function RegisterForm() {
               </div>
             </div>
 
-            <label className="flex items-start gap-2.5 rounded-lg bg-basalt-50 p-3.5 text-sm text-basalt-700">
+            <label className="flex items-start gap-2.5 rounded-lg bg-basalt-50 p-3.5 text-sm text-basalt-700 dark:text-basalt-300">
               <input
                 type="checkbox"
                 checked={asGuide}
@@ -178,7 +178,9 @@ function RegisterForm() {
               <span>
                 I am a hiking guide and want to list my services.
                 <span className="mt-0.5 block text-xs text-basalt-500">
-                  You will complete a guide profile next. Tours stay hidden until we verify it.
+                  You will complete a guide profile next — required skills (first aid, route-finding,
+                  local knowledge) and necessities (ID, first-aid kit, mobile money account) are listed
+                  there. Tours stay hidden until we verify it.
                 </span>
               </span>
             </label>
@@ -191,7 +193,7 @@ function RegisterForm() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-basalt-600">
+          <p className="mt-6 text-center text-sm text-basalt-600 dark:text-basalt-300">
             Already have an account?{' '}
             <Link href="/login" className="font-semibold text-forest-700 hover:underline">
               Sign in

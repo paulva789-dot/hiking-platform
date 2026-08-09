@@ -8,6 +8,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'placehold.co' },
       { protocol: 'https', hostname: 'openweathermap.org' },
       { protocol: 'https', hostname: '*.tile.openstreetmap.org' },
+      { protocol: 'https', hostname: 'commons.wikimedia.org' },
+      { protocol: 'https', hostname: 'upload.wikimedia.org' },
     ],
   },
 };

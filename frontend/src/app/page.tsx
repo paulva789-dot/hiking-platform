@@ -6,8 +6,50 @@ import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, REGION_LABELS 
 import { TrailCard } from '@/components/TrailCard';
 import { SectionHeading, Stars } from '@/components/ui';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
+import { RegionPlacePicker } from '@/components/RegionPlacePicker';
+import { CloudDrift } from '@/components/SceneOverlay';
 
 export const revalidate = 300;
+
+const WHAT_HIKING_ENTAILS = [
+  {
+    title: 'A route, on foot, outdoors',
+    body: 'Forest trails, volcanic slopes, savanna tracks or a coastal path — measured in distance and elevation gain, not just time. Easy routes run under 4 hours; summit attempts can run several days.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 20l4-11 3 5 3-8 6 14H4z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Ordinary fitness, honestly rated',
+    body: "No special athleticism for an Easy or Moderate trail — a fit non-runner manages fine. Hard and Expert routes need real preparation: build up to them rather than starting there.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'The right gear, not lots of it',
+    body: 'Boots, water, a rain layer and a charged phone cover most day hikes. Multi-day and summit trips add a sleeping bag, warm layers and food — the full checklist is on the safety page.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 8V6a6 6 0 1112 0v2M4 8h16l-1 13H5L4 8z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Usually with someone who knows the ground',
+    body: 'Registered local guides handle route-finding, weather calls and permits — required outright on some trails, strongly advised on the rest. Booking one is built into every trail page.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+        <circle cx="12" cy="8" r="3" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" />
+      </svg>
+    ),
+  },
+];
 
 async function getHomeData() {
   // Each call is independently cached, and a failure in one section should not
@@ -48,11 +90,12 @@ export default async function HomePage() {
             className="object-cover opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-950/80 to-forest-950" />
+          <CloudDrift />
         </div>
 
         <div className="section relative py-20 sm:py-28">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/20">
-            <span className="h-1.5 w-1.5 rounded-full bg-forest-400" />
+            <span className="h-2 w-3 rounded-[1px] bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow" aria-hidden />
             All ten regions of Cameroon
           </p>
 
@@ -77,6 +120,48 @@ export default async function HomePage() {
             <HeroStat value="4,040 m" label="Highest summit — Fako" />
             <HeroStat value="XAF" label="Prices in local currency" />
           </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------- what is hiking */}
+      <section className="border-b border-basalt-200 bg-basalt-100 py-14 dark:border-basalt-800 dark:bg-basalt-900">
+        <div className="section grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start">
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-forest-700">
+              New to this?
+            </p>
+            <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-3xl">
+              What hiking actually is, and what it takes
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
+              Hiking is walking a route on foot, usually outside a city, for long enough that it
+              takes real planning rather than a stroll — anywhere from two hours to several days.
+              You don&rsquo;t need to be an athlete. You do need the right expectations going in.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {WHAT_HIKING_ENTAILS.map((item) => (
+              <div key={item.title} className="card p-5">
+                <div className="flex items-center gap-2">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-forest-50 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300" aria-hidden>
+                    {item.icon}
+                  </span>
+                  <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- trip picker */}
+      <section className="border-b border-basalt-200 bg-white py-14">
+        <div className="section">
+          <RegionPlacePicker />
         </div>
       </section>
 
@@ -157,11 +242,11 @@ export default async function HomePage() {
                       background: { EASY: '#3a7f5d', MODERATE: '#d97706', HARD: '#c74a2c', EXPERT: '#991b1b' }[level],
                     }}
                   />
-                  <h3 className="font-display text-lg font-semibold text-basalt-900">
+                  <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                     {DIFFICULTY_LABELS[level]}
                   </h3>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-basalt-600">{DIFFICULTY_MEANING[level]}</p>
+                <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{DIFFICULTY_MEANING[level]}</p>
                 <p className="mt-3 text-xs font-semibold text-forest-700 group-hover:underline">
                   See {DIFFICULTY_LABELS[level].toLowerCase()} trails →
                 </p>
@@ -196,7 +281,7 @@ export default async function HomePage() {
             <SectionHeading
               eyebrow="Registered guides"
               title="Booked directly, verified by us"
-              description="Every guide on the platform is checked before their tours go live. Rates are theirs; we take a transparent commission on bookings."
+              description="Every guide on the platform is checked before their tours go live. Rates are theirs; we take a transparent commission on bookings. Booking is not limited to Cameroon — some guides run tours across Central Africa."
               action={
                 <Link href="/guides" className="btn-secondary">
                   All guides
@@ -225,7 +310,7 @@ export default async function HomePage() {
                       </span>
                     )}
                     <div className="min-w-0">
-                      <p className="truncate font-semibold text-basalt-900">{guide.user.name}</p>
+                      <p className="truncate font-semibold text-basalt-900 dark:text-basalt-50">{guide.user.name}</p>
                       <Stars rating={guide.ratingAvg} count={guide.ratingCount} />
                     </div>
                   </div>
@@ -236,7 +321,7 @@ export default async function HomePage() {
 
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {guide.regions.slice(0, 3).map((r) => (
-                      <span key={r} className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+                      <span key={r} className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
                         {REGION_LABELS[r]}
                       </span>
                     ))}
@@ -316,11 +401,11 @@ export default async function HomePage() {
                     </span>
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-display text-base font-semibold text-basalt-900 group-hover:text-forest-800">
+                    <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
                       {event.title}
                     </h3>
                     <p className="mt-1 text-xs text-basalt-500">{event.location}</p>
-                    <p className="mt-2 line-clamp-2 text-sm text-basalt-600">{event.description}</p>
+                    <p className="mt-2 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{event.description}</p>
                     <p className="mt-2 text-xs font-semibold text-laterite-700">
                       {event.ticketsLeft} of {event.capacity} tickets left
                     </p>
@@ -380,8 +465,8 @@ function ProblemCard({
 }) {
   return (
     <div className="card flex flex-col p-6">
-      <p className="font-display text-lg font-semibold text-basalt-900">{problem}</p>
-      <p className="mt-3 flex-1 text-sm leading-relaxed text-basalt-600">{answer}</p>
+      <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{problem}</p>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{answer}</p>
       <Link href={href} className="mt-4 text-sm font-semibold text-forest-700 hover:underline">
         {cta} →
       </Link>

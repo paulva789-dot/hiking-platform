@@ -44,7 +44,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
               className={`chip transition-colors ${
                 difficulty === level
                   ? 'bg-forest-700 text-white ring-forest-700'
-                  : 'bg-white text-basalt-700 ring-basalt-300 hover:bg-basalt-100'
+                  : 'bg-white text-basalt-700 dark:bg-basalt-900 dark:text-basalt-300 dark:ring-basalt-700 ring-basalt-300 hover:bg-basalt-100 dark:hover:bg-basalt-800'
               }`}
             >
               <span
@@ -83,8 +83,8 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
       </div>
 
       <aside className="order-1 lg:order-2">
-        <p className="mb-3 text-sm text-basalt-600">
-          <span className="font-semibold text-basalt-900">{filtered.length}</span> of {trails.length}{' '}
+        <p className="mb-3 text-sm text-basalt-600 dark:text-basalt-300">
+          <span className="font-semibold text-basalt-900 dark:text-basalt-50">{filtered.length}</span> of {trails.length}{' '}
           destinations shown
         </p>
 
@@ -103,7 +103,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
                   aria-hidden
                 />
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-basalt-900">{trail.name}</p>
+                  <p className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50">{trail.name}</p>
                   <p className="mt-0.5 text-xs text-basalt-500">
                     {REGION_LABELS[trail.region]} · {formatDistance(trail.distanceKm)} ·{' '}
                     {formatDuration(trail.durationMinutes)}
@@ -115,7 +115,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
         </ul>
 
         {filtered.length === 0 && (
-          <p className="card p-5 text-sm text-basalt-600">
+          <p className="card p-5 text-sm text-basalt-600 dark:text-basalt-300">
             No destinations match that combination. Clear a filter to see the rest.
           </p>
         )}

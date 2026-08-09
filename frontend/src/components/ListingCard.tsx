@@ -23,17 +23,17 @@ export function ListingCard({ listing, ctaLabel }: { listing: Listing; ctaLabel:
           )}
         </div>
 
-        <h2 className="mt-2 font-display text-lg font-semibold text-basalt-900">{listing.name}</h2>
+        <h2 className="mt-2 font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{listing.name}</h2>
         {listing.town && <p className="text-xs text-basalt-500">{listing.town}</p>}
 
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-basalt-600">{listing.description}</p>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{listing.description}</p>
 
         <div className="mt-4 flex items-end justify-between border-t border-basalt-100 pt-4">
           <div>
             {listing.priceFromXAF !== null && listing.priceFromXAF !== undefined && (
               <>
                 <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">From</p>
-                <p className="font-display text-lg font-semibold text-basalt-900">
+                <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                   {formatXAF(listing.priceFromXAF)}
                 </p>
               </>

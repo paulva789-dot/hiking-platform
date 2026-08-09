@@ -55,13 +55,13 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
   ].filter(Boolean);
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <div className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <div className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Hiking destinations
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Twelve destinations, at least one in each of Cameroon&rsquo;s ten regions. Every distance,
             ascent and duration below is for the standard route and a moderately fit hiker.
           </p>
@@ -80,8 +80,8 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
 
         <div>
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-basalt-600">
-              <span className="font-semibold text-basalt-900">{pagination.total}</span>{' '}
+            <p className="text-sm text-basalt-600 dark:text-basalt-300">
+              <span className="font-semibold text-basalt-900 dark:text-basalt-50">{pagination.total}</span>{' '}
               {pagination.total === 1 ? 'destination' : 'destinations'}
               {activeFilters.length > 0 && <> matching {activeFilters.join(' · ')}</>}
             </p>
@@ -125,7 +125,7 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
                     className={`grid h-10 w-10 place-items-center rounded-lg text-sm font-semibold ${
                       isCurrent
                         ? 'bg-forest-700 text-white'
-                        : 'bg-white text-basalt-700 ring-1 ring-basalt-300 hover:bg-basalt-100'
+                        : 'bg-white text-basalt-700 dark:bg-basalt-900 dark:text-basalt-300 dark:ring-basalt-700 ring-1 ring-basalt-300 hover:bg-basalt-100 dark:hover:bg-basalt-800'
                     }`}
                   >
                     {page}

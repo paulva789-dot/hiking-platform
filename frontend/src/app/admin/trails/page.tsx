@@ -122,27 +122,27 @@ export default function AdminTrailsPage() {
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-display text-lg font-semibold text-basalt-900">
+                      <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                         {trail.name}
                       </h3>
                       <span
                         className={`chip ${
                           trail.published
                             ? 'bg-forest-100 text-forest-800 ring-forest-200'
-                            : 'bg-basalt-200 text-basalt-700 ring-basalt-300'
+                            : 'bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300'
                         }`}
                       >
                         {trail.published ? 'Published' : 'Draft'}
                       </span>
-                      <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+                      <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
                         {REGION_LABELS[trail.region]}
                       </span>
-                      <span className="chip bg-basalt-100 text-basalt-700 ring-basalt-200">
+                      <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
                         {DIFFICULTY_LABELS[trail.difficulty]}
                       </span>
                     </div>
 
-                    <p className="mt-1.5 line-clamp-2 text-sm text-basalt-600">{trail.summary}</p>
+                    <p className="mt-1.5 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{trail.summary}</p>
 
                     <p className="mt-2 text-xs text-basalt-500">
                       {formatDistance(trail.distanceKm)} · {formatDuration(trail.durationMinutes)} ·{' '}
@@ -193,7 +193,7 @@ export default function AdminTrailsPage() {
               >
                 Previous
               </button>
-              <span className="px-3 py-2 text-sm text-basalt-600">
+              <span className="px-3 py-2 text-sm text-basalt-600 dark:text-basalt-300">
                 Page {pagination.page} of {pagination.pages}
               </span>
               <button
@@ -294,7 +294,7 @@ function TrailForm({
 
   return (
     <form onSubmit={submit} className="card space-y-5 border-forest-300 p-6">
-      <h3 className="font-display text-lg font-semibold text-basalt-900">
+      <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
         {trail ? `Edit: ${trail.name}` : 'New trail'}
       </h3>
 
@@ -461,7 +461,7 @@ function TrailForm({
               className={`chip ${
                 bestMonths.includes(m)
                   ? 'bg-forest-700 text-white ring-forest-700'
-                  : 'bg-white text-basalt-700 ring-basalt-300 hover:bg-basalt-100'
+                  : 'bg-white text-basalt-700 dark:bg-basalt-900 dark:text-basalt-300 dark:ring-basalt-700 ring-basalt-300 hover:bg-basalt-100 dark:hover:bg-basalt-800'
               }`}
             >
               {m.slice(0, 3)}
@@ -525,7 +525,7 @@ function TrailForm({
       </Field>
 
       <div className="flex flex-wrap gap-6">
-        <label className="flex items-center gap-2 text-sm text-basalt-700">
+        <label className="flex items-center gap-2 text-sm text-basalt-700 dark:text-basalt-300">
           <input
             type="checkbox"
             checked={form.permitRequired}
@@ -535,7 +535,7 @@ function TrailForm({
           Permit required
         </label>
 
-        <label className="flex items-center gap-2 text-sm text-basalt-700">
+        <label className="flex items-center gap-2 text-sm text-basalt-700 dark:text-basalt-300">
           <input
             type="checkbox"
             checked={form.published}

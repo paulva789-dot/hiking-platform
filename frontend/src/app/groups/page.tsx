@@ -9,7 +9,7 @@ import type { HikingGroup } from '@/lib/types';
 import { Alert, Avatar, EmptyState, SectionHeading, Skeleton, Spinner } from '@/components/ui';
 
 export default function GroupsPage() {
-  const { user } = useAuth();
+  const { user, isPremium } = useAuth();
   const [groups, setGroups] = useState<HikingGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -46,30 +46,42 @@ export default function GroupsPage() {
   };
 
   return (
-    <div className="bg-basalt-50 pb-20">
-      <header className="border-b border-basalt-200 bg-white">
+    <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <h1 className="font-display text-3xl font-semibold text-basalt-900 sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
             Hiking groups
           </h1>
-          <p className="mt-2 max-w-2xl text-basalt-600">
+          <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Nobody should do their first big climb alone, and transport is cheaper split four ways.
-            Join a group near you, or start one.
+            Apply to join a group near you — Premium members can start their own.
           </p>
-          {user ? (
+          {!user && (
+            <Link href="/login?next=/groups" className="btn-primary mt-5">
+              Sign in to apply to a group
+            </Link>
+          )}
+          {user && isPremium && (
             <button type="button" onClick={() => setCreating((v) => !v)} className="btn-primary mt-5">
               {creating ? 'Cancel' : 'Start a group'}
             </button>
-          ) : (
-            <Link href="/login?next=/groups" className="btn-primary mt-5">
-              Sign in to join a group
-            </Link>
+          )}
+          {user && !isPremium && (
+            <div className="mt-5 flex flex-wrap items-center gap-3 rounded-lg bg-laterite-50 px-4 py-3 text-sm text-laterite-800 ring-1 ring-inset ring-laterite-200">
+              <span>
+                Starting a group is a <strong>Premium</strong> feature. Free accounts can apply to join
+                any group below.
+              </span>
+              <Link href="/premium" className="font-semibold text-laterite-700 hover:underline">
+                See Premium →
+              </Link>
+            </div>
           )}
         </div>
       </header>
 
       <div className="section py-8">
-        {creating && user && (
+        {creating && user && isPremium && (
           <CreateGroupForm
             onCreated={() => {
               setCreating(false);
@@ -96,7 +108,7 @@ export default function GroupsPage() {
               <article key={group.id} className="card flex flex-col p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="font-display text-lg font-semibold text-basalt-900">
+                    <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                       {group.name}
                     </h2>
                     <p className="mt-0.5 text-xs text-basalt-500">
@@ -105,11 +117,11 @@ export default function GroupsPage() {
                     </p>
                   </div>
                   {group.isPrivate && (
-                    <span className="chip bg-basalt-100 text-basalt-600 ring-basalt-200">Private</span>
+                    <span className="chip bg-basalt-100 text-basalt-600 dark:text-basalt-300 ring-basalt-200">Private</span>
                   )}
                 </div>
 
-                <p className="mt-3 line-clamp-4 flex-1 text-sm leading-relaxed text-basalt-600">
+                <p className="mt-3 line-clamp-4 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                   {group.description}
                 </p>
 
@@ -130,7 +142,7 @@ export default function GroupsPage() {
                         className={group.myRole ? 'btn-secondary text-xs' : 'btn-primary text-xs'}
                       >
                         {busyId === group.id && <Spinner className="h-3 w-3" />}
-                        {group.myRole ? 'Leave' : group.isPrivate ? 'Invite only' : 'Join'}
+                        {group.myRole ? 'Leave' : group.isPrivate ? 'Invite only' : 'Apply to join'}
                       </button>
                     ))}
                 </div>
@@ -232,7 +244,7 @@ function CreateGroupForm({ onCreated }: { onCreated: () => void }) {
         />
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-basalt-700">
+      <label className="flex items-center gap-2 text-sm text-basalt-700 dark:text-basalt-300">
         <input
           type="checkbox"
           checked={isPrivate}

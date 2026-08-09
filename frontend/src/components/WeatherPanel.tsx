@@ -55,8 +55,8 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
   if (error || !weather) {
     return (
       <div className="card p-5">
-        <h3 className="font-display text-base font-semibold text-basalt-900">Trail weather</h3>
-        <p className="mt-2 text-sm text-basalt-600">{error ?? 'No forecast available.'}</p>
+        <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Trail weather</h3>
+        <p className="mt-2 text-sm text-basalt-600 dark:text-basalt-300">{error ?? 'No forecast available.'}</p>
         <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-900">
           Conditions on Cameroon&rsquo;s highland trails change fast. Carry a waterproof shell and a
           warm layer regardless of what any forecast says.
@@ -71,7 +71,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
     <div className="card overflow-hidden">
       <div className="flex items-start justify-between gap-3 border-b border-basalt-100 p-5 pb-4">
         <div>
-          <h3 className="font-display text-base font-semibold text-basalt-900">Trail weather</h3>
+          <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Trail weather</h3>
           <p className="mt-0.5 text-xs text-basalt-500">
             {weather.location || trailName} · updated{' '}
             {new Date(weather.fetchedAt).toLocaleTimeString('en-GB', {
@@ -92,7 +92,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
 
       <div className="p-5">
         <div className="flex items-end gap-3">
-          <p className="font-display text-4xl font-semibold text-basalt-900">
+          <p className="font-display text-4xl font-semibold text-basalt-900 dark:text-basalt-50">
             {weather.current.tempC}°
           </p>
           <div className="pb-1">

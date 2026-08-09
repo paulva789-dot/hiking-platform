@@ -223,29 +223,9 @@ router.get(
 );
 
 // ------------------------------------------------------- premium membership
-
-/**
- * POST /api/content/membership — activate premium.
- * Same note as guide membership: wire a payment webhook here in production.
- */
-router.post(
-  '/membership',
-  requireAuth,
-  validate(z.object({ months: z.coerce.number().int().min(1).max(24) })),
-  asyncHandler(async (req, res) => {
-    const base =
-      req.user.tierExpires && req.user.tierExpires > new Date() ? req.user.tierExpires : new Date();
-    const tierExpires = new Date(base);
-    tierExpires.setMonth(tierExpires.getMonth() + req.body.months);
-
-    const user = await prisma.user.update({
-      where: { id: req.user.id },
-      data: { tier: 'PREMIUM', tierExpires },
-      select: { id: true, tier: true, tierExpires: true },
-    });
-    res.json({ user });
-  })
-);
+// Self-service activation now goes through POST /api/payments/initiate
+// (MTN MoMo / Orange Money via Flutterwave or Intouch). Admins can still
+// grant Premium directly via PATCH /api/admin/users/:id for support cases.
 
 /**
  * GET /api/content/offline-pack/:slug — premium perk: the whole trail bundled

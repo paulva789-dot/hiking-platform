@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LogoMark, LogoText } from './Logo';
 
 const COLUMNS = [
   {
@@ -6,6 +7,7 @@ const COLUMNS = [
     links: [
       { href: '/trails', label: 'All trails' },
       { href: '/map', label: 'Interactive map' },
+      { href: '/sites', label: 'Cameroon sites & history' },
       { href: '/trails?difficulty=EASY', label: 'Good first hikes' },
       { href: '/gallery', label: 'Photo gallery' },
     ],
@@ -33,22 +35,19 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-basalt-200 bg-forest-950 text-basalt-300">
+      <div className="flag-bar" aria-hidden />
       <div className="section grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <div className="flex items-center gap-2">
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-forest-600 text-white" aria-hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2 20h20L14 6l-3 5-2-3z" />
-              </svg>
+              <LogoMark />
             </span>
-            <span className="font-display text-lg font-semibold text-white">
-              Trek<span className="text-forest-400">Cameroon</span>
-            </span>
+            <LogoText className="font-display text-lg font-semibold text-white" />
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
             Honest, checked information about hiking in Cameroon — real distances, real times, real
-            hazards, and the local guides who know the ground. From Mont Fébé before work to four
-            days in the Dja.
+            hazards, and the local guides who know the ground. From Mont Mbankolo before work to
+            four days in the Dja — and guided tours booked across the wider CEMAC region.
           </p>
           <p className="mt-4 text-xs text-basalt-400">
             Emergency numbers in Cameroon — Police 117 · Fire 118 · Ambulance 119
@@ -75,7 +74,7 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="section flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-basalt-400">
-          <p>© {new Date().getFullYear()} Trek Cameroon. Trail data is community-checked, not a guarantee of safety.</p>
+          <p>© {new Date().getFullYear()} MongoTrek. Trail data is community-checked, not a guarantee of safety.</p>
           <p>Maps © OpenStreetMap contributors · Weather by OpenWeather</p>
         </div>
       </div>
