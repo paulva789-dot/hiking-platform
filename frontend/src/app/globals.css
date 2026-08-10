@@ -39,12 +39,12 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold
-           transition-all disabled:cursor-not-allowed disabled:opacity-50;
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-4 py-2.5 text-sm font-semibold
+           transition-all duration-200 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0;
   }
 
   .btn-primary {
-    @apply btn bg-forest-700 text-white shadow-sm hover:bg-forest-800 active:scale-[0.98];
+    @apply btn bg-forest-700 text-white shadow-sm hover:bg-forest-800 hover:shadow-md active:scale-[0.98];
   }
 
   .btn-secondary {
@@ -53,7 +53,20 @@
   }
 
   .btn-accent {
-    @apply btn bg-laterite-600 text-white shadow-sm hover:bg-laterite-700 active:scale-[0.98];
+    @apply btn bg-plum-600 text-white shadow-sm hover:bg-plum-700 hover:shadow-md active:scale-[0.98];
+  }
+
+  /* Diagonal sheen that sweeps across primary/accent buttons on hover. */
+  .btn-primary::after,
+  .btn-accent::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent;
+    transition: transform 0.6s ease;
+  }
+
+  .btn-primary:hover::after,
+  .btn-accent:hover::after {
+    @apply translate-x-full;
   }
 
   .btn-ghost {
@@ -219,5 +232,34 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Dropdown / popover entrance — language switcher, account menu. */
+.dropdown-menu {
+  animation: dropdown-in 0.15s ease-out both;
+  transform-origin: top right;
+}
+
+@keyframes dropdown-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Theme toggle icon swap — a quick spin-and-settle rather than a hard cut. */
+@keyframes spin-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
 }

@@ -189,7 +189,7 @@ export function TrailsOverviewMap({
   activeSlug?: string;
 }) {
   const points = trails.map((t) => [t.startLat, t.startLng] as [number, number]);
-  const [satellite, setSatellite] = useState(false);
+  const [satellite, setSatellite] = useState(true);
 
   return (
     <MapContainer
@@ -265,7 +265,7 @@ export function SingleTrailMap({
   const waypointPoints = waypoints.map((w) => [w.lat, w.lng] as [number, number]);
   const allPoints = [...routePoints, ...waypointPoints, [trail.startLat, trail.startLng] as [number, number]];
   const color = DIFFICULTY_MAP_COLOR[trail.difficulty];
-  const [satellite, setSatellite] = useState(false);
+  const [satellite, setSatellite] = useState(true);
 
   return (
     <MapContainer
@@ -320,7 +320,7 @@ export interface SitePoint {
 
 /** Overview map of the historic/natural landmarks on the Cameroon Sites page. */
 export function CameroonSitesMap({ sites, height = '480px' }: { sites: SitePoint[]; height?: string }) {
-  const [satellite, setSatellite] = useState(false);
+  const [satellite, setSatellite] = useState(true);
   const points = sites.map((s) => [s.lat, s.lng] as [number, number]);
 
   return (

@@ -15,9 +15,11 @@ export function LanguageSwitcher() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="flex h-9 items-center gap-1 rounded-lg px-2 text-sm font-medium text-basalt-600 transition-colors hover:bg-basalt-100 dark:text-basalt-300 dark:hover:bg-basalt-800"
+        className="group flex h-9 items-center gap-1 rounded-lg px-2 text-sm font-medium text-basalt-600 transition-colors hover:bg-basalt-100 dark:text-basalt-300 dark:hover:bg-basalt-800"
       >
-        <span aria-hidden>{LOCALE_FLAGS[locale]}</span>
+        <span className="inline-block transition-transform duration-200 group-hover:scale-110" aria-hidden>
+          {LOCALE_FLAGS[locale]}
+        </span>
         <span className="hidden sm:inline">{locale.toUpperCase()}</span>
       </button>
 
@@ -32,7 +34,7 @@ export function LanguageSwitcher() {
           />
           <div
             role="menu"
-            className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
+            className="dropdown-menu absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
           >
             {LOCALES.map((l) => (
               <button

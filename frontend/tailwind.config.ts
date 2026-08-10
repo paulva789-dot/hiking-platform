@@ -2,7 +2,9 @@ import type { Config } from 'tailwindcss';
 
 /**
  * Palette is built around the colours you actually see on these trails:
- * volcanic basalt, highland grass, laterite earth.
+ * volcanic basalt, highland grass, and a muted plum accent (replacing an
+ * earlier orange/laterite accent that read as too loud — plum is calmer
+ * and still reads clearly as "the other brand colour" next to forest green).
  */
 const config: Config = {
   darkMode: 'class',
@@ -23,17 +25,17 @@ const config: Config = {
           900: '#17362a',
           950: '#0b1e17',
         },
-        laterite: {
-          50: '#fdf5f0',
-          100: '#fae8dc',
-          200: '#f4cdb8',
-          300: '#ecab8a',
-          400: '#e2815a',
-          500: '#d9603a',
-          600: '#c74a2c',
-          700: '#a53a26',
-          800: '#863225',
-          900: '#6e2c22',
+        plum: {
+          50: '#faf5f7',
+          100: '#f3e8ec',
+          200: '#e4c7d2',
+          300: '#cf9bae',
+          400: '#b06a87',
+          500: '#8f4a68',
+          600: '#743a54',
+          700: '#5f2f45',
+          800: '#4d2739',
+          900: '#3f2130',
         },
         basalt: {
           50: '#f6f7f8',

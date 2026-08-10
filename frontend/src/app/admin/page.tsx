@@ -195,7 +195,7 @@ export default function AdminAnalytics() {
             items={trailsByDifficulty.map((d) => ({
               label: DIFFICULTY_LABELS[d.difficulty],
               value: d.count,
-              color: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#c74a2c', EXPERT: '#991b1b' }[
+              color: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#8f4a68', EXPERT: '#991b1b' }[
                 d.difficulty
               ],
             }))}

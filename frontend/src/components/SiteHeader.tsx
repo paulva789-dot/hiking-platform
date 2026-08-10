@@ -95,7 +95,7 @@ export function SiteHeader() {
               {menuOpen && (
                 <div
                   role="menu"
-                  className="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
+                  className="dropdown-menu absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
                 >
                   <div className="border-b border-basalt-100 px-4 py-3 dark:border-basalt-800">
                     <p className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50">{user.name}</p>
@@ -111,7 +111,7 @@ export function SiteHeader() {
                   {user.role === 'ADMIN' && <MenuLink href="/admin">{t('nav.adminConsole')}</MenuLink>}
                   {!isPremium && (
                     <MenuLink href="/premium">
-                      <span className="text-laterite-700 dark:text-laterite-400">{t('nav.goPremium')}</span>
+                      <span className="text-plum-700 dark:text-plum-400">{t('nav.goPremium')}</span>
                     </MenuLink>
                   )}
                   <button

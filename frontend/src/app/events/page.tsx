@@ -72,7 +72,7 @@ export default async function EventsPage() {
                           </span>
                         ) : (
                           event.ticketsLeft <= 20 && (
-                            <span className="chip bg-laterite-100 text-laterite-800 ring-laterite-200">
+                            <span className="chip bg-plum-100 text-plum-800 ring-plum-200">
                               {event.ticketsLeft} left
                             </span>
                           )

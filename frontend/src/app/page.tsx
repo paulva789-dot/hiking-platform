@@ -238,7 +238,7 @@ export default async function HomePage() {
                   <span
                     className="h-2.5 w-2.5 rounded-full"
                     style={{
-                      background: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#c74a2c', EXPERT: '#991b1b' }[level],
+                      background: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#8f4a68', EXPERT: '#991b1b' }[level],
                     }}
                   />
                   <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
@@ -405,7 +405,7 @@ export default async function HomePage() {
                     </h3>
                     <p className="mt-1 text-xs text-basalt-500">{event.location}</p>
                     <p className="mt-2 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{event.description}</p>
-                    <p className="mt-2 text-xs font-semibold text-laterite-700 dark:text-laterite-400">
+                    <p className="mt-2 text-xs font-semibold text-plum-700 dark:text-plum-400">
                       {event.ticketsLeft} of {event.capacity} tickets left
                     </p>
                   </div>
@@ -417,22 +417,22 @@ export default async function HomePage() {
       )}
 
       {/* ------------------------------------------------------------ CTA */}
-      <section className="bg-laterite-600 py-14 text-white">
+      <section className="bg-plum-600 py-14 text-white">
         <div className="section flex flex-wrap items-center justify-between gap-6">
           <div>
             <h2 className="font-display text-2xl font-semibold sm:text-3xl">
               Save trails, book guides, share your photos
             </h2>
-            <p className="mt-2 max-w-xl text-laterite-50">
+            <p className="mt-2 max-w-xl text-plum-50">
               A free account gets you saved trails, reviews, photo uploads and direct booking.
               Premium adds offline maps for when the signal goes — which on these mountains it will.
             </p>
           </div>
           <div className="flex gap-3">
-            <Link href="/register" className="btn bg-white text-laterite-700 hover:bg-laterite-50">
+            <Link href="/register" className="btn bg-white text-plum-700 hover:bg-plum-50">
               Create free account
             </Link>
-            <Link href="/premium" className="btn bg-laterite-700 text-white hover:bg-laterite-800">
+            <Link href="/premium" className="btn bg-plum-700 text-white hover:bg-plum-800">
               See Premium
             </Link>
           </div>
