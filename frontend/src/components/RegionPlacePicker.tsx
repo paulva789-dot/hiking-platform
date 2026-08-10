@@ -89,7 +89,7 @@ export function RegionPlacePicker() {
       </div>
 
       {region && places.length === 0 && (
-        <p className="mt-3 text-xs text-basalt-500">
+        <p className="mt-3 text-xs text-basalt-600 dark:text-basalt-300">
           No landmark listed yet for {REGION_LABELS[region]} — check the{' '}
           <a href="/trails" className="font-semibold text-forest-700 hover:underline">
             trails in this region

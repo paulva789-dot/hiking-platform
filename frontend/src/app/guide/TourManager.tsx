@@ -111,12 +111,12 @@ export function TourManager({
                     </span>
                   </div>
 
-                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-basalt-500">
+                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-basalt-600 dark:text-basalt-300">
                     {tour.trail && <span>On {tour.trail.name}</span>}
                     <span className="flag-chip">{tour.country}</span>
                   </div>
                   <p className="mt-2 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{tour.description}</p>
-                  <p className="mt-2 text-xs text-basalt-500">
+                  <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
                     {formatXAF(tour.priceXAF)} pp · {tour.durationDays} day
                     {tour.durationDays > 1 ? 's' : ''} · max {tour.maxGroupSize} ·{' '}
                     {tour._count?.bookings ?? 0} booking
@@ -200,7 +200,7 @@ function ScheduleManager({ tour, onChange }: { tour: Tour; onChange: () => void 
   return (
     <div className="mt-4 border-t border-basalt-100 pt-4">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-bold uppercase tracking-wide text-basalt-500">
+        <p className="text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
           Departure dates ({active.length})
         </p>
         <button
@@ -280,7 +280,7 @@ function ScheduleManager({ tour, onChange }: { tour: Tour; onChange: () => void 
             >
               <span className="text-basalt-800 dark:text-basalt-200">{formatDateRange(s.startDate, s.endDate)}</span>
               <span className="flex items-center gap-3">
-                <span className="text-xs text-basalt-500">
+                <span className="text-xs text-basalt-600 dark:text-basalt-300">
                   {s.seatsBooked}/{s.capacity} booked
                 </span>
                 <button
@@ -398,7 +398,7 @@ function TourForm({
               </option>
             ))}
           </select>
-          <p className="mt-1 text-xs text-basalt-500">
+          <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
             Linking a trail puts this tour on that trail&rsquo;s page, which is where most bookings
             come from.
           </p>
@@ -420,7 +420,7 @@ function TourForm({
               </option>
             ))}
           </select>
-          <p className="mt-1 text-xs text-basalt-500">
+          <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
             Not limited to Cameroon — pick wherever this specific tour actually runs.
           </p>
         </div>
@@ -504,7 +504,7 @@ function TourForm({
             placeholder={'Park entry and hut fees\nRegistered guide\nOne porter per two climbers'}
             className="input resize-y font-mono text-xs"
           />
-          <p className="mt-1 text-xs text-basalt-500">One per line.</p>
+          <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">One per line.</p>
         </div>
 
         <div>
@@ -519,7 +519,7 @@ function TourForm({
             placeholder={'Transport to Buea\nAccommodation\nPersonal insurance'}
             className="input resize-y font-mono text-xs"
           />
-          <p className="mt-1 text-xs text-basalt-500">One per line.</p>
+          <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">One per line.</p>
         </div>
       </div>
 

@@ -52,7 +52,7 @@ export default function SitesPage() {
         <div className="overflow-hidden rounded-xl border border-basalt-200 shadow-sm">
           <CameroonSitesMap sites={mapPoints} height="480px" />
         </div>
-        <p className="mt-2 text-xs text-basalt-500">
+        <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
           <T k="page.map.subtitle" />
         </p>
       </div>
@@ -91,7 +91,7 @@ export default function SitesPage() {
             <div className="flex flex-1 flex-col p-5">
               <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{site.name}</h2>
 
-              <p className="mt-1 text-xs font-bold uppercase tracking-wider text-basalt-400">History</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-wider text-basalt-600 dark:text-basalt-400">History</p>
               <p className="mt-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{site.history}</p>
 
               <p className="mt-4 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-cameroon-green">
@@ -107,7 +107,7 @@ export default function SitesPage() {
               </p>
 
               <div className="mt-4 flex items-center justify-between border-t border-basalt-100 pt-3 text-xs">
-                <span className="text-basalt-400">Photo: {site.imageCredit}</span>
+                <span className="text-basalt-600 dark:text-basalt-400">Photo: {site.imageCredit}</span>
                 <a
                   href={site.wikipediaUrl}
                   target="_blank"

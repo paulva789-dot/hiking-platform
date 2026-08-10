@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   avatar: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.forest700, alignItems: 'center', justifyContent: 'center' },
   avatarInitials: { color: colors.white, fontWeight: '700', fontSize: 22 },
   name: { fontSize: 18, fontWeight: '700', color: colors.basalt900, marginTop: 12 },
-  email: { fontSize: 13, color: colors.basalt500, marginTop: 2 },
+  email: { fontSize: 13, color: colors.basalt600, marginTop: 2 },
   premium: {
     marginTop: 10,
     fontSize: 12,

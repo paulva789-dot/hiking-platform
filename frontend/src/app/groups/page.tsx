@@ -111,7 +111,7 @@ export default function GroupsPage() {
                     <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                       {group.name}
                     </h2>
-                    <p className="mt-0.5 text-xs text-basalt-500">
+                    <p className="mt-0.5 text-xs text-basalt-600 dark:text-basalt-300">
                       {group.region ? REGION_LABELS[group.region] : 'All of Cameroon'} ·{' '}
                       {group._count.members} member{group._count.members === 1 ? '' : 's'}
                     </p>
@@ -127,7 +127,7 @@ export default function GroupsPage() {
 
                 <div className="mt-4 flex items-center gap-2 border-t border-basalt-100 pt-4">
                   <Avatar name={group.owner.name} src={group.owner.avatarUrl} size="sm" />
-                  <span className="min-w-0 flex-1 truncate text-xs text-basalt-500">
+                  <span className="min-w-0 flex-1 truncate text-xs text-basalt-600 dark:text-basalt-300">
                     Started by {group.owner.name}
                   </span>
 
@@ -209,7 +209,7 @@ function CreateGroupForm({ onCreated }: { onCreated: () => void }) {
 
         <div>
           <label htmlFor="group-region" className="label">
-            Region <span className="font-normal text-basalt-500">(optional)</span>
+            Region <span className="font-normal text-basalt-600 dark:text-basalt-300">(optional)</span>
           </label>
           <select
             id="group-region"

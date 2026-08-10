@@ -97,7 +97,7 @@ export default function GuideWorkspace() {
                   </span>
                 )}
               </div>
-              <p className="text-sm text-basalt-500">{user!.name}</p>
+              <p className="text-sm text-basalt-600 dark:text-basalt-300">{user!.name}</p>
             </div>
 
             {profile?.status === 'APPROVED' && (
@@ -201,7 +201,7 @@ export default function GuideWorkspace() {
                               {b.participants} {b.participants === 1 ? 'person' : 'people'}
                             </p>
                             {b.user && (
-                              <p className="mt-1 text-xs text-basalt-500">
+                              <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                                 {b.user.name} · {b.contactPhone ?? b.user.email}
                               </p>
                             )}
@@ -308,14 +308,14 @@ function GuideBookings({ bookings, onChange }: { bookings: Booking[]; onChange: 
                     &ldquo;{b.notes}&rdquo;
                   </p>
                 )}
-                <p className="mt-1 font-mono text-xs text-basalt-400">{b.reference}</p>
+                <p className="mt-1 font-mono text-xs text-basalt-600 dark:text-basalt-400">{b.reference}</p>
               </div>
 
               <div className="shrink-0 text-right">
                 <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                   {formatXAF(b.totalXAF)}
                 </p>
-                <p className="text-xs text-basalt-500">
+                <p className="text-xs text-basalt-600 dark:text-basalt-300">
                   −{formatXAF(b.commissionXAF)} commission
                 </p>
                 <p className="mt-0.5 text-xs font-semibold text-forest-700">
@@ -395,7 +395,7 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
         <button
           type="button"
           onClick={() => setCheckout(null)}
-          className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800 dark:text-basalt-200"
+          className="mb-4 text-xs font-semibold text-basalt-600 dark:text-basalt-300 hover:text-basalt-800 dark:text-basalt-200"
         >
           ← Back to plans
         </button>
@@ -448,7 +448,7 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
 
             <p className="mt-2 font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
               {formatXAF(p.priceXAF)}
-              <span className="text-sm font-normal text-basalt-500"> / month</span>
+              <span className="text-sm font-normal text-basalt-600 dark:text-basalt-300"> / month</span>
             </p>
 
             <ul className="mt-4 space-y-2">
@@ -482,7 +482,7 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
         ))}
       </div>
 
-      <p className="mt-5 text-xs leading-relaxed text-basalt-500">
+      <p className="mt-5 text-xs leading-relaxed text-basalt-600 dark:text-basalt-300">
         Pay with MTN Mobile Money or Orange Money, via Flutterwave or Intouch. Your plan activates
         as soon as the payment is confirmed.
       </p>
@@ -523,7 +523,7 @@ function GuideRequirements() {
 
       <div className="mt-5 grid gap-6 sm:grid-cols-2">
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-wide text-basalt-500">Skills we look for</h3>
+          <h3 className="text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">Skills we look for</h3>
           <ul className="mt-3 space-y-2.5">
             {GUIDE_SKILLS.map((skill) => (
               <li key={skill} className="flex items-start gap-2 text-sm text-basalt-700 dark:text-basalt-300">
@@ -539,7 +539,7 @@ function GuideRequirements() {
         </div>
 
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-wide text-basalt-500">
+          <h3 className="text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
             What you need to have ready
           </h3>
           <ul className="mt-3 space-y-2.5">

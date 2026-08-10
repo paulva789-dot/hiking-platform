@@ -180,7 +180,7 @@ export function GalleryBrowser() {
                   <div>
                     <p className="font-semibold text-basalt-900 dark:text-basalt-50">{lightbox.user.name}</p>
                     {lightbox.createdAt && (
-                      <p className="text-xs text-basalt-500">{relativeTime(lightbox.createdAt)}</p>
+                      <p className="text-xs text-basalt-600 dark:text-basalt-300">{relativeTime(lightbox.createdAt)}</p>
                     )}
                   </div>
                 </div>

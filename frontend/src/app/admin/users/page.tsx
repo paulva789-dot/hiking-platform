@@ -105,19 +105,19 @@ export default function AdminUsersPage() {
             <table className="w-full min-w-[820px] text-sm">
               <thead className="border-b border-basalt-200 bg-basalt-50 text-left">
                 <tr>
-                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-500">
+                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
                     User
                   </th>
-                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-500">
+                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
                     Activity
                   </th>
-                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-500">
+                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
                     Role
                   </th>
-                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-500">
+                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
                     Tier
                   </th>
-                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-500">
+                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
                     Status
                   </th>
                 </tr>
@@ -133,10 +133,10 @@ export default function AdminUsersPage() {
                           <div className="min-w-0">
                             <p className="truncate font-medium text-basalt-900 dark:text-basalt-50">
                               {u.name}
-                              {isMe && <span className="ml-1 text-xs text-basalt-400">(you)</span>}
+                              {isMe && <span className="ml-1 text-xs text-basalt-600 dark:text-basalt-400">(you)</span>}
                             </p>
-                            <p className="truncate text-xs text-basalt-500">{u.email}</p>
-                            <p className="text-xs text-basalt-400">
+                            <p className="truncate text-xs text-basalt-600 dark:text-basalt-300">{u.email}</p>
+                            <p className="text-xs text-basalt-600 dark:text-basalt-400">
                               {u.region ? `${REGION_LABELS[u.region]} · ` : ''}
                               joined {formatDate(u.createdAt)}
                             </p>

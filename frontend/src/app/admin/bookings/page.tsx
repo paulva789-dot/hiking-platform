@@ -92,7 +92,7 @@ export default function AdminBookingsPage() {
                   <tr key={b.id} className="hover:bg-basalt-50">
                     <Td>
                       <code className="font-mono text-xs">{b.reference}</code>
-                      <p className="mt-0.5 text-xs text-basalt-400">{relativeTime(b.createdAt)}</p>
+                      <p className="mt-0.5 text-xs text-basalt-600 dark:text-basalt-400">{relativeTime(b.createdAt)}</p>
                     </Td>
                     <Td className="max-w-[220px]">
                       <span className="block truncate font-medium text-basalt-900 dark:text-basalt-50">
@@ -101,7 +101,7 @@ export default function AdminBookingsPage() {
                     </Td>
                     <Td>
                       <span className="block text-basalt-800 dark:text-basalt-200">{b.user?.name}</span>
-                      <span className="block text-xs text-basalt-500">{b.user?.email}</span>
+                      <span className="block text-xs text-basalt-600 dark:text-basalt-300">{b.user?.email}</span>
                     </Td>
                     <Td className="text-basalt-700 dark:text-basalt-300">{b.tour.guide?.user.name ?? '—'}</Td>
                     <Td className="whitespace-nowrap text-basalt-700 dark:text-basalt-300">
@@ -118,7 +118,7 @@ export default function AdminBookingsPage() {
                       <div className="flex flex-col gap-1">
                         <StatusBadge status={b.status} />
                         {b.paymentStatus !== 'UNPAID' && (
-                          <span className="text-xs text-basalt-500">
+                          <span className="text-xs text-basalt-600 dark:text-basalt-300">
                             {b.paymentStatus.toLowerCase()}
                           </span>
                         )}
@@ -175,7 +175,7 @@ export default function AdminBookingsPage() {
 
 function Th({ children, className = '' }: { children?: React.ReactNode; className?: string }) {
   return (
-    <th className={`px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-500 ${className}`}>
+    <th className={`px-4 py-3 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300 ${className}`}>
       {children}
     </th>
   );

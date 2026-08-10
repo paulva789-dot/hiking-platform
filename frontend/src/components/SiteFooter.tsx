@@ -55,7 +55,7 @@ export function SiteFooter() {
             <LogoText className="font-display text-lg font-semibold text-white" />
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">{t('footer.tagline')}</p>
-          <p className="mt-4 text-xs text-basalt-400">{t('footer.emergency')}</p>
+          <p className="mt-4 text-xs text-basalt-600 dark:text-basalt-400">{t('footer.emergency')}</p>
         </div>
 
         {COLUMNS.map((col) => (
@@ -77,7 +77,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="section flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-basalt-400">
+        <div className="section flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-basalt-600 dark:text-basalt-400">
           <p>© {new Date().getFullYear()} MongoTrek. {t('footer.rights')}</p>
           <p>{t('footer.mapCredit')}</p>
         </div>

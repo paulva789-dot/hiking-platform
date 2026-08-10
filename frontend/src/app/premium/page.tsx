@@ -138,7 +138,7 @@ export default function PremiumPage() {
                 <button
                   type="button"
                   onClick={() => setPaying(false)}
-                  className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800 dark:text-basalt-200"
+                  className="mb-4 text-xs font-semibold text-basalt-600 dark:text-basalt-300 hover:text-basalt-800 dark:text-basalt-200"
                 >
                   ← Change plan
                 </button>
@@ -187,7 +187,7 @@ export default function PremiumPage() {
                         <span className="block font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                           {formatXAF(plan.priceXAF)}
                         </span>
-                        <span className="text-xs text-basalt-500">
+                        <span className="text-xs text-basalt-600 dark:text-basalt-300">
                           {formatXAF(Math.round(plan.priceXAF / plan.months))}/mo
                         </span>
                       </span>
@@ -203,7 +203,7 @@ export default function PremiumPage() {
                       : 'Continue to payment'}
                 </button>
 
-                <p className="mt-3 text-xs leading-relaxed text-basalt-500">
+                <p className="mt-3 text-xs leading-relaxed text-basalt-600 dark:text-basalt-300">
                   Pay with MTN Mobile Money or Orange Money, via Flutterwave or Intouch. Your
                   membership activates as soon as the payment is confirmed.
                 </p>

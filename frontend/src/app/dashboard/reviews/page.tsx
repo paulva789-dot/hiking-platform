@@ -55,7 +55,7 @@ export default function MyReviewsPage() {
                   )}
                   <div className="mt-1 flex flex-wrap items-center gap-3">
                     <Stars rating={review.rating} />
-                    <span className="text-xs text-basalt-500">
+                    <span className="text-xs text-basalt-600 dark:text-basalt-300">
                       {relativeTime(review.createdAt)}
                       {review.hikedOn && ` · hiked ${formatDate(review.hikedOn)}`}
                     </span>

@@ -130,7 +130,7 @@ export function PaymentPanel({
           Waiting for confirmation
         </p>
         <p className="text-sm text-basalt-600 dark:text-basalt-300">{instructions}</p>
-        <p className="text-xs text-basalt-500">
+        <p className="text-xs text-basalt-600 dark:text-basalt-300">
           Reference {reference} · this checks automatically, no need to refresh.
         </p>
         {error && <Alert tone="danger">{error}</Alert>}
@@ -201,7 +201,7 @@ export function PaymentPanel({
               }`}
             >
               <span className="block text-sm font-semibold text-basalt-900 dark:text-basalt-50">{p.label}</span>
-              <span className="block text-xs text-basalt-500">{p.hint}</span>
+              <span className="block text-xs text-basalt-600 dark:text-basalt-300">{p.hint}</span>
             </button>
           ))}
         </div>
@@ -220,7 +220,7 @@ export function PaymentPanel({
           placeholder="6XXXXXXXX"
           className="input"
         />
-        <p className="mt-1 text-xs text-basalt-500">
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
           The number registered to that {method === 'MTN_MOMO' ? 'MTN Mobile Money' : 'Orange Money'}{' '}
           account.
         </p>

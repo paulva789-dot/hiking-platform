@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   avatarInitials: { color: colors.white, fontWeight: '700' },
   name: { fontWeight: '700', fontSize: 15, color: colors.basalt900 },
   headline: { fontSize: 12, color: colors.basalt700, marginTop: 2 },
-  meta: { fontSize: 11, color: colors.basalt500, marginTop: 4 },
+  meta: { fontSize: 11, color: colors.basalt600, marginTop: 4 },
   countries: { fontSize: 11, color: colors.cameroonGreen, marginTop: 2, fontWeight: '600' },
   rate: { fontSize: 13, fontWeight: '700', color: colors.basalt900, marginTop: 4 },
 });

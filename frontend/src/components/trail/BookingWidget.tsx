@@ -112,7 +112,7 @@ export function BookingWidget({
     <form onSubmit={submit} className="card space-y-4 p-6">
       <div>
         <p className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">{formatXAF(priceXAF)}</p>
-        <p className="text-xs text-basalt-500">per person · max {maxGroupSize} in a group</p>
+        <p className="text-xs text-basalt-600 dark:text-basalt-300">per person · max {maxGroupSize} in a group</p>
       </div>
 
       <div>
@@ -177,7 +177,7 @@ export function BookingWidget({
 
       <div>
         <label htmlFor="notes" className="label">
-          Anything the guide should know? <span className="font-normal text-basalt-500">(optional)</span>
+          Anything the guide should know? <span className="font-normal text-basalt-600 dark:text-basalt-300">(optional)</span>
         </label>
         <textarea
           id="notes"
@@ -205,7 +205,7 @@ export function BookingWidget({
         {user ? 'Reserve seats' : 'Sign in to book'}
       </button>
 
-      <p className="text-xs leading-relaxed text-basalt-500">
+      <p className="text-xs leading-relaxed text-basalt-600 dark:text-basalt-300">
         You pay nothing now. Reserving holds the seats; the guide confirms and arranges the meeting
         point. Free cancellation from your bookings page.
       </p>

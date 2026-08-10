@@ -35,7 +35,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
     <div className="section grid gap-6 py-8 lg:grid-cols-[1fr_340px]">
       <div className="order-2 lg:order-1">
         <div className="mb-4 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wide text-basalt-500">Difficulty</span>
+          <span className="text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">Difficulty</span>
           {ALL_DIFFICULTIES.map((level) => (
             <button
               key={level}
@@ -104,7 +104,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
                 />
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50">{trail.name}</p>
-                  <p className="mt-0.5 text-xs text-basalt-500">
+                  <p className="mt-0.5 text-xs text-basalt-600 dark:text-basalt-300">
                     {REGION_LABELS[trail.region]} · {formatDistance(trail.distanceKm)} ·{' '}
                     {formatDuration(trail.durationMinutes)}
                   </p>

@@ -72,7 +72,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
       <div className="flex items-start justify-between gap-3 border-b border-basalt-100 p-5 pb-4">
         <div>
           <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Trail weather</h3>
-          <p className="mt-0.5 text-xs text-basalt-500">
+          <p className="mt-0.5 text-xs text-basalt-600 dark:text-basalt-300">
             {weather.location || trailName} · updated{' '}
             {new Date(weather.fetchedAt).toLocaleTimeString('en-GB', {
               hour: '2-digit',
@@ -99,7 +99,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
             <p className="text-sm font-medium capitalize text-basalt-800 dark:text-basalt-200">
               {weather.current.description}
             </p>
-            <p className="text-xs text-basalt-500">Feels like {weather.current.feelsLikeC}°C</p>
+            <p className="text-xs text-basalt-600 dark:text-basalt-300">Feels like {weather.current.feelsLikeC}°C</p>
           </div>
         </div>
 
@@ -120,13 +120,13 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
 
         {weather.daily.length > 0 && (
           <div className="mt-5">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-basalt-500">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
               Next {weather.daily.length} days
             </p>
             <ul className="grid grid-cols-5 gap-1.5">
               {weather.daily.map((day) => (
                 <li key={day.date} className="rounded-lg bg-basalt-50 p-2 text-center">
-                  <p className="text-[10px] font-semibold uppercase text-basalt-500">
+                  <p className="text-[10px] font-semibold uppercase text-basalt-600 dark:text-basalt-300">
                     {new Date(day.date).toLocaleDateString('en-GB', { weekday: 'short' })}
                   </p>
                   {day.icon && (
@@ -138,7 +138,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
                     />
                   )}
                   <p className="text-xs font-semibold text-basalt-800 dark:text-basalt-200">{day.maxC}°</p>
-                  <p className="text-[10px] text-basalt-500">{day.minC}°</p>
+                  <p className="text-[10px] text-basalt-600 dark:text-basalt-300">{day.minC}°</p>
                   {day.rainMm > 0 && (
                     <p className="text-[10px] font-medium text-blue-700">{day.rainMm} mm</p>
                   )}
@@ -155,7 +155,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
 function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="font-semibold uppercase tracking-wide text-basalt-400">{label}</dt>
+      <dt className="font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>
       <dd className="mt-0.5 font-medium text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );

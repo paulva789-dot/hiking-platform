@@ -97,7 +97,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                       )}
                     </div>
                     <Stars rating={guide.ratingAvg} count={guide.ratingCount} />
-                    <p className="mt-1 text-xs text-basalt-500">
+                    <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                       {guide.yearsExperience} years guiding
                       {guide._count ? ` · ${guide._count.tours} tours` : ''}
                     </p>
@@ -126,7 +126,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
 
                 <div className="mt-4 flex items-end justify-between border-t border-basalt-100 pt-4">
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">
+                    <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">
                       Day rate from
                     </p>
                     <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
@@ -138,7 +138,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                   </span>
                 </div>
 
-                <p className="mt-3 text-xs text-basalt-500">
+                <p className="mt-3 text-xs text-basalt-600 dark:text-basalt-300">
                   Speaks {guide.languages.join(', ')}
                 </p>
               </Link>

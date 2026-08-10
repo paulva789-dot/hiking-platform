@@ -194,7 +194,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                       <div className="flex flex-wrap items-baseline gap-x-3">
                         <h3 className="font-semibold text-basalt-900 dark:text-basalt-50">{wp.name}</h3>
                         {wp.elevationM !== null && (
-                          <span className="text-xs font-medium text-basalt-500">
+                          <span className="text-xs font-medium text-basalt-600 dark:text-basalt-300">
                             {wp.elevationM.toLocaleString()} m
                           </span>
                         )}
@@ -296,7 +296,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                         <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                           {tour.title}
                         </h3>
-                        <p className="mt-1 text-xs text-basalt-500">
+                        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                           With {tour.guide.user.name} ·{' '}
                           {tour.durationDays} day{tour.durationDays > 1 ? 's' : ''} · max{' '}
                           {tour.maxGroupSize} people
@@ -321,7 +321,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                         )}
 
                         {tour.schedules.length > 0 && (
-                          <p className="mt-3 text-xs text-basalt-500">
+                          <p className="mt-3 text-xs text-basalt-600 dark:text-basalt-300">
                             Next departures:{' '}
                             {tour.schedules
                               .slice(0, 2)
@@ -335,7 +335,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                         <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
                           {formatXAF(tour.priceXAF)}
                         </p>
-                        <p className="text-xs text-basalt-500">per person</p>
+                        <p className="text-xs text-basalt-600 dark:text-basalt-300">per person</p>
                         <Link href={`/tours/${tour.id}`} className="btn-accent mt-3">
                           View & book
                         </Link>
@@ -443,9 +443,9 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 function KeyFact({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="px-2 py-2 text-center sm:px-4">
-      <dt className="text-[11px] font-bold uppercase tracking-wide text-basalt-400">{label}</dt>
+      <dt className="text-[11px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>
       <dd className="mt-1 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{value}</dd>
-      {sub && <p className="mt-0.5 text-xs leading-snug text-basalt-500">{sub}</p>}
+      {sub && <p className="mt-0.5 text-xs leading-snug text-basalt-600 dark:text-basalt-300">{sub}</p>}
     </div>
   );
 }

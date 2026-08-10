@@ -66,5 +66,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.basalt900,
   },
-  error: { color: colors.laterite700, marginTop: 12, fontSize: 13 },
+  error: { color: colors.red700, marginTop: 12, fontSize: 13 },
 });

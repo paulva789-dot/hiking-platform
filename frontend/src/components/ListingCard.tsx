@@ -24,7 +24,7 @@ export function ListingCard({ listing, ctaLabel }: { listing: Listing; ctaLabel:
         </div>
 
         <h2 className="mt-2 font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{listing.name}</h2>
-        {listing.town && <p className="text-xs text-basalt-500">{listing.town}</p>}
+        {listing.town && <p className="text-xs text-basalt-600 dark:text-basalt-300">{listing.town}</p>}
 
         <p className="mt-2 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{listing.description}</p>
 
@@ -32,7 +32,7 @@ export function ListingCard({ listing, ctaLabel }: { listing: Listing; ctaLabel:
           <div>
             {listing.priceFromXAF !== null && listing.priceFromXAF !== undefined && (
               <>
-                <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">From</p>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">From</p>
                 <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
                   {formatXAF(listing.priceFromXAF)}
                 </p>
@@ -51,7 +51,7 @@ export function ListingCard({ listing, ctaLabel }: { listing: Listing; ctaLabel:
         </div>
 
         {listing.partnerName && (
-          <p className="mt-2 text-[10px] text-basalt-400">Partner listing · {listing.partnerName}</p>
+          <p className="mt-2 text-[10px] text-basalt-600 dark:text-basalt-400">Partner listing · {listing.partnerName}</p>
         )}
       </div>
     </article>

@@ -123,6 +123,6 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   thumb: { width: 92, height: '100%', minHeight: 92 },
   name: { fontWeight: '700', color: colors.basalt900, fontSize: 14, flexShrink: 1 },
-  meta: { fontSize: 11, color: colors.basalt500, marginTop: 3 },
+  meta: { fontSize: 11, color: colors.basalt600, marginTop: 3 },
   summary: { fontSize: 12, color: colors.basalt600, marginTop: 4 },
 });

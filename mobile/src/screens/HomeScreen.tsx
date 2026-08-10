@@ -120,5 +120,5 @@ const styles = StyleSheet.create({
   trailImage: { width: '100%', height: 110 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   trailName: { fontWeight: '700', color: colors.basalt900, fontSize: 14, flexShrink: 1 },
-  trailMeta: { fontSize: 12, color: colors.basalt500, marginTop: 4 },
+  trailMeta: { fontSize: 12, color: colors.basalt600, marginTop: 4 },
 });

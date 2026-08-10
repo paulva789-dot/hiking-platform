@@ -116,7 +116,7 @@ function PhotoQueue() {
               />
               <div className="p-4">
                 <p className="text-sm font-semibold text-basalt-900 dark:text-basalt-50">{photo.user.name}</p>
-                {photo.user.email && <p className="text-xs text-basalt-500">{photo.user.email}</p>}
+                {photo.user.email && <p className="text-xs text-basalt-600 dark:text-basalt-300">{photo.user.email}</p>}
 
                 {photo.caption && (
                   <p className="mt-2 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">{photo.caption}</p>
@@ -136,7 +136,7 @@ function PhotoQueue() {
                 </div>
 
                 {photo.createdAt && (
-                  <p className="mt-2 text-xs text-basalt-400">{relativeTime(photo.createdAt)}</p>
+                  <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-400">{relativeTime(photo.createdAt)}</p>
                 )}
 
                 <div className="mt-4 flex gap-2">
@@ -232,7 +232,7 @@ function ReviewQueue() {
 
                 <p className="mt-2 font-semibold text-basalt-900 dark:text-basalt-50">{review.title}</p>
                 <p className="mt-1 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300">{review.body}</p>
-                <p className="mt-2 text-xs text-basalt-500">
+                <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
                   {review.user.name} ({review.user.email}) · {relativeTime(review.createdAt)}
                 </p>
               </div>

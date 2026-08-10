@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   body: { padding: 20 },
   region: { fontSize: 11, fontWeight: '700', color: colors.forest700, textTransform: 'uppercase' },
   title: { fontSize: 24, fontWeight: '700', color: colors.basalt900, marginTop: 6, marginBottom: 8 },
-  sectionTitle: { fontSize: 12, fontWeight: '700', color: colors.basalt400, textTransform: 'uppercase', marginTop: 16 },
+  sectionTitle: { fontSize: 12, fontWeight: '700', color: colors.basalt600, textTransform: 'uppercase', marginTop: 16 },
   paragraph: { fontSize: 14, lineHeight: 21, color: colors.basalt700, marginTop: 6 },
   credit: { fontSize: 11, color: colors.basalt400, marginTop: 20 },
 });

@@ -114,7 +114,7 @@ export default function DashboardOverview() {
                     {booking.participants} {booking.participants === 1 ? 'person' : 'people'}
                     {booking.tour.guide && ` · with ${booking.tour.guide.user.name}`}
                   </p>
-                  <p className="mt-1 font-mono text-xs text-basalt-400">{booking.reference}</p>
+                  <p className="mt-1 font-mono text-xs text-basalt-600 dark:text-basalt-400">{booking.reference}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
@@ -153,7 +153,7 @@ export default function DashboardOverview() {
               <li key={fav.id}>
                 <Link href={`/trails/${fav.trail.slug}`} className="card block p-4 hover:shadow-md">
                   <p className="font-semibold text-basalt-900 dark:text-basalt-50">{fav.trail.name}</p>
-                  <p className="mt-1 text-xs text-basalt-500">
+                  <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                     Saved {formatDate(fav.createdAt)}
                   </p>
                 </Link>
@@ -175,11 +175,11 @@ export default function DashboardOverview() {
                   <p className="mt-1 text-sm text-basalt-600 dark:text-basalt-300">
                     {formatDate(ticket.event.startDate)} · {ticket.event.location}
                   </p>
-                  <p className="mt-1 font-mono text-xs text-basalt-400">{ticket.reference}</p>
+                  <p className="mt-1 font-mono text-xs text-basalt-600 dark:text-basalt-400">{ticket.reference}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold text-basalt-900 dark:text-basalt-50">{formatXAF(ticket.totalXAF)}</p>
-                  <p className="text-xs text-basalt-500">
+                  <p className="text-xs text-basalt-600 dark:text-basalt-300">
                     {ticket.quantity} ticket{ticket.quantity > 1 ? 's' : ''}
                   </p>
                 </div>

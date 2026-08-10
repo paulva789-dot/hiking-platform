@@ -86,7 +86,7 @@ export function TicketPurchase({
         <p className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
           {priceXAF === 0 ? 'Free' : formatXAF(priceXAF)}
         </p>
-        <p className="text-xs text-basalt-500">per ticket · {ticketsLeft} remaining</p>
+        <p className="text-xs text-basalt-600 dark:text-basalt-300">per ticket · {ticketsLeft} remaining</p>
       </div>
 
       <div>
@@ -103,7 +103,7 @@ export function TicketPurchase({
           className="input"
           required
         />
-        <p className="mt-1 text-xs text-basalt-500">Maximum {max} per person.</p>
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">Maximum {max} per person.</p>
       </div>
 
       <div className="flex justify-between border-t border-basalt-100 pt-4 font-semibold text-basalt-900 dark:text-basalt-50">

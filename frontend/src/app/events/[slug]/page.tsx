@@ -36,7 +36,7 @@ export default async function EventPage({ params }: { params: Params }) {
     <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
       <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <nav aria-label="Breadcrumb" className="mb-5 text-xs text-basalt-500">
+          <nav aria-label="Breadcrumb" className="mb-5 text-xs text-basalt-600 dark:text-basalt-300">
             <Link href="/events" className="hover:text-basalt-900 dark:text-basalt-50">
               Events
             </Link>
@@ -92,7 +92,7 @@ export default async function EventPage({ params }: { params: Params }) {
 function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div className="card p-4">
-      <dt className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">{label}</dt>
+      <dt className="text-[10px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>
       <dd className="mt-1 text-sm font-semibold text-basalt-900 dark:text-basalt-50">{value}</dd>
     </div>
   );

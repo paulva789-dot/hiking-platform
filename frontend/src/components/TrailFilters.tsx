@@ -94,7 +94,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
                 }`}
               >
                 <span>{DIFFICULTY_LABELS[level]}</span>
-                <span className={active ? 'text-forest-100' : 'text-basalt-400'}>{count}</span>
+                <span className={active ? 'text-forest-100' : 'text-basalt-600 dark:text-basalt-400'}>{count}</span>
               </button>
             );
           })}
@@ -119,7 +119,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
                 }`}
               >
                 <span>{REGION_LABELS[region]}</span>
-                <span className={active ? 'text-forest-100' : 'text-basalt-400'}>{count}</span>
+                <span className={active ? 'text-forest-100' : 'text-basalt-600 dark:text-basalt-400'}>{count}</span>
               </button>
             );
           })}
@@ -152,7 +152,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
 function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="mb-2 text-xs font-bold uppercase tracking-wide text-basalt-500">{label}</p>
+      <p className="mb-2 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">{label}</p>
       {children}
     </div>
   );

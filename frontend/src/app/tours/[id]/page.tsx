@@ -42,7 +42,7 @@ export default async function TourPage({ params }: { params: Params }) {
     <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
       <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <nav aria-label="Breadcrumb" className="mb-5 text-xs text-basalt-500">
+          <nav aria-label="Breadcrumb" className="mb-5 text-xs text-basalt-600 dark:text-basalt-300">
             <Link href="/guides" className="hover:text-basalt-900 dark:text-basalt-50">
               Guides
             </Link>
@@ -119,7 +119,7 @@ export default async function TourPage({ params }: { params: Params }) {
                   <ul className="mt-3 space-y-2">
                     {tour.excludes.map((item) => (
                       <li key={item} className="flex gap-2 text-sm text-basalt-600 dark:text-basalt-300">
-                        <span className="text-basalt-400" aria-hidden>
+                        <span className="text-basalt-600 dark:text-basalt-400" aria-hidden>
                           ✕
                         </span>
                         <span>{item}</span>
@@ -153,7 +153,7 @@ export default async function TourPage({ params }: { params: Params }) {
                   <Stars rating={tour.guide.ratingAvg} count={tour.guide.ratingCount} />
                 )}
                 <p className="mt-1.5 text-sm text-basalt-600 dark:text-basalt-300">{tour.guide.headline}</p>
-                <p className="mt-2 text-xs text-basalt-500">
+                <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
                   {tour.guide.yearsExperience} years guiding
                   {tour.guide.languages?.length
                     ? ` · speaks ${tour.guide.languages.join(', ')}`
@@ -179,7 +179,7 @@ export default async function TourPage({ params }: { params: Params }) {
                       <span
                         className={`text-sm font-semibold ${
                           left === 0
-                            ? 'text-basalt-400'
+                            ? 'text-basalt-600 dark:text-basalt-400'
                             : left <= 3
                               ? 'text-plum-700'
                               : 'text-forest-700'

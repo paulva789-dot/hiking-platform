@@ -47,7 +47,7 @@ export function Stars({ rating, count }: { rating: number; count?: number }) {
         ))}
       </span>
       <span className="font-semibold text-basalt-800 dark:text-basalt-200">{rating > 0 ? rating.toFixed(1) : '—'}</span>
-      {count !== undefined && <span className="text-basalt-500">({count})</span>}
+      {count !== undefined && <span className="text-basalt-600 dark:text-basalt-300">({count})</span>}
     </span>
   );
 }
@@ -66,11 +66,11 @@ export function Stat({
   return (
     <div className="card p-4">
       <div className="flex items-start justify-between gap-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">{label}</p>
         {icon}
       </div>
       <p className="mt-2 font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">{value}</p>
-      {hint && <p className="mt-1 text-xs text-basalt-500">{hint}</p>}
+      {hint && <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">{hint}</p>}
     </div>
   );
 }

@@ -73,10 +73,10 @@ export default function MyPhotosPage() {
                     <p className="mt-2 line-clamp-2 text-sm text-basalt-700 dark:text-basalt-300">{photo.caption}</p>
                   )}
                   {photo.trail && (
-                    <p className="mt-1 text-xs text-basalt-500">{photo.trail.name}</p>
+                    <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">{photo.trail.name}</p>
                   )}
                   {photo.createdAt && (
-                    <p className="mt-1 text-xs text-basalt-400">{relativeTime(photo.createdAt)}</p>
+                    <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-400">{relativeTime(photo.createdAt)}</p>
                   )}
 
                   <button
@@ -179,7 +179,7 @@ function UploadForm({ trails, onUploaded }: { trails: TrailCard[]; onUploaded: (
         <div className="space-y-4">
           <div>
             <label htmlFor="photo-trail" className="label">
-              Which trail? <span className="font-normal text-basalt-500">(optional)</span>
+              Which trail? <span className="font-normal text-basalt-600 dark:text-basalt-300">(optional)</span>
             </label>
             <select
               id="photo-trail"
@@ -240,7 +240,7 @@ function UploadForm({ trails, onUploaded }: { trails: TrailCard[]; onUploaded: (
               required={forSale}
               className="input sm:w-48"
             />
-            <p className="mt-1.5 text-xs text-basalt-500">
+            <p className="mt-1.5 text-xs text-basalt-600 dark:text-basalt-300">
               You keep the majority of every sale; the platform takes a commission. Only list images
               you own, and get permission before selling a photo of an identifiable person.
             </p>

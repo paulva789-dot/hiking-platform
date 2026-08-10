@@ -126,7 +126,7 @@ export function OfflinePackButton({ slug, trailName }: { slug: string; trailName
         {busy ? <Spinner className="h-4 w-4" /> : <span aria-hidden>⬇</span>}
         {isPremium ? 'Download offline pack' : 'Offline pack (Premium)'}
       </button>
-      <p className="mt-2 text-xs text-basalt-500">
+      <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
         Route, waypoints, hazards and emergency numbers for {trailName} — on your phone before you
         lose signal.
       </p>

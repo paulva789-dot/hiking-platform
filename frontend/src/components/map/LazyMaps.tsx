@@ -13,7 +13,7 @@ const MapSkeleton = ({ height }: { height: string }) => (
     style={{ height }}
     aria-label="Loading map"
   >
-    <span className="text-sm font-medium text-basalt-500">Loading map…</span>
+    <span className="text-sm font-medium text-basalt-600 dark:text-basalt-300">Loading map…</span>
   </div>
 );
 

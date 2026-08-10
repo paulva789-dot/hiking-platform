@@ -39,7 +39,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
     <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
       <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <nav aria-label="Breadcrumb" className="mb-6 text-xs text-basalt-500">
+          <nav aria-label="Breadcrumb" className="mb-6 text-xs text-basalt-600 dark:text-basalt-300">
             <Link href="/guides" className="hover:text-basalt-900 dark:text-basalt-50">
               Guides
             </Link>
@@ -71,7 +71,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
             </div>
 
             <div className="card w-full shrink-0 p-5 sm:w-64">
-              <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-400">
+              <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">
                 Day rate from
               </p>
               <p className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
@@ -146,7 +146,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                           <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                             {tour.description}
                           </p>
-                          <p className="mt-2 text-xs text-basalt-500">
+                          <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
                             {tour.durationDays} day{tour.durationDays > 1 ? 's' : ''} · max{' '}
                             {tour.maxGroupSize} people ·{' '}
                             {open.length > 0
@@ -172,7 +172,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                           <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
                             {formatXAF(tour.priceXAF)}
                           </p>
-                          <p className="text-xs text-basalt-500">per person</p>
+                          <p className="text-xs text-basalt-600 dark:text-basalt-300">per person</p>
                           <Link href={`/tours/${tour.id}`} className="btn-accent mt-3">
                             View & book
                           </Link>
@@ -202,7 +202,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
             </div>
             {guide.countries && guide.countries.length > 0 && (
               <>
-                <p className="mt-4 text-[10px] font-bold uppercase tracking-wide text-basalt-400">
+                <p className="mt-4 text-[10px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">
                   Countries
                 </p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -245,7 +245,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                   {guide.phone}
                 </a>
               )}
-              <p className="mt-3 text-xs leading-relaxed text-basalt-500">
+              <p className="mt-3 text-xs leading-relaxed text-basalt-600 dark:text-basalt-300">
                 Booking through the platform means your seat, dates and price are on record. Direct
                 arrangements are between you and the guide.
               </p>

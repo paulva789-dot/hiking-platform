@@ -144,7 +144,7 @@ export default function AdminTrailsPage() {
 
                     <p className="mt-1.5 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{trail.summary}</p>
 
-                    <p className="mt-2 text-xs text-basalt-500">
+                    <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
                       {formatDistance(trail.distanceKm)} · {formatDuration(trail.durationMinutes)} ·{' '}
                       {trail.elevationGainM} m ascent · {trail._count.waypoints} waypoints ·{' '}
                       {trail._count.reviews} reviews · {trail._count.favorites} saved ·{' '}
@@ -559,7 +559,7 @@ function TrailForm({
       </div>
 
       {trail && (
-        <p className="text-xs text-basalt-500">
+        <p className="text-xs text-basalt-600 dark:text-basalt-300">
           Waypoints and route geometry are seeded from{' '}
           <code className="font-mono">prisma/trails.data.js</code> and can be replaced via{' '}
           <code className="font-mono">PUT /api/admin/trails/{trail.id}/waypoints</code>.

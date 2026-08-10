@@ -32,7 +32,7 @@ function SearchInner({ variant = 'default' }: Props) {
           fill="none"
           stroke="currentColor"
           strokeWidth={2}
-          className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-basalt-400"
+          className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-basalt-600 dark:text-basalt-400"
           aria-hidden
         >
           <circle cx="11" cy="11" r="7" />

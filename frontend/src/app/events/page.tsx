@@ -82,7 +82,7 @@ export default async function EventsPage() {
                       <h2 className="mt-2 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
                         {event.title}
                       </h2>
-                      <p className="mt-1 text-xs text-basalt-500">
+                      <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                         {formatDateRange(event.startDate, event.endDate)} · {event.location}
                       </p>
                       <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">

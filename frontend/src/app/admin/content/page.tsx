@@ -109,7 +109,7 @@ function SafetyManager() {
                   <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
                     {item.category}
                   </span>
-                  <span className="text-xs text-basalt-400">order {item.order}</span>
+                  <span className="text-xs text-basalt-600 dark:text-basalt-400">order {item.order}</span>
                   {!item.published && (
                     <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">Hidden</span>
                   )}
@@ -333,7 +333,7 @@ function ListingManager() {
                 </div>
                 <h3 className="mt-1.5 font-semibold text-basalt-900 dark:text-basalt-50">{l.name}</h3>
                 <p className="mt-1 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{l.description}</p>
-                <p className="mt-1 text-xs text-basalt-500">
+                <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                   {l.priceFromXAF ? `From ${formatXAF(l.priceFromXAF)} · ` : ''}
                   {l.commissionPct}% commission · {l.clickCount} click-throughs
                   {l.partnerName && ` · ${l.partnerName}`}
@@ -655,7 +655,7 @@ function EventManager() {
                     <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">Hidden</span>
                   )}
                 </div>
-                <p className="mt-1 text-xs text-basalt-500">
+                <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                   {formatDate(e.startDate)} · {e.location} · {formatXAF(e.priceXAF)}
                 </p>
                 <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
@@ -941,7 +941,7 @@ function AdManager() {
                     <span className="chip bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300">Paused</span>
                   )}
                 </div>
-                <p className="mt-1 text-xs text-basalt-500">
+                <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
                   weight {ad.weight} · {ad.impressions} impressions · {ad.clicks} clicks ·{' '}
                   {ad.impressions > 0 ? `${((ad.clicks / ad.impressions) * 100).toFixed(2)}% CTR` : 'no data'}
                   {ad.endsAt && ` · ends ${formatDate(ad.endsAt)}`}

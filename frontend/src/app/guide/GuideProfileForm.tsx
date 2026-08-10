@@ -101,7 +101,7 @@ export function GuideProfileForm({
           placeholder="Mount CEO registered guide — 14 years on Mount Cameroon"
           className="input"
         />
-        <p className="mt-1 text-xs text-basalt-500">
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
           One line. What you are registered for and how long you have done it.
         </p>
       </div>
@@ -121,7 +121,7 @@ export function GuideProfileForm({
           placeholder="What you run, where, how you brief people, how you handle bad conditions, and what you will not do."
           className="input resize-y"
         />
-        <p className="mt-1 text-xs text-basalt-500">
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
           {bio.length}/4000 — minimum 50 characters. Specific profiles get approved faster.
         </p>
       </div>
@@ -183,7 +183,7 @@ export function GuideProfileForm({
             );
           })}
         </div>
-        <p className="mt-1 text-xs text-basalt-500">Cameroon&rsquo;s regions — where your Cameroon tours run.</p>
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">Cameroon&rsquo;s regions — where your Cameroon tours run.</p>
       </div>
 
       <div>
@@ -208,7 +208,7 @@ export function GuideProfileForm({
             );
           })}
         </div>
-        <p className="mt-1 text-xs text-basalt-500">
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
           Not limited to Cameroon — tick any Central African country where you actually lead trips.
         </p>
       </div>
@@ -226,12 +226,12 @@ export function GuideProfileForm({
             placeholder="English, French, Pidgin, Bakweri"
             className="input"
           />
-          <p className="mt-1 text-xs text-basalt-500">Comma-separated.</p>
+          <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">Comma-separated.</p>
         </div>
 
         <div>
           <label htmlFor="certs" className="label">
-            Certifications <span className="font-normal text-basalt-500">(optional)</span>
+            Certifications <span className="font-normal text-basalt-600 dark:text-basalt-300">(optional)</span>
           </label>
           <input
             id="certs"
@@ -240,7 +240,7 @@ export function GuideProfileForm({
             placeholder="Mount CEO registered guide, Wilderness First Aid (2024)"
             className="input"
           />
-          <p className="mt-1 text-xs text-basalt-500">
+          <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
             Comma-separated. We check these before approving.
           </p>
         </div>
@@ -263,7 +263,7 @@ export function GuideProfileForm({
 
         <div>
           <label htmlFor="whatsapp" className="label">
-            WhatsApp <span className="font-normal text-basalt-500">(optional)</span>
+            WhatsApp <span className="font-normal text-basalt-600 dark:text-basalt-300">(optional)</span>
           </label>
           <input
             id="whatsapp"

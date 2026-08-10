@@ -61,7 +61,7 @@ export function SiteHeader() {
               className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 isActive(item.href)
                   ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
-                  : 'text-basalt-600 dark:text-basalt-300 hover:bg-basalt-100 hover:text-basalt-900 dark:text-basalt-400 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
+                  : 'text-basalt-600 dark:text-basalt-300 hover:bg-basalt-100 hover:text-basalt-900 dark:text-basalt-600 dark:text-basalt-400 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
               }`}
             >
               {t(item.key)}
@@ -99,7 +99,7 @@ export function SiteHeader() {
                 >
                   <div className="border-b border-basalt-100 px-4 py-3 dark:border-basalt-800">
                     <p className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50">{user.name}</p>
-                    <p className="truncate text-xs text-basalt-500">{user.email}</p>
+                    <p className="truncate text-xs text-basalt-600 dark:text-basalt-300">{user.email}</p>
                   </div>
                   <MenuLink href="/dashboard">{t('nav.dashboard')}</MenuLink>
                   <MenuLink href="/dashboard/favorites">{t('nav.savedTrails')}</MenuLink>

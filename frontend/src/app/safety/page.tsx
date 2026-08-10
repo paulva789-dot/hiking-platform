@@ -156,7 +156,7 @@ export default async function SafetyPage() {
               </a>
             ))}
           </div>
-          <p className="mt-3 text-xs text-basalt-400">Free from any Cameroonian mobile.</p>
+          <p className="mt-3 text-xs text-basalt-600 dark:text-basalt-400">Free from any Cameroonian mobile.</p>
         </div>
       </header>
 
@@ -260,7 +260,7 @@ export default async function SafetyPage() {
       {/* ---------------------------------------------------------- guidelines */}
       <div className="section grid gap-10 py-12 lg:grid-cols-[220px_1fr]">
         <nav aria-label="Sections" className="lg:sticky lg:top-24 lg:self-start">
-          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-basalt-500">On this page</p>
+          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">On this page</p>
           <ul className="space-y-1">
             {categories.map((cat) => (
               <li key={cat.category}>

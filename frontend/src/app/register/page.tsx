@@ -121,7 +121,7 @@ function RegisterForm() {
                     <li
                       key={rule.label}
                       className={`flex items-center gap-1.5 text-xs ${
-                        pass ? 'text-forest-700' : 'text-basalt-500'
+                        pass ? 'text-forest-700' : 'text-basalt-600 dark:text-basalt-300'
                       }`}
                     >
                       <span aria-hidden>{pass ? '✓' : '○'}</span>
@@ -135,7 +135,7 @@ function RegisterForm() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="phone" className="label">
-                  Phone <span className="font-normal text-basalt-500">(optional)</span>
+                  Phone <span className="font-normal text-basalt-600 dark:text-basalt-300">(optional)</span>
                 </label>
                 <input
                   id="phone"
@@ -177,7 +177,7 @@ function RegisterForm() {
               />
               <span>
                 I am a hiking guide and want to list my services.
-                <span className="mt-0.5 block text-xs text-basalt-500">
+                <span className="mt-0.5 block text-xs text-basalt-600 dark:text-basalt-300">
                   You will complete a guide profile next — required skills (first aid, route-finding,
                   local knowledge) and necessities (ID, first-aid kit, mobile money account) are listed
                   there. Tours stay hidden until we verify it.
@@ -207,7 +207,7 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div className="section py-20 text-center text-basalt-500">Loading…</div>}>
+    <Suspense fallback={<div className="section py-20 text-center text-basalt-600 dark:text-basalt-300">Loading…</div>}>
       <RegisterForm />
     </Suspense>
   );

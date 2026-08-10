@@ -101,7 +101,7 @@ function LoginForm() {
         </div>
 
         <div className="mt-5 rounded-xl border border-dashed border-basalt-300 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">
+          <p className="text-xs font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
             Demo accounts
           </p>
           <div className="mt-2.5 flex flex-wrap gap-2">
@@ -116,7 +116,7 @@ function LoginForm() {
               </button>
             ))}
           </div>
-          <p className="mt-2 text-xs text-basalt-500">
+          <p className="mt-2 text-xs text-basalt-600 dark:text-basalt-300">
             Available after running the database seed.
           </p>
         </div>
@@ -127,7 +127,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="section py-20 text-center text-basalt-500">Loading…</div>}>
+    <Suspense fallback={<div className="section py-20 text-center text-basalt-600 dark:text-basalt-300">Loading…</div>}>
       <LoginForm />
     </Suspense>
   );

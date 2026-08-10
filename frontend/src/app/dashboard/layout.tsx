@@ -49,7 +49,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   <span className="chip bg-forest-100 text-forest-800 ring-forest-200">Guide</span>
                 )}
               </div>
-              <p className="text-sm text-basalt-500">{user.email}</p>
+              <p className="text-sm text-basalt-600 dark:text-basalt-300">{user.email}</p>
             </div>
 
             {!isPremium && (

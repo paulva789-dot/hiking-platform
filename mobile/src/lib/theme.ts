@@ -1,4 +1,4 @@
-// Mirrors the web app's forest / laterite / basalt palette from tailwind.config.ts.
+// Mirrors the web app's forest / plum / basalt palette from tailwind.config.ts.
 export const colors = {
   forest50: '#f0f7f2',
   forest100: '#dcece1',
@@ -7,8 +7,11 @@ export const colors = {
   forest800: '#1b4131',
   forest950: '#0b1e17',
 
-  laterite600: '#c74a2c',
-  laterite700: '#a53a26',
+  plum600: '#743a54',
+  plum700: '#5f2f45',
+
+  red600: '#dc2626',
+  red700: '#b91c1c',
 
   basalt50: '#f6f7f8',
   basalt100: '#eceef1',

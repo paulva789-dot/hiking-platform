@@ -24,10 +24,11 @@ export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
 
 export const ALL_DIFFICULTIES = Object.keys(DIFFICULTY_LABELS) as Difficulty[];
 
+/** Green → blue → plum → red — matches the web app's difficulty scale, no orange. */
 export const DIFFICULTY_COLOR: Record<Difficulty, string> = {
   EASY: '#3a7f5d',
-  MODERATE: '#d97706',
-  HARD: '#c74a2c',
+  MODERATE: '#0369a1',
+  HARD: '#8f4a68',
   EXPERT: '#991b1b',
 };
 

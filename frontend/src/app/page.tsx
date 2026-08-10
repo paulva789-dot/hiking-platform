@@ -9,6 +9,8 @@ import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { RegionPlacePicker } from '@/components/RegionPlacePicker';
 import { CloudDrift } from '@/components/SceneOverlay';
 import { T } from '@/components/T';
+import { AnimatedText } from '@/components/AnimatedText';
+import { Reveal } from '@/components/Reveal';
 import type { TranslationKey } from '@/lib/i18n/translations';
 
 export const revalidate = 300;
@@ -102,10 +104,13 @@ export default async function HomePage() {
           </p>
 
           <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.1] sm:text-5xl lg:text-6xl">
-            <T k="hero.title" />
+            <AnimatedText k="hero.title" startDelay={0.1} />
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-basalt-200">
+          <p
+            className="mt-6 max-w-2xl animate-fade-up text-lg leading-relaxed text-basalt-200 motion-reduce:animate-none"
+            style={{ animationDelay: '0.7s', opacity: 0, animationFillMode: 'both' }}
+          >
             <T k="hero.body" />
           </p>
 
@@ -125,33 +130,41 @@ export default async function HomePage() {
       {/* ------------------------------------------------- what is hiking */}
       <section className="border-b border-basalt-200 bg-basalt-100 py-14 dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start">
-          <div>
+          <Reveal>
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-forest-700">
               <T k="whatIsHiking.eyebrow" />
             </p>
             <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-3xl">
-              <T k="whatIsHiking.title" />
+              <AnimatedText k="whatIsHiking.title" />
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
+            <p
+              className="mt-3 animate-fade-up text-sm leading-relaxed text-basalt-600 dark:text-basalt-300 motion-reduce:animate-none"
+              style={{ animationDelay: '0.5s', opacity: 0, animationFillMode: 'both' }}
+            >
               <T k="whatIsHiking.body" />
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {WHAT_HIKING_ENTAILS.map((item) => (
-              <div key={item.titleKey} className="card p-5">
-                <div className="flex items-center gap-2">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-forest-50 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300" aria-hidden>
-                    {item.icon}
-                  </span>
-                  <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
-                    <T k={item.titleKey} />
-                  </h3>
+            {WHAT_HIKING_ENTAILS.map((item, i) => (
+              <Reveal key={item.titleKey}>
+                <div
+                  className="card animate-fade-up p-5 motion-reduce:animate-none"
+                  style={{ animationDelay: `${i * 0.1}s`, opacity: 0, animationFillMode: 'both' }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-forest-50 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300" aria-hidden>
+                      {item.icon}
+                    </span>
+                    <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
+                      <T k={item.titleKey} />
+                    </h3>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
+                    <T k={item.bodyKey} />
+                  </p>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
-                  <T k={item.bodyKey} />
-                </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -167,11 +180,13 @@ export default async function HomePage() {
       {/* ---------------------------------------------------- what we fix */}
       <section className="border-b border-basalt-200 bg-white py-14">
         <div className="section">
-          <SectionHeading
-            eyebrow="Why this exists"
-            title="Bad information keeps people off the trail"
-            description="Every problem below is one we heard from people who wanted to hike in Cameroon and gave up. Each one has a specific answer on this site."
-          />
+          <Reveal>
+            <SectionHeading
+              eyebrow="Why this exists"
+              title="Bad information keeps people off the trail"
+              description="Every problem below is one we heard from people who wanted to hike in Cameroon and gave up. Each one has a specific answer on this site."
+            />
+          </Reveal>
 
           <div className="grid gap-5 md:grid-cols-3">
             <ProblemCard
@@ -326,7 +341,7 @@ export default async function HomePage() {
                     ))}
                   </div>
 
-                  <p className="mt-3 border-t border-basalt-100 pt-3 text-xs text-basalt-500">
+                  <p className="mt-3 border-t border-basalt-100 pt-3 text-xs text-basalt-600 dark:text-basalt-300">
                     {guide.yearsExperience} years guiding · speaks {guide.languages.slice(0, 3).join(', ')}
                   </p>
                 </Link>
@@ -403,7 +418,7 @@ export default async function HomePage() {
                     <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
                       {event.title}
                     </h3>
-                    <p className="mt-1 text-xs text-basalt-500">{event.location}</p>
+                    <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">{event.location}</p>
                     <p className="mt-2 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{event.description}</p>
                     <p className="mt-2 text-xs font-semibold text-plum-700 dark:text-plum-400">
                       {event.ticketsLeft} of {event.capacity} tickets left

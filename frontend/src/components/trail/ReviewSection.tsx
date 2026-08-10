@@ -65,7 +65,7 @@ export function ReviewSection({
               {ratingAvg.toFixed(1)}
             </p>
             <Stars rating={ratingAvg} />
-            <p className="mt-1 text-xs text-basalt-500">
+            <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
               {totalReviews} review{totalReviews === 1 ? '' : 's'}
             </p>
           </div>
@@ -79,7 +79,7 @@ export function ReviewSection({
                     style={{ width: `${(b.count / maxCount) * 100}%` }}
                   />
                 </div>
-                <span className="w-6 shrink-0 text-right text-basalt-500">{b.count}</span>
+                <span className="w-6 shrink-0 text-right text-basalt-600 dark:text-basalt-300">{b.count}</span>
               </li>
             ))}
           </ul>
@@ -106,7 +106,7 @@ export function ReviewSection({
                   <Avatar name={review.user.name} src={review.user.avatarUrl} />
                   <div>
                     <p className="font-semibold text-basalt-900 dark:text-basalt-50">{review.user.name}</p>
-                    <p className="text-xs text-basalt-500">
+                    <p className="text-xs text-basalt-600 dark:text-basalt-300">
                       {relativeTime(review.createdAt)}
                       {review.hikedOn && ` · hiked ${formatDate(review.hikedOn)}`}
                     </p>
@@ -233,12 +233,12 @@ function ReviewForm({
           placeholder="Conditions, actual timings, the guide you used, what you wish you had packed…"
           className="input resize-y"
         />
-        <p className="mt-1 text-xs text-basalt-500">{body.length}/4000 — minimum 20 characters</p>
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">{body.length}/4000 — minimum 20 characters</p>
       </div>
 
       <div>
         <label htmlFor="review-date" className="label">
-          When did you hike it? <span className="font-normal text-basalt-500">(optional)</span>
+          When did you hike it? <span className="font-normal text-basalt-600 dark:text-basalt-300">(optional)</span>
         </label>
         <input
           id="review-date"

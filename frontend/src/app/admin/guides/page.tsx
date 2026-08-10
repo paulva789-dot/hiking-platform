@@ -109,7 +109,7 @@ export default function AdminGuidesPage() {
                     )}
                   </div>
 
-                  <p className="mt-0.5 text-sm text-basalt-500">
+                  <p className="mt-0.5 text-sm text-basalt-600 dark:text-basalt-300">
                     {guide.user.email}
                     {guide.user.phone && ` · ${guide.user.phone}`} · joined{' '}
                     {formatDate(guide.user.createdAt)}
@@ -145,7 +145,7 @@ export default function AdminGuidesPage() {
                     <div className="min-w-[240px] flex-1">
                       <label htmlFor={`note-${guide.id}`} className="label text-xs">
                         Review note{' '}
-                        <span className="font-normal text-basalt-500">
+                        <span className="font-normal text-basalt-600 dark:text-basalt-300">
                           (shown to the guide — required if rejecting)
                         </span>
                       </label>
@@ -201,7 +201,7 @@ export default function AdminGuidesPage() {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-2">
-      <dt className="shrink-0 text-basalt-500">{label}:</dt>
+      <dt className="shrink-0 text-basalt-600 dark:text-basalt-300">{label}:</dt>
       <dd className="min-w-0 text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );

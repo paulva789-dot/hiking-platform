@@ -160,7 +160,7 @@ function BookingRow({
           <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
             {formatXAF(booking.totalXAF)}
           </p>
-          <p className="text-xs text-basalt-500">
+          <p className="text-xs text-basalt-600 dark:text-basalt-300">
             {formatXAF(booking.subtotalXAF / booking.participants)} pp
           </p>
 
@@ -207,7 +207,7 @@ function BookingRow({
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex gap-2">
-      <dt className="shrink-0 text-basalt-500">{label}:</dt>
+      <dt className="shrink-0 text-basalt-600 dark:text-basalt-300">{label}:</dt>
       <dd className="min-w-0 text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );

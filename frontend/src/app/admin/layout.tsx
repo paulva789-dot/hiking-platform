@@ -55,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h1 className="font-display text-2xl font-semibold">Admin console</h1>
-              <p className="text-sm text-basalt-400">Signed in as {user.email}</p>
+              <p className="text-sm text-basalt-600 dark:text-basalt-400">Signed in as {user.email}</p>
             </div>
             <Link
               href="/"
@@ -76,7 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   className={`shrink-0 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors ${
                     active
                       ? 'border-white text-white'
-                      : 'border-transparent text-basalt-400 hover:border-basalt-600 hover:text-white'
+                      : 'border-transparent text-basalt-600 dark:text-basalt-400 hover:border-basalt-600 hover:text-white'
                   }`}
                 >
                   {tab.label}

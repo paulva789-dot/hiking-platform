@@ -98,13 +98,13 @@ export default function AdminAnalytics() {
 
         <div className="grid gap-4 lg:grid-cols-3">
           <div className="card p-6 lg:col-span-1">
-            <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">
+            <p className="text-xs font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
               Recognised revenue
             </p>
             <p className="mt-2 font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50">
               {formatXAF(totalRevenue)}
             </p>
-            <p className="mt-1 text-xs text-basalt-500">
+            <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
               Commission + ticket sales. Affiliate and advertising revenue settle externally.
             </p>
 
@@ -123,13 +123,13 @@ export default function AdminAnalytics() {
           </div>
 
           <div className="card p-6">
-            <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">
+            <p className="text-xs font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
               Gross booking volume
             </p>
             <p className="mt-2 font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50">
               {formatXAF(bookings.grossVolumeXAF)}
             </p>
-            <p className="mt-1 text-xs text-basalt-500">
+            <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
               {formatXAF(bookings.last30Days.grossVolumeXAF)} in the last 30 days
             </p>
 
@@ -146,7 +146,7 @@ export default function AdminAnalytics() {
           </div>
 
           <div className="card p-6">
-            <p className="text-xs font-semibold uppercase tracking-wide text-basalt-500">
+            <p className="text-xs font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">
               Partner and advertising
             </p>
             <dl className="mt-4 space-y-3 text-sm">
@@ -210,7 +210,7 @@ export default function AdminAnalytics() {
           <ul className="mt-4 divide-y divide-basalt-100">
             {topTrails.map((trail, i) => (
               <li key={trail.id} className="flex items-center gap-3 py-3 first:pt-0">
-                <span className="w-5 shrink-0 text-sm font-bold text-basalt-400">{i + 1}</span>
+                <span className="w-5 shrink-0 text-sm font-bold text-basalt-600 dark:text-basalt-400">{i + 1}</span>
                 <div className="min-w-0 flex-1">
                   <Link
                     href={`/trails/${trail.slug}`}
@@ -218,7 +218,7 @@ export default function AdminAnalytics() {
                   >
                     {trail.name}
                   </Link>
-                  <p className="text-xs text-basalt-500">
+                  <p className="text-xs text-basalt-600 dark:text-basalt-300">
                     {REGION_LABELS[trail.region]} · {trail._count.favorites} saved ·{' '}
                     {trail.ratingCount} review{trail.ratingCount === 1 ? '' : 's'}
                   </p>
@@ -234,7 +234,7 @@ export default function AdminAnalytics() {
         <div className="card p-6">
           <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Top-rated guides</h3>
           {topGuides.length === 0 ? (
-            <p className="mt-4 text-sm text-basalt-500">No approved guides yet.</p>
+            <p className="mt-4 text-sm text-basalt-600 dark:text-basalt-300">No approved guides yet.</p>
           ) : (
             <ul className="mt-4 divide-y divide-basalt-100">
               {topGuides.map((guide) => (
@@ -246,14 +246,14 @@ export default function AdminAnalytics() {
                     >
                       {guide.user.name}
                     </Link>
-                    <p className="text-xs text-basalt-500">
+                    <p className="text-xs text-basalt-600 dark:text-basalt-300">
                       {guide._count.tours} tour{guide._count.tours === 1 ? '' : 's'}
                       {guide.plan !== 'NONE' && ` · ${guide.plan} member`}
                     </p>
                   </div>
                   <span className="shrink-0 text-sm font-semibold text-amber-600">
                     ★ {guide.ratingAvg.toFixed(1)}
-                    <span className="ml-1 text-xs font-normal text-basalt-400">
+                    <span className="ml-1 text-xs font-normal text-basalt-600 dark:text-basalt-400">
                       ({guide.ratingCount})
                     </span>
                   </span>

@@ -47,7 +47,7 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
         <h3 className="font-display text-base font-semibold leading-snug text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
           {trail.name}
         </h3>
-        <p className="mt-1 text-xs text-basalt-500">Nearest town: {trail.nearestTown}</p>
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">Nearest town: {trail.nearestTown}</p>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{trail.summary}</p>
 
         <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-basalt-100 pt-3 text-center">
@@ -68,7 +68,7 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-[10px] font-semibold uppercase tracking-wide text-basalt-400">{label}</dt>
+      <dt className="text-[10px] font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>
       <dd className="mt-0.5 text-sm font-semibold text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );
