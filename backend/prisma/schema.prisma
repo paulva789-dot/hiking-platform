@@ -2,7 +2,10 @@
 // Database: PostgreSQL
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  // "native" for local dev; rhel-openssl-3.0.x is the query engine Vercel's
+  // Node.js serverless runtime (Amazon Linux 2023) needs at deploy time.
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
