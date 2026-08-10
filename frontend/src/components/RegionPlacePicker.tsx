@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CAMEROON_SITES } from '@/lib/cameroon-sites';
 import { ALL_REGIONS, REGION_LABELS } from '@/lib/format';
+import { useLanguage } from '@/lib/i18n/language-context';
 import type { Region } from '@/lib/types';
 
 /** Region-first trip picker. Every option is inside Cameroon — nothing else is on offer. */
@@ -11,6 +12,7 @@ export function RegionPlacePicker() {
   const [region, setRegion] = useState<Region | ''>('');
   const [place, setPlace] = useState('');
   const router = useRouter();
+  const { t } = useLanguage();
 
   const places = useMemo(
     () => (region ? CAMEROON_SITES.filter((s) => s.regionKey === region) : []),
@@ -29,15 +31,12 @@ export function RegionPlacePicker() {
           className="h-2 w-3 rounded-[1px] bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow"
           aria-hidden
         />
-        Plan your visit — Cameroon only
+        {t('picker.eyebrow')}
       </div>
       <h2 className="mt-2 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
-        Pick a region, then a place
+        {t('picker.title')}
       </h2>
-      <p className="mt-1 max-w-lg text-sm text-basalt-600 dark:text-basalt-300">
-        Choose one of Cameroon&rsquo;s ten regions, then a landmark inside it — trip planning stays
-        limited to destinations within the country.
-      </p>
+      <p className="mt-1 max-w-lg text-sm text-basalt-600 dark:text-basalt-300">{t('picker.body')}</p>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
         <div>
@@ -53,7 +52,7 @@ export function RegionPlacePicker() {
               setPlace('');
             }}
           >
-            <option value="">Choose a region</option>
+            <option value="">{t('picker.chooseRegion')}</option>
             {ALL_REGIONS.map((r) => (
               <option key={r} value={r}>
                 {REGION_LABELS[r]}
@@ -74,7 +73,7 @@ export function RegionPlacePicker() {
             disabled={places.length === 0}
           >
             <option value="">
-              {region ? `Place in ${REGION_LABELS[region]}` : 'Select a region first'}
+              {region ? `Place in ${REGION_LABELS[region]}` : t('picker.selectRegionFirst')}
             </option>
             {places.map((p) => (
               <option key={p.slug} value={p.slug}>
@@ -85,7 +84,7 @@ export function RegionPlacePicker() {
         </div>
 
         <button type="button" onClick={goToPlace} disabled={!place} className="btn-primary">
-          View place
+          {t('picker.viewPlace')}
         </button>
       </div>
 

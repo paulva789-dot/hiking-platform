@@ -4,24 +4,28 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
+import { useLanguage } from '@/lib/i18n/language-context';
+import type { TranslationKey } from '@/lib/i18n/translations';
 import { Avatar } from './ui';
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { LogoMark, LogoText } from './Logo';
 
-const NAV = [
-  { href: '/trails', label: 'Trails' },
-  { href: '/map', label: 'Map' },
-  { href: '/sites', label: 'Cameroon Sites' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/gallery', label: 'Gallery' },
-  { href: '/events', label: 'Events' },
-  { href: '/groups', label: 'Groups' },
-  { href: '/safety', label: 'Safety' },
+const NAV: { href: string; key: TranslationKey }[] = [
+  { href: '/trails', key: 'nav.trails' },
+  { href: '/map', key: 'nav.map' },
+  { href: '/sites', key: 'nav.sites' },
+  { href: '/guides', key: 'nav.guides' },
+  { href: '/gallery', key: 'nav.gallery' },
+  { href: '/events', key: 'nav.events' },
+  { href: '/groups', key: 'nav.groups' },
+  { href: '/safety', key: 'nav.safety' },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
   const { user, guideProfile, isPremium, logout, loading } = useAuth();
+  const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -60,12 +64,13 @@ export function SiteHeader() {
                   : 'text-basalt-600 dark:text-basalt-300 hover:bg-basalt-100 hover:text-basalt-900 dark:text-basalt-400 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
               }`}
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <ThemeToggle />
           {loading ? (
             <div className="h-9 w-24 animate-pulse rounded-lg bg-basalt-200" />
@@ -96,17 +101,17 @@ export function SiteHeader() {
                     <p className="truncate text-sm font-semibold text-basalt-900 dark:text-basalt-50">{user.name}</p>
                     <p className="truncate text-xs text-basalt-500">{user.email}</p>
                   </div>
-                  <MenuLink href="/dashboard">My dashboard</MenuLink>
-                  <MenuLink href="/dashboard/favorites">Saved trails</MenuLink>
-                  <MenuLink href="/dashboard/bookings">My bookings</MenuLink>
-                  <MenuLink href="/dashboard/photos">My photos</MenuLink>
+                  <MenuLink href="/dashboard">{t('nav.dashboard')}</MenuLink>
+                  <MenuLink href="/dashboard/favorites">{t('nav.savedTrails')}</MenuLink>
+                  <MenuLink href="/dashboard/bookings">{t('nav.myBookings')}</MenuLink>
+                  <MenuLink href="/dashboard/photos">{t('nav.myPhotos')}</MenuLink>
                   {(user.role === 'GUIDE' || guideProfile) && (
-                    <MenuLink href="/guide">Guide workspace</MenuLink>
+                    <MenuLink href="/guide">{t('nav.guideWorkspace')}</MenuLink>
                   )}
-                  {user.role === 'ADMIN' && <MenuLink href="/admin">Admin console</MenuLink>}
+                  {user.role === 'ADMIN' && <MenuLink href="/admin">{t('nav.adminConsole')}</MenuLink>}
                   {!isPremium && (
                     <MenuLink href="/premium">
-                      <span className="text-laterite-700">Go Premium</span>
+                      <span className="text-laterite-700">{t('nav.goPremium')}</span>
                     </MenuLink>
                   )}
                   <button
@@ -114,7 +119,7 @@ export function SiteHeader() {
                     onClick={() => void logout()}
                     className="w-full border-t border-basalt-100 px-4 py-2.5 text-left text-sm text-basalt-700 dark:text-basalt-300 hover:bg-basalt-50 dark:border-basalt-800 dark:text-basalt-300 dark:hover:bg-basalt-800"
                   >
-                    Sign out
+                    {t('nav.signOut')}
                   </button>
                 </div>
               )}
@@ -122,10 +127,10 @@ export function SiteHeader() {
           ) : (
             <>
               <Link href="/login" className="btn-ghost hidden sm:inline-flex">
-                Sign in
+                {t('nav.signIn')}
               </Link>
               <Link href="/register" className="btn-primary">
-                Join free
+                {t('nav.joinFree')}
               </Link>
             </>
           )}
@@ -163,13 +168,13 @@ export function SiteHeader() {
                     : 'text-basalt-700 dark:text-basalt-300 dark:text-basalt-300'
                 }`}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
           </div>
           {!user && (
             <Link href="/login" className="btn-secondary mt-3 w-full">
-              Sign in
+              {t('nav.signIn')}
             </Link>
           )}
         </nav>

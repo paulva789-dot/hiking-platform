@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "MongoTrek",
+    "slug": "mongotrek",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "mongotrek",
+    "splash": {
+      "backgroundColor": "#17362a"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "cm.mongotrek.app",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "cm.mongotrek.app",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-status-bar",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "MongoTrek uses your location to zoom the map to where you are and show nearby trails."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {}
+    }
+  }
+}

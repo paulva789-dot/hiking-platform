@@ -20,3 +20,15 @@ Thumbs.db
 
 # Prisma generated client
 backend/node_modules/.prisma/
+
+# Expo (mobile/)
+.expo/
+dist/
+web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+mobile/ios/
+mobile/android/

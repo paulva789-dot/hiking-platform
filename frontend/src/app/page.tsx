@@ -8,13 +8,15 @@ import { SectionHeading, Stars } from '@/components/ui';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { RegionPlacePicker } from '@/components/RegionPlacePicker';
 import { CloudDrift } from '@/components/SceneOverlay';
+import { T } from '@/components/T';
+import type { TranslationKey } from '@/lib/i18n/translations';
 
 export const revalidate = 300;
 
-const WHAT_HIKING_ENTAILS = [
+const WHAT_HIKING_ENTAILS: { titleKey: TranslationKey; bodyKey: TranslationKey; icon: React.ReactNode }[] = [
   {
-    title: 'A route, on foot, outdoors',
-    body: 'Forest trails, volcanic slopes, savanna tracks or a coastal path — measured in distance and elevation gain, not just time. Easy routes run under 4 hours; summit attempts can run several days.',
+    titleKey: 'whatIsHiking.route.title',
+    bodyKey: 'whatIsHiking.route.body',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 20l4-11 3 5 3-8 6 14H4z" />
@@ -22,8 +24,8 @@ const WHAT_HIKING_ENTAILS = [
     ),
   },
   {
-    title: 'Ordinary fitness, honestly rated',
-    body: "No special athleticism for an Easy or Moderate trail — a fit non-runner manages fine. Hard and Expert routes need real preparation: build up to them rather than starting there.",
+    titleKey: 'whatIsHiking.fitness.title',
+    bodyKey: 'whatIsHiking.fitness.body',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
@@ -31,8 +33,8 @@ const WHAT_HIKING_ENTAILS = [
     ),
   },
   {
-    title: 'The right gear, not lots of it',
-    body: 'Boots, water, a rain layer and a charged phone cover most day hikes. Multi-day and summit trips add a sleeping bag, warm layers and food — the full checklist is on the safety page.',
+    titleKey: 'whatIsHiking.gear.title',
+    bodyKey: 'whatIsHiking.gear.body',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 8V6a6 6 0 1112 0v2M4 8h16l-1 13H5L4 8z" />
@@ -40,8 +42,8 @@ const WHAT_HIKING_ENTAILS = [
     ),
   },
   {
-    title: 'Usually with someone who knows the ground',
-    body: 'Registered local guides handle route-finding, weather calls and permits — required outright on some trails, strongly advised on the rest. Booking one is built into every trail page.',
+    titleKey: 'whatIsHiking.guide.title',
+    bodyKey: 'whatIsHiking.guide.body',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
         <circle cx="12" cy="8" r="3" />
@@ -54,7 +56,7 @@ const WHAT_HIKING_ENTAILS = [
 async function getHomeData() {
   // Each call is independently cached, and a failure in one section should not
   // blank the whole landing page.
-  const settle = <T,>(p: Promise<T>, fallback: T) => p.catch(() => fallback);
+  const settle = <R,>(p: Promise<R>, fallback: R) => p.catch(() => fallback);
 
   const [popular, easy, guides, events, safety] = await Promise.all([
     settle(serverFetch<{ trails: TrailCardType[] }>('/trails?sort=popular&limit=6'), { trails: [] }),
@@ -96,18 +98,15 @@ export default async function HomePage() {
         <div className="section relative py-20 sm:py-28">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/20">
             <span className="h-2 w-3 rounded-[1px] bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow" aria-hidden />
-            All ten regions of Cameroon
+            <T k="hero.badge" />
           </p>
 
           <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.1] sm:text-5xl lg:text-6xl">
-            Hiking in Cameroon, with the information you actually need
+            <T k="hero.title" />
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-basalt-200">
-            Most people who want to hike here never start, because what they can find is vague, wrong
-            or missing. This is the fix: real distances and durations, difficulty ratings that mean
-            something specific, live weather that tells you when not to go, permit rules, and
-            registered local guides you can book directly.
+            <T k="hero.body" />
           </p>
 
           <div className="mt-8 max-w-2xl">
@@ -115,10 +114,10 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
-            <HeroStat value="12" label="Destinations, all checked" />
-            <HeroStat value="10" label="Regions covered" />
-            <HeroStat value="4,040 m" label="Highest summit — Fako" />
-            <HeroStat value="XAF" label="Prices in local currency" />
+            <HeroStat value="12" labelKey="hero.stat.destinations" />
+            <HeroStat value="10" labelKey="hero.stat.regions" />
+            <HeroStat value="4,040 m" labelKey="hero.stat.summit" />
+            <HeroStat value="XAF" labelKey="hero.stat.currency" />
           </div>
         </div>
       </section>
@@ -128,30 +127,30 @@ export default async function HomePage() {
         <div className="section grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start">
           <div>
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-forest-700">
-              New to this?
+              <T k="whatIsHiking.eyebrow" />
             </p>
             <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-3xl">
-              What hiking actually is, and what it takes
+              <T k="whatIsHiking.title" />
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
-              Hiking is walking a route on foot, usually outside a city, for long enough that it
-              takes real planning rather than a stroll — anywhere from two hours to several days.
-              You don&rsquo;t need to be an athlete. You do need the right expectations going in.
+              <T k="whatIsHiking.body" />
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {WHAT_HIKING_ENTAILS.map((item) => (
-              <div key={item.title} className="card p-5">
+              <div key={item.titleKey} className="card p-5">
                 <div className="flex items-center gap-2">
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-forest-50 text-forest-700 dark:bg-forest-900/40 dark:text-forest-300" aria-hidden>
                     {item.icon}
                   </span>
                   <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
-                    {item.title}
+                    <T k={item.titleKey} />
                   </h3>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{item.body}</p>
+                <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
+                  <T k={item.bodyKey} />
+                </p>
               </div>
             ))}
           </div>
@@ -443,11 +442,13 @@ export default async function HomePage() {
   );
 }
 
-function HeroStat({ value, label }: { value: string; label: string }) {
+function HeroStat({ value, labelKey }: { value: string; labelKey: TranslationKey }) {
   return (
     <div>
       <p className="font-display text-2xl font-semibold text-white">{value}</p>
-      <p className="mt-0.5 text-xs uppercase tracking-wide text-basalt-300">{label}</p>
+      <p className="mt-0.5 text-xs uppercase tracking-wide text-basalt-300">
+        <T k={labelKey} />
+      </p>
     </div>
   );
 }

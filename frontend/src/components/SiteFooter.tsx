@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useLanguage } from '@/lib/i18n/language-context';
 import { LogoMark, LogoText } from './Logo';
 
 const COLUMNS = [
@@ -33,6 +36,13 @@ const COLUMNS = [
 ];
 
 export function SiteFooter() {
+  const { t } = useLanguage();
+  const columnTitles: Record<string, string> = {
+    Explore: t('footer.explore'),
+    Plan: t('footer.plan'),
+    Community: t('footer.community'),
+  };
+
   return (
     <footer className="mt-20 border-t border-basalt-200 bg-forest-950 text-basalt-300">
       <div className="flag-bar" aria-hidden />
@@ -44,20 +54,14 @@ export function SiteFooter() {
             </span>
             <LogoText className="font-display text-lg font-semibold text-white" />
           </div>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed">
-            Honest, checked information about hiking in Cameroon — real distances, real times, real
-            hazards, and the local guides who know the ground. From Mont Mbankolo before work to
-            four days in the Dja — and guided tours booked across the wider CEMAC region.
-          </p>
-          <p className="mt-4 text-xs text-basalt-400">
-            Emergency numbers in Cameroon — Police 117 · Fire 118 · Ambulance 119
-          </p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed">{t('footer.tagline')}</p>
+          <p className="mt-4 text-xs text-basalt-400">{t('footer.emergency')}</p>
         </div>
 
         {COLUMNS.map((col) => (
           <div key={col.title}>
             <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-white">
-              {col.title}
+              {columnTitles[col.title]}
             </h3>
             <ul className="mt-4 space-y-2.5">
               {col.links.map((link) => (
@@ -74,8 +78,8 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="section flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-basalt-400">
-          <p>© {new Date().getFullYear()} MongoTrek. Trail data is community-checked, not a guarantee of safety.</p>
-          <p>Maps © OpenStreetMap contributors · Weather by OpenWeather</p>
+          <p>© {new Date().getFullYear()} MongoTrek. {t('footer.rights')}</p>
+          <p>{t('footer.mapCredit')}</p>
         </div>
       </div>
     </footer>
