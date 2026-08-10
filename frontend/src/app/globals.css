@@ -144,7 +144,10 @@
 }
 
 .leaflet-popup-content-wrapper {
-  @apply rounded-xl shadow-lg;
+  /* Leaflet's popup box has no theme awareness of its own — without this,
+     text inside it that switches to a light color in dark mode (e.g.
+     dark:text-basalt-50) becomes invisible on a wrapper that's always white. */
+  @apply rounded-xl bg-white text-basalt-900 shadow-lg dark:bg-basalt-900 dark:text-basalt-100;
   padding: 0;
 }
 
@@ -154,11 +157,11 @@
 }
 
 .leaflet-popup-tip {
-  @apply shadow-none;
+  @apply bg-white shadow-none dark:bg-basalt-900;
 }
 
 .leaflet-bar a {
-  @apply text-basalt-800;
+  @apply bg-white text-basalt-800 dark:bg-basalt-900 dark:text-basalt-200;
 }
 
 .leaflet-control-attribution {
