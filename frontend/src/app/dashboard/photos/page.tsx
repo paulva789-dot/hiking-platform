@@ -214,7 +214,7 @@ function UploadForm({ trails, onUploaded }: { trails: TrailCard[]; onUploaded: (
       </div>
 
       <div className="rounded-lg bg-basalt-50 p-4">
-        <label className="flex items-center gap-2 text-sm font-medium text-basalt-800">
+        <label className="flex items-center gap-2 text-sm font-medium text-basalt-800 dark:text-basalt-200">
           <input
             type="checkbox"
             checked={forSale}

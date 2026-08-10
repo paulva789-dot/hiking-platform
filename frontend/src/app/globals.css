@@ -195,3 +195,29 @@
 .map-layer-toggle button.is-active {
   @apply bg-forest-700 text-white hover:bg-forest-800;
 }
+
+.map-legend {
+  @apply flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg bg-white/95 px-3 py-2 text-[11px] font-semibold
+         text-basalt-700 shadow-md ring-1 ring-basalt-300 backdrop-blur
+         dark:bg-basalt-900/95 dark:text-basalt-300 dark:ring-basalt-700;
+  animation: legend-in 0.4s ease-out both;
+}
+
+.map-legend-item {
+  @apply inline-flex items-center gap-1.5;
+}
+
+.map-legend-dot {
+  @apply h-2.5 w-2.5 shrink-0 rounded-full;
+}
+
+@keyframes legend-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

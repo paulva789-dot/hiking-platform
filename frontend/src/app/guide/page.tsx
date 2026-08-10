@@ -395,7 +395,7 @@ function Membership({ profile, onChange }: { profile: GuideProfile; onChange: ()
         <button
           type="button"
           onClick={() => setCheckout(null)}
-          className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800"
+          className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800 dark:text-basalt-200"
         >
           ← Back to plans
         </button>

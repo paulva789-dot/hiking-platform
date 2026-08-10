@@ -95,7 +95,7 @@ export default async function TourPage({ params }: { params: Params }) {
             <section className="grid gap-5 sm:grid-cols-2">
               {tour.includes.length > 0 && (
                 <div className="card p-5">
-                  <h3 className="font-display text-base font-semibold text-forest-800">
+                  <h3 className="font-display text-base font-semibold text-forest-800 dark:text-forest-400">
                     What&rsquo;s included
                   </h3>
                   <ul className="mt-3 space-y-2">
@@ -142,7 +142,7 @@ export default async function TourPage({ params }: { params: Params }) {
             <h2 className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">Your guide</h2>
             <Link
               href={`/guides/${tour.guide.id}`}
-              className="card mt-3 flex gap-4 p-5 transition-shadow hover:shadow-md"
+              className="card mt-3 flex gap-4 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             >
               <Avatar name={tour.guide.user.name} src={tour.guide.user.avatarUrl} size="lg" />
               <div className="min-w-0">
@@ -173,7 +173,7 @@ export default async function TourPage({ params }: { params: Params }) {
                   const left = s.seatsLeft ?? s.capacity - s.seatsBooked;
                   return (
                     <li key={s.id} className="flex items-center justify-between gap-4 px-5 py-3.5">
-                      <span className="text-sm font-medium text-basalt-800">
+                      <span className="text-sm font-medium text-basalt-800 dark:text-basalt-200">
                         {formatDateRange(s.startDate, s.endDate)}
                       </span>
                       <span

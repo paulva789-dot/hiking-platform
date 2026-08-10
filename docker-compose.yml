@@ -13,7 +13,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: trek_cameroon
     ports:
-      - '5432:5432'
+      # Host port 5433, not 5432 — this machine already runs another
+      # project's Postgres on 5432. Keep DATABASE_URL in backend/.env in
+      # sync with this (localhost:5433).
+      - '5433:5432'
     volumes:
       - trek_pgdata:/var/lib/postgresql/data
     healthcheck:

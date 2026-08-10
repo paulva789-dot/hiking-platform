@@ -153,7 +153,7 @@ export function BookingWidget({
           required
         />
         {seatsLeft > 0 && seatsLeft <= 3 && (
-          <p className="mt-1 text-xs font-semibold text-laterite-700">
+          <p className="mt-1 text-xs font-semibold text-laterite-700 dark:text-laterite-400">
             Only {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left on this date.
           </p>
         )}

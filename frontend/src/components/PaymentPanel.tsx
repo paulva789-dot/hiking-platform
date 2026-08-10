@@ -116,7 +116,7 @@ export function PaymentPanel({
   if (stage === 'success') {
     return (
       <div className="space-y-3 text-center">
-        <p className="font-display text-xl font-semibold text-forest-800">Payment confirmed</p>
+        <p className="font-display text-xl font-semibold text-forest-800 dark:text-forest-400">Payment confirmed</p>
         <p className="text-sm text-basalt-600 dark:text-basalt-300">Reference {reference}</p>
       </div>
     );

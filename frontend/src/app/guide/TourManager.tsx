@@ -278,7 +278,7 @@ function ScheduleManager({ tour, onChange }: { tour: Tour; onChange: () => void 
               key={s.id}
               className="flex items-center justify-between gap-3 rounded-lg bg-basalt-50 px-3 py-2 text-sm"
             >
-              <span className="text-basalt-800">{formatDateRange(s.startDate, s.endDate)}</span>
+              <span className="text-basalt-800 dark:text-basalt-200">{formatDateRange(s.startDate, s.endDate)}</span>
               <span className="flex items-center gap-3">
                 <span className="text-xs text-basalt-500">
                   {s.seatsBooked}/{s.capacity} booked

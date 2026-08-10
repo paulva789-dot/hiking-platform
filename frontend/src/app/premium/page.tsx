@@ -123,7 +123,7 @@ export default function PremiumPage() {
           <div className="card p-6">
             {done ? (
               <div className="space-y-4 text-center">
-                <p className="font-display text-xl font-semibold text-forest-800">
+                <p className="font-display text-xl font-semibold text-forest-800 dark:text-forest-400">
                   Premium is active
                 </p>
                 <p className="text-sm text-basalt-600 dark:text-basalt-300">
@@ -138,7 +138,7 @@ export default function PremiumPage() {
                 <button
                   type="button"
                   onClick={() => setPaying(false)}
-                  className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800"
+                  className="mb-4 text-xs font-semibold text-basalt-500 hover:text-basalt-800 dark:text-basalt-200"
                 >
                   ← Change plan
                 </button>

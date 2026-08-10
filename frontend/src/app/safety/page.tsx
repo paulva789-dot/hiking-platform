@@ -4,6 +4,7 @@ import { serverFetch } from '@/lib/api';
 import type { SafetyCategory } from '@/lib/types';
 import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING } from '@/lib/format';
 import { Alert } from '@/components/ui';
+import { T } from '@/components/T';
 
 export const metadata: Metadata = {
   title: 'Safety guidelines',
@@ -135,7 +136,7 @@ export default async function SafetyPage() {
             Read this first
           </p>
           <h1 className="max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-            Safety guidelines for hiking in Cameroon
+            <T k="page.safety.title" />
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-relaxed text-basalt-300">
             Mountain rescue does not exist here. On Mount Cameroon, evacuation means your guide and
@@ -175,13 +176,13 @@ export default async function SafetyPage() {
               <Link
                 key={level}
                 href={`/trails?difficulty=${level}`}
-                className="card p-5 transition-shadow hover:shadow-md"
+                className="card p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="flex items-center gap-2">
                   <span
                     className="h-2.5 w-2.5 rounded-full"
                     style={{
-                      background: { EASY: '#3a7f5d', MODERATE: '#d97706', HARD: '#c74a2c', EXPERT: '#991b1b' }[level],
+                      background: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#c74a2c', EXPERT: '#991b1b' }[level],
                     }}
                   />
                   <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">

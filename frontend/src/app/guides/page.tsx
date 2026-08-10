@@ -4,6 +4,7 @@ import { buildQuery, serverFetch } from '@/lib/api';
 import type { GuideCard, Pagination } from '@/lib/types';
 import { ALL_REGIONS, REGION_LABELS, formatXAF } from '@/lib/format';
 import { Avatar, EmptyState, SectionHeading, Stars } from '@/components/ui';
+import { T } from '@/components/T';
 
 export const metadata: Metadata = {
   title: 'Registered hiking guides',
@@ -28,7 +29,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
       <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
           <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
-            Registered guides
+            <T k="page.guides.title" />
           </h1>
           <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Every guide here has been verified by us before their tours went live. Rates are theirs.
@@ -82,7 +83,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
               <Link
                 key={guide.id}
                 href={`/guides/${guide.id}`}
-                className="card group flex flex-col p-5 transition-shadow hover:shadow-md"
+                className="card group flex flex-col p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="flex items-start gap-3">
                   <Avatar name={guide.user.name} src={guide.user.avatarUrl} size="lg" />
@@ -103,7 +104,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                   </div>
                 </div>
 
-                <p className="mt-4 font-medium leading-snug text-basalt-800">{guide.headline}</p>
+                <p className="mt-4 font-medium leading-snug text-basalt-800 dark:text-basalt-200">{guide.headline}</p>
                 <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                   {guide.bio}
                 </p>

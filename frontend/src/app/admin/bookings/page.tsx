@@ -100,7 +100,7 @@ export default function AdminBookingsPage() {
                       </span>
                     </Td>
                     <Td>
-                      <span className="block text-basalt-800">{b.user?.name}</span>
+                      <span className="block text-basalt-800 dark:text-basalt-200">{b.user?.name}</span>
                       <span className="block text-xs text-basalt-500">{b.user?.email}</span>
                     </Td>
                     <Td className="text-basalt-700 dark:text-basalt-300">{b.tour.guide?.user.name ?? '—'}</Td>

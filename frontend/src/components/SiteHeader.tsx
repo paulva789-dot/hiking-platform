@@ -84,7 +84,7 @@ export function SiteHeader() {
                 aria-haspopup="menu"
               >
                 <Avatar name={user.name} src={user.avatarUrl} size="sm" />
-                <span className="hidden text-sm font-medium text-basalt-800 sm:block">
+                <span className="hidden text-sm font-medium text-basalt-800 dark:text-basalt-200 sm:block">
                   {user.name.split(' ')[0]}
                 </span>
                 {isPremium && (
@@ -111,7 +111,7 @@ export function SiteHeader() {
                   {user.role === 'ADMIN' && <MenuLink href="/admin">{t('nav.adminConsole')}</MenuLink>}
                   {!isPremium && (
                     <MenuLink href="/premium">
-                      <span className="text-laterite-700">{t('nav.goPremium')}</span>
+                      <span className="text-laterite-700 dark:text-laterite-400">{t('nav.goPremium')}</span>
                     </MenuLink>
                   )}
                   <button

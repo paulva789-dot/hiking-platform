@@ -115,7 +115,7 @@ export default function AdminGuidesPage() {
                     {formatDate(guide.user.createdAt)}
                   </p>
 
-                  <p className="mt-3 font-medium text-basalt-800">{guide.headline}</p>
+                  <p className="mt-3 font-medium text-basalt-800 dark:text-basalt-200">{guide.headline}</p>
                   <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                     {guide.bio}
                   </p>
@@ -202,7 +202,7 @@ function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-2">
       <dt className="shrink-0 text-basalt-500">{label}:</dt>
-      <dd className="min-w-0 text-basalt-800">{value}</dd>
+      <dd className="min-w-0 text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );
 }

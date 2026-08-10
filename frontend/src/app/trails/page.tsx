@@ -8,6 +8,7 @@ import { TrailCard } from '@/components/TrailCard';
 import { TrailFilters } from '@/components/TrailFilters';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { EmptyState } from '@/components/ui';
+import { T } from '@/components/T';
 
 export const metadata: Metadata = {
   title: 'All hiking trails',
@@ -59,11 +60,10 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
       <div className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
           <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
-            Hiking destinations
+            <T k="page.trails.title" />
           </h1>
           <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
-            Twelve destinations, at least one in each of Cameroon&rsquo;s ten regions. Every distance,
-            ascent and duration below is for the standard route and a moderately fit hiker.
+            <T k="page.trails.subtitle" />
           </p>
           <div className="mt-6 max-w-2xl">
             <Suspense fallback={<div className="skeleton h-11 w-full" />}>

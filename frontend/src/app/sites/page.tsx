@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { CameroonSitesMap } from '@/components/map/LazyMaps';
 import { CAMEROON_SITES } from '@/lib/cameroon-sites';
 import { CloudDrift, WaterShimmer } from '@/components/SceneOverlay';
+import { T } from '@/components/T';
 
 export const metadata: Metadata = {
   title: 'Cameroon sites & history',
@@ -35,7 +36,7 @@ export default function SitesPage() {
             Beyond the trailhead
           </p>
           <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
-            Cameroon sites &amp; history
+            <T k="page.sites.title" />
           </h1>
           <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
             Cameroon is nicknamed &ldquo;Africa in miniature&rdquo; because almost every landscape on the
@@ -52,8 +53,7 @@ export default function SitesPage() {
           <CameroonSitesMap sites={mapPoints} height="480px" />
         </div>
         <p className="mt-2 text-xs text-basalt-500">
-          Toggle Streets / Satellite in the top-right of the map, or use &ldquo;Zoom to my location&rdquo; to
-          fly the satellite view in on wherever you are right now.
+          <T k="page.map.subtitle" />
         </p>
       </div>
 
@@ -62,7 +62,7 @@ export default function SitesPage() {
           <article
             key={site.slug}
             id={site.slug}
-            className="card scroll-mt-24 flex flex-col overflow-hidden transition-shadow hover:shadow-md animate-fade-up"
+            className="card scroll-mt-24 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md animate-fade-up"
           >
             <div className="relative h-48 w-full shrink-0 overflow-hidden bg-basalt-200">
               <Image

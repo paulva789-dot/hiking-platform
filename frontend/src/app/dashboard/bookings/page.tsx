@@ -208,7 +208,7 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex gap-2">
       <dt className="shrink-0 text-basalt-500">{label}:</dt>
-      <dd className="min-w-0 text-basalt-800">{value}</dd>
+      <dd className="min-w-0 text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );
 }

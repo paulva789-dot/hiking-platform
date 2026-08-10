@@ -13,7 +13,7 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
   return (
     <Link
       href={`/trails/${trail.slug}`}
-      className="group card overflow-hidden transition-shadow hover:shadow-md focus-visible:shadow-md"
+      className="group card animate-fade-up overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:shadow-md"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-basalt-200">
         <Image
@@ -69,7 +69,7 @@ function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <dt className="text-[10px] font-semibold uppercase tracking-wide text-basalt-400">{label}</dt>
-      <dd className="mt-0.5 text-sm font-semibold text-basalt-800">{value}</dd>
+      <dd className="mt-0.5 text-sm font-semibold text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );
 }

@@ -103,6 +103,17 @@ const en = {
   'common.viewTrail': 'View trail',
   'common.bookNow': 'Book now',
   'common.loading': 'Loading…',
+
+  // page headers
+  'page.trails.title': 'Hiking destinations',
+  'page.trails.subtitle':
+    "Twelve destinations, at least one in each of Cameroon's ten regions. Every distance, ascent and duration below is for the standard route and a moderately fit hiker.",
+  'page.sites.title': 'Cameroon sites & history',
+  'page.map.subtitle':
+    'Toggle Streets / Satellite in the top-right of the map, or use "Zoom to my location" to fly the satellite view in on wherever you are right now.',
+  'page.map.title': 'Trail map',
+  'page.guides.title': 'Registered guides',
+  'page.safety.title': 'Safety guidelines for hiking in Cameroon',
 };
 
 const fr: Record<TranslationKey, string> = {
@@ -172,6 +183,16 @@ const fr: Record<TranslationKey, string> = {
   'common.viewTrail': 'Voir le sentier',
   'common.bookNow': 'Réserver',
   'common.loading': 'Chargement…',
+
+  'page.trails.title': 'Destinations de randonnée',
+  'page.trails.subtitle':
+    "Douze destinations, au moins une dans chacune des dix régions du Cameroun. Chaque distance, dénivelé et durée ci-dessous correspond à l'itinéraire standard pour un randonneur en forme moyenne.",
+  'page.sites.title': 'Sites et histoire du Cameroun',
+  'page.map.subtitle':
+    'Basculez Rues / Satellite en haut à droite de la carte, ou utilisez « Zoomer sur ma position » pour centrer la vue satellite là où vous êtes.',
+  'page.map.title': 'Carte des sentiers',
+  'page.guides.title': 'Guides enregistrés',
+  'page.safety.title': 'Consignes de sécurité pour la randonnée au Cameroun',
 };
 
 const es: Record<TranslationKey, string> = {
@@ -241,6 +262,16 @@ const es: Record<TranslationKey, string> = {
   'common.viewTrail': 'Ver sendero',
   'common.bookNow': 'Reservar ahora',
   'common.loading': 'Cargando…',
+
+  'page.trails.title': 'Destinos de senderismo',
+  'page.trails.subtitle':
+    'Doce destinos, al menos uno en cada una de las diez regiones de Camerún. Cada distancia, desnivel y duración a continuación corresponde a la ruta estándar para un senderista de forma física media.',
+  'page.sites.title': 'Sitios e historia de Camerún',
+  'page.map.subtitle':
+    'Alterna Calles / Satélite en la esquina superior derecha del mapa, o usa "Ir a mi ubicación" para centrar la vista satelital donde te encuentras.',
+  'page.map.title': 'Mapa de senderos',
+  'page.guides.title': 'Guías registrados',
+  'page.safety.title': 'Guía de seguridad para el senderismo en Camerún',
 };
 
 const pt: Record<TranslationKey, string> = {
@@ -310,6 +341,16 @@ const pt: Record<TranslationKey, string> = {
   'common.viewTrail': 'Ver trilha',
   'common.bookNow': 'Reservar agora',
   'common.loading': 'Carregando…',
+
+  'page.trails.title': 'Destinos de caminhada',
+  'page.trails.subtitle':
+    'Doze destinos, pelo menos um em cada uma das dez regiões dos Camarões. Cada distância, ganho de altitude e duração abaixo corresponde à rota padrão para um caminhante com condicionamento médio.',
+  'page.sites.title': 'Locais e história dos Camarões',
+  'page.map.subtitle':
+    'Alterne Ruas / Satélite no canto superior direito do mapa, ou use "Ir para minha localização" para centralizar a vista de satélite onde você está.',
+  'page.map.title': 'Mapa de trilhas',
+  'page.guides.title': 'Guias registrados',
+  'page.safety.title': 'Diretrizes de segurança para caminhadas nos Camarões',
 };
 
 export const TRANSLATIONS: Record<Locale, Record<TranslationKey, string>> = { en, fr, es, pt };

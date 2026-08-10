@@ -9,6 +9,10 @@
  * checking against a local guide association before publishing.
  */
 
+/** Real photos of the actual named place, hotlinked from Wikimedia Commons via Special:FilePath. */
+const commonsUrl = (file, width = 1600) =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${width}`;
+
 export const trails = [
   {
     slug: 'mount-cameroon-guinness-route',
@@ -58,7 +62,7 @@ The annual Mount Cameroon Race of Hope in February sends runners from Buea to th
     gettingThere:
       'Buea is about 1 h 15 from Douala by road via Mutengene. Shared taxis run from Douala Bonabéri and from Limbe. The trailhead is at the Mount CEO office in Buea Town, walking distance from the Buea motor park.',
     coverImage:
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Mount fako (mount Cameroon).jpg'),
     waypoints: [
       { name: 'Mount CEO office, Buea Town', lat: 4.1561, lng: 9.241, elevationM: 960, order: 0, description: 'Registration, guide assignment and gear check. Compulsory stop.' },
       { name: 'Hut 1 (Rest House)', lat: 4.1698, lng: 9.2255, elevationM: 1850, order: 1, description: 'Last shade and the last dependable spring. Most parties take 3–4 h to here.' },
@@ -111,7 +115,7 @@ Kupe carries heavy cultural weight locally: it appears in Bakossi tradition as a
     gettingThere:
       'Nyasoso is reached from Kumba via Tombel, or from Bafoussam via Bangem — roughly 3 h from Kumba on a rough road. Vehicles are less frequent in the wet season.',
     coverImage:
-      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Mount Kupe Muanenguba.jpeg'),
     waypoints: [
       { name: 'Nyasoso village trailhead', lat: 4.8231, lng: 9.6889, elevationM: 840, order: 0, description: "Meet your guide at the village. Max's Trail starts behind the mission." },
       { name: 'Picathartes site turn-off', lat: 4.8156, lng: 9.6862, elevationM: 1180, order: 1, description: 'Side path to a known Grey-necked Picathartes nesting rock. Approach quietly and only with a guide.' },
@@ -162,7 +166,7 @@ At 2,400 m it gets genuinely cold at night and the wind rarely stops. The lakes 
     gettingThere:
       'Melong is on the Douala–Bafoussam highway, about 3 h from Douala. From Melong it is a 1–2 h climb by moto or 4x4 to the rim road. Bangem is reachable from Nyasoso or Bafoussam.',
     coverImage:
-      'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Manengouba-Tombel.jpg'),
     waypoints: [
       { name: 'Bangem trailhead', lat: 5.0442, lng: 9.8478, elevationM: 1640, order: 0 },
       { name: 'Grassland shoulder', lat: 5.0361, lng: 9.8422, elevationM: 1980, order: 1, description: 'Treeline ends. First view into the caldera.' },
@@ -211,7 +215,7 @@ Flow is enormous between July and October, when the spray soaks you from the vie
     gettingThere:
       'Nkongsamba is about 2 h 30 from Douala on the Bafoussam road. The falls are roughly 20 km further towards Melong, then a signposted track — any moto in Nkongsamba knows Ekom.',
     coverImage:
-      'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Chutes Ekom Nkam.jpg'),
     waypoints: [
       { name: 'Site entrance and viewpoint', lat: 4.9231, lng: 9.9314, elevationM: 720, order: 0, description: 'Pay here. The upper viewpoint alone is worth the trip if you cannot manage the descent.' },
       { name: 'Rock stairway', lat: 4.9212, lng: 9.9298, elevationM: 610, order: 1, description: 'Steep, wet, hand-over-hand in places. Not suitable in smooth-soled shoes.' },
@@ -261,7 +265,7 @@ Lake Oku sits in a crater on the mountain's south side, surrounded by forest and
     gettingThere:
       'Elak-Oku is about 1 h 30 from Kumbo, which is 3 h from Bamenda. Check current security advisories for the North-West region before travelling.',
     coverImage:
-      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Lake Oku Cameroon.jpg'),
     waypoints: [
       { name: "Elak-Oku, Fon's palace", lat: 6.2244, lng: 10.4761, elevationM: 2050, order: 0, description: 'Guide meeting point and customary courtesy call.' },
       { name: 'Kilum forest edge', lat: 6.2158, lng: 10.4722, elevationM: 2400, order: 1, description: "Enter the community forest. Best chance of Bannerman's Turaco in the first hour after dawn." },
@@ -306,7 +310,7 @@ The best hours are early — the highlands cloud over by mid-afternoon and the l
     gettingThere:
       'Awing is about 45 minutes from Bamenda via Santa by shared taxi or moto. Check current security advisories for the North-West region.',
     coverImage:
-      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Lake Kuk in the Northwest Region of Cameroon.jpg'),
     waypoints: [
       { name: 'Awing village centre', lat: 5.9528, lng: 10.2492, elevationM: 1690, order: 0 },
       { name: 'Eastern rim viewpoint', lat: 5.9481, lng: 10.2531, elevationM: 1920, order: 1, description: 'Full view across the crater. Best light before 09:00.' },
@@ -357,7 +361,7 @@ Bring a proper wind layer. At 2,700 m in the harmattan the wind is constant and 
     gettingThere:
       'Mbouda is about 1 h from Bafoussam and 5 h from Douala. Moto-taxis run up to the last village on the Bamboutos road; the walk starts from there.',
     coverImage:
-      'https://images.unsplash.com/photo-1486890598084-3673ba1808e5?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Mont Batchingou (2098m).jpg'),
     waypoints: [
       { name: 'Mbouda road trailhead', lat: 5.6289, lng: 10.2528, elevationM: 1660, order: 0 },
       { name: 'Terrace farms upper limit', lat: 5.6341, lng: 10.1892, elevationM: 2150, order: 1, description: 'Last houses and the last water. Fill up here.' },
@@ -406,7 +410,7 @@ This is the standard training walk for Yaoundé-based hikers preparing for Mount
     gettingThere:
       'Start from the Bastos junction at the foot of the Mont Fébé road. Any Yaoundé taxi will take you to "Mont Fébé" or the monastery.',
     coverImage:
-      'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Lac municipal de Yaounde.jpg'),
     waypoints: [
       { name: 'Bastos junction', lat: 3.8908, lng: 11.5061, elevationM: 730, order: 0 },
       { name: 'Mont Fébé viewpoint', lat: 3.8954, lng: 11.5022, elevationM: 950, order: 1, description: 'The classic view over Yaoundé. Clearest in the harmattan.' },
@@ -457,7 +461,7 @@ Two hard constraints. First, heat: from March to May the plain reaches 40 °C an
     gettingThere:
       'Rhumsiki is about 1 h 30 from Mokolo, which is 2 h from Maroua. Maroua has flights from Yaoundé and Douala. Confirm the security position before travelling.',
     coverImage:
-      'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Rhumsiki Peak.jpg'),
     waypoints: [
       { name: 'Rhumsiki village', lat: 10.5347, lng: 13.6178, elevationM: 900, order: 0, description: 'Guides, craft workshops and the crab-sorcerer. Start before 06:00 in the hot months.' },
       { name: 'Rhumsiki Peak viewpoint', lat: 10.5412, lng: 13.6089, elevationM: 1100, order: 1, description: 'The classic view of the volcanic plug. Best light at sunrise.' },
@@ -508,7 +512,7 @@ The park closes in the rains — the tracks become impassable and the animals di
     gettingThere:
       'Buffle Noir is about 2 h 30 from Garoua on the Ngaoundéré road. Garoua has flights from Yaoundé and Douala. A 4x4 is needed for the park tracks.',
     coverImage:
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('BénouéNP4.jpg'),
     waypoints: [
       { name: 'Buffle Noir camp', lat: 8.3667, lng: 13.8333, elevationM: 340, order: 0, description: 'Ranger briefing and mandatory registration. Walks leave at 06:00.' },
       { name: 'River terrace', lat: 8.3589, lng: 13.8412, elevationM: 320, order: 1, description: 'Kob and roan antelope early. Hippo pools downstream — keep the ranger between you and the water.' },
@@ -559,7 +563,7 @@ Ngaoundéré is the northern terminus of the Douala–Ngaoundéré railway, whic
     gettingThere:
       'Ngaoundaba is about 45 minutes south of Ngaoundéré by road. Ngaoundéré is the terminus of the overnight train from Yaoundé and has flights from Douala.',
     coverImage:
-      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Paysage de Ngaoundaba.jpg'),
     waypoints: [
       { name: 'Ngaoundaba ranch trailhead', lat: 7.0492, lng: 13.6042, elevationM: 1120, order: 0 },
       { name: 'Gallery forest edge', lat: 7.0441, lng: 13.5981, elevationM: 1180, order: 1 },
@@ -612,7 +616,7 @@ Come prepared properly. Full rain gear that you accept will be wet the whole tim
     gettingThere:
       'Somalomo is reached via Abong-Mbang, about 6–7 h from Yaoundé, then a rough road north. A 4x4 is essential and the final stretch may be impassable in heavy rain.',
     coverImage:
-      'https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Dja Faunal Reserve-109438.jpg'),
     waypoints: [
       { name: 'Somalomo conservation post', lat: 3.3672, lng: 12.7189, elevationM: 660, order: 0, description: 'Permits, guide and porter assignment, kit inspection.' },
       { name: 'Dja river crossing', lat: 3.3481, lng: 12.7302, elevationM: 640, order: 1, description: 'Pirogue crossing into the reserve proper.' },
@@ -663,7 +667,7 @@ Because it is flat and short, this is a good family route and a good first multi
     gettingThere:
       'Ebodjé is about 1 h 30 south of Kribi on the Campo road. Kribi is 3 h from Douala or 4 h from Yaoundé by road.',
     coverImage:
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=70',
+      commonsUrl('Lobé beach kribi Cameroon.jpg'),
     waypoints: [
       { name: 'Ebodjé village', lat: 2.5842, lng: 9.8611, elevationM: 10, order: 0, description: 'Community turtle project office. Book night patrols here in season.' },
       { name: 'Turtle nesting beach', lat: 2.5681, lng: 9.8589, elevationM: 5, order: 1, description: 'Main nesting stretch, November–February. Never use white light on the beach at night.' },

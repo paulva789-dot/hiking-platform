@@ -202,14 +202,14 @@ function AvatarUpload({
     <div className="card flex flex-wrap items-center gap-5 p-6">
       <Avatar name={name} src={avatarUrl} size="lg" />
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium text-basalt-800">Profile picture</p>
+        <p className="text-sm font-medium text-basalt-800 dark:text-basalt-200">Profile picture</p>
         <input
           ref={ref}
           type="file"
           accept="image/jpeg,image/png,image/webp,image/avif"
           onChange={() => void upload()}
           disabled={busy}
-          className="mt-2 block w-full text-sm text-basalt-600 dark:text-basalt-300 file:mr-3 file:rounded-lg file:border-0 file:bg-basalt-100 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-basalt-800 hover:file:bg-basalt-200"
+          className="mt-2 block w-full text-sm text-basalt-600 dark:text-basalt-300 file:mr-3 file:rounded-lg file:border-0 file:bg-basalt-100 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-basalt-800 dark:text-basalt-200 hover:file:bg-basalt-200"
         />
         {busy && <p className="mt-2 text-xs text-basalt-500">Uploading…</p>}
         {error && <p className="mt-2 text-xs text-red-700">{error}</p>}

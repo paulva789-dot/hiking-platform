@@ -232,13 +232,13 @@ export default async function HomePage() {
               <Link
                 key={level}
                 href={`/trails?difficulty=${level}`}
-                className="card group p-5 transition-shadow hover:shadow-md"
+                className="card group p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="flex items-center gap-2">
                   <span
                     className="h-2.5 w-2.5 rounded-full"
                     style={{
-                      background: { EASY: '#3a7f5d', MODERATE: '#d97706', HARD: '#c74a2c', EXPERT: '#991b1b' }[level],
+                      background: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#c74a2c', EXPERT: '#991b1b' }[level],
                     }}
                   />
                   <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
@@ -293,7 +293,7 @@ export default async function HomePage() {
                 <Link
                   key={guide.id}
                   href={`/guides/${guide.id}`}
-                  className="card group p-5 transition-shadow hover:shadow-md"
+                  className="card group p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
                   <div className="flex items-center gap-3">
                     {guide.user.avatarUrl ? (
@@ -314,7 +314,7 @@ export default async function HomePage() {
                     </div>
                   </div>
 
-                  <p className="mt-3 line-clamp-2 text-sm font-medium leading-snug text-basalt-800">
+                  <p className="mt-3 line-clamp-2 text-sm font-medium leading-snug text-basalt-800 dark:text-basalt-200">
                     {guide.headline}
                   </p>
 
@@ -389,7 +389,7 @@ export default async function HomePage() {
                 <Link
                   key={event.id}
                   href={`/events/${event.slug}`}
-                  className="card group flex gap-4 overflow-hidden p-5 transition-shadow hover:shadow-md"
+                  className="card group flex gap-4 overflow-hidden p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
                   <div className="grid h-16 w-16 shrink-0 place-items-center rounded-lg bg-forest-700 text-white">
                     <span className="text-xs font-semibold uppercase">
@@ -405,7 +405,7 @@ export default async function HomePage() {
                     </h3>
                     <p className="mt-1 text-xs text-basalt-500">{event.location}</p>
                     <p className="mt-2 line-clamp-2 text-sm text-basalt-600 dark:text-basalt-300">{event.description}</p>
-                    <p className="mt-2 text-xs font-semibold text-laterite-700">
+                    <p className="mt-2 text-xs font-semibold text-laterite-700 dark:text-laterite-400">
                       {event.ticketsLeft} of {event.capacity} tickets left
                     </p>
                   </div>

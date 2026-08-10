@@ -95,7 +95,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
                 href={`/trails/${trail.slug}`}
                 onMouseEnter={() => setHovered(trail.slug)}
                 onMouseLeave={() => setHovered(undefined)}
-                className="card flex gap-3 p-3 transition-shadow hover:shadow-md"
+                className="card flex gap-3 p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 <span
                   className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full"

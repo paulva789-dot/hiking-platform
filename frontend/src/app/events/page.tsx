@@ -47,7 +47,7 @@ export default async function EventsPage() {
                 <Link
                   key={event.id}
                   href={`/events/${event.slug}`}
-                  className="card group overflow-hidden transition-shadow hover:shadow-md"
+                  className="card group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
                   <div className="flex gap-5 p-6">
                     <div className="grid h-20 w-20 shrink-0 place-items-center rounded-xl bg-forest-700 text-white">

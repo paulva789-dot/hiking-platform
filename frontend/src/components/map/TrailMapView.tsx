@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import type { MapTrail, Waypoint } from '@/lib/types';
 import {
+  ALL_DIFFICULTIES,
   DIFFICULTY_LABELS,
   DIFFICULTY_MAP_COLOR,
   REGION_LABELS,
@@ -162,6 +163,20 @@ function LocateControl({
   );
 }
 
+/** Floating on-map key: which colour dot means Easy / Moderate / Hard / Expert. */
+function DifficultyLegend({ className = 'absolute bottom-3 left-3 z-[1000]' }: { className?: string }) {
+  return (
+    <div className={`map-legend ${className}`}>
+      {ALL_DIFFICULTIES.map((level) => (
+        <span key={level} className="map-legend-item">
+          <span className="map-legend-dot" style={{ background: DIFFICULTY_MAP_COLOR[level] }} aria-hidden />
+          {DIFFICULTY_LABELS[level]}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------- overview map
 
 export function TrailsOverviewMap({
@@ -189,6 +204,7 @@ export function TrailsOverviewMap({
       <FitBounds points={points} />
       <LayerToggle satellite={satellite} onChange={setSatellite} />
       <LocateControl onLocate={() => setSatellite(true)} />
+      <DifficultyLegend />
 
       {trails.map((trail) => (
         <div key={trail.id}>

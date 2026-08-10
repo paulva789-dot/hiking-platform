@@ -96,7 +96,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
             {weather.current.tempC}°
           </p>
           <div className="pb-1">
-            <p className="text-sm font-medium capitalize text-basalt-800">
+            <p className="text-sm font-medium capitalize text-basalt-800 dark:text-basalt-200">
               {weather.current.description}
             </p>
             <p className="text-xs text-basalt-500">Feels like {weather.current.feelsLikeC}°C</p>
@@ -137,7 +137,7 @@ export function WeatherPanel({ lat, lng, trailName }: { lat: number; lng: number
                       className="mx-auto h-8 w-8"
                     />
                   )}
-                  <p className="text-xs font-semibold text-basalt-800">{day.maxC}°</p>
+                  <p className="text-xs font-semibold text-basalt-800 dark:text-basalt-200">{day.maxC}°</p>
                   <p className="text-[10px] text-basalt-500">{day.minC}°</p>
                   {day.rainMm > 0 && (
                     <p className="text-[10px] font-medium text-blue-700">{day.rainMm} mm</p>
@@ -156,7 +156,7 @@ function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <dt className="font-semibold uppercase tracking-wide text-basalt-400">{label}</dt>
-      <dd className="mt-0.5 font-medium text-basalt-800">{value}</dd>
+      <dd className="mt-0.5 font-medium text-basalt-800 dark:text-basalt-200">{value}</dd>
     </div>
   );
 }

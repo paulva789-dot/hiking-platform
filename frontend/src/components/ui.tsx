@@ -46,7 +46,7 @@ export function Stars({ rating, count }: { rating: number; count?: number }) {
           </svg>
         ))}
       </span>
-      <span className="font-semibold text-basalt-800">{rating > 0 ? rating.toFixed(1) : '—'}</span>
+      <span className="font-semibold text-basalt-800 dark:text-basalt-200">{rating > 0 ? rating.toFixed(1) : '—'}</span>
       {count !== undefined && <span className="text-basalt-500">({count})</span>}
     </span>
   );
