@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ApiError, serverFetch } from '@/lib/api';
 import type { Tour, TourSchedule } from '@/lib/types';
-import { REGION_LABELS, formatDateRange, formatXAF } from '@/lib/format';
+import { REGION_LABELS, formatDateRange } from '@/lib/format';
 import { BookingWidget } from '@/components/trail/BookingWidget';
 import { Avatar, Stars } from '@/components/ui';
 

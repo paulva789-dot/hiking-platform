@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Fraunces, Inter } from 'next/font/google';
 import './globals.css';
 import 'leaflet/dist/leaflet.css';
 import { AuthProvider } from '@/lib/auth-context';
@@ -6,6 +7,20 @@ import { ThemeProvider } from '@/lib/theme-context';
 import { LanguageProvider } from '@/lib/i18n/language-context';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 /** Runs before hydration so the page never flashes the wrong theme. */
 const THEME_INIT_SCRIPT = `
@@ -32,8 +47,8 @@ const LOCALE_INIT_SCRIPT = `
 
 export const metadata: Metadata = {
   title: {
-    default: 'MongoTrek — Hiking trails, guides and sight-seeing across Cameroon & Central Africa',
-    template: '%s · MongoTrek',
+    default: 'Trek Cameroon — Hiking trails, guides and sight-seeing across Cameroon & Central Africa',
+    template: '%s · Trek Cameroon',
   },
   description:
     'Correct, checked information on hiking in Cameroon: destinations across all ten regions, real distances and durations, difficulty ratings that mean something, weather, safety guidance, and registered guides bookable across Cameroon and the wider CEMAC region.',
@@ -50,7 +65,7 @@ export const metadata: Metadata = {
     'Central Africa travel',
   ],
   openGraph: {
-    title: 'MongoTrek',
+    title: 'Trek Cameroon',
     description: 'Hiking trails, registered guides and sight-seeing across Cameroon and Central Africa.',
     type: 'website',
   },
@@ -58,14 +73,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}

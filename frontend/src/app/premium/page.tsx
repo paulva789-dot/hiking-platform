@@ -61,7 +61,7 @@ export default function PremiumPage() {
       <header className="bg-forest-950 py-16 text-white">
         <div className="section text-center">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-amber-400">
-            MongoTrek Premium
+            Trek Cameroon Premium
           </p>
           <h1 className="mx-auto max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
             The information you need most is the information you cannot download at 3,000 m

@@ -143,7 +143,7 @@ export function SectionHeading({
         {eyebrow && (
           <p className="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-forest-700">{eyebrow}</p>
         )}
-        <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-3xl">{title}</h2>
+        <h2 className="font-display text-2xl font-semibold text-forest-800 dark:text-forest-400 sm:text-3xl">{title}</h2>
         {description && <p className="mt-2 max-w-2xl text-sm text-basalt-600 dark:text-basalt-300">{description}</p>}
       </div>
       {action}

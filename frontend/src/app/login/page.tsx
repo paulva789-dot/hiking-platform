@@ -39,7 +39,7 @@ function LoginForm() {
     }
   };
 
-  const useDemo = (account: (typeof DEMO_ACCOUNTS)[number]) => {
+  const fillDemoAccount = (account: (typeof DEMO_ACCOUNTS)[number]) => {
     setEmail(account.email);
     setPassword(account.password);
   };
@@ -109,7 +109,7 @@ function LoginForm() {
               <button
                 key={account.email}
                 type="button"
-                onClick={() => useDemo(account)}
+                onClick={() => fillDemoAccount(account)}
                 className="btn-secondary text-xs"
               >
                 {account.label}

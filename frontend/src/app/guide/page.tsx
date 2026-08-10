@@ -12,7 +12,6 @@ import {
   Avatar,
   EmptyState,
   SectionHeading,
-  Skeleton,
   Spinner,
   Stat,
   StatusBadge,
