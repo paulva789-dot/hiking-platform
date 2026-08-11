@@ -1,0 +1,13 @@
+# Custom Nixpacks configuration to prevent `prisma db push` from running
+# during the build phase, since DATABASE_URL (and other referenced
+# environment variables) are not available at build time on Railway.
+#
+# The Prisma Client still needs to be generated so the app can run,
+# but pushing the schema to the database must happen after deploy,
+# once environment variables are injected into the runtime.
+
+[phases.build]
+cmds = ["npm install", "npx prisma generate"]
+
+[start]
+cmd = "npm start"
