@@ -2,10 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "build": {
     "env": {
-      "NEXT_PUBLIC_API_URL": "https://trek-cameroon-backend.onrender.com/api"
+      "NEXT_PUBLIC_API_URL": "https://REPLACE-WITH-RAILWAY-URL.up.railway.app/api"
     }
   },
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://trek-cameroon-backend.onrender.com/api"
+    "NEXT_PUBLIC_API_URL": "https://REPLACE-WITH-RAILWAY-URL.up.railway.app/api"
   }
 }
