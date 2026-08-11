@@ -4,6 +4,6 @@
     { "source": "/(.*)", "destination": "/api/index" }
   ],
   "env": {
-    "CORS_ORIGIN": "https://trek-cameroon-frontend.vercel.app,http://localhost:3000"
+    "CORS_ORIGIN": "https://trek-cameroon.vercel.app,http://localhost:3000"
   }
 }
