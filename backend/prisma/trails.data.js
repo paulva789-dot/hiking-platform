@@ -1,6 +1,8 @@
 /**
- * Twelve real Cameroonian hiking destinations — at least one in each of the
- * country's ten regions.
+ * Seventeen real Cameroonian hiking destinations — at least one in each of
+ * the country's ten regions. East, West, Far North and Adamawa each got a
+ * second entry to fix regions that used to have only one; Centre, North and
+ * South are still single-entry and are the next gap to close.
  *
  * Figures are drawn from published route descriptions, national-park literature
  * and guide-association rates. Distances and times are for the standard route
@@ -686,6 +688,204 @@ Because it is flat and short, this is a good family route and a good first multi
       { name: 'Turtle nesting beach', lat: 2.5681, lng: 9.8589, elevationM: 5, order: 1, description: 'Main nesting stretch, November–February. Never use white light on the beach at night.' },
       { name: 'Forest edge path', lat: 2.5498, lng: 9.8562, elevationM: 40, order: 2, description: "Into Campo Ma'an lowland forest. Mandrill territory, rarely seen." },
       { name: 'Campo river mouth', lat: 2.5312, lng: 9.8541, elevationM: 10, order: 3, description: 'Tidal crossing — timing matters. Equatorial Guinea is across the water.' },
+    ],
+  },
+  {
+    slug: 'lobeke-bai-forest-trek',
+    name: 'Lobéké National Park Bai Forest Trek',
+    summary:
+      "Deep Congo Basin rainforest on Cameroon's south-eastern corner, walked between forest clearings where gorilla, forest elephant and buffalo come out into the open — part of the Sangha Trinational World Heritage complex.",
+    description: `Lobéké National Park sits in the far south-east corner of Cameroon, where the Sangha River marks the border with the Central African Republic and the Republic of Congo. Together with Dzanga-Sangha across the river in CAR and Nouabalé-Ndoki in Congo, it forms the Sangha Trinational — one contiguous 750,000-hectare block of Congo Basin rainforest managed as a single World Heritage landscape, even though you only ever walk the Cameroonian third of it.
+
+The walking here is built around bais: natural forest clearings, fed by mineral-rich swamp water, where the closed canopy opens out and animals that are otherwise invisible in dense forest come out to graze and drink in view. Guided treks from Mambélé work between two or three bais over several days, sleeping in forest camp, with long watches from raised miradors overlooking the clearings at dawn and dusk — this is a park you experience by waiting quietly, not by covering distance. Western lowland gorilla, forest elephant, buffalo, bongo and sitatunga are all realistic sightings from a mirador; leopard is present but rarely seen.
+
+This is remote even by Cameroonian standards. Getting to Mambélé is itself a two-day undertaking from Yaoundé, and the final approach requires a 4x4 and a dry-season road. What you get for it is one of the least-disturbed rainforest blocks left in Central Africa and a wildlife-viewing experience — watching, not glimpsing — that the country's more accessible parks cannot offer.`,
+    region: 'EAST',
+    nearestTown: 'Mambélé (Moloundou)',
+    difficulty: 'EXPERT',
+    category: 'WILDLIFE',
+    distanceKm: 28,
+    elevationGainM: 340,
+    durationMinutes: 5760,
+    summitM: null,
+    startLat: 2.2606,
+    startLng: 15.7783,
+    routeGeoJson: {
+      type: 'LineString',
+      coordinates: [
+        [15.7783, 2.2606],
+        [15.7912, 2.2481],
+        [15.8058, 2.2339],
+        [15.8201, 2.2178],
+      ],
+    },
+    bestMonths: ['December', 'January', 'February', 'July', 'August'],
+    hazards: [
+      'Forest elephant and buffalo at close range around the bais',
+      'Total humidity, heat and mud underfoot for days at a time',
+      'Malaria and filaria — no evacuation route from deep camps',
+      'No mobile coverage anywhere in the park',
+      'Long, difficult approach road — impassable in heavy rain',
+    ],
+    waterSources:
+      'Forest streams, filtered and treated. Bring your own filtration; nothing is sold once you leave Mambélé.',
+    permitRequired: true,
+    permitInfo:
+      'Entry permits and guides are arranged through the MINFOF conservation service in Mambélé, ideally booked weeks ahead through a Yaoundé-based operator. Budget 300,000–550,000 XAF per person for a 3–4 day trek including permits, guides, porters and camp food.',
+    gettingThere:
+      'From Yaoundé: Bertoua (about 6 h), then Yokadouma (a further 7 h over 304 km), then Mambélé (5 h more over 165 km on a track that needs a 4x4 and can close in the rains). Budget two full days of travel each way.',
+    coverImage: commonsUrl('Clairière dans le Parc National de Lobéké.JPG'),
+    waypoints: [
+      { name: 'Mambélé conservation post', lat: 2.2606, lng: 15.7783, elevationM: 420, order: 0, description: 'Permits, Baka guide and porter assignment. Final resupply point.' },
+      { name: 'Forest camp, first bai approach', lat: 2.2481, lng: 15.7912, elevationM: 410, order: 1, description: 'Overnight camp on the approach to the first bai.' },
+      { name: 'Djaloumbe bai mirador', lat: 2.2339, lng: 15.8058, elevationM: 400, order: 2, description: 'Raised viewing platform over a forest clearing. Dawn and dusk are the watch windows — gorilla, elephant and buffalo are all realistic here.' },
+      { name: 'Second bai and forest camp', lat: 2.2178, lng: 15.8201, elevationM: 395, order: 3, description: 'Further clearing, quieter than the first. Sitatunga and bongo have both been seen from this mirador.' },
+    ],
+  },
+  {
+    slug: 'chutes-de-la-metche',
+    name: 'Chutes de la Métché',
+    summary:
+      "A 40 m waterfall on the Metchié-Choumi river near Bafoussam — a short, easy walk to a site that is both a scenic stop and a place of real historical weight for the region.",
+    description: `Chutes de la Métché sits about 30 km north-west of Bafoussam on the N6, where the Metchié-Choumi river drops around 40 m through a rock amphitheatre on the boundary between the Menoua, Bamboutos and Mifi divisions. The walk to the falls is short — a marked path down from the roadside car park, fifteen to twenty minutes each way — which makes this one of the easiest worthwhile stops in the Western Highlands.
+
+The site carries weight beyond the waterfall itself. During the independence struggle of the 1950s and 60s, Métché was used as a site of execution, and it remains a place of pilgrimage and purification for people from the surrounding communities today — visitors will often see offerings of salt, coins and palm oil left at the site. This is not a folkloric detail to photograph past; ask locally before treating the site as a simple scenic stop, and follow the same courtesies you would at any place of memory.
+
+Because it is short, easy and close to Bafoussam, this pairs naturally with a Bamboutos ridge trip or as a half-day out from the city on its own. The path is wet and can be slick on the final descent to the viewing point; sensible footwear matters more than the distance suggests.`,
+    region: 'WEST',
+    nearestTown: 'Bafoussam (Bamougoum)',
+    difficulty: 'EASY',
+    category: 'WATERFALL',
+    distanceKm: 2.2,
+    elevationGainM: 140,
+    durationMinutes: 90,
+    summitM: null,
+    startLat: 5.5325,
+    startLng: 10.3297,
+    routeGeoJson: {
+      type: 'LineString',
+      coordinates: [
+        [10.3297, 5.5325],
+        [10.3271, 5.5318],
+        [10.3252, 5.5309],
+      ],
+    },
+    bestMonths: ['November', 'December', 'January', 'February', 'March'],
+    hazards: [
+      'Wet, slick rock on the final descent',
+      'Unfenced viewing points close to the drop',
+      'Site is actively used for offerings and ceremony — treat it with respect, not as a photo backdrop',
+    ],
+    waterSources: 'Bring your own. Shops and roadside stalls in Bamougoum before the trailhead.',
+    permitRequired: false,
+    permitInfo: 'No formal permit. A local guide at the car park (around 3,000–5,000 XAF) is optional but knows the site\'s history and etiquette.',
+    gettingThere:
+      'From Bafoussam, take the N6 north-west towards Mbouda for about 30 km to Bamougoum; the falls are signposted from the road, a short walk from the gare de Bamougoum.',
+    coverImage: commonsUrl('Chutes de la Métché - 3.jpg'),
+    waypoints: [
+      { name: 'Roadside car park', lat: 5.5325, lng: 10.3297, elevationM: 1420, order: 0, description: 'Start of the marked path down to the falls.' },
+      { name: 'Upper viewpoint', lat: 5.5318, lng: 10.3271, elevationM: 1370, order: 1, description: 'First clear view of the 40 m drop.' },
+      { name: 'Falls base', lat: 5.5309, lng: 10.3252, elevationM: 1290, order: 2, description: 'Amphitheatre at the base. Offerings are often left here — leave them undisturbed.' },
+    ],
+  },
+  {
+    slug: 'waza-park-walking-safari',
+    name: 'Waza National Park Walking Safari',
+    summary:
+      'Sahelian savanna walking with an armed ranger in one of West Africa\'s best-known parks for elephant, giraffe and lion — on foot, in the far north of Cameroon.',
+    description: `Waza National Park was gazetted as a hunting reserve in 1934 and covers 1,700 km² of Sahelian floodplain and acacia savanna hard against the Chad border. It is the most internationally known of Cameroon's parks — the giraffe, elephant and lion that appear in every Cameroon tourism brochure are Waza's — and it is one of the few places in the country where you can walk that landscape on foot rather than view it through a vehicle window.
+
+Walking safaris leave from the ranger post near Waza village on the park's north-western edge, always with an armed conservation-service ranger, along the floodplain tracks where the game concentrates as the dry season deepens. Elephant, giraffe, kob, hartebeest and warthog are common; lion and cheetah are present but far less reliably seen on foot than from a vehicle at dawn. There is no climbing and no real distance to speak of — the difficulty here is heat, sun exposure on open floodplain, and the total concentration a walking safari among large game demands.
+
+The dry season, roughly November to April, is both the only time walking is practical and the best time for game, as animals concentrate at the shrinking waterholes. The wet season floods the plain and closes the park to walking entirely. This is also a security-sensitive part of the country — the Far North has been affected by instability tied to the Chad Basin over the past decade — so check current advisories and go through the park office rather than arranging anything informally.`,
+    region: 'FAR_NORTH',
+    nearestTown: 'Waza',
+    difficulty: 'MODERATE',
+    category: 'WILDLIFE',
+    distanceKm: 9,
+    elevationGainM: 60,
+    durationMinutes: 240,
+    summitM: null,
+    startLat: 11.3536,
+    startLng: 14.5978,
+    routeGeoJson: {
+      type: 'LineString',
+      coordinates: [
+        [14.5978, 11.3536],
+        [14.6089, 11.3467],
+        [14.6212, 11.339],
+        [14.6344, 11.3328],
+      ],
+    },
+    bestMonths: ['December', 'January', 'February', 'March'],
+    hazards: [
+      'Elephant and buffalo — never leave the ranger',
+      'Extreme heat, regularly above 40 °C March–April',
+      'No shade on open floodplain',
+      'Park closed and impassable in the wet season',
+      'Security situation near the Chad border — check current advisories',
+    ],
+    waterSources: 'Ranger post and Waza village only. Carry 3–4 L per person; nothing is available on the walk.',
+    permitRequired: true,
+    permitInfo:
+      'Park entry, ranger escort and guide are booked through the Waza park office. Budget roughly 25,000–50,000 XAF per person per day including the ranger. Walking without a ranger is prohibited.',
+    gettingThere:
+      'Waza is about 2 h north of Maroua on a sealed road. Maroua has flights from Yaoundé and Douala. Confirm the current security position before travelling.',
+    coverImage: commonsUrl('Waza-NP-Giraffes.jpg'),
+    waypoints: [
+      { name: 'Waza ranger post', lat: 11.3536, lng: 14.5978, elevationM: 320, order: 0, description: 'Registration and mandatory ranger briefing. Walks leave early to beat the heat.' },
+      { name: 'Floodplain edge', lat: 11.3467, lng: 14.6089, elevationM: 315, order: 1, description: 'Kob, hartebeest and warthog typically seen here first.' },
+      { name: 'Waterhole track', lat: 11.339, lng: 14.6212, elevationM: 310, order: 2, description: 'Game concentrates here as the dry season deepens — elephant and giraffe are both realistic.' },
+      { name: 'Acacia woodland lookout', lat: 11.3328, lng: 14.6344, elevationM: 325, order: 3 },
+    ],
+  },
+  {
+    slug: 'lac-tison-vina-falls',
+    name: 'Lac Tison and the Vina Falls',
+    summary:
+      'A cool, green half-day out from Ngaoundéré on the Adamawa plateau — a crater lake and a waterfall on the Vina river, both an easy reach from Cameroon\'s rail-head city.',
+    description: `Ngaoundéré sits on the Adamawa plateau at around 1,100 m, the coolest and greenest part of Cameroon, and two of its best short walks are within 15 km of the city. Lac Tison is a small crater lake reached by a track that climbs a low ridge just south of town; the Vina Falls, a little further along the same road towards Meiganga, drop over a rock shelf on the Vina river barely 200 m from the roadside.
+
+The walk links the two: up from the southern edge of Ngaoundéré to Lac Tison, then back down to the road and on to the falls, all on plateau grassland and farm track with wide-open skies and Fulani cattle for company. Neither site takes long or asks much fitness — the appeal is the plateau itself, cool enough to actually enjoy walking in a way most of Cameroon at this latitude is not.
+
+For those with an extra day, the Chutes de Tello — a 45 m fall with a wide cavern behind the drop — sit about 60 km east of Ngaoundéré on the Bélel track, but they are a separate half-day trip in their own right rather than an extension of this walk. Ngaoundéré is the northern terminus of the Douala–Ngaoundéré railway, which makes both of these an unusually easy add-on for anyone arriving by train rather than road.`,
+    region: 'ADAMAWA',
+    nearestTown: 'Ngaoundéré',
+    difficulty: 'EASY',
+    category: 'WATERFALL',
+    distanceKm: 13,
+    elevationGainM: 260,
+    durationMinutes: 270,
+    summitM: null,
+    startLat: 7.3167,
+    startLng: 13.5833,
+    routeGeoJson: {
+      type: 'LineString',
+      coordinates: [
+        [13.5833, 7.3167],
+        [13.5811, 7.2942],
+        [13.585, 7.2703],
+        [13.5851, 7.2092],
+      ],
+    },
+    bestMonths: ['November', 'December', 'January', 'February', 'March'],
+    hazards: [
+      'Unfenced crater edge at Lac Tison',
+      'Wet rock at the falls viewing point',
+      'Black cotton soil turns to deep mud in the rains',
+      'Few landmarks on the open plateau track',
+    ],
+    waterSources: 'Ngaoundéré town before setting out. Carry 2 L — nothing reliable en route.',
+    permitRequired: false,
+    permitInfo: 'No permit. A guide from Ngaoundéré (10,000–15,000 XAF) is useful for the Lac Tison track, which is unmarked past the farmland.',
+    gettingThere:
+      'Both sites are reached from Ngaoundéré on the N1 towards Meiganga: Lac Tison via a signed track about 3 km south of the city, the Vina Falls a little further along, some 200 m off the road. Ngaoundéré is the terminus of the overnight train from Yaoundé and has flights from Douala.',
+    coverImage: commonsUrl("Les chutes d'eau de la Vina à Ngaoundéré.jpg"),
+    waypoints: [
+      { name: 'Ngaoundéré southern exit', lat: 7.3167, lng: 13.5833, elevationM: 1100, order: 0, description: 'Start of the track south towards Lac Tison.' },
+      { name: 'Lac Tison crater rim', lat: 7.2942, lng: 13.5811, elevationM: 1160, order: 1, description: 'Small crater lake ringed by grassland. Quiet and rarely crowded.' },
+      { name: 'Vina river approach', lat: 7.2703, lng: 13.585, elevationM: 1080, order: 2 },
+      { name: 'Vina Falls', lat: 7.2092, lng: 13.5851, elevationM: 1020, order: 3, description: 'The river drops over a wide rock shelf barely 200 m from the Meiganga road.' },
     ],
   },
 ];
