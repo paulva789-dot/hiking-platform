@@ -43,19 +43,26 @@ export default function DashboardOverview() {
     <div className="space-y-10">
       <section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          <Stat label="Trails hiked" value={stats?.hiked ?? 0} hint="from your reviews with a hike date" />
-          <Stat label="Saved trails" value={stats?.favorites ?? 0} />
-          <Stat label="Bookings" value={stats?.bookings ?? 0} hint={`${upcoming.length} upcoming`} />
-          <Stat label="Reviews written" value={stats?.reviews ?? 0} />
-          <Stat
-            label="Membership"
-            value={isPremium ? 'Premium' : 'Free'}
-            hint={
-              isPremium && user?.tierExpires
-                ? `until ${formatDate(user.tierExpires)}`
-                : 'offline maps locked'
-            }
-          />
+          {[
+            <Stat key="hiked" label="Trails hiked" value={stats?.hiked ?? 0} hint="from your reviews with a hike date" />,
+            <Stat key="saved" label="Saved trails" value={stats?.favorites ?? 0} />,
+            <Stat key="bookings" label="Bookings" value={stats?.bookings ?? 0} hint={`${upcoming.length} upcoming`} />,
+            <Stat key="reviews" label="Reviews written" value={stats?.reviews ?? 0} />,
+            <Stat
+              key="membership"
+              label="Membership"
+              value={isPremium ? 'Premium' : 'Free'}
+              hint={
+                isPremium && user?.tierExpires
+                  ? `until ${formatDate(user.tierExpires)}`
+                  : 'offline maps locked'
+              }
+            />,
+          ].map((stat, i) => (
+            <div key={stat.key} className="animate-fade-up motion-reduce:animate-none" style={{ animationDelay: `${i * 60}ms` }}>
+              {stat}
+            </div>
+          ))}
         </div>
       </section>
 

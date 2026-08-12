@@ -22,17 +22,26 @@ const NAV: { href: string; key: TranslationKey }[] = [
   { href: '/safety', key: 'nav.safety' },
 ];
 
+// Real, populated pages that used to be footer-only — folded into a "More"
+// overflow instead of growing the primary nav past 8 items.
+const MORE_NAV: { href: string; label: string }[] = [
+  { href: '/stay', label: 'Where to stay' },
+  { href: '/gear', label: 'Gear checklist' },
+];
+
 export function SiteHeader() {
   const pathname = usePathname();
   const { user, guideProfile, isPremium, logout, loading } = useAuth();
   const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
 
-  // Route changes should always leave both menus closed.
+  // Route changes should always leave every menu closed.
   useEffect(() => {
     setMobileOpen(false);
     setMenuOpen(false);
+    setMoreOpen(false);
   }, [pathname]);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
@@ -46,11 +55,6 @@ export function SiteHeader() {
             <LogoMark />
           </span>
           <LogoText className="font-display text-lg font-semibold tracking-tight text-basalt-900 dark:text-basalt-50" />
-          <span className="flag-star ml-0.5" aria-hidden>
-            <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
-              <path d="M12 1.5l2.9 6.6 7.1.7-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.7 7.1-.7z" />
-            </svg>
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
@@ -67,6 +71,37 @@ export function SiteHeader() {
               {t(item.key)}
             </Link>
           ))}
+
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setMoreOpen((v) => !v)}
+              aria-expanded={moreOpen}
+              aria-haspopup="menu"
+              className={`flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                moreOpen
+                  ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
+                  : 'text-basalt-600 dark:text-basalt-300 hover:bg-basalt-100 hover:text-basalt-900 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
+              }`}
+            >
+              More
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            {moreOpen && (
+              <div
+                role="menu"
+                className="dropdown-menu absolute left-0 mt-2 w-44 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
+              >
+                {MORE_NAV.map((item) => (
+                  <MenuLink key={item.href} href={item.href}>
+                    {item.label}
+                  </MenuLink>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -171,8 +206,51 @@ export function SiteHeader() {
                 {t(item.key)}
               </Link>
             ))}
+            {MORE_NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`rounded-lg px-3 py-2.5 text-sm font-medium ${
+                  isActive(item.href)
+                    ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
+                    : 'text-basalt-700 dark:text-basalt-300 dark:text-basalt-300'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
-          {!user && (
+
+          {user ? (
+            <div className="mt-3 space-y-1 border-t border-basalt-200 pt-3 dark:border-basalt-800">
+              <Link href="/dashboard" className="block rounded-lg px-3 py-2.5 text-sm font-medium text-basalt-700 dark:text-basalt-300">
+                {t('nav.dashboard')}
+              </Link>
+              <Link href="/dashboard/favorites" className="block rounded-lg px-3 py-2.5 text-sm font-medium text-basalt-700 dark:text-basalt-300">
+                {t('nav.savedTrails')}
+              </Link>
+              <Link href="/dashboard/bookings" className="block rounded-lg px-3 py-2.5 text-sm font-medium text-basalt-700 dark:text-basalt-300">
+                {t('nav.myBookings')}
+              </Link>
+              {(user.role === 'GUIDE' || guideProfile) && (
+                <Link href="/guide" className="block rounded-lg px-3 py-2.5 text-sm font-medium text-basalt-700 dark:text-basalt-300">
+                  {t('nav.guideWorkspace')}
+                </Link>
+              )}
+              {user.role === 'ADMIN' && (
+                <Link href="/admin" className="block rounded-lg px-3 py-2.5 text-sm font-medium text-basalt-700 dark:text-basalt-300">
+                  {t('nav.adminConsole')}
+                </Link>
+              )}
+              <button
+                type="button"
+                onClick={() => void logout()}
+                className="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-basalt-700 dark:text-basalt-300"
+              >
+                {t('nav.signOut')}
+              </button>
+            </div>
+          ) : (
             <Link href="/login" className="btn-secondary mt-3 w-full">
               {t('nav.signIn')}
             </Link>

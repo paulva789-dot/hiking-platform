@@ -171,14 +171,14 @@ export default async function HomePage() {
       </section>
 
       {/* ---------------------------------------------------- trip picker */}
-      <section className="border-b border-basalt-200 bg-white py-14">
+      <section className="border-b border-basalt-200 bg-white py-14 dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section">
           <RegionPlacePicker />
         </div>
       </section>
 
       {/* ---------------------------------------------------- what we fix */}
-      <section className="border-b border-basalt-200 bg-white py-14">
+      <section className="border-b border-basalt-200 bg-white py-14 dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section">
           <Reveal>
             <SectionHeading
@@ -290,7 +290,7 @@ export default async function HomePage() {
 
       {/* --------------------------------------------------------- guides */}
       {guides.length > 0 && (
-        <section className="bg-white py-16">
+        <section className="bg-white py-16 dark:bg-basalt-900">
           <div className="section">
             <SectionHeading
               eyebrow="Registered guides"

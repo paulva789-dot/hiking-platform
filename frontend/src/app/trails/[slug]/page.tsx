@@ -17,6 +17,7 @@ import {
 } from '@/lib/format';
 import { SingleTrailMap } from '@/components/map/LazyMaps';
 import { ElevationProfile } from '@/components/trail/ElevationProfile';
+import { Reveal } from '@/components/Reveal';
 import { WeatherPanel } from '@/components/WeatherPanel';
 import { TrailCard } from '@/components/TrailCard';
 import { ReviewSection } from '@/components/trail/ReviewSection';
@@ -131,7 +132,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <FavoriteButton trailId={trail.id} slug={trail.slug} />
-            <a href="#book" className="btn-accent">
+            <a href="#book" className="btn bg-white/10 text-white ring-1 ring-inset ring-white/25 hover:bg-white/20">
               Book a guided tour
             </a>
             <a href="#map" className="btn bg-white/10 text-white ring-1 ring-inset ring-white/25 hover:bg-white/20">
@@ -166,17 +167,20 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
       <div className="section grid gap-10 pt-10 lg:grid-cols-[1fr_360px]">
         {/* ------------------------------------------------------ main column */}
         <div className="space-y-12">
-          <section>
-            <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">About this hike</h2>
-            <div className="prose-trail mt-4">
-              {trail.description.split('\n\n').map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
-          </section>
+          <Reveal>
+            <section className="card animate-fade-up p-6 motion-reduce:animate-none sm:p-8">
+              <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">About this hike</h2>
+              <div className="prose-trail mt-4">
+                {trail.description.split('\n\n').map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            </section>
+          </Reveal>
 
           {/* ------------------------------------------------------------ map */}
-          <section id="map" className="scroll-mt-24">
+          <Reveal>
+          <section id="map" className="scroll-mt-24 animate-fade-up motion-reduce:animate-none">
             <SectionHeading
               title="Route and waypoints"
               description="Drawn from the standard route. Waypoints are numbered in walking order — tap a pin for what to expect there."
@@ -219,9 +223,11 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               </ol>
             )}
           </section>
+          </Reveal>
 
           {/* -------------------------------------------------- safety block */}
-          <section>
+          <Reveal>
+          <section className="animate-fade-up motion-reduce:animate-none">
             <SectionHeading
               title="Hazards, water and permits"
               description="The specifics for this trail. Read them with the general safety guidance."
@@ -229,13 +235,13 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 
             <div className="grid gap-4 sm:grid-cols-2">
               {trail.hazards.length > 0 && (
-                <div className="card border-red-200 bg-red-50 p-5 sm:col-span-2">
-                  <h3 className="font-display text-base font-semibold text-red-900">
+                <div className="card border-red-200 bg-red-50 p-5 dark:border-red-800/60 dark:bg-red-950/40 sm:col-span-2">
+                  <h3 className="font-display text-base font-semibold text-red-900 dark:text-red-200">
                     Known hazards on this trail
                   </h3>
                   <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                     {trail.hazards.map((hazard) => (
-                      <li key={hazard} className="flex gap-2 text-sm text-red-900">
+                      <li key={hazard} className="flex gap-2 text-sm text-red-900 dark:text-red-200">
                         <span aria-hidden className="mt-0.5 shrink-0">
                           ⚠
                         </span>
@@ -279,9 +285,11 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               Read the full safety guidelines →
             </Link>
           </section>
+          </Reveal>
 
           {/* ---------------------------------------------------- guided tours */}
-          <section id="book" className="scroll-mt-24">
+          <Reveal>
+          <section id="book" className="scroll-mt-24 animate-fade-up motion-reduce:animate-none">
             <SectionHeading
               eyebrow="Book it"
               title="Guided tours on this trail"
@@ -357,10 +365,12 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               </ul>
             )}
           </section>
+          </Reveal>
 
           {/* -------------------------------------------------------- gallery */}
           {trail.photos.length > 0 && (
-            <section>
+            <Reveal>
+            <section className="animate-fade-up motion-reduce:animate-none">
               <SectionHeading
                 title="Photos from this trail"
                 description="Uploaded by hikers and photographers. Some are available to licence."
@@ -390,9 +400,11 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                 ))}
               </div>
             </section>
+            </Reveal>
           )}
 
           {/* -------------------------------------------------------- reviews */}
+          <Reveal>
           <ReviewSection
             trailId={trail.id}
             trailSlug={trail.slug}
@@ -401,6 +413,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             ratingAvg={trail.ratingAvg}
             breakdown={ratingBreakdown}
           />
+          </Reveal>
         </div>
 
         {/* ---------------------------------------------------------- sidebar */}
@@ -441,8 +454,12 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             description="Other destinations in the same region, so you can build a trip rather than a day."
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {nearby.trails.map((t) => (
-              <TrailCard key={t.id} trail={t} />
+            {nearby.trails.map((t, i) => (
+              <Reveal key={t.id}>
+                <div className="animate-fade-up motion-reduce:animate-none" style={{ animationDelay: `${Math.min(i, 5) * 60}ms` }}>
+                  <TrailCard trail={t} />
+                </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -474,18 +491,18 @@ function InfoCard({
 }) {
   return (
     <div
-      className={`card p-5 ${tone === 'warn' ? 'border-amber-200 bg-amber-50' : ''} ${className}`}
+      className={`card p-5 ${tone === 'warn' ? 'border-amber-200 bg-amber-50 dark:border-amber-800/60 dark:bg-amber-950/40' : ''} ${className}`}
     >
       <h3
         className={`font-display text-base font-semibold ${
-          tone === 'warn' ? 'text-amber-900' : 'text-basalt-900 dark:text-basalt-50'
+          tone === 'warn' ? 'text-amber-900 dark:text-amber-200' : 'text-basalt-900 dark:text-basalt-50'
         }`}
       >
         {title}
       </h3>
       <p
         className={`mt-2 text-sm leading-relaxed ${
-          tone === 'warn' ? 'text-amber-900' : 'text-basalt-600 dark:text-basalt-300'
+          tone === 'warn' ? 'text-amber-900 dark:text-amber-200' : 'text-basalt-600 dark:text-basalt-300'
         }`}
       >
         {body}

@@ -113,10 +113,10 @@ export function Alert({
   children: ReactNode;
 }) {
   const tones = {
-    info: 'border-blue-200 bg-blue-50 text-blue-900',
-    warn: 'border-amber-200 bg-amber-50 text-amber-900',
-    danger: 'border-red-200 bg-red-50 text-red-900',
-    success: 'border-forest-200 bg-forest-50 text-forest-900',
+    info: 'border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-800/60 dark:bg-blue-950/40 dark:text-blue-200',
+    warn: 'border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800/60 dark:bg-amber-950/40 dark:text-amber-200',
+    danger: 'border-red-200 bg-red-50 text-red-900 dark:border-red-800/60 dark:bg-red-950/40 dark:text-red-200',
+    success: 'border-forest-200 bg-forest-50 text-forest-900 dark:border-forest-800/60 dark:bg-forest-950/40 dark:text-forest-200',
   };
   return (
     <div className={`rounded-lg border px-4 py-3 text-sm ${tones[tone]}`} role="alert">
