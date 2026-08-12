@@ -41,6 +41,17 @@ enum Difficulty {
   EXPERT
 }
 
+/** What kind of place the trail actually is — drives the map marker glyph. */
+enum TrailCategory {
+  SUMMIT
+  WATERFALL
+  LAKE
+  FOREST
+  WILDLIFE
+  COASTAL
+  CULTURAL
+}
+
 enum ApprovalStatus {
   PENDING
   APPROVED
@@ -176,6 +187,7 @@ model Trail {
   region          Region
   nearestTown     String
   difficulty      Difficulty
+  category        TrailCategory @default(FOREST)
   distanceKm      Float
   elevationGainM  Int
   durationMinutes Int

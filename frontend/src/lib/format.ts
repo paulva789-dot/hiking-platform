@@ -1,4 +1,4 @@
-import type { Difficulty, Region } from './types';
+import type { Difficulty, Region, TrailCategory } from './types';
 
 /**
  * Guides and tours are not limited to Cameroon — bookings can cover any of
@@ -70,6 +70,18 @@ export const DIFFICULTY_MAP_COLOR: Record<Difficulty, string> = {
   HARD: '#8f4a68',
   EXPERT: '#991b1b',
 };
+
+export const CATEGORY_LABELS: Record<TrailCategory, string> = {
+  SUMMIT: 'Summit',
+  WATERFALL: 'Waterfall',
+  LAKE: 'Lake',
+  FOREST: 'Forest walk',
+  WILDLIFE: 'Wildlife',
+  COASTAL: 'Coastal',
+  CULTURAL: 'Cultural walk',
+};
+
+export const ALL_CATEGORIES = Object.keys(CATEGORY_LABELS) as TrailCategory[];
 
 /** 165000 -> "165,000 XAF". CFA francs have no subunit, so never show decimals. */
 export const formatXAF = (amount: number | null | undefined) => {

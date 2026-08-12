@@ -1,12 +1,16 @@
 'use client';
 
 import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { MapTrail, Waypoint } from '@/lib/types';
+import type { MapTrail, TrailCategory, Waypoint } from '@/lib/types';
 import {
   ALL_DIFFICULTIES,
+  CATEGORY_LABELS,
   DIFFICULTY_LABELS,
   DIFFICULTY_MAP_COLOR,
   REGION_LABELS,
@@ -15,12 +19,35 @@ import {
 } from '@/lib/format';
 
 /**
+ * A small glyph drawn inside the pin so markers read by *kind of place*, not
+ * just by difficulty colour — a waterfall and a summit at the same
+ * difficulty used to be visually identical dots.
+ */
+const CATEGORY_GLYPH: Record<TrailCategory, string> = {
+  SUMMIT: '<path d="M2 11 L6 5 L8.5 8 L12 3 L16 11 Z" fill="#fff"/>',
+  WATERFALL:
+    '<path d="M6 2v5M9 2v6M12 2v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M4 11c1 2 2 2 3 0M8 11c1 2 2 2 3 0M6 13c1 2 2 2 3 0" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
+  LAKE: '<path d="M2 8c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M2 11.5c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/>',
+  FOREST:
+    '<path d="M9 2 4 8h2.2L3 12h4.3v3h3.4v-3H15l-3.2-4H14z" fill="#fff"/>',
+  WILDLIFE:
+    '<ellipse cx="9" cy="10.5" rx="3.2" ry="2.6" fill="#fff"/><circle cx="5" cy="6" r="1.3" fill="#fff"/><circle cx="8" cy="4.3" r="1.3" fill="#fff"/><circle cx="11.3" cy="5.3" r="1.3" fill="#fff"/>',
+  COASTAL:
+    '<circle cx="9" cy="4.5" r="1.8" fill="#fff"/><path d="M2 10c1.5-1.4 2.5-1.4 4 0s2.5 1.4 4 0 2.5-1.4 4 0" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M2 13c1.5-1.4 2.5-1.4 4 0s2.5 1.4 4 0 2.5-1.4 4 0" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/>',
+  CULTURAL:
+    '<path d="M9 2 3 6.5V7h12v-.5z" fill="#fff"/><rect x="4" y="7.5" width="2.4" height="5.5" fill="#fff"/><rect x="7.8" y="7.5" width="2.4" height="5.5" fill="#fff"/><rect x="11.6" y="7.5" width="2.4" height="5.5" fill="#fff"/><rect x="3" y="13.2" width="12" height="1.3" fill="#fff"/>',
+};
+
+/**
  * Leaflet's default marker images resolve to broken URLs under a bundler, so
  * every marker here is a divIcon we style ourselves. It also lets the pin
  * colour carry the difficulty rating.
  */
-const pinIcon = (color: string, label?: string) =>
-  L.divIcon({
+const pinIcon = (color: string, opts: { label?: string; glyph?: string } = {}) => {
+  const inner = opts.glyph
+    ? `<svg width="18" height="18" viewBox="0 0 18 18" style="transform:rotate(45deg)">${opts.glyph}</svg>`
+    : `<span style="transform:rotate(45deg)">${opts.label ?? ''}</span>`;
+  return L.divIcon({
     className: '',
     html: `
       <span style="
@@ -32,12 +59,13 @@ const pinIcon = (color: string, label?: string) =>
         border:2px solid #fff;
         box-shadow:0 2px 6px rgba(0,0,0,.35);
         font:600 11px/1 Inter,sans-serif;color:#fff;">
-        <span style="transform:rotate(45deg)">${label ?? ''}</span>
+        ${inner}
       </span>`,
     iconSize: [26, 26],
     iconAnchor: [13, 26],
     popupAnchor: [0, -26],
   });
+};
 
 /** Zooms the map to fit whatever was passed in, once, after mount. */
 function FitBounds({ points }: { points: [number, number][] }) {
@@ -206,10 +234,11 @@ export function TrailsOverviewMap({
       <LocateControl onLocate={() => setSatellite(true)} />
       <DifficultyLegend />
 
-      {trails.map((trail) => (
-        <div key={trail.id}>
-          {trail.routeGeoJson && (
+      {trails.map(
+        (trail) =>
+          trail.routeGeoJson && (
             <Polyline
+              key={trail.id}
               // GeoJSON is [lng, lat]; Leaflet wants [lat, lng].
               positions={trail.routeGeoJson.coordinates.map(([lng, lat]) => [lat, lng])}
               pathOptions={{
@@ -218,15 +247,20 @@ export function TrailsOverviewMap({
                 opacity: activeSlug && trail.slug !== activeSlug ? 0.4 : 0.85,
               }}
             />
-          )}
+          )
+      )}
+
+      <MarkerClusterGroup chunkedLoading showCoverageOnHover={false} maxClusterRadius={50}>
+        {trails.map((trail) => (
           <Marker
+            key={trail.id}
             position={[trail.startLat, trail.startLng]}
-            icon={pinIcon(DIFFICULTY_MAP_COLOR[trail.difficulty])}
+            icon={pinIcon(DIFFICULTY_MAP_COLOR[trail.difficulty], { glyph: CATEGORY_GLYPH[trail.category] })}
           >
             <Popup>
               <div className="p-3">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-forest-700">
-                  {REGION_LABELS[trail.region]}
+                  {REGION_LABELS[trail.region]} · {CATEGORY_LABELS[trail.category]}
                 </p>
                 <p className="mt-0.5 font-semibold leading-snug text-basalt-900 dark:text-basalt-50">{trail.name}</p>
                 <p className="mt-1.5 text-xs text-basalt-600 dark:text-basalt-300">
@@ -242,8 +276,8 @@ export function TrailsOverviewMap({
               </div>
             </Popup>
           </Marker>
-        </div>
-      ))}
+        ))}
+      </MarkerClusterGroup>
     </MapContainer>
   );
 }
@@ -289,7 +323,7 @@ export function SingleTrailMap({
       )}
 
       {waypoints.map((wp, index) => (
-        <Marker key={wp.id} position={[wp.lat, wp.lng]} icon={pinIcon(color, String(index + 1))}>
+        <Marker key={wp.id} position={[wp.lat, wp.lng]} icon={pinIcon(color, { label: String(index + 1) })}>
           <Popup>
             <div className="p-3">
               <p className="text-[10px] font-bold uppercase tracking-wider text-forest-700">
@@ -316,7 +350,14 @@ export interface SitePoint {
   lng: number;
   elevationM?: number;
   teaser: string;
+  sceneType?: 'mountain' | 'water' | 'none';
 }
+
+const SCENE_GLYPH: Record<'mountain' | 'water' | 'none', string> = {
+  mountain: CATEGORY_GLYPH.SUMMIT,
+  water: CATEGORY_GLYPH.LAKE,
+  none: CATEGORY_GLYPH.CULTURAL,
+};
 
 /** Overview map of the historic/natural landmarks on the Cameroon Sites page. */
 export function CameroonSitesMap({ sites, height = '480px' }: { sites: SitePoint[]; height?: string }) {
@@ -336,20 +377,26 @@ export function CameroonSitesMap({ sites, height = '480px' }: { sites: SitePoint
       <LayerToggle satellite={satellite} onChange={setSatellite} />
       <LocateControl onLocate={() => setSatellite(true)} />
 
-      {sites.map((site) => (
-        <Marker key={site.slug} position={[site.lat, site.lng]} icon={pinIcon('#CE1126')}>
-          <Popup>
-            <div className="p-3">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-forest-700">
-                {site.region}
-                {site.elevationM ? ` · ${site.elevationM.toLocaleString()} m` : ''}
-              </p>
-              <p className="mt-0.5 font-semibold leading-snug text-basalt-900 dark:text-basalt-50">{site.name}</p>
-              <p className="mt-1.5 text-xs text-basalt-600 dark:text-basalt-300">{site.teaser}</p>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
+      <MarkerClusterGroup chunkedLoading showCoverageOnHover={false} maxClusterRadius={50}>
+        {sites.map((site) => (
+          <Marker
+            key={site.slug}
+            position={[site.lat, site.lng]}
+            icon={pinIcon('#CE1126', { glyph: SCENE_GLYPH[site.sceneType ?? 'none'] })}
+          >
+            <Popup>
+              <div className="p-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-forest-700">
+                  {site.region}
+                  {site.elevationM ? ` · ${site.elevationM.toLocaleString()} m` : ''}
+                </p>
+                <p className="mt-0.5 font-semibold leading-snug text-basalt-900 dark:text-basalt-50">{site.name}</p>
+                <p className="mt-1.5 text-xs text-basalt-600 dark:text-basalt-300">{site.teaser}</p>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MarkerClusterGroup>
     </MapContainer>
   );
 }

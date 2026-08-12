@@ -20,6 +20,7 @@ export default function SitesPage() {
     lng: s.lng,
     elevationM: s.elevationM,
     teaser: s.teaser,
+    sceneType: s.sceneType,
   }));
 
   return (

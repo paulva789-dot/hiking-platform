@@ -1,5 +1,6 @@
 export type Role = 'USER' | 'GUIDE' | 'ADMIN';
 export type Difficulty = 'EASY' | 'MODERATE' | 'HARD' | 'EXPERT';
+export type TrailCategory = 'SUMMIT' | 'WATERFALL' | 'LAKE' | 'FOREST' | 'WILDLIFE' | 'COASTAL' | 'CULTURAL';
 export type ApprovalStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 export type BookingStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
 export type PaymentStatus = 'UNPAID' | 'PAID' | 'REFUNDED';
@@ -57,6 +58,7 @@ export interface TrailCard {
   region: Region;
   nearestTown: string;
   difficulty: Difficulty;
+  category: TrailCategory;
   distanceKm: number;
   elevationGainM: number;
   durationMinutes: number;
@@ -98,6 +100,7 @@ export interface MapTrail {
   name: string;
   region: Region;
   difficulty: Difficulty;
+  category: TrailCategory;
   distanceKm: number;
   durationMinutes: number;
   startLat: number;

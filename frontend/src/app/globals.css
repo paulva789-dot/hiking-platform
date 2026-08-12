@@ -227,6 +227,33 @@
   @apply h-2.5 w-2.5 shrink-0 rounded-full;
 }
 
+/* ---- Marker clustering ----------------------------------------------
+   leaflet.markercluster ships yellow/orange defaults; recoloured to the
+   forest palette so clustered pins read as "this brand's map" rather than
+   a generic Leaflet plugin. Darker/larger rings for bigger clusters. */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background-color: rgba(58, 127, 93, 0.25);
+}
+
+.marker-cluster-small div {
+  background-color: rgba(58, 127, 93, 0.85);
+}
+
+.marker-cluster-medium div {
+  background-color: rgba(41, 101, 73, 0.9);
+}
+
+.marker-cluster-large div {
+  background-color: rgba(32, 81, 60, 0.95);
+}
+
+.marker-cluster div {
+  color: #fff;
+  font-weight: 700;
+}
+
 @keyframes legend-in {
   0% {
     opacity: 0;
