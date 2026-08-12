@@ -40,6 +40,11 @@ export interface UserRef {
   region?: Region | null;
 }
 
+export interface RegionalExpert {
+  region: Region;
+  expert: (UserRef & { score: number }) | null;
+}
+
 export interface Waypoint {
   id: string;
   name: string;

@@ -17,6 +17,7 @@ import photoRoutes from './routes/photo.routes.js';
 import guideRoutes from './routes/guide.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
 import groupRoutes from './routes/group.routes.js';
+import communityRoutes from './routes/community.routes.js';
 import weatherRoutes from './routes/weather.routes.js';
 import contentRoutes from './routes/content.routes.js';
 import adminRoutes from './routes/admin.routes.js';
@@ -76,6 +77,7 @@ export const createApp = () => {
   app.use('/api/guides', guideRoutes);
   app.use('/api/bookings', bookingRoutes);
   app.use('/api/groups', groupRoutes);
+  app.use('/api/community', communityRoutes);
   app.use('/api/weather', weatherRoutes);
   app.use('/api/content', contentRoutes);
   app.use('/api/admin', adminRoutes);

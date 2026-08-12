@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { api, ApiError } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
 import { ALL_REGIONS, REGION_LABELS } from '@/lib/format';
-import type { HikingGroup } from '@/lib/types';
+import type { HikingGroup, RegionalExpert } from '@/lib/types';
 import { Alert, Avatar, EmptyState, SectionHeading, Skeleton, Spinner } from '@/components/ui';
 
 export default function GroupsPage() {
@@ -150,7 +150,55 @@ export default function GroupsPage() {
             ))}
           </div>
         )}
+
+        <RegionalExperts />
       </div>
+    </div>
+  );
+}
+
+/** Top contributor per region, ranked by reviews (3pts) + photos (2pts) + saves (1pt). */
+function RegionalExperts() {
+  const [experts, setExperts] = useState<RegionalExpert[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api
+      .get<{ experts: RegionalExpert[] }>('/community/regional-experts')
+      .then((d) => setExperts(d.experts.filter((e) => e.expert)))
+      .catch(() => setExperts([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (!loading && experts.length === 0) return null;
+
+  return (
+    <div className="mt-12 border-t border-basalt-200 pt-8 dark:border-basalt-800">
+      <SectionHeading
+        title="Regional experts"
+        description="The most active hiker in each region right now, by reviews written, photos shared and trails saved."
+      />
+      {loading ? (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 3 }, (_, i) => (
+            <Skeleton key={i} className="h-16 w-full" />
+          ))}
+        </div>
+      ) : (
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {experts.map(({ region, expert }) => (
+            <li key={region} className="card flex items-center gap-3 p-4">
+              <Avatar name={expert!.name} src={expert!.avatarUrl} />
+              <div className="min-w-0">
+                <p className="truncate font-semibold text-basalt-900 dark:text-basalt-50">{expert!.name}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-forest-700 dark:text-forest-400">
+                  {REGION_LABELS[region]} local expert
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
