@@ -6,6 +6,7 @@ import { ApiError, serverFetch } from '@/lib/api';
 import type { Review, Trail, TrailCard as TrailCardType } from '@/lib/types';
 import {
   DIFFICULTY_LABELS,
+  DIFFICULTY_MAP_COLOR,
   DIFFICULTY_MEANING,
   REGION_LABELS,
   formatDateRange,
@@ -15,6 +16,7 @@ import {
   trailFallbackImage,
 } from '@/lib/format';
 import { SingleTrailMap } from '@/components/map/LazyMaps';
+import { ElevationProfile } from '@/components/trail/ElevationProfile';
 import { WeatherPanel } from '@/components/WeatherPanel';
 import { TrailCard } from '@/components/TrailCard';
 import { ReviewSection } from '@/components/trail/ReviewSection';
@@ -182,6 +184,15 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             <div className="overflow-hidden rounded-xl border border-basalt-200">
               <SingleTrailMap trail={trail} waypoints={trail.waypoints} height="440px" />
             </div>
+
+            {trail.waypoints.length >= 2 && (
+              <div className="card mt-4 p-4">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-basalt-500 dark:text-basalt-400">
+                  Elevation profile
+                </p>
+                <ElevationProfile waypoints={trail.waypoints} color={DIFFICULTY_MAP_COLOR[trail.difficulty]} />
+              </div>
+            )}
 
             {trail.waypoints.length > 0 && (
               <ol className="mt-5 space-y-3">
