@@ -58,6 +58,7 @@ export default function PremiumPage() {
 
   return (
     <div className="pb-20">
+      <div className="flag-bar" aria-hidden />
       <header className="bg-forest-950 py-16 text-white">
         <div className="section text-center">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-amber-400">

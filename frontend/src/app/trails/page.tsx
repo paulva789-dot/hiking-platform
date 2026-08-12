@@ -5,6 +5,7 @@ import { buildQuery, serverFetch } from '@/lib/api';
 import type { Pagination, TrailCard as TrailCardType } from '@/lib/types';
 import { DIFFICULTY_LABELS, REGION_LABELS } from '@/lib/format';
 import { TrailCard } from '@/components/TrailCard';
+import { Reveal } from '@/components/Reveal';
 import { TrailFilters } from '@/components/TrailFilters';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { EmptyState } from '@/components/ui';
@@ -57,6 +58,7 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
 
   return (
     <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <div className="flag-bar" aria-hidden />
       <div className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
           <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
@@ -103,7 +105,14 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {trails.map((trail, i) => (
-                <TrailCard key={trail.id} trail={trail} priority={i < 3} />
+                <Reveal key={trail.id}>
+                  <div
+                    className="animate-fade-up motion-reduce:animate-none"
+                    style={{ animationDelay: `${Math.min(i % 6, 5) * 60}ms` }}
+                  >
+                    <TrailCard trail={trail} priority={i < 3} />
+                  </div>
+                </Reveal>
               ))}
             </div>
           )}

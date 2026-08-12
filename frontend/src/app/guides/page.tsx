@@ -26,6 +26,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
 
   return (
     <div className="bg-basalt-50 pb-20 dark:bg-basalt-950">
+      <div className="flag-bar" aria-hidden />
       <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
           <h1 className="font-display text-3xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-4xl">
