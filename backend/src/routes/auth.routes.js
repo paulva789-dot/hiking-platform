@@ -102,6 +102,9 @@ router.get(
         prisma.review.count({ where: { userId: req.user.id } }),
         prisma.booking.count({ where: { userId: req.user.id } }),
         prisma.photo.count({ where: { userId: req.user.id } }),
+        // A "completed" trail is a self-reported review with a hike date on it —
+        // there is no separate completion record, this *is* the completion log.
+        prisma.review.count({ where: { userId: req.user.id, status: 'APPROVED', hikedOn: { not: null } } }),
       ]),
     ]);
 
@@ -113,6 +116,7 @@ router.get(
         reviews: counts[1],
         bookings: counts[2],
         photos: counts[3],
+        hiked: counts[4],
       },
     });
   })

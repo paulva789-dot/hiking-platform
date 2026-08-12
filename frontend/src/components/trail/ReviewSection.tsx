@@ -44,9 +44,23 @@ export function ReviewSection({
   return (
     <section id="reviews" className="scroll-mt-24">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
-          Reviews from people who hiked it
-        </h2>
+        <div>
+          <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
+            Reviews from people who hiked it
+          </h2>
+          {myReview?.hikedOn && (
+            <p className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-forest-700 dark:text-forest-400">
+              <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+                <path
+                  fillRule="evenodd"
+                  d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0l-3.5-3.5a1 1 0 111.4-1.4l2.8 2.8 6.8-6.8a1 1 0 011.4 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              You hiked this on {formatDate(myReview.hikedOn)}
+            </p>
+          )}
+        </div>
         {user ? (
           <button type="button" onClick={() => setOpen((v) => !v)} className="btn-primary">
             {myReview ? 'Edit your review' : 'Write a review'}

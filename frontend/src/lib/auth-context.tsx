@@ -15,7 +15,7 @@ import type { GuideProfile, User } from './types';
 interface MeResponse {
   user: User;
   guideProfile: GuideProfile | null;
-  stats: { favorites: number; reviews: number; bookings: number; photos: number };
+  stats: { favorites: number; reviews: number; bookings: number; photos: number; hiked: number };
 }
 
 interface AuthState {

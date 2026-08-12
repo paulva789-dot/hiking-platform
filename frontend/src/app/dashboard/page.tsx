@@ -42,7 +42,8 @@ export default function DashboardOverview() {
   return (
     <div className="space-y-10">
       <section>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <Stat label="Trails hiked" value={stats?.hiked ?? 0} hint="from your reviews with a hike date" />
           <Stat label="Saved trails" value={stats?.favorites ?? 0} />
           <Stat label="Bookings" value={stats?.bookings ?? 0} hint={`${upcoming.length} upcoming`} />
           <Stat label="Reviews written" value={stats?.reviews ?? 0} />
