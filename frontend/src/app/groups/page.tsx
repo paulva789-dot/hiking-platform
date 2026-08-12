@@ -67,12 +67,12 @@ export default function GroupsPage() {
             </button>
           )}
           {user && !isPremium && (
-            <div className="mt-5 flex flex-wrap items-center gap-3 rounded-lg bg-plum-50 px-4 py-3 text-sm text-plum-800 ring-1 ring-inset ring-plum-200">
+            <div className="mt-5 flex flex-wrap items-center gap-3 rounded-lg bg-terracotta-50 px-4 py-3 text-sm text-terracotta-800 ring-1 ring-inset ring-terracotta-200">
               <span>
                 Starting a group is a <strong>Premium</strong> feature. Free accounts can apply to join
                 any group below.
               </span>
-              <Link href="/premium" className="font-semibold text-plum-700 hover:underline">
+              <Link href="/premium" className="font-semibold text-terracotta-700 hover:underline">
                 See Premium →
               </Link>
             </div>

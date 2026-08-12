@@ -54,20 +54,20 @@ export const DIFFICULTY_MEANING: Record<Difficulty, string> = {
 export const DIFFICULTY_CLASSES: Record<Difficulty, string> = {
   EASY: 'bg-forest-100 text-forest-800 ring-forest-200',
   MODERATE: 'bg-sky-100 text-sky-900 ring-sky-200',
-  HARD: 'bg-plum-100 text-plum-800 ring-plum-200',
+  HARD: 'bg-terracotta-100 text-terracotta-800 ring-terracotta-200',
   EXPERT: 'bg-red-100 text-red-900 ring-red-200',
 };
 
 /**
  * Map/legend colours per difficulty. Moderate uses blue rather than orange —
  * it reads clearly next to the green Easy dot and doesn't fight the
- * red/plum Hard and Expert tones (and matches the familiar
+ * red/terracotta Hard and Expert tones (and matches the familiar
  * green/blue/black ski-run difficulty convention).
  */
 export const DIFFICULTY_MAP_COLOR: Record<Difficulty, string> = {
   EASY: '#3a7f5d',
   MODERATE: '#0369a1',
-  HARD: '#8f4a68',
+  HARD: '#9c4a2e',
   EXPERT: '#991b1b',
 };
 
@@ -153,6 +153,6 @@ export const titleCase = (value: string) =>
 
 /** Fallback cover so an unillustrated trail card never renders as a hole. */
 export const trailFallbackImage = (difficulty: Difficulty) => {
-  const tint = { EASY: '3a7f5d', MODERATE: '0369a1', HARD: '8f4a68', EXPERT: '991b1b' }[difficulty];
+  const tint = { EASY: '3a7f5d', MODERATE: '0369a1', HARD: '9c4a2e', EXPERT: '991b1b' }[difficulty];
   return `https://placehold.co/800x600/${tint}/ffffff?text=Trek+Cameroon`;
 };

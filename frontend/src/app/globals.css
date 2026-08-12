@@ -53,7 +53,7 @@
   }
 
   .btn-accent {
-    @apply btn bg-plum-600 text-white shadow-sm hover:bg-plum-700 hover:shadow-md active:scale-[0.98];
+    @apply btn bg-terracotta-600 text-white shadow-sm hover:bg-terracotta-700 hover:shadow-md active:scale-[0.98];
   }
 
   /* Diagonal sheen that sweeps across primary/accent buttons on hover. */

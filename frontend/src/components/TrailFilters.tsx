@@ -55,7 +55,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
           <button
             type="button"
             onClick={() => router.push('/trails')}
-            className="text-xs font-semibold text-plum-700 hover:underline"
+            className="text-xs font-semibold text-terracotta-700 hover:underline"
           >
             Clear all ({activeCount})
           </button>

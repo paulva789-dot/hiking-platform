@@ -54,7 +54,7 @@ export default async function TourPage({ params }: { params: Params }) {
 
           <div className="flex flex-wrap gap-2">
             <span className="flag-chip">{tour.country}</span>
-            <span className="chip bg-plum-100 text-plum-800 ring-plum-200">
+            <span className="chip bg-terracotta-100 text-terracotta-800 ring-terracotta-200">
               {tour.durationDays} day{tour.durationDays > 1 ? 's' : ''}
             </span>
             <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
@@ -181,7 +181,7 @@ export default async function TourPage({ params }: { params: Params }) {
                           left === 0
                             ? 'text-basalt-600 dark:text-basalt-400'
                             : left <= 3
-                              ? 'text-plum-700'
+                              ? 'text-terracotta-700'
                               : 'text-forest-700'
                         }`}
                       >

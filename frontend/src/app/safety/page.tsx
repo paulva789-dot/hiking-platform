@@ -182,7 +182,7 @@ export default async function SafetyPage() {
                   <span
                     className="h-2.5 w-2.5 rounded-full"
                     style={{
-                      background: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#8f4a68', EXPERT: '#991b1b' }[level],
+                      background: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#9c4a2e', EXPERT: '#991b1b' }[level],
                     }}
                   />
                   <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
@@ -302,14 +302,14 @@ export default async function SafetyPage() {
       </div>
 
       <section className="section">
-        <div className="rounded-2xl bg-plum-600 p-8 text-white sm:p-10">
+        <div className="rounded-2xl bg-terracotta-600 p-8 text-white sm:p-10">
           <h2 className="font-display text-2xl font-semibold">Take the important bits offline</h2>
-          <p className="mt-3 max-w-2xl text-plum-50">
+          <p className="mt-3 max-w-2xl text-terracotta-50">
             Premium members can download an offline pack for any trail — the route, numbered
             waypoints, hazards, permit notes and these emergency numbers — before they lose signal.
             Above 2,000 m on Mount Cameroon and Mount Oku, they will.
           </p>
-          <Link href="/premium" className="btn mt-6 bg-white text-plum-700 hover:bg-plum-50">
+          <Link href="/premium" className="btn mt-6 bg-white text-terracotta-700 hover:bg-terracotta-50">
             See Premium
           </Link>
         </div>

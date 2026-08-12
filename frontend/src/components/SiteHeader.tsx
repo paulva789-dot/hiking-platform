@@ -111,7 +111,7 @@ export function SiteHeader() {
                   {user.role === 'ADMIN' && <MenuLink href="/admin">{t('nav.adminConsole')}</MenuLink>}
                   {!isPremium && (
                     <MenuLink href="/premium">
-                      <span className="text-plum-700 dark:text-plum-400">{t('nav.goPremium')}</span>
+                      <span className="text-terracotta-700 dark:text-terracotta-400">{t('nav.goPremium')}</span>
                     </MenuLink>
                   )}
                   <button

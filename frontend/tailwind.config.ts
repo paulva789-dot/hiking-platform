@@ -2,9 +2,10 @@ import type { Config } from 'tailwindcss';
 
 /**
  * Palette is built around the colours you actually see on these trails:
- * volcanic basalt, highland grass, and a muted plum accent (replacing an
- * earlier orange/laterite accent that read as too loud — plum is calmer
- * and still reads clearly as "the other brand colour" next to forest green).
+ * volcanic basalt, highland grass, and a deep terracotta accent — the red
+ * laterite soil and roads the trail write-ups keep mentioning. A calmer,
+ * darker take on an earlier orange/laterite accent that read as too loud
+ * the first time round, not a return to it.
  */
 const config: Config = {
   darkMode: 'class',
@@ -25,17 +26,23 @@ const config: Config = {
           900: '#17362a',
           950: '#0b1e17',
         },
-        plum: {
-          50: '#faf5f7',
-          100: '#f3e8ec',
-          200: '#e4c7d2',
-          300: '#cf9bae',
-          400: '#b06a87',
-          500: '#8f4a68',
-          600: '#743a54',
-          700: '#5f2f45',
-          800: '#4d2739',
-          900: '#3f2130',
+        /**
+         * Cameroon's own red laterite soil — the trail write-ups mention it
+         * repeatedly — rather than the plum this replaced, which was picked
+         * only for being calmer than an earlier orange, not for meaning
+         * anything. Still a genuine complement to forest green on the wheel.
+         */
+        terracotta: {
+          50: '#faf4f0',
+          100: '#f2e2da',
+          200: '#e6c6b0',
+          300: '#d29f7c',
+          400: '#bd7850',
+          500: '#ad5c39',
+          600: '#9c4a2e',
+          700: '#7a3a20',
+          800: '#61301a',
+          900: '#4a2513',
         },
         basalt: {
           50: '#f6f7f8',
