@@ -112,6 +112,9 @@ export interface MapTrail {
   startLng: number;
   coverImage: string | null;
   ratingAvg: number;
+  ratingCount: number;
+  viewCount: number;
+  createdAt: string;
   routeGeoJson: RouteGeoJson | null;
 }
 

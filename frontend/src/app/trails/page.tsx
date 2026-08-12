@@ -7,6 +7,7 @@ import { DIFFICULTY_LABELS, REGION_LABELS } from '@/lib/format';
 import { TrailCard } from '@/components/TrailCard';
 import { Reveal } from '@/components/Reveal';
 import { TrailFilters } from '@/components/TrailFilters';
+import { FilterDrawer } from '@/components/FilterDrawer';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { EmptyState } from '@/components/ui';
 import { T } from '@/components/T';
@@ -14,7 +15,7 @@ import { T } from '@/components/T';
 export const metadata: Metadata = {
   title: 'All hiking trails',
   description:
-    'Search 12 checked hiking destinations across all ten regions of Cameroon by difficulty, region and time needed.',
+    'Search 17 checked hiking destinations across all ten regions of Cameroon by difficulty, region and time needed.',
 };
 
 interface Facets {
@@ -77,7 +78,9 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
 
       <div className="section grid gap-8 pt-8 lg:grid-cols-[260px_1fr]">
         <Suspense fallback={<div className="skeleton h-96 w-full" />}>
-          <TrailFilters facets={facets} />
+          <FilterDrawer activeCount={activeFilters.length}>
+            <TrailFilters facets={facets} />
+          </FilterDrawer>
         </Suspense>
 
         <div>
@@ -87,7 +90,7 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
               {pagination.total === 1 ? 'destination' : 'destinations'}
               {activeFilters.length > 0 && <> matching {activeFilters.join(' · ')}</>}
             </p>
-            <Link href="/map" className="btn-secondary text-xs">
+            <Link href={`/map${buildQuery({ region: query.region, difficulty: query.difficulty, maxDurationMinutes: query.maxDurationMinutes, sort: query.sort })}`} className="btn-secondary text-xs">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
                 <path strokeLinejoin="round" d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" />
                 <path d="M9 4v14M15 6v14" />
@@ -99,7 +102,7 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
           {trails.length === 0 ? (
             <EmptyState
               title="No trails match those filters"
-              message="Try widening the difficulty or region filter — there are only twelve destinations on the platform, so narrow searches run out fast."
+              message="Try widening the difficulty or region filter — there are 17 destinations on the platform in total, so narrow searches can run out fast."
               action={{ href: '/trails', label: 'Clear filters' }}
             />
           ) : (

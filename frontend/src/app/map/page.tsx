@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { serverFetch } from '@/lib/api';
 import type { MapTrail } from '@/lib/types';
 import { MapExplorer } from './MapExplorer';
@@ -31,7 +32,9 @@ export default async function MapPage() {
         </div>
       </div>
 
-      <MapExplorer trails={trails} />
+      <Suspense fallback={<div className="section py-8"><div className="skeleton h-[620px] w-full" /></div>}>
+        <MapExplorer trails={trails} />
+      </Suspense>
     </div>
   );
 }

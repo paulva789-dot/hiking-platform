@@ -61,7 +61,10 @@ async function getHomeData() {
   const settle = <R,>(p: Promise<R>, fallback: R) => p.catch(() => fallback);
 
   const [popular, easy, guides, events, safety] = await Promise.all([
-    settle(serverFetch<{ trails: TrailCardType[] }>('/trails?sort=popular&limit=6'), { trails: [] }),
+    settle(serverFetch<{ trails: TrailCardType[]; pagination: { total: number } }>('/trails?sort=popular&limit=6'), {
+      trails: [],
+      pagination: { total: 0 },
+    }),
     settle(serverFetch<{ trails: TrailCardType[] }>('/trails?difficulty=EASY&limit=3'), { trails: [] }),
     settle(serverFetch<{ guides: GuideCard[] }>('/guides?limit=3'), { guides: [] }),
     settle(serverFetch<{ events: HikingEvent[] }>('/content/events'), { events: [] }),
@@ -70,6 +73,7 @@ async function getHomeData() {
 
   return {
     popular: popular.trails,
+    totalTrails: popular.pagination.total,
     easy: easy.trails,
     guides: guides.guides,
     events: events.events.slice(0, 2),
@@ -78,7 +82,7 @@ async function getHomeData() {
 }
 
 export default async function HomePage() {
-  const { popular, easy, guides, events, safety } = await getHomeData();
+  const { popular, totalTrails, easy, guides, events, safety } = await getHomeData();
   const regionsCovered = new Set(popular.map((t) => t.region)).size;
 
   return (
@@ -220,7 +224,7 @@ export default async function HomePage() {
             description={`Volcanic summits, crater lakes, rainforest and savannah — spread across ${regionsCovered || 10} regions.`}
             action={
               <Link href="/trails" className="btn-secondary">
-                All 12 destinations
+                All {totalTrails || 17} destinations
               </Link>
             }
           />

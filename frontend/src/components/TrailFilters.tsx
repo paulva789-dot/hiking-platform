@@ -4,19 +4,19 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { ALL_DIFFICULTIES, ALL_REGIONS, DIFFICULTY_LABELS, REGION_LABELS } from '@/lib/format';
 
-interface Facets {
+export interface Facets {
   regions: { value: string; count: number }[];
   difficulties: { value: string; count: number }[];
 }
 
-const DURATION_OPTIONS = [
+export const DURATION_OPTIONS = [
   { value: '240', label: 'Half day (under 4 h)' },
   { value: '600', label: 'Full day (under 10 h)' },
   { value: '2880', label: 'Up to 2 days' },
   { value: '10080', label: 'Multi-day' },
 ];
 
-const SORT_OPTIONS = [
+export const SORT_OPTIONS = [
   { value: 'popular', label: 'Most viewed' },
   { value: 'rating', label: 'Highest rated' },
   { value: 'distance', label: 'Shortest first' },
@@ -24,7 +24,13 @@ const SORT_OPTIONS = [
   { value: 'name', label: 'A–Z' },
 ];
 
-export function TrailFilters({ facets }: { facets: Facets }) {
+/**
+ * Shared by /trails (server-paginated, URL is the source of truth) and /map
+ * (everything already loaded client-side, filtered/sorted in memory) --
+ * same component, same URL params, so a filter picked on one page carries
+ * over if you follow a "view on map" / "view as list" link to the other.
+ */
+export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets; basePath?: string }) {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -38,9 +44,9 @@ export function TrailFilters({ facets }: { facets: Facets }) {
       else next.delete(key);
       // Any filter change invalidates the current page number.
       next.delete('page');
-      router.push(`/trails?${next.toString()}`, { scroll: false });
+      router.push(`${basePath}?${next.toString()}`, { scroll: false });
     },
-    [params, router]
+    [params, router, basePath]
   );
 
   const activeCount = ['region', 'difficulty', 'maxDurationMinutes', 'q'].filter((k) =>
@@ -54,7 +60,7 @@ export function TrailFilters({ facets }: { facets: Facets }) {
         {activeCount > 0 && (
           <button
             type="button"
-            onClick={() => router.push('/trails')}
+            onClick={() => router.push(basePath)}
             className="text-xs font-semibold text-terracotta-700 hover:underline"
           >
             Clear all ({activeCount})

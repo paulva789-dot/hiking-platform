@@ -100,6 +100,9 @@ router.get(
         startLng: true,
         coverImage: true,
         ratingAvg: true,
+        ratingCount: true,
+        viewCount: true,
+        createdAt: true,
         routeGeoJson: true,
       },
     });

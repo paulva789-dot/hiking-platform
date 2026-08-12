@@ -107,7 +107,7 @@ const en = {
   // page headers
   'page.trails.title': 'Hiking destinations',
   'page.trails.subtitle':
-    "Twelve destinations, at least one in each of Cameroon's ten regions. Every distance, ascent and duration below is for the standard route and a moderately fit hiker.",
+    "Seventeen destinations, at least one in each of Cameroon's ten regions. Every distance, ascent and duration below is for the standard route and a moderately fit hiker.",
   'page.sites.title': 'Cameroon sites & history',
   'page.map.subtitle':
     'Toggle Streets / Satellite in the top-right of the map, or use "Zoom to my location" to fly the satellite view in on wherever you are right now.',
@@ -186,7 +186,7 @@ const fr: Record<TranslationKey, string> = {
 
   'page.trails.title': 'Destinations de randonnée',
   'page.trails.subtitle':
-    "Douze destinations, au moins une dans chacune des dix régions du Cameroun. Chaque distance, dénivelé et durée ci-dessous correspond à l'itinéraire standard pour un randonneur en forme moyenne.",
+    "Dix-sept destinations, au moins une dans chacune des dix régions du Cameroun. Chaque distance, dénivelé et durée ci-dessous correspond à l'itinéraire standard pour un randonneur en forme moyenne.",
   'page.sites.title': 'Sites et histoire du Cameroun',
   'page.map.subtitle':
     'Basculez Rues / Satellite en haut à droite de la carte, ou utilisez « Zoomer sur ma position » pour centrer la vue satellite là où vous êtes.',
@@ -265,7 +265,7 @@ const es: Record<TranslationKey, string> = {
 
   'page.trails.title': 'Destinos de senderismo',
   'page.trails.subtitle':
-    'Doce destinos, al menos uno en cada una de las diez regiones de Camerún. Cada distancia, desnivel y duración a continuación corresponde a la ruta estándar para un senderista de forma física media.',
+    'Diecisiete destinos, al menos uno en cada una de las diez regiones de Camerún. Cada distancia, desnivel y duración a continuación corresponde a la ruta estándar para un senderista de forma física media.',
   'page.sites.title': 'Sitios e historia de Camerún',
   'page.map.subtitle':
     'Alterna Calles / Satélite en la esquina superior derecha del mapa, o usa "Ir a mi ubicación" para centrar la vista satelital donde te encuentras.',
@@ -344,7 +344,7 @@ const pt: Record<TranslationKey, string> = {
 
   'page.trails.title': 'Destinos de caminhada',
   'page.trails.subtitle':
-    'Doze destinos, pelo menos um em cada uma das dez regiões dos Camarões. Cada distância, ganho de altitude e duração abaixo corresponde à rota padrão para um caminhante com condicionamento médio.',
+    'Dezessete destinos, pelo menos um em cada uma das dez regiões dos Camarões. Cada distância, ganho de altitude e duração abaixo corresponde à rota padrão para um caminhante com condicionamento médio.',
   'page.sites.title': 'Locais e história dos Camarões',
   'page.map.subtitle':
     'Alterne Ruas / Satélite no canto superior direito do mapa, ou use "Ir para minha localização" para centralizar a vista de satélite onde você está.',
