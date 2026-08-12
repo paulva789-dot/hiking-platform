@@ -21,7 +21,8 @@ const POLL_TIMEOUT_MS = 3 * 60 * 1000;
 
 type Body =
   | { purpose: 'PREMIUM_MEMBERSHIP'; months: number }
-  | { purpose: 'GUIDE_PLAN'; guidePlan: 'BASIC' | 'PRO'; months: number };
+  | { purpose: 'GUIDE_PLAN'; guidePlan: 'BASIC' | 'PRO'; months: number }
+  | { purpose: 'BOOKING'; bookingId: string };
 
 export function PaymentPanel({
   purpose,
@@ -30,8 +31,8 @@ export function PaymentPanel({
   onSuccess,
   onCancel,
 }: {
-  purpose: 'PREMIUM_MEMBERSHIP' | 'GUIDE_PLAN';
-  extra: { months: number; guidePlan?: 'BASIC' | 'PRO' };
+  purpose: 'PREMIUM_MEMBERSHIP' | 'GUIDE_PLAN' | 'BOOKING';
+  extra: { months?: number; guidePlan?: 'BASIC' | 'PRO'; bookingId?: string };
   amountXAF: number;
   onSuccess: () => void;
   onCancel?: () => void;
@@ -112,8 +113,10 @@ export function PaymentPanel({
     try {
       const body: Body =
         purpose === 'PREMIUM_MEMBERSHIP'
-          ? { purpose: 'PREMIUM_MEMBERSHIP', months: extra.months }
-          : { purpose: 'GUIDE_PLAN', guidePlan: extra.guidePlan!, months: extra.months };
+          ? { purpose: 'PREMIUM_MEMBERSHIP', months: extra.months! }
+          : purpose === 'GUIDE_PLAN'
+            ? { purpose: 'GUIDE_PLAN', guidePlan: extra.guidePlan!, months: extra.months! }
+            : { purpose: 'BOOKING', bookingId: extra.bookingId! };
 
       const res = await api.post<PaymentInitiateResponse>('/payments/initiate', {
         ...body,

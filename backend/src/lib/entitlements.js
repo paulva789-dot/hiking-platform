@@ -27,11 +27,25 @@ export async function activateGuidePlan(userId, plan, months) {
   });
 }
 
+/** Marks the booking a successful payment was for as paid and confirmed. Safe to call more than once. */
+export async function confirmBookingPayment(bookingId) {
+  if (!bookingId) return;
+  const booking = await prisma.booking.findUnique({ where: { id: bookingId } });
+  if (!booking || booking.paymentStatus === 'PAID') return;
+
+  await prisma.booking.update({
+    where: { id: bookingId },
+    data: { paymentStatus: 'PAID', status: 'CONFIRMED' },
+  });
+}
+
 /** Applies whatever a successful Payment record was for. Safe to call more than once. */
 export async function applyPaymentEntitlement(payment) {
   if (payment.purpose === 'PREMIUM_MEMBERSHIP') {
     await extendPremiumMembership(payment.userId, payment.months ?? 1);
   } else if (payment.purpose === 'GUIDE_PLAN') {
     await activateGuidePlan(payment.userId, payment.guidePlan ?? 'BASIC', payment.months ?? 1);
+  } else if (payment.purpose === 'BOOKING') {
+    await confirmBookingPayment(payment.bookingId);
   }
 }

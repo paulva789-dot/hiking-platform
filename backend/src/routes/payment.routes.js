@@ -33,16 +33,31 @@ router.post(
       throw badRequest('Mobile money via Intouch is not configured on this server yet');
     }
 
-    const amountXAF =
-      purpose === 'PREMIUM_MEMBERSHIP'
-        ? priceForPremium(req.body.months)
-        : priceForGuidePlan(req.body.guidePlan, req.body.months);
-
     // A guide plan purchase needs a guide profile to attach the plan to.
     if (purpose === 'GUIDE_PLAN') {
       const profile = await prisma.guideProfile.findUnique({ where: { userId: req.user.id } });
       if (!profile) throw badRequest('Create a guide profile before buying a plan');
     }
+
+    let booking;
+    if (purpose === 'BOOKING') {
+      booking = await prisma.booking.findUnique({ where: { id: req.body.bookingId } });
+      if (!booking) throw notFound('Booking not found');
+      if (booking.userId !== req.user.id) throw forbidden('That booking is not yours');
+      if (booking.status === 'CANCELLED') throw badRequest('That booking was cancelled');
+      if (booking.paymentStatus === 'PAID') throw badRequest('That booking is already paid');
+      const existing = await prisma.payment.findFirst({ where: { bookingId: booking.id, status: 'PENDING' } });
+      if (existing) {
+        throw badRequest('A payment for this booking is already in progress — check its status before starting another');
+      }
+    }
+
+    const amountXAF =
+      purpose === 'PREMIUM_MEMBERSHIP'
+        ? priceForPremium(req.body.months)
+        : purpose === 'GUIDE_PLAN'
+          ? priceForGuidePlan(req.body.guidePlan, req.body.months)
+          : booking.totalXAF;
 
     const reference = makeReference();
 
@@ -57,6 +72,7 @@ router.post(
         amountXAF,
         months: req.body.months,
         guidePlan: purpose === 'GUIDE_PLAN' ? req.body.guidePlan : undefined,
+        bookingId: purpose === 'BOOKING' ? req.body.bookingId : undefined,
       },
     });
 

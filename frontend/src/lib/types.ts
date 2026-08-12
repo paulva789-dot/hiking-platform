@@ -347,7 +347,7 @@ export interface PaymentStatusResponse {
   reference: string;
   status: PaymentAttemptStatus;
   amountXAF: number;
-  purpose: 'PREMIUM_MEMBERSHIP' | 'GUIDE_PLAN';
+  purpose: 'PREMIUM_MEMBERSHIP' | 'GUIDE_PLAN' | 'BOOKING';
   failureReason: string | null;
 }
 

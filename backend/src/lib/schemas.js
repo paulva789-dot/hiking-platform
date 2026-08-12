@@ -236,9 +236,18 @@ const guidePlanInitiateSchema = z.object({
   phone: cameroonPhone,
 });
 
+const bookingInitiateSchema = z.object({
+  purpose: z.literal('BOOKING'),
+  bookingId: z.string().min(1),
+  provider: z.enum(['FLUTTERWAVE', 'INTOUCH']),
+  method: z.enum(['MTN_MOMO', 'ORANGE_MONEY']),
+  phone: cameroonPhone,
+});
+
 export const paymentInitiateSchema = z.discriminatedUnion('purpose', [
   premiumInitiateSchema,
   guidePlanInitiateSchema,
+  bookingInitiateSchema,
 ]);
 
 // ------------------------------------------------------------------ weather

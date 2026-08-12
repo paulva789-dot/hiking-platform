@@ -106,6 +106,7 @@ enum PaymentMethod {
 enum PaymentPurpose {
   PREMIUM_MEMBERSHIP
   GUIDE_PLAN
+  BOOKING
 }
 
 /** Named PaymentAttemptStatus, not PaymentStatus, to avoid colliding with the existing booking PaymentStatus enum. */
@@ -353,6 +354,10 @@ model Booking {
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 
+  // Not one-to-one: a failed attempt can be retried, so a booking may have
+  // more than one Payment row over time (at most one PENDING at a time).
+  payments Payment[]
+
   @@index([userId])
   @@index([tourId, status])
 }
@@ -360,9 +365,10 @@ model Booking {
 // ---------------------------------------------------------------- payments (MTN MoMo / Orange Money)
 
 /**
- * One record per checkout attempt against Flutterwave or Intouch, for either
- * a Premium membership purchase or a guide plan purchase. The webhook/callback
- * handlers flip status to SUCCESSFUL and grant the entitlement idempotently.
+ * One record per checkout attempt against Flutterwave or Intouch: a Premium
+ * membership purchase, a guide plan purchase, or a tour booking. The
+ * webhook/callback handlers flip status to SUCCESSFUL and grant the
+ * entitlement (or confirm the booking) idempotently.
  */
 model Payment {
   id            String               @id @default(cuid())
@@ -378,6 +384,11 @@ model Payment {
   months        Int?
   // GUIDE_PLAN
   guidePlan     GuidePlan?
+  // BOOKING -- deliberately not @unique: a failed attempt must not block
+  // retrying, so at most one PENDING payment per booking is enforced in
+  // code (payment.routes.js), not by a DB constraint.
+  bookingId     String?
+  booking       Booking?             @relation(fields: [bookingId], references: [id], onDelete: SetNull)
   status        PaymentAttemptStatus @default(PENDING)
   providerRef   String?
   failureReason String?

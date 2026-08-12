@@ -6,12 +6,14 @@ import { api, ApiError } from '@/lib/api';
 import { formatDateRange, formatXAF, relativeTime } from '@/lib/format';
 import type { Booking } from '@/lib/types';
 import { Alert, EmptyState, SectionHeading, Skeleton, Spinner, StatusBadge } from '@/components/ui';
+import { PaymentPanel } from '@/components/PaymentPanel';
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [payingBooking, setPayingBooking] = useState<Booking | null>(null);
 
   const load = () =>
     api
@@ -25,11 +27,15 @@ export default function BookingsPage() {
   }, []);
 
   const act = async (id: string, action: 'pay' | 'cancel') => {
+    if (action === 'pay') {
+      const booking = bookings.find((b) => b.id === id);
+      if (booking) setPayingBooking(booking);
+      return;
+    }
     setBusyId(id);
     setError(null);
     try {
-      if (action === 'pay') await api.post(`/bookings/${id}/pay`);
-      else await api.delete(`/bookings/${id}`);
+      await api.delete(`/bookings/${id}`);
       await load();
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'That did not work. Please try again.');
@@ -50,7 +56,7 @@ export default function BookingsPage() {
     <div className="space-y-10">
       <SectionHeading
         title="My bookings"
-        description="Reserved seats hold your place. Payment is settled with the guide — confirming here marks the booking paid and confirmed."
+        description="Reserved seats hold your place until you pay by MTN Mobile Money or Orange Money — the guide confirms and arranges the meeting point once payment clears."
       />
 
       {error && <Alert tone="danger">{error}</Alert>}
@@ -94,6 +100,44 @@ export default function BookingsPage() {
             </section>
           )}
         </>
+      )}
+
+      {payingBooking && (
+        <div className="fixed inset-0 z-[70] grid place-items-center p-4">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setPayingBooking(null)} aria-hidden />
+          <div className="card relative w-full max-w-sm p-6">
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wide text-forest-700 dark:text-forest-300">
+                  Pay for your seat
+                </p>
+                <h2 className="mt-1 font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
+                  {payingBooking.tour.title}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPayingBooking(null)}
+                className="btn-ghost px-2"
+                aria-label="Close"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
+                  <path strokeLinecap="round" d="M6 6l12 12M6 18L18 6" />
+                </svg>
+              </button>
+            </div>
+            <PaymentPanel
+              purpose="BOOKING"
+              extra={{ bookingId: payingBooking.id }}
+              amountXAF={payingBooking.totalXAF}
+              onSuccess={() => {
+                setPayingBooking(null);
+                void load();
+              }}
+              onCancel={() => setPayingBooking(null)}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

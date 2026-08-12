@@ -154,25 +154,6 @@ router.post(
   })
 );
 
-/** POST /api/bookings/:id/pay — marks a booking paid and confirms it. */
-router.post(
-  '/:id/pay',
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    const booking = await prisma.booking.findUnique({ where: { id: req.params.id } });
-    if (!booking) throw notFound('Booking not found');
-    if (booking.userId !== req.user.id) throw forbidden('That booking is not yours');
-    if (booking.status === 'CANCELLED') throw badRequest('That booking was cancelled');
-    if (booking.paymentStatus === 'PAID') return res.json({ booking });
-
-    const updated = await prisma.booking.update({
-      where: { id: booking.id },
-      data: { paymentStatus: 'PAID', status: 'CONFIRMED' },
-    });
-    res.json({ booking: updated });
-  })
-);
-
 /** DELETE /api/bookings/:id — cancel and release the seats. */
 router.delete(
   '/:id',

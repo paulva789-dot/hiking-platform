@@ -8,6 +8,7 @@ import { useAuth } from '@/lib/auth-context';
 import { formatDateRange, formatXAF } from '@/lib/format';
 import type { Booking, TourSchedule } from '@/lib/types';
 import { Alert, Spinner } from '@/components/ui';
+import { PaymentPanel } from '@/components/PaymentPanel';
 
 interface BookingDraft {
   scheduleId: string;
@@ -49,6 +50,8 @@ export function BookingWidget({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [booking, setBooking] = useState<Booking | null>(null);
+  const [paying, setPaying] = useState(false);
+  const [paid, setPaid] = useState(false);
 
   // Signing in mid-booking used to lose everything picked so far — restore a
   // draft saved right before the redirect, once, the moment we come back
@@ -99,11 +102,47 @@ export function BookingWidget({
     }
   };
 
+  if (booking && paid) {
+    return (
+      <div className="card space-y-4 border-forest-300 bg-forest-50 p-6 dark:border-forest-800 dark:bg-forest-950/40">
+        <p className="text-xs font-bold uppercase tracking-wide text-forest-700 dark:text-forest-300">
+          Paid and confirmed
+        </p>
+        <p className="text-sm text-basalt-700 dark:text-basalt-300">
+          The guide will contact you on {booking.contactPhone} to arrange the meeting point.
+        </p>
+        <button type="button" onClick={() => router.push('/dashboard/bookings')} className="btn-primary w-full">
+          Go to my bookings
+        </button>
+      </div>
+    );
+  }
+
+  if (booking && paying) {
+    return (
+      <div className="card space-y-4 p-6">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-forest-700 dark:text-forest-300">
+            Pay for your seat
+          </p>
+          <h3 className="mt-1 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{tourTitle}</h3>
+        </div>
+        <PaymentPanel
+          purpose="BOOKING"
+          extra={{ bookingId: booking.id }}
+          amountXAF={booking.totalXAF}
+          onSuccess={() => setPaid(true)}
+          onCancel={() => setPaying(false)}
+        />
+      </div>
+    );
+  }
+
   if (booking) {
     return (
-      <div className="card space-y-4 border-forest-300 bg-forest-50 p-6">
+      <div className="card space-y-4 border-forest-300 bg-forest-50 p-6 dark:border-forest-800 dark:bg-forest-950/40">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-forest-700">Seat reserved</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-forest-700 dark:text-forest-300">Seat reserved</p>
           <h3 className="mt-1 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{tourTitle}</h3>
         </div>
 
@@ -118,16 +157,17 @@ export function BookingWidget({
         </dl>
 
         <Alert tone="info">
-          Your seat is held but not yet paid. Confirm payment from your bookings page — the guide
-          will contact you on {booking.contactPhone} to arrange the meeting point.
+          Your seat is held but not yet paid. Pay by MTN Mobile Money or Orange Money now, or later
+          from your bookings page — the guide will contact you on {booking.contactPhone} to arrange
+          the meeting point either way.
         </Alert>
 
-        <div className="flex gap-2">
-          <button type="button" onClick={() => router.push('/dashboard/bookings')} className="btn-primary">
-            Go to my bookings
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={() => setPaying(true)} className="btn-accent">
+            Pay {formatXAF(booking.totalXAF)} now
           </button>
-          <button type="button" onClick={() => setBooking(null)} className="btn-secondary">
-            Book another date
+          <button type="button" onClick={() => router.push('/dashboard/bookings')} className="btn-secondary">
+            Pay later
           </button>
         </div>
       </div>
