@@ -202,6 +202,9 @@ export default async function TourPage({ params }: { params: Params }) {
             priceXAF={tour.priceXAF}
             maxGroupSize={tour.maxGroupSize}
             schedules={schedules}
+            guideId={tour.guide.id}
+            guideName={tour.guide.user.name}
+            trailSlug={tour.trail?.slug}
           />
         </div>
       </div>

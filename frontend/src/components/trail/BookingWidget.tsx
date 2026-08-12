@@ -1,12 +1,22 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { api, ApiError } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
 import { formatDateRange, formatXAF } from '@/lib/format';
 import type { Booking, TourSchedule } from '@/lib/types';
 import { Alert, Spinner } from '@/components/ui';
+
+interface BookingDraft {
+  scheduleId: string;
+  participants: number;
+  contactPhone: string;
+  notes: string;
+}
+
+const draftKey = (tourId: string) => `booking-draft-${tourId}`;
 
 export function BookingWidget({
   tourId,
@@ -14,12 +24,19 @@ export function BookingWidget({
   priceXAF,
   maxGroupSize,
   schedules,
+  guideId,
+  guideName,
+  trailSlug,
 }: {
   tourId: string;
   tourTitle: string;
   priceXAF: number;
   maxGroupSize: number;
   schedules: TourSchedule[];
+  /** For the sold-out dead end — "message the guide" needs somewhere real to send them. */
+  guideId?: string;
+  guideName?: string;
+  trailSlug?: string;
 }) {
   const { user } = useAuth();
   const router = useRouter();
@@ -33,6 +50,25 @@ export function BookingWidget({
   const [error, setError] = useState<string | null>(null);
   const [booking, setBooking] = useState<Booking | null>(null);
 
+  // Signing in mid-booking used to lose everything picked so far — restore a
+  // draft saved right before the redirect, once, the moment we come back
+  // signed in. Only trust a scheduleId that's still actually open.
+  useEffect(() => {
+    if (!user) return;
+    const raw = sessionStorage.getItem(draftKey(tourId));
+    if (!raw) return;
+    sessionStorage.removeItem(draftKey(tourId));
+    try {
+      const draft = JSON.parse(raw) as BookingDraft;
+      if (openSchedules.some((s) => s.id === draft.scheduleId)) setScheduleId(draft.scheduleId);
+      setParticipants(draft.participants);
+      setContactPhone(draft.contactPhone);
+      setNotes(draft.notes);
+      // eslint-disable-next-line no-empty
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   const selected = openSchedules.find((s) => s.id === scheduleId);
   const seatsLeft = selected ? selected.capacity - selected.seatsBooked : 0;
   const subtotal = priceXAF * participants;
@@ -40,6 +76,8 @@ export function BookingWidget({
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (!user) {
+      const draft: BookingDraft = { scheduleId, participants, contactPhone, notes };
+      sessionStorage.setItem(draftKey(tourId), JSON.stringify(draft));
       router.push(`/login?next=/tours/${tourId}`);
       return;
     }
@@ -101,9 +139,22 @@ export function BookingWidget({
       <div className="card p-6">
         <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">No open dates</h3>
         <p className="mt-2 text-sm text-basalt-600 dark:text-basalt-300">
-          Every scheduled departure for this tour is full or past. Message the guide directly, or
-          check the other tours on this trail.
+          Every scheduled departure for this tour is full or past.
+          {guideId ? ` Message ${guideName ?? 'the guide'} directly` : ' Message the guide directly'}
+          {trailSlug ? ', or check the other tours on this trail.' : '.'}
         </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {guideId && (
+            <Link href={`/guides/${guideId}`} className="btn-primary">
+              {guideName ? `Message ${guideName}` : 'Contact the guide'}
+            </Link>
+          )}
+          {trailSlug && (
+            <Link href={`/trails/${trailSlug}#book`} className="btn-secondary">
+              Other tours on this trail
+            </Link>
+          )}
+        </div>
       </div>
     );
   }

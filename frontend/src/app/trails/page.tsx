@@ -43,14 +43,18 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
   };
 
   const [result, facets] = await Promise.all([
-    serverFetch<{ trails: TrailCardType[]; pagination: Pagination }>(
+    serverFetch<{ trails: TrailCardType[]; pagination: Pagination; suggestions?: TrailCardType[] }>(
       `/trails${buildQuery(query)}`,
       60
-    ).catch(() => ({ trails: [], pagination: { page: 1, limit: 12, total: 0, pages: 1 } })),
+    ).catch(() => ({
+      trails: [] as TrailCardType[],
+      pagination: { page: 1, limit: 12, total: 0, pages: 1 },
+      suggestions: [] as TrailCardType[],
+    })),
     serverFetch<Facets>('/trails/facets', 600).catch(() => ({ regions: [], difficulties: [] })),
   ]);
 
-  const { trails, pagination } = result;
+  const { trails, pagination, suggestions } = result;
   const activeFilters = [
     query.region && REGION_LABELS[query.region as keyof typeof REGION_LABELS],
     query.difficulty && DIFFICULTY_LABELS[query.difficulty as keyof typeof DIFFICULTY_LABELS],
@@ -100,11 +104,30 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
           </div>
 
           {trails.length === 0 ? (
-            <EmptyState
-              title="No trails match those filters"
-              message="Try widening the difficulty or region filter — there are 17 destinations on the platform in total, so narrow searches can run out fast."
-              action={{ href: '/trails', label: 'Clear filters' }}
-            />
+            <>
+              <EmptyState
+                title={query.q ? `No trails match “${query.q}”` : 'No trails match those filters'}
+                message={
+                  query.q
+                    ? 'Check the spelling, or try just the place name — "Kupe" instead of "Mount Kupe", for example.'
+                    : 'Try widening the difficulty or region filter — there are 17 destinations on the platform in total, so narrow searches can run out fast.'
+                }
+                action={{ href: '/trails', label: 'Clear filters' }}
+              />
+
+              {suggestions && suggestions.length > 0 && (
+                <div className="mt-8">
+                  <p className="mb-4 text-xs font-bold uppercase tracking-wide text-basalt-500 dark:text-basalt-400">
+                    Popular destinations instead
+                  </p>
+                  <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                    {suggestions.map((trail) => (
+                      <TrailCard key={trail.id} trail={trail} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {trails.map((trail, i) => (

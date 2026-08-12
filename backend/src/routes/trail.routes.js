@@ -74,9 +74,22 @@ router.get(
       }),
     ]);
 
+    // A typo in a name search shouldn't be a dead end — offer somewhere to
+    // go instead of just "no results, clear your filters".
+    let suggestions;
+    if (total === 0 && q) {
+      suggestions = await prisma.trail.findMany({
+        where: { published: true },
+        select: CARD_FIELDS,
+        orderBy: SORTS.popular,
+        take: 4,
+      });
+    }
+
     res.json({
       trails,
       pagination: { page, limit, total, pages: Math.max(1, Math.ceil(total / limit)) },
+      ...(suggestions ? { suggestions } : {}),
     });
   })
 );

@@ -3,12 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { api, ApiError } from '@/lib/api';
 import { formatXAF } from '@/lib/format';
-import type {
-  PaymentInitiateResponse,
-  PaymentMethod,
-  PaymentProvider,
-  PaymentStatusResponse,
-} from '@/lib/types';
+import type { PaymentInitiateResponse, PaymentMethod, PaymentStatusResponse } from '@/lib/types';
 import { Alert, Spinner } from '@/components/ui';
 
 const METHODS: { value: PaymentMethod; label: string; badge: string }[] = [
@@ -16,10 +11,10 @@ const METHODS: { value: PaymentMethod; label: string; badge: string }[] = [
   { value: 'ORANGE_MONEY', label: 'Orange Money', badge: 'bg-orange-500 text-white' },
 ];
 
-const PROVIDERS: { value: PaymentProvider; label: string; hint: string }[] = [
-  { value: 'FLUTTERWAVE', label: 'Flutterwave', hint: 'Prompt sent straight to your phone' },
-  { value: 'INTOUCH', label: 'Intouch', hint: 'Direct local mobile money collection' },
-];
+// Flutterwave vs Intouch is an operator-side routing choice, not something a
+// hiker paying with MTN/Orange has any basis to decide correctly — pick one
+// internally instead of asking.
+const PAYMENT_PROVIDER = 'FLUTTERWAVE' as const;
 
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 3 * 60 * 1000;
@@ -42,7 +37,6 @@ export function PaymentPanel({
   onCancel?: () => void;
 }) {
   const [method, setMethod] = useState<PaymentMethod>('MTN_MOMO');
-  const [provider, setProvider] = useState<PaymentProvider>('FLUTTERWAVE');
   const [phone, setPhone] = useState('');
   const [stage, setStage] = useState<'form' | 'pending' | 'success' | 'failed'>('form');
   const [reference, setReference] = useState<string | null>(null);
@@ -85,6 +79,32 @@ export function PaymentPanel({
     }, POLL_INTERVAL_MS);
   };
 
+  /**
+   * A MoMo/Orange prompt already sent to the phone can still be approved
+   * after the UI gives up on it — "Try again" alone risks a second real
+   * charge for something that already went through. Always offer one
+   * explicit re-check against the same reference before starting over.
+   */
+  const checkStatusAgain = async () => {
+    if (!reference) return;
+    setBusy(true);
+    try {
+      const status = await api.get<PaymentStatusResponse>(`/payments/${reference}`);
+      if (status.status === 'SUCCESSFUL') {
+        setStage('success');
+        onSuccess();
+      } else if (status.status === 'FAILED') {
+        setError(status.failureReason ?? 'The payment failed or was declined.');
+      } else {
+        setError('Still not confirmed. If you approved the prompt on your phone, wait a moment and check again.');
+      }
+    } catch {
+      setError('Could not reach the server to check. Try again in a moment.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     setBusy(true);
@@ -97,7 +117,7 @@ export function PaymentPanel({
 
       const res = await api.post<PaymentInitiateResponse>('/payments/initiate', {
         ...body,
-        provider,
+        provider: PAYMENT_PROVIDER,
         method,
         phone,
       });
@@ -145,6 +165,10 @@ export function PaymentPanel({
         >
           Cancel and try again
         </button>
+        <p className="text-xs text-basalt-500 dark:text-basalt-400">
+          If you already approved the prompt on your phone, cancelling here will not stop it — it
+          may still go through.
+        </p>
       </div>
     );
   }
@@ -154,8 +178,16 @@ export function PaymentPanel({
       <div className="space-y-4 text-center">
         <p className="font-display text-lg font-semibold text-red-700">Payment did not go through</p>
         {error && <Alert tone="danger">{error}</Alert>}
-        <button type="button" onClick={() => setStage('form')} className="btn-primary w-full">
-          Try again
+        <button type="button" onClick={() => void checkStatusAgain()} disabled={busy} className="btn-primary w-full">
+          {busy && <Spinner className="h-4 w-4" />}
+          Check status again
+        </button>
+        <p className="text-xs text-basalt-500 dark:text-basalt-400">
+          If you approved the prompt on your phone, check again before starting a new payment — a
+          second attempt could charge you twice.
+        </p>
+        <button type="button" onClick={() => setStage('form')} className="btn-ghost w-full">
+          Start a new payment instead
         </button>
       </div>
     );
@@ -180,28 +212,6 @@ export function PaymentPanel({
             >
               <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${m.badge}`} aria-hidden />
               {m.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <span className="label">Payment gateway</span>
-        <div className="grid grid-cols-2 gap-2">
-          {PROVIDERS.map((p) => (
-            <button
-              key={p.value}
-              type="button"
-              onClick={() => setProvider(p.value)}
-              aria-pressed={provider === p.value}
-              className={`rounded-lg border-2 px-3 py-2.5 text-left transition-colors ${
-                provider === p.value
-                  ? 'border-forest-700 bg-forest-50 dark:bg-forest-900/30'
-                  : 'border-basalt-200 hover:border-basalt-300 dark:border-basalt-700'
-              }`}
-            >
-              <span className="block text-sm font-semibold text-basalt-900 dark:text-basalt-50">{p.label}</span>
-              <span className="block text-xs text-basalt-600 dark:text-basalt-300">{p.hint}</span>
             </button>
           ))}
         </div>
