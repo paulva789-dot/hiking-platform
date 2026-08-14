@@ -269,6 +269,45 @@ async function main() {
   }
   console.log(`  reviews    ${reviewSeeds.length}`);
 
+  // ---------------------------------------------------------------- gallery
+  // Real phone photos, not stock — hosted from /public/gallery rather than
+  // Cloudinary, since these are curated seed content, not a user upload.
+  const photoSeeds = [
+    {
+      publicId: 'seed/hotel-seme-beach-coconut',
+      url: '/gallery/hotel-seme-beach-coconut.jpg',
+      width: 1242,
+      height: 2208,
+      caption:
+        'Fresh coconut at Hotel Seme Beach Resort & Spa, Mile 11 Route D, Idenau — the coastal stretch below Mount Cameroon’s western slopes, a common stop before or after a Buea climb.',
+    },
+    {
+      publicId: 'seed/idenau-coast-wading',
+      url: '/gallery/idenau-coast-wading.jpg',
+      width: 1242,
+      height: 2208,
+      caption: 'Wading in on the Idenau coast, South-West Region.',
+    },
+  ];
+
+  for (const p of photoSeeds) {
+    const existing = await prisma.photo.findFirst({ where: { publicId: p.publicId } });
+    if (!existing) {
+      await prisma.photo.create({
+        data: {
+          userId: premiumHiker.id,
+          url: p.url,
+          publicId: p.publicId,
+          width: p.width,
+          height: p.height,
+          caption: p.caption,
+          status: 'APPROVED',
+        },
+      });
+    }
+  }
+  console.log(`  photos     ${photoSeeds.length}`);
+
   // ---------------------------------------------------------------- favorites
   for (const slug of ['mount-cameroon-guinness-route', 'manengouba-twin-lakes', 'mount-oku-kilum-ijim']) {
     const trail = trailBySlug[slug];
