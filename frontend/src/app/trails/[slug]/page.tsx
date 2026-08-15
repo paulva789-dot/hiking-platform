@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ApiError, serverFetch } from '@/lib/api';
-import type { Review, Trail, TrailCard as TrailCardType } from '@/lib/types';
+import { ApiError, buildQuery, serverFetch } from '@/lib/api';
+import type { Listing, Review, Trail, TrailCard as TrailCardType } from '@/lib/types';
 import {
+  ACCOMMODATION_TYPE_LABELS,
   DIFFICULTY_LABELS,
   DIFFICULTY_MAP_COLOR,
   DIFFICULTY_MEANING,
   REGION_LABELS,
+  SUGGESTED_ACCOMMODATION_ORDER,
   formatDateRange,
   formatDistance,
   formatDuration,
@@ -70,6 +72,17 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
   const nearby = await serverFetch<{ trails: TrailCardType[] }>(`/trails/${slug}/nearby`).catch(
     () => ({ trails: [] })
   );
+  const nearbyStays = await serverFetch<{ listings: Listing[] }>(
+    `/content/listings${buildQuery({ kind: 'ACCOMMODATION', region: trail.region })}`
+  )
+    .then((d) =>
+      [...d.listings].sort((a, b) => {
+        const order = SUGGESTED_ACCOMMODATION_ORDER[trail.difficulty];
+        const rank = (l: Listing) => (l.accommodationType ? order.indexOf(l.accommodationType) : order.length);
+        return rank(a) - rank(b);
+      })
+    )
+    .catch(() => [] as Listing[]);
 
   return (
     <article className="pb-20">
@@ -438,6 +451,37 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               Open in OpenStreetMap
             </a>
           </div>
+
+          {nearbyStays.length > 0 && (
+            <div className="card p-5">
+              <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
+                Where to stay nearby
+              </h3>
+              <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
+                {trail.difficulty === 'EXPERT' || trail.difficulty === 'HARD'
+                  ? 'For this one, plan around a camp or lodge close to the trailhead.'
+                  : `In ${REGION_LABELS[trail.region]}, suggested for this trail:`}
+              </p>
+              <ul className="mt-3 space-y-3">
+                {nearbyStays.slice(0, 3).map((listing) => (
+                  <li key={listing.id} className="border-t border-basalt-100 pt-3 first:border-t-0 first:pt-0 dark:border-basalt-800">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <p className="text-sm font-semibold text-basalt-900 dark:text-basalt-50">{listing.name}</p>
+                      {listing.accommodationType && (
+                        <span className="shrink-0 text-[10px] font-bold uppercase tracking-wide text-terracotta-700 dark:text-terracotta-400">
+                          {ACCOMMODATION_TYPE_LABELS[listing.accommodationType]}
+                        </span>
+                      )}
+                    </div>
+                    {listing.town && <p className="text-xs text-basalt-600 dark:text-basalt-300">{listing.town}</p>}
+                  </li>
+                ))}
+              </ul>
+              <Link href={`/stay?region=${trail.region}`} className="btn-secondary mt-4 w-full text-xs">
+                See all stays in {REGION_LABELS[trail.region]}
+              </Link>
+            </div>
+          )}
 
           <Alert tone="warn" title="Before you set off">
             Tell someone your route and a turnaround time. There is no mountain rescue service in

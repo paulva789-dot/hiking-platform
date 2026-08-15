@@ -1,4 +1,4 @@
-import type { Difficulty, Region, TrailCategory } from './types';
+import type { AccommodationType, Difficulty, Region, TrailCategory } from './types';
 
 /**
  * Guides and tours are not limited to Cameroon — bookings can cover any of
@@ -82,6 +82,28 @@ export const CATEGORY_LABELS: Record<TrailCategory, string> = {
 };
 
 export const ALL_CATEGORIES = Object.keys(CATEGORY_LABELS) as TrailCategory[];
+
+export const ACCOMMODATION_TYPE_LABELS: Record<AccommodationType, string> = {
+  CAMPSITE: 'Camping',
+  GUESTHOUSE: 'Guesthouse',
+  LODGE: 'Lodge',
+  HOMESTAY: 'Homestay',
+  HOTEL: 'Hotel',
+};
+
+export const ALL_ACCOMMODATION_TYPES = Object.keys(ACCOMMODATION_TYPE_LABELS) as AccommodationType[];
+
+/**
+ * Which accommodation type to lead with near a given trail, by difficulty —
+ * a remote EXPERT wilderness trail should suggest camping first, not a spa
+ * hotel; an EASY trail near a town should suggest the opposite.
+ */
+export const SUGGESTED_ACCOMMODATION_ORDER: Record<Difficulty, AccommodationType[]> = {
+  EASY: ['GUESTHOUSE', 'HOTEL', 'HOMESTAY', 'LODGE', 'CAMPSITE'],
+  MODERATE: ['GUESTHOUSE', 'LODGE', 'HOMESTAY', 'HOTEL', 'CAMPSITE'],
+  HARD: ['LODGE', 'GUESTHOUSE', 'CAMPSITE', 'HOMESTAY', 'HOTEL'],
+  EXPERT: ['CAMPSITE', 'LODGE', 'GUESTHOUSE', 'HOMESTAY', 'HOTEL'],
+};
 
 /** 165000 -> "165,000 XAF". CFA francs have no subunit, so never show decimals. */
 export const formatXAF = (amount: number | null | undefined) => {

@@ -559,6 +559,7 @@ async function main() {
   const listingSeeds = [
     {
       kind: 'ACCOMMODATION',
+      accommodationType: 'GUESTHOUSE',
       name: 'Presbyterian Guest House, Buea',
       description:
         'The standard pre-climb base in Buea Town, ten minutes from the Mount CEO office. Simple, clean, hot water, and used to hikers checking out at 05:00. Sleeping bags can be hired next door.',
@@ -572,6 +573,20 @@ async function main() {
     },
     {
       kind: 'ACCOMMODATION',
+      accommodationType: 'HOTEL',
+      name: 'Hotel Seme Beach Resort & Spa, Idenau',
+      description:
+        'Beachfront resort on the coast road below Mount Cameroon\'s western slopes, about 45 minutes from Limbe. A comfortable coastal base before or after a Buea climb, or its own trip — the coconuts are straight off the property.',
+      region: 'SOUTH_WEST',
+      town: 'Idenau',
+      priceFromXAF: 35000,
+      affiliateUrl: 'https://example.com/partners/hotel-seme-beach',
+      partnerName: 'Seme Beach Resort & Spa',
+      commissionPct: 10,
+    },
+    {
+      kind: 'ACCOMMODATION',
+      accommodationType: 'LODGE',
       name: 'Ngaoundaba Ranch, Adamawa',
       description:
         'Lodge and campsite on the plateau 45 minutes south of Ngaoundéré, right at the crater lake trailhead. Cool nights, horses, and the only comfortable base for the Adamawa walks.',
@@ -584,6 +599,7 @@ async function main() {
     },
     {
       kind: 'ACCOMMODATION',
+      accommodationType: 'HOMESTAY',
       name: 'Ebodjé Community Homestays',
       description:
         'Village homestays on the Campo Ma\'an coast, run by the same community that operates the turtle conservation project. Booking here funds the night patrols directly.',
@@ -594,6 +610,19 @@ async function main() {
       partnerName: 'Ebodjé Turtle Project',
       commissionPct: 8,
       featured: true,
+    },
+    {
+      kind: 'ACCOMMODATION',
+      accommodationType: 'CAMPSITE',
+      name: 'Buffle Noir Camp, Bénoué',
+      description:
+        'The park\'s own tented camp on the river, and the mandatory check-in point for the Buffalo Trail walking safari — rangers, guides and the only accommodation actually inside the park brief and lead from here.',
+      region: 'NORTH',
+      town: 'Garoua',
+      priceFromXAF: 20000,
+      affiliateUrl: 'https://example.com/partners/buffle-noir-camp',
+      partnerName: 'Bénoué National Park',
+      commissionPct: 5,
     },
     {
       kind: 'EQUIPMENT',

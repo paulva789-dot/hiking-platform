@@ -1,5 +1,5 @@
 import { apiBaseUrl } from '@/lib/api';
-import { REGION_LABELS, formatXAF } from '@/lib/format';
+import { ACCOMMODATION_TYPE_LABELS, REGION_LABELS, formatXAF } from '@/lib/format';
 import type { Listing } from '@/lib/types';
 
 /** Shared by the accommodation ("stay") and equipment ("gear") pages. */
@@ -15,6 +15,11 @@ export function ListingCard({ listing, ctaLabel }: { listing: Listing; ctaLabel:
         <div className="flex flex-wrap gap-1.5">
           {listing.featured && (
             <span className="chip bg-amber-100 text-amber-900 ring-amber-200">Recommended</span>
+          )}
+          {listing.accommodationType && (
+            <span className="chip bg-terracotta-100 text-terracotta-800 ring-terracotta-200">
+              {ACCOMMODATION_TYPE_LABELS[listing.accommodationType]}
+            </span>
           )}
           {listing.region && (
             <span className="chip bg-forest-50 text-forest-800 ring-forest-200">

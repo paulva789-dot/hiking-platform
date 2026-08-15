@@ -42,6 +42,7 @@ router.get(
     z.object({
       kind: z.enum(['ACCOMMODATION', 'EQUIPMENT']).optional(),
       region: z.string().optional(),
+      accommodationType: z.enum(['CAMPSITE', 'GUESTHOUSE', 'LODGE', 'HOMESTAY', 'HOTEL']).optional(),
     }),
     'query'
   ),
@@ -49,6 +50,7 @@ router.get(
     const where = { published: true };
     if (req.query.kind) where.kind = req.query.kind;
     if (req.query.region) where.region = req.query.region;
+    if (req.query.accommodationType) where.accommodationType = req.query.accommodationType;
 
     const listings = await prisma.listing.findMany({
       where,
@@ -56,6 +58,7 @@ router.get(
       select: {
         id: true,
         kind: true,
+        accommodationType: true,
         name: true,
         description: true,
         imageUrl: true,

@@ -93,6 +93,17 @@ enum ListingKind {
   EQUIPMENT
 }
 
+/** What kind of place an ACCOMMODATION listing actually is — drives the
+ * "what to book near this trail" suggestion (a remote wilderness trail
+ * should lead with a campsite, not a spa hotel). Not set on EQUIPMENT. */
+enum AccommodationType {
+  CAMPSITE
+  GUESTHOUSE
+  LODGE
+  HOMESTAY
+  HOTEL
+}
+
 enum PaymentProvider {
   FLUTTERWAVE
   INTOUCH
@@ -447,6 +458,7 @@ model SafetyGuideline {
 model Listing {
   id           String      @id @default(cuid())
   kind         ListingKind
+  accommodationType AccommodationType?
   name         String
   description  String
   imageUrl     String?

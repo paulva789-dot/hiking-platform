@@ -258,9 +258,12 @@ export interface SafetyCategory {
   items: { id: string; title: string; body: string; order: number }[];
 }
 
+export type AccommodationType = 'CAMPSITE' | 'GUESTHOUSE' | 'LODGE' | 'HOMESTAY' | 'HOTEL';
+
 export interface Listing {
   id: string;
   kind: 'ACCOMMODATION' | 'EQUIPMENT';
+  accommodationType?: AccommodationType | null;
   name: string;
   description: string;
   imageUrl: string | null;
