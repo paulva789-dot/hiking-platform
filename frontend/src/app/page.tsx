@@ -102,11 +102,6 @@ export default async function HomePage() {
         </div>
 
         <div className="section relative py-20 sm:py-28">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/20">
-            <span className="h-2 w-3 rounded-[1px] bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow" aria-hidden />
-            <T k="hero.badge" />
-          </p>
-
           <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.1] sm:text-5xl lg:text-6xl">
             <AnimatedText k="hero.title" startDelay={0.1} />
           </h1>
