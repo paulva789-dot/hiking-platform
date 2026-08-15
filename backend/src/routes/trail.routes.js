@@ -190,6 +190,7 @@ router.get(
           },
         },
         _count: { select: { reviews: true, favorites: true } },
+        translations: true,
       },
     });
 

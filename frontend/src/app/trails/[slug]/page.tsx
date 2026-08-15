@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -19,6 +20,7 @@ import {
 } from '@/lib/format';
 import { SingleTrailMap } from '@/components/map/LazyMaps';
 import { ElevationProfile } from '@/components/trail/ElevationProfile';
+import { TranslatedHazards, TranslatedTrailProse, TranslatedTrailText } from '@/components/trail/TranslatedTrailText';
 import { Reveal } from '@/components/Reveal';
 import { WeatherPanel } from '@/components/WeatherPanel';
 import { TrailCard } from '@/components/TrailCard';
@@ -135,7 +137,9 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             {trail.name}
           </h1>
 
-          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-basalt-200">{trail.summary}</p>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-basalt-200">
+            <TranslatedTrailText english={trail.summary} translations={trail.translations} field="summary" />
+          </p>
 
           <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-basalt-300">
             <Stars rating={trail.ratingAvg} count={trail.ratingCount} />
@@ -184,9 +188,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             <section className="card animate-fade-up p-6 motion-reduce:animate-none sm:p-8">
               <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">About this hike</h2>
               <div className="prose-trail mt-4">
-                {trail.description.split('\n\n').map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
+                <TranslatedTrailProse english={trail.description} translations={trail.translations} />
               </div>
             </section>
           </Reveal>
@@ -253,30 +255,48 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                     Known hazards on this trail
                   </h3>
                   <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-                    {trail.hazards.map((hazard) => (
-                      <li key={hazard} className="flex gap-2 text-sm text-red-900 dark:text-red-200">
-                        <span aria-hidden className="mt-0.5 shrink-0">
-                          ⚠
-                        </span>
-                        <span>{hazard}</span>
-                      </li>
-                    ))}
+                    <TranslatedHazards english={trail.hazards} translations={trail.translations} />
                   </ul>
                 </div>
               )}
 
               {trail.waterSources && (
-                <InfoCard title="Water" body={trail.waterSources} />
+                <InfoCard
+                  title="Water"
+                  body={
+                    <TranslatedTrailText
+                      english={trail.waterSources}
+                      translations={trail.translations}
+                      field="waterSources"
+                    />
+                  }
+                />
               )}
               {trail.permitInfo && (
                 <InfoCard
                   title={trail.permitRequired ? 'Permit — required' : 'Permit'}
-                  body={trail.permitInfo}
+                  body={
+                    <TranslatedTrailText
+                      english={trail.permitInfo}
+                      translations={trail.translations}
+                      field="permitInfo"
+                    />
+                  }
                   tone={trail.permitRequired ? 'warn' : 'default'}
                 />
               )}
               {trail.gettingThere && (
-                <InfoCard title="Getting there" body={trail.gettingThere} className="sm:col-span-2" />
+                <InfoCard
+                  title="Getting there"
+                  body={
+                    <TranslatedTrailText
+                      english={trail.gettingThere}
+                      translations={trail.translations}
+                      field="gettingThere"
+                    />
+                  }
+                  className="sm:col-span-2"
+                />
               )}
               {trail.bestMonths.length > 0 && (
                 <div className="card p-5 sm:col-span-2">
@@ -529,7 +549,7 @@ function InfoCard({
   className = '',
 }: {
   title: string;
-  body: string;
+  body: ReactNode;
   tone?: 'default' | 'warn';
   className?: string;
 }) {

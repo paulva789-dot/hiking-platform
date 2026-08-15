@@ -83,6 +83,21 @@ export interface RouteGeoJson {
   coordinates: [number, number][];
 }
 
+export type ContentLocale = 'FR' | 'ES' | 'PT';
+
+/** Every field optional and independently falls back to the English Trail
+ * field it mirrors -- a partial translation (e.g. hazards done, gettingThere
+ * not yet) still renders correctly rather than needing to be all-or-nothing. */
+export interface TrailTranslation {
+  locale: ContentLocale;
+  summary: string | null;
+  description: string | null;
+  hazards: string[];
+  waterSources: string | null;
+  permitInfo: string | null;
+  gettingThere: string | null;
+}
+
 export interface Trail extends TrailCard {
   description: string;
   routeGeoJson: RouteGeoJson | null;
@@ -96,6 +111,7 @@ export interface Trail extends TrailCard {
   photos: GalleryPhoto[];
   reviews: Review[];
   tours: TourSummary[];
+  translations: TrailTranslation[];
   _count: { reviews: number; favorites: number };
 }
 

@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
 import { config } from '../src/config.js';
 import { safetyGuidelines, trails } from './trails.data.js';
+import { trailTranslations } from './trail-translations.data.js';
 
 const prisma = new PrismaClient();
 
@@ -188,6 +189,18 @@ async function main() {
     trailBySlug[trail.slug] = record;
   }
   console.log(`\n  trails     ${trails.length} destinations across all 10 regions`);
+
+  // ---------------------------------------------------------------- trail translations
+  for (const { slug, locale, ...fields } of trailTranslations) {
+    const trail = trailBySlug[slug];
+    if (!trail) continue;
+    await prisma.trailTranslation.upsert({
+      where: { trailId_locale: { trailId: trail.id, locale } },
+      update: fields,
+      create: { trailId: trail.id, locale, ...fields },
+    });
+  }
+  console.log(`  translate  ${trailTranslations.length} trails in FR`);
 
   // ---------------------------------------------------------------- safety CMS
   const existingSafety = await prisma.safetyGuideline.count();
