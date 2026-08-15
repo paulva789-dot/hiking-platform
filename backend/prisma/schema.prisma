@@ -69,6 +69,11 @@ enum PaymentStatus {
   UNPAID
   PAID
   REFUNDED
+  /** A paid booking was cancelled but the automatic refund call failed or
+   * isn't supported for that payment's provider -- needs a human to
+   * actually send the money back, rather than the UI silently claiming
+   * REFUNDED when nothing moved. */
+  REFUND_PENDING
 }
 
 enum MembershipTier {
@@ -403,6 +408,8 @@ model Payment {
   status        PaymentAttemptStatus @default(PENDING)
   providerRef   String?
   failureReason String?
+  refundedAt    DateTime?
+  refundReason  String?
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
 

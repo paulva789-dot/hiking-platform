@@ -118,8 +118,14 @@ export default function AdminBookingsPage() {
                       <div className="flex flex-col gap-1">
                         <StatusBadge status={b.status} />
                         {b.paymentStatus !== 'UNPAID' && (
-                          <span className="text-xs text-basalt-600 dark:text-basalt-300">
-                            {b.paymentStatus.toLowerCase()}
+                          <span
+                            className={
+                              b.paymentStatus === 'REFUND_PENDING'
+                                ? 'text-xs font-semibold text-terracotta-700 dark:text-terracotta-400'
+                                : 'text-xs text-basalt-600 dark:text-basalt-300'
+                            }
+                          >
+                            {b.paymentStatus.toLowerCase().replace('_', ' ')}
                           </span>
                         )}
                       </div>

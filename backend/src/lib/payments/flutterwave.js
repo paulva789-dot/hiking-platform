@@ -64,6 +64,42 @@ export async function initiateFlutterwaveCharge({ reference, amountXAF, phone, m
   };
 }
 
+/**
+ * Refunds a charge back to the customer's Mobile Money wallet.
+ * Docs: https://developer.flutterwave.com/docs/refunds — mobile money refunds
+ * typically settle to the wallet in 3-5 days once accepted here.
+ */
+export async function refundFlutterwaveCharge({ providerRef, amountXAF, reason }) {
+  if (!flutterwaveReady()) {
+    throw Object.assign(new Error('Flutterwave is not configured (FLUTTERWAVE_SECRET_KEY missing)'), {
+      code: 'PROVIDER_NOT_CONFIGURED',
+    });
+  }
+
+  const res = await fetch(`${config.flutterwave.baseUrl}/refunds`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${config.flutterwave.secretKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      charge_id: providerRef,
+      amount: amountXAF,
+      reason: reason || 'Booking cancelled by hiker',
+    }),
+  });
+
+  const data = await res.json().catch(() => null);
+  if (!res.ok || !data || data.status === 'error') {
+    throw Object.assign(new Error(data?.message || 'Flutterwave refund could not be started'), {
+      code: 'PROVIDER_ERROR',
+      raw: data,
+    });
+  }
+
+  return { refundRef: String(data.data?.id ?? providerRef), raw: data };
+}
+
 export async function verifyFlutterwaveTransaction(transactionId) {
   const res = await fetch(`${config.flutterwave.baseUrl}/transactions/${transactionId}/verify`, {
     headers: { Authorization: `Bearer ${config.flutterwave.secretKey}` },

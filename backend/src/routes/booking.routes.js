@@ -7,6 +7,7 @@ import { asyncHandler, badRequest, conflict, forbidden, notFound } from '../lib/
 import { requireAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import { bookingSchema } from '../lib/schemas.js';
+import { refundBookingPayment } from '../lib/refunds.js';
 
 const router = Router();
 
@@ -170,6 +171,20 @@ router.delete(
     if (booking.status === 'CANCELLED') return res.json({ booking });
     if (booking.status === 'COMPLETED') throw badRequest('Completed bookings cannot be cancelled');
 
+    // A real refund request against the provider, not a status relabel --
+    // done before the transaction since it's an external API call. The seat
+    // is released either way; a refund hiccup shouldn't trap someone in a
+    // booking they no longer want.
+    let paymentStatus = booking.paymentStatus;
+    let refundReason;
+    if (booking.paymentStatus === 'PAID') {
+      const result = await refundBookingPayment(booking.id);
+      paymentStatus = result.refunded ? 'REFUNDED' : 'REFUND_PENDING';
+      if (!result.refunded) refundReason = result.reason;
+    } else if (booking.paymentStatus === 'UNPAID') {
+      paymentStatus = 'UNPAID';
+    }
+
     const updated = await prisma.$transaction(async (tx) => {
       // Guard against underflow if seats were reconciled elsewhere.
       await tx.$executeRaw`
@@ -179,14 +194,11 @@ router.delete(
       `;
       return tx.booking.update({
         where: { id: booking.id },
-        data: {
-          status: 'CANCELLED',
-          paymentStatus: booking.paymentStatus === 'PAID' ? 'REFUNDED' : 'UNPAID',
-        },
+        data: { status: 'CANCELLED', paymentStatus },
       });
     });
 
-    res.json({ booking: updated });
+    res.json({ booking: updated, refundReason });
   })
 );
 

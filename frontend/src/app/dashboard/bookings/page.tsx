@@ -13,6 +13,7 @@ export default function BookingsPage() {
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
   const [payingBooking, setPayingBooking] = useState<Booking | null>(null);
 
   const load = () =>
@@ -34,8 +35,14 @@ export default function BookingsPage() {
     }
     setBusyId(id);
     setError(null);
+    setInfo(null);
     try {
-      await api.delete(`/bookings/${id}`);
+      const res = await api.delete<{ booking: Booking; refundReason?: string }>(`/bookings/${id}`);
+      if (res.booking.paymentStatus === 'REFUND_PENDING') {
+        setInfo(
+          `Booking cancelled. The automatic refund could not be completed${res.refundReason ? ` (${res.refundReason})` : ''} — we'll follow up to send the money back manually.`
+        );
+      }
       await load();
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'That did not work. Please try again.');
@@ -60,6 +67,7 @@ export default function BookingsPage() {
       />
 
       {error && <Alert tone="danger">{error}</Alert>}
+      {info && <Alert tone="warn">{info}</Alert>}
 
       {loading ? (
         <Skeleton className="h-40 w-full" />
@@ -170,6 +178,9 @@ function BookingRow({
             )}
             {booking.paymentStatus === 'REFUNDED' && (
               <span className="chip bg-blue-100 text-blue-900 ring-blue-200">Refunded</span>
+            )}
+            {booking.paymentStatus === 'REFUND_PENDING' && (
+              <span className="chip bg-amber-100 text-amber-900 ring-amber-200">Refund pending</span>
             )}
           </div>
 

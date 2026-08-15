@@ -3,7 +3,7 @@ export type Difficulty = 'EASY' | 'MODERATE' | 'HARD' | 'EXPERT';
 export type TrailCategory = 'SUMMIT' | 'WATERFALL' | 'LAKE' | 'FOREST' | 'WILDLIFE' | 'COASTAL' | 'CULTURAL';
 export type ApprovalStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 export type BookingStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
-export type PaymentStatus = 'UNPAID' | 'PAID' | 'REFUNDED';
+export type PaymentStatus = 'UNPAID' | 'PAID' | 'REFUNDED' | 'REFUND_PENDING';
 export type MembershipTier = 'FREE' | 'PREMIUM';
 export type GuidePlan = 'NONE' | 'BASIC' | 'PRO';
 
