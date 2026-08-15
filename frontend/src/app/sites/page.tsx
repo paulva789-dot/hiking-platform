@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { CameroonSitesMap } from '@/components/map/LazyMaps';
 import { CAMEROON_SITES } from '@/lib/cameroon-sites';
 import { CloudDrift, WaterShimmer } from '@/components/SceneOverlay';
@@ -43,8 +44,8 @@ export default function SitesPage() {
             Cameroon is nicknamed &ldquo;Africa in miniature&rdquo; because almost every landscape on the
             continent shows up somewhere within its borders — volcanic peaks, Sahelian savanna, rainforest,
             and a coastline of black sand. These are {CAMEROON_SITES.length} of its landmark sites, each with
-            real coordinates, elevation, a short history and the cultural traditions tied to it, and its place
-            on the map below.
+            real coordinates on the map below — tap into any of them for its full history and the cultural
+            traditions tied to it.
           </p>
         </div>
       </header>
@@ -60,10 +61,10 @@ export default function SitesPage() {
 
       <div className="section mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {CAMEROON_SITES.map((site) => (
-          <article
+          <Link
             key={site.slug}
-            id={site.slug}
-            className="card scroll-mt-24 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md animate-fade-up"
+            href={`/sites/${site.slug}`}
+            className="card group scroll-mt-24 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md animate-fade-up"
           >
             <div className="relative h-48 w-full shrink-0 overflow-hidden bg-basalt-200">
               <Image
@@ -71,7 +72,7 @@ export default function SitesPage() {
                 alt={site.name}
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover transition-transform duration-500 hover:scale-105"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 unoptimized
               />
               {site.sceneType === 'mountain' && <CloudDrift />}
@@ -90,36 +91,17 @@ export default function SitesPage() {
             </div>
 
             <div className="flex flex-1 flex-col p-5">
-              <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{site.name}</h2>
-
-              <p className="mt-1 text-xs font-bold uppercase tracking-wider text-basalt-600 dark:text-basalt-400">History</p>
-              <p className="mt-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{site.history}</p>
-
-              <p className="mt-4 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-cameroon-green">
-                <span className="flag-star" aria-hidden>
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3">
-                    <path d="M12 1.5l2.9 6.6 7.1.7-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.7 7.1-.7z" />
-                  </svg>
-                </span>
-                Culture &amp; traditions
+              <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
+                {site.name}
+              </h2>
+              <p className="mt-1.5 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
+                {site.teaser}
               </p>
-              <p className="mt-1 flex-1 rounded-lg bg-basalt-50 p-3 text-sm leading-relaxed text-basalt-700 dark:text-basalt-300 ring-1 ring-inset ring-basalt-100">
-                {site.culture}
+              <p className="mt-4 text-xs font-semibold text-forest-700 group-hover:underline">
+                History &amp; culture →
               </p>
-
-              <div className="mt-4 flex items-center justify-between border-t border-basalt-100 pt-3 text-xs">
-                <span className="text-basalt-600 dark:text-basalt-400">Photo: {site.imageCredit}</span>
-                <a
-                  href={site.wikipediaUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="font-semibold text-forest-700 hover:underline"
-                >
-                  Read more →
-                </a>
-              </div>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </div>

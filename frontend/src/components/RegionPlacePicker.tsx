@@ -22,7 +22,7 @@ export function RegionPlacePicker() {
 
   const goToPlace = () => {
     if (!place) return;
-    router.push(`/sites#${place}`);
+    router.push(`/sites/${place}`);
   };
 
   return (

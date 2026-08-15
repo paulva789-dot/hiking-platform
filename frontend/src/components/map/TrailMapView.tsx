@@ -392,6 +392,12 @@ export function CameroonSitesMap({ sites, height = '480px' }: { sites: SitePoint
                 </p>
                 <p className="mt-0.5 font-semibold leading-snug text-basalt-900 dark:text-basalt-50">{site.name}</p>
                 <p className="mt-1.5 text-xs text-basalt-600 dark:text-basalt-300">{site.teaser}</p>
+                <Link
+                  href={`/sites/${site.slug}`}
+                  className="mt-2.5 inline-block rounded-md bg-forest-700 px-3 py-1.5 text-xs font-semibold text-white no-underline"
+                >
+                  History &amp; culture
+                </Link>
               </div>
             </Popup>
           </Marker>
