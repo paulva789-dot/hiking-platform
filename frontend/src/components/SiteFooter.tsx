@@ -95,7 +95,7 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="section flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-basalt-400">
-          <p>© {new Date().getFullYear()} Trek Cameroon. {t('footer.rights')}</p>
+          <p>© {new Date().getFullYear()} Travesía Cameroon. {t('footer.rights')}</p>
           <p>{t('footer.mapCredit')}</p>
         </div>
       </div>

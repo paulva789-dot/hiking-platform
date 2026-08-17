@@ -17,7 +17,7 @@ const daysFromNow = (n) => {
 const ref = (prefix) => `${prefix}-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
 
 async function main() {
-  console.log('Seeding Trek Cameroon…\n');
+  console.log('Seeding Travesía Cameroon…\n');
 
   // ---------------------------------------------------------------- users
   const hash = (pw) => bcrypt.hash(pw, config.bcryptRounds);

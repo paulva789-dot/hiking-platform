@@ -55,8 +55,8 @@ const LOCALE_INIT_SCRIPT = `
 export const metadata: Metadata = {
   metadataBase: new URL('https://trek-cameroon.vercel.app'),
   title: {
-    default: 'Trek Cameroon — Hiking trails & sights in Cameroon, guides across Central Africa',
-    template: '%s · Trek Cameroon',
+    default: 'Travesía Cameroon — Hiking trails & sights in Cameroon, guides across Central Africa',
+    template: '%s · Travesía Cameroon',
   },
   description:
     'Correct, checked information on hiking in Cameroon: trails across all ten regions, real distances and durations, difficulty ratings that mean something, weather, safety guidance, and registered guides bookable across Cameroon and the wider CEMAC region.',
@@ -73,14 +73,14 @@ export const metadata: Metadata = {
     'Central Africa travel',
   ],
   openGraph: {
-    title: 'Trek Cameroon',
+    title: 'Travesía Cameroon',
     description: 'Hiking trails and sights across Cameroon, plus registered guides bookable across Central Africa.',
     type: 'website',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Trek Cameroon — Rhumsiki Peak' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Travesía Cameroon — Rhumsiki Peak' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trek Cameroon',
+    title: 'Travesía Cameroon',
     description: 'Hiking trails and sights across Cameroon, plus registered guides bookable across Central Africa.',
     images: ['/og-image.jpg'],
   },

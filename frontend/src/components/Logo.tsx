@@ -1,5 +1,5 @@
 /**
- * Trek Cameroon brand mark, "Mongo" treatment: three overlapping peaks —
+ * Travesía Cameroon brand mark, "Mongo" treatment: three overlapping peaks —
  * Bakweri/Duala "mongo" is the root word for "mountain" and half of Mount
  * Cameroon's own name, Mongo ma Ndemi — standing for the whole range this
  * platform covers, not one summit. Plum/forest/yellow instead of a literal
@@ -39,7 +39,7 @@ export function LogoText({
   const greenClass = surface === 'dark' ? 'text-forest-400' : 'text-cameroon-green dark:text-forest-400';
   return (
     <span className={className}>
-      Trek <span className={greenClass}>Cameroon</span>
+      Travesía <span className={greenClass}>Cameroon</span>
     </span>
   );
 }

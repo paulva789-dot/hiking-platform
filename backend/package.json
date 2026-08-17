@@ -2,7 +2,7 @@
   "name": "trek-cameroon-backend",
   "version": "1.0.0",
   "private": true,
-  "description": "REST API for the Trek Cameroon hiking & sight-seeing guide platform",
+  "description": "REST API for the Travesía Cameroon hiking & sight-seeing guide platform",
   "type": "module",
   "main": "src/server.js",
   "engines": {

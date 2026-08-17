@@ -5,7 +5,7 @@ import { prisma } from './lib/prisma.js';
 const app = createApp();
 
 const server = app.listen(config.port, () => {
-  console.log(`\n  Trek Cameroon API  ->  http://localhost:${config.port}/api`);
+  console.log(`\n  Travesía Cameroon API  ->  http://localhost:${config.port}/api`);
   console.log(`  env: ${config.env}`);
   console.log(`  weather: ${config.openWeatherKey ? 'configured' : 'NOT configured'}`);
   console.log(
