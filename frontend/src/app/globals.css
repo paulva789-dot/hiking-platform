@@ -4,8 +4,9 @@
 
 @layer base {
   :root {
-    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-sans: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-display: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Consolas, monospace;
     /* Tells the browser which palette to use for native UI — form controls,
        scrollbars, <select> dropdowns — so they follow OUR theme instead of
        fighting the OS's own light/dark setting (the classic cause of
@@ -132,6 +133,18 @@
 
   .flag-chip {
     @apply chip bg-cameroon-green/10 text-cameroon-green ring-cameroon-green/30;
+  }
+
+  /* ---- Topographic motif -----------------------------------------------
+     Contour-line texture, used sparingly: a divider band between sections,
+     and faint background texture on cards/empty states. Never animated —
+     prefers-reduced-motion is moot here since nothing moves. */
+  .contour-divider {
+    @apply h-12 w-full bg-contours bg-repeat opacity-40 dark:bg-contours-invert dark:opacity-[0.08];
+  }
+
+  .contour-texture {
+    @apply bg-contours bg-repeat opacity-[0.06] dark:bg-contours-invert dark:opacity-[0.05];
   }
 }
 

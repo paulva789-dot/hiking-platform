@@ -4,7 +4,7 @@ import { serverFetch } from '@/lib/api';
 import type { GuideCard, HikingEvent, SafetyCategory, TrailCard as TrailCardType } from '@/lib/types';
 import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, REGION_LABELS } from '@/lib/format';
 import { TrailCard } from '@/components/TrailCard';
-import { SectionHeading, Stars } from '@/components/ui';
+import { DifficultyChip, SectionHeading, Stars } from '@/components/ui';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { RegionPlacePicker } from '@/components/RegionPlacePicker';
 import { CloudDrift } from '@/components/SceneOverlay';
@@ -118,7 +118,7 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
-            <HeroStat value="12" labelKey="hero.stat.destinations" />
+            <HeroStat value={String(totalTrails || 17)} labelKey="hero.stat.destinations" />
             <HeroStat value="10" labelKey="hero.stat.regions" />
             <HeroStat value="4,040 m" labelKey="hero.stat.summit" />
             <HeroStat value="XAF" labelKey="hero.stat.currency" />
@@ -233,7 +233,7 @@ export default async function HomePage() {
       </section>
 
       {/* ------------------------------------------------- difficulty key */}
-      <section className="bg-basalt-100 py-16">
+      <section className="bg-basalt-100 py-16 dark:bg-basalt-900">
         <div className="section">
           <SectionHeading
             eyebrow="Ratings you can trust"
@@ -248,18 +248,8 @@ export default async function HomePage() {
                 href={`/trails?difficulty=${level}`}
                 className="card group p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
-                <div className="flex items-center gap-2">
-                  <span
-                    className="h-2.5 w-2.5 rounded-full"
-                    style={{
-                      background: { EASY: '#3a7f5d', MODERATE: '#0369a1', HARD: '#9c4a2e', EXPERT: '#991b1b' }[level],
-                    }}
-                  />
-                  <h3 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
-                    {DIFFICULTY_LABELS[level]}
-                  </h3>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{DIFFICULTY_MEANING[level]}</p>
+                <DifficultyChip difficulty={level} />
+                <p className="mt-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{DIFFICULTY_MEANING[level]}</p>
                 <p className="mt-3 text-xs font-semibold text-forest-700 group-hover:underline">
                   See {DIFFICULTY_LABELS[level].toLowerCase()} trails →
                 </p>
@@ -459,7 +449,7 @@ export default async function HomePage() {
 function HeroStat({ value, labelKey }: { value: string; labelKey: TranslationKey }) {
   return (
     <div>
-      <p className="font-display text-2xl font-semibold text-white">{value}</p>
+      <p className="font-mono text-2xl font-semibold tabular-nums text-white">{value}</p>
       <p className="mt-0.5 text-xs uppercase tracking-wide text-basalt-300">
         <T k={labelKey} />
       </p>

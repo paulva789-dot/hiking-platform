@@ -1,11 +1,45 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { ApprovalStatus, BookingStatus, Difficulty } from '@/lib/types';
-import { DIFFICULTY_CLASSES, DIFFICULTY_LABELS } from '@/lib/format';
+import { DIFFICULTY_CLASSES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, DIFFICULTY_MAP_COLOR, DIFFICULTY_PIPS } from '@/lib/format';
 
+/** @deprecated use DifficultyChip — kept only until every call site is migrated. */
 export function DifficultyBadge({ difficulty }: { difficulty: Difficulty }) {
   return (
     <span className={`chip ${DIFFICULTY_CLASSES[difficulty]}`}>{DIFFICULTY_LABELS[difficulty]}</span>
+  );
+}
+
+/**
+ * The one difficulty renderer for the whole site (redesign spec Phase 2).
+ * Colour is never the only signal: the pip glyph carries the same
+ * information for anyone who can't distinguish the colours, and the full
+ * commitment is always in `aria-label`, not just the short label text.
+ */
+export function DifficultyChip({
+  difficulty,
+  size = 'md',
+}: {
+  difficulty: Difficulty;
+  size?: 'sm' | 'md';
+}) {
+  const color = DIFFICULTY_MAP_COLOR[difficulty];
+  const sizes =
+    size === 'sm'
+      ? { gap: 'gap-1.5', pip: 'text-xs', text: 'text-xs', pad: 'px-2 py-1' }
+      : { gap: 'gap-2', pip: 'text-sm', text: 'text-sm', pad: 'px-2.5 py-1.5' };
+  return (
+    <span
+      className={`inline-flex items-center ${sizes.gap} rounded-full bg-white/95 ring-1 ring-inset ring-basalt-200 ${sizes.pad} font-semibold dark:bg-basalt-900 dark:ring-basalt-700`}
+      aria-label={`${DIFFICULTY_LABELS[difficulty]} — ${DIFFICULTY_MEANING[difficulty]}`}
+    >
+      <span aria-hidden className={`font-mono tracking-[1px] ${sizes.pip}`} style={{ color }}>
+        {DIFFICULTY_PIPS[difficulty]}
+      </span>
+      <span aria-hidden className={`${sizes.text} text-basalt-900 dark:text-basalt-50`}>
+        {DIFFICULTY_LABELS[difficulty]}
+      </span>
+    </span>
   );
 }
 

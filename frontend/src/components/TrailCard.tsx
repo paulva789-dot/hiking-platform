@@ -9,7 +9,7 @@ import {
   trailFallbackImage,
 } from '@/lib/format';
 import { T } from './T';
-import { DifficultyBadge, Stars } from './ui';
+import { DifficultyChip, Stars } from './ui';
 
 export function TrailCard({ trail, priority = false }: { trail: TrailCardType; priority?: boolean }) {
   return (
@@ -29,7 +29,7 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
 
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-          <DifficultyBadge difficulty={trail.difficulty} />
+          <DifficultyChip difficulty={trail.difficulty} size="sm" />
           {trail.permitRequired && (
             <span className="chip bg-white/95 text-basalt-800 ring-white/60">
               <T k="trailCard.permit" />
@@ -42,7 +42,9 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
             {REGION_LABELS[trail.region]}
           </p>
           {trail.summitM && (
-            <p className="text-xs font-semibold text-white/90">{trail.summitM.toLocaleString()} m</p>
+            <p className="font-mono text-xs font-semibold tabular-nums text-white/90">
+              {trail.summitM.toLocaleString()} m
+            </p>
           )}
         </div>
       </div>
@@ -77,7 +79,9 @@ function Metric({ label, value }: { label: ReactNode; value: string }) {
   return (
     <div>
       <dt className="text-[10px] font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>
-      <dd className="mt-0.5 text-sm font-semibold text-basalt-800 dark:text-basalt-200">{value}</dd>
+      <dd className="mt-0.5 font-mono text-sm font-semibold tabular-nums text-basalt-800 dark:text-basalt-200">
+        {value}
+      </dd>
     </div>
   );
 }

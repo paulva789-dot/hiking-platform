@@ -58,6 +58,15 @@ export const DIFFICULTY_CLASSES: Record<Difficulty, string> = {
   EXPERT: 'bg-red-100 text-red-900 ring-red-200',
 };
 
+/** Filled-bar glyph so the commitment reads even without colour vision —
+ * colour is never the only signal for difficulty. */
+export const DIFFICULTY_PIPS: Record<Difficulty, string> = {
+  EASY: '▰▱▱▱',
+  MODERATE: '▰▰▱▱',
+  HARD: '▰▰▰▱',
+  EXPERT: '▰▰▰▰',
+};
+
 /**
  * Map/legend colours per difficulty. Moderate uses blue rather than orange —
  * it reads clearly next to the green Easy dot and doesn't fight the

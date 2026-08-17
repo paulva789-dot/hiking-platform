@@ -44,18 +44,24 @@ const config: Config = {
           800: '#61301a',
           900: '#4a2513',
         },
+        /**
+         * Warm ink-on-paper neutral, not a cool blue-grey — the "topographic"
+         * direction: 50 reads as a survey sheet, 950 as ink. 200 and 500 are
+         * pinned to exact --rule / --ash values so hairlines and secondary
+         * text land on purpose, not by interpolation.
+         */
         basalt: {
-          50: '#f6f7f8',
-          100: '#eceef1',
-          200: '#d5dae0',
-          300: '#b0bac5',
-          400: '#8494a4',
-          500: '#657789',
-          600: '#516071',
-          700: '#424e5c',
-          800: '#39424e',
-          900: '#333a44',
-          950: '#22262d',
+          50: '#f7f6f0',
+          100: '#ece9df',
+          200: '#d8d6cc',
+          300: '#b8b4a6',
+          400: '#93907f',
+          500: '#6e736b',
+          600: '#565951',
+          700: '#3f423c',
+          800: '#2b2e28',
+          900: '#1e211c',
+          950: '#14170f',
         },
         /* Flag of Cameroon: green / red / yellow with a yellow star. */
         cameroon: {
@@ -63,10 +69,20 @@ const config: Config = {
           red: '#CE1126',
           yellow: '#FCD116',
         },
+        /**
+         * Reserved for weather verdicts and hazard warnings — nowhere else.
+         * If yellow always means "pay attention," the live-conditions
+         * verdict reads at a glance instead of blending into decoration.
+         */
+        signal: {
+          DEFAULT: '#e0a012',
+          bg: '#fdf3dc',
+        },
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-display)', 'Georgia', 'serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SF Mono', 'Consolas', 'monospace'],
       },
       keyframes: {
         'fade-up': {
@@ -118,8 +134,17 @@ const config: Config = {
         'water-bob': 'water-bob 4s ease-in-out infinite',
       },
       backgroundImage: {
-        'topo-grid':
-          'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0)',
+        /** Nested contour-line rings, the site's topographic motif — used as
+         * low-opacity texture behind hero photos, section dividers and empty
+         * states. `currentColor` doesn't cross the url() boundary in a
+         * background-image, so this ships two fixed-stroke variants instead
+         * of one that would silently render black everywhere: `contours` for
+         * light/paper surfaces (basalt-200 stroke), `contours-invert` for
+         * dark surfaces and photo overlays (white stroke). */
+        contours:
+          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='120' viewBox='0 0 160 120'%3E%3Cg fill='none' stroke='%23d8d6cc' stroke-width='1'%3E%3Cpath d='M80,10 C115,10 145,35 148,65 C151,95 125,115 90,112 C55,109 25,90 22,60 C19,35 45,10 80,10 Z'/%3E%3Cpath d='M80,28 C105,28 128,46 130,68 C132,90 112,104 86,102 C60,100 38,86 36,64 C34,46 55,28 80,28 Z'/%3E%3Cpath d='M80,46 C98,46 114,58 115,72 C116,88 102,98 84,96 C66,95 50,85 49,70 C48,58 62,46 80,46 Z'/%3E%3Cpath d='M14,95 C34,90 56,92 62,105 C66,113 55,120 40,119 C25,118 8,110 8,102 C8,98 10,96 14,95 Z'/%3E%3C/g%3E%3C/svg%3E\")",
+        'contours-invert':
+          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='120' viewBox='0 0 160 120'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M80,10 C115,10 145,35 148,65 C151,95 125,115 90,112 C55,109 25,90 22,60 C19,35 45,10 80,10 Z'/%3E%3Cpath d='M80,28 C105,28 128,46 130,68 C132,90 112,104 86,102 C60,100 38,86 36,64 C34,46 55,28 80,28 Z'/%3E%3Cpath d='M80,46 C98,46 114,58 115,72 C116,88 102,98 84,96 C66,95 50,85 49,70 C48,58 62,46 80,46 Z'/%3E%3Cpath d='M14,95 C34,90 56,92 62,105 C66,113 55,120 40,119 C25,118 8,110 8,102 C8,98 10,96 14,95 Z'/%3E%3C/g%3E%3C/svg%3E\")",
         'flag-gradient':
           'linear-gradient(90deg, #007A5E 0%, #007A5E 33%, #CE1126 33%, #CE1126 66%, #FCD116 66%, #FCD116 100%)',
         'flag-flow-gradient':

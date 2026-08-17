@@ -26,7 +26,7 @@ import { WeatherPanel } from '@/components/WeatherPanel';
 import { TrailCard } from '@/components/TrailCard';
 import { ReviewSection } from '@/components/trail/ReviewSection';
 import { FavoriteButton, OfflinePackButton } from '@/components/trail/TrailActions';
-import { Alert, DifficultyBadge, SectionHeading, Stars } from '@/components/ui';
+import { Alert, DifficultyChip, SectionHeading, Stars } from '@/components/ui';
 import { T } from '@/components/T';
 
 export const revalidate = 300;
@@ -118,7 +118,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
           </nav>
 
           <div className="flex flex-wrap gap-2">
-            <DifficultyBadge difficulty={trail.difficulty} />
+            <DifficultyChip difficulty={trail.difficulty} />
             <span className="chip bg-white/15 text-white ring-white/25">
               {REGION_LABELS[trail.region]}
             </span>
@@ -188,6 +188,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             label={<T k="filters.difficulty" />}
             value={DIFFICULTY_LABELS[trail.difficulty]}
             sub={DIFFICULTY_MEANING[trail.difficulty]}
+            numeric={false}
           />
         </dl>
       </section>
@@ -397,7 +398,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                       </div>
 
                       <div className="shrink-0 text-right">
-                        <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
+                        <p className="font-mono text-xl font-semibold tabular-nums text-basalt-900 dark:text-basalt-50">
                           {formatXAF(tour.priceXAF)}
                         </p>
                         <p className="text-xs text-basalt-600 dark:text-basalt-300">
@@ -552,11 +553,27 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
   );
 }
 
-function KeyFact({ label, value, sub }: { label: ReactNode; value: string; sub?: ReactNode }) {
+function KeyFact({
+  label,
+  value,
+  sub,
+  numeric = true,
+}: {
+  label: ReactNode;
+  value: string;
+  sub?: ReactNode;
+  numeric?: boolean;
+}) {
   return (
     <div className="px-2 py-2 text-center sm:px-4">
       <dt className="text-[11px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>
-      <dd className="mt-1 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{value}</dd>
+      <dd
+        className={`mt-1 text-xl font-semibold text-basalt-900 dark:text-basalt-50 ${
+          numeric ? 'font-mono tabular-nums' : 'font-display'
+        }`}
+      >
+        {value}
+      </dd>
       {sub && <p className="mt-0.5 text-xs leading-snug text-basalt-600 dark:text-basalt-300">{sub}</p>}
     </div>
   );
