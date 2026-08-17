@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import { useLanguage } from '@/lib/i18n/language-context';
-import { LOCALES, LOCALE_FLAGS, LOCALE_LABELS } from '@/lib/i18n/translations';
+import { LOCALES, LOCALE_LABELS } from '@/lib/i18n/translations';
 
+/** Plain-text locale toggle — no flags. A flag denotes a country, not a
+ * language, and Cameroon itself is officially bilingual: a flag here would
+ * misrepresent the choice being made, not just look dated. */
 export function LanguageSwitcher() {
   const { locale, setLocale } = useLanguage();
   const [open, setOpen] = useState(false);
@@ -15,12 +18,9 @@ export function LanguageSwitcher() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="group flex h-9 items-center gap-1 rounded-lg px-2 text-sm font-medium text-basalt-600 transition-colors hover:bg-basalt-100 dark:text-basalt-300 dark:hover:bg-basalt-800"
+        className="flex h-9 items-center gap-1 rounded-lg px-2.5 text-sm font-semibold text-basalt-600 transition-colors hover:bg-basalt-100 dark:text-basalt-300 dark:hover:bg-basalt-800"
       >
-        <span className="inline-block transition-transform duration-200 group-hover:scale-110" aria-hidden>
-          {LOCALE_FLAGS[locale]}
-        </span>
-        <span className="hidden sm:inline">{locale.toUpperCase()}</span>
+        {locale.toUpperCase()}
       </button>
 
       {open && (
@@ -46,13 +46,12 @@ export function LanguageSwitcher() {
                   setOpen(false);
                 }}
                 aria-current={locale === l}
-                className={`flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm transition-colors ${
+                className={`block w-full px-4 py-2.5 text-left text-sm transition-colors ${
                   locale === l
                     ? 'bg-forest-50 font-semibold text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
                     : 'text-basalt-700 hover:bg-basalt-50 dark:text-basalt-300 dark:hover:bg-basalt-800'
                 }`}
               >
-                <span aria-hidden>{LOCALE_FLAGS[l]}</span>
                 {LOCALE_LABELS[l]}
               </button>
             ))}

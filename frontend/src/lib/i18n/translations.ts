@@ -21,13 +21,6 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   pt: 'Português',
 };
 
-export const LOCALE_FLAGS: Record<Locale, string> = {
-  en: '🇬🇧',
-  fr: '🇫🇷',
-  es: '🇬🇶',
-  pt: '🇸🇹',
-};
-
 export type TranslationKey = keyof typeof en;
 
 const en = {
@@ -40,6 +33,7 @@ const en = {
   'nav.events': 'Events',
   'nav.groups': 'Groups',
   'nav.safety': 'Safety',
+  'nav.community': 'Community',
   'nav.signIn': 'Sign in',
   'nav.joinFree': 'Join free',
   'nav.dashboard': 'My dashboard',
@@ -227,6 +221,7 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'nav.events': 'Événements',
   'nav.groups': 'Groupes',
   'nav.safety': 'Sécurité',
+  'nav.community': 'Communauté',
   'nav.signIn': 'Se connecter',
   'nav.joinFree': "S'inscrire gratuitement",
   'nav.dashboard': 'Mon tableau de bord',
@@ -401,6 +396,7 @@ const es: Partial<Record<TranslationKey, string>> = {
   'nav.events': 'Eventos',
   'nav.groups': 'Grupos',
   'nav.safety': 'Seguridad',
+  'nav.community': 'Comunidad',
   'nav.signIn': 'Iniciar sesión',
   'nav.joinFree': 'Únete gratis',
   'nav.dashboard': 'Mi panel',
@@ -480,6 +476,7 @@ const pt: Partial<Record<TranslationKey, string>> = {
   'nav.events': 'Eventos',
   'nav.groups': 'Grupos',
   'nav.safety': 'Segurança',
+  'nav.community': 'Comunidade',
   'nav.signIn': 'Entrar',
   'nav.joinFree': 'Inscreva-se grátis',
   'nav.dashboard': 'Meu painel',

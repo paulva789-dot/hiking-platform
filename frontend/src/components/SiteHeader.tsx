@@ -11,20 +11,20 @@ import { ThemeToggle } from './ThemeToggle';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { LogoMark, LogoText } from './Logo';
 
+// Kept to four: the core hike-planning path, nothing else competes for
+// primary attention. Everything else lives one click away in "Community".
 const NAV: { href: string; key: TranslationKey }[] = [
   { href: '/trails', key: 'nav.trails' },
   { href: '/map', key: 'nav.map' },
-  { href: '/sites', key: 'nav.sites' },
   { href: '/guides', key: 'nav.guides' },
-  { href: '/gallery', key: 'nav.gallery' },
-  { href: '/events', key: 'nav.events' },
-  { href: '/groups', key: 'nav.groups' },
   { href: '/safety', key: 'nav.safety' },
 ];
 
-// Real, populated pages that used to be footer-only — folded into a "More"
-// overflow instead of growing the primary nav past 8 items.
-const MORE_NAV: { href: string; label: string }[] = [
+const COMMUNITY_NAV: { href: string; key?: TranslationKey; label?: string }[] = [
+  { href: '/sites', key: 'nav.sites' },
+  { href: '/gallery', key: 'nav.gallery' },
+  { href: '/events', key: 'nav.events' },
+  { href: '/groups', key: 'nav.groups' },
   { href: '/stay', label: 'Where to stay' },
   { href: '/gear', label: 'Gear checklist' },
 ];
@@ -35,13 +35,13 @@ export function SiteHeader() {
   const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [communityOpen, setCommunityOpen] = useState(false);
 
   // Route changes should always leave every menu closed.
   useEffect(() => {
     setMobileOpen(false);
     setMenuOpen(false);
-    setMoreOpen(false);
+    setCommunityOpen(false);
   }, [pathname]);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
@@ -75,28 +75,28 @@ export function SiteHeader() {
           <div className="relative">
             <button
               type="button"
-              onClick={() => setMoreOpen((v) => !v)}
-              aria-expanded={moreOpen}
+              onClick={() => setCommunityOpen((v) => !v)}
+              aria-expanded={communityOpen}
               aria-haspopup="menu"
               className={`flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                moreOpen
+                communityOpen
                   ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
                   : 'text-basalt-600 dark:text-basalt-300 hover:bg-basalt-100 hover:text-basalt-900 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
               }`}
             >
-              More
+              {t('nav.community')}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
               </svg>
             </button>
-            {moreOpen && (
+            {communityOpen && (
               <div
                 role="menu"
-                className="dropdown-menu absolute left-0 mt-2 w-44 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
+                className="dropdown-menu absolute left-0 mt-2 w-48 overflow-hidden rounded-xl border border-basalt-200 bg-white py-1 shadow-lg dark:border-basalt-800 dark:bg-basalt-900"
               >
-                {MORE_NAV.map((item) => (
+                {COMMUNITY_NAV.map((item) => (
                   <MenuLink key={item.href} href={item.href}>
-                    {item.label}
+                    {item.key ? t(item.key) : item.label}
                   </MenuLink>
                 ))}
               </div>
@@ -206,7 +206,13 @@ export function SiteHeader() {
                 {t(item.key)}
               </Link>
             ))}
-            {MORE_NAV.map((item) => (
+          </div>
+
+          <p className="mb-1 mt-3 px-3 text-xs font-bold uppercase tracking-wide text-basalt-500 dark:text-basalt-400">
+            {t('nav.community')}
+          </p>
+          <div className="grid grid-cols-2 gap-1">
+            {COMMUNITY_NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -216,7 +222,7 @@ export function SiteHeader() {
                     : 'text-basalt-700 dark:text-basalt-300 dark:text-basalt-300'
                 }`}
               >
-                {item.label}
+                {item.key ? t(item.key) : item.label}
               </Link>
             ))}
           </div>
