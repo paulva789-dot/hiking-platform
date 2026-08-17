@@ -53,6 +53,7 @@ const LOCALE_INIT_SCRIPT = `
 `;
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://trek-cameroon.vercel.app'),
   title: {
     default: 'Trek Cameroon — Hiking trails & sights in Cameroon, guides across Central Africa',
     template: '%s · Trek Cameroon',
@@ -75,6 +76,13 @@ export const metadata: Metadata = {
     title: 'Trek Cameroon',
     description: 'Hiking trails and sights across Cameroon, plus registered guides bookable across Central Africa.',
     type: 'website',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Trek Cameroon — Rhumsiki Peak' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Trek Cameroon',
+    description: 'Hiking trails and sights across Cameroon, plus registered guides bookable across Central Africa.',
+    images: ['/og-image.jpg'],
   },
 };
 

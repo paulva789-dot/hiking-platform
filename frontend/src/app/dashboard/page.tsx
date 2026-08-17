@@ -55,7 +55,7 @@ export default function DashboardOverview() {
               hint={
                 isPremium && user?.tierExpires
                   ? `until ${formatDate(user.tierExpires)}`
-                  : 'offline maps locked'
+                  : 'offline packs locked'
               }
             />,
           ].map((stat, i) => (

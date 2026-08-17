@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import heroPhoto from '@/assets/hero-rhumsiki.jpg';
 import { serverFetch } from '@/lib/api';
 import type { GuideCard, HikingEvent, SafetyCategory, TrailCard as TrailCardType } from '@/lib/types';
 import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, REGION_LABELS, formatXAF } from '@/lib/format';
@@ -91,15 +92,20 @@ export default async function HomePage() {
       <section className="relative overflow-hidden bg-forest-950 text-white">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=70"
+            src={heroPhoto}
             alt=""
             fill
             priority
+            placeholder="blur"
+            sizes="100vw"
             className="object-cover opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-950/80 to-forest-950" />
           <CloudDrift />
         </div>
+        <p className="absolute bottom-1.5 right-3 z-10 text-[10px] text-basalt-400">
+          Rhumsiki Peak, Far North — Wikimedia Commons
+        </p>
 
         <div className="section relative py-20 sm:py-28">
           <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.1] sm:text-5xl lg:text-6xl">
@@ -463,7 +469,8 @@ export default async function HomePage() {
             </h2>
             <p className="mt-2 max-w-xl text-terracotta-50">
               A free account gets you saved trails, reviews, photo uploads and direct booking.
-              Premium adds offline maps for when the signal goes — which on these mountains it will.
+              Premium adds downloadable offline packs — route, waypoints, hazards and emergency
+              numbers — for when the signal goes, which on these mountains it will.
             </p>
           </div>
           <div className="flex gap-3">
