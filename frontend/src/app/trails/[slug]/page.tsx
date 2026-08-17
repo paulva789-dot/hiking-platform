@@ -22,6 +22,7 @@ import { ElevationProfile } from '@/components/trail/ElevationProfile';
 import { TranslatedHazards, TranslatedTrailProse, TranslatedTrailText } from '@/components/trail/TranslatedTrailText';
 import { Reveal } from '@/components/Reveal';
 import { WeatherPanel } from '@/components/WeatherPanel';
+import { AdBanner } from '@/components/AdBanner';
 import { TrailCard } from '@/components/TrailCard';
 import { TrailImageFallback } from '@/components/TrailImageFallback';
 import { ReviewSection } from '@/components/trail/ReviewSection';
@@ -526,6 +527,8 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
           <Alert tone="warn" title={<T k="trailDetail.beforeYouSetOff" />}>
             <T k="trailDetail.beforeYouSetOffBody" />
           </Alert>
+
+          <AdBanner placement="trail-sidebar" />
         </aside>
       </div>
 

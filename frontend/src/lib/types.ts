@@ -259,6 +259,13 @@ export interface Booking {
   user?: { id: string; name: string; email: string; phone?: string | null; avatarUrl?: string | null };
 }
 
+export interface AdCreative {
+  id: string;
+  advertiser: string;
+  imageUrl: string;
+  placement: string;
+}
+
 export interface SafetyCheckIn {
   id: string;
   planLabel: string;

@@ -5,6 +5,7 @@ import { serverFetch } from '@/lib/api';
 import type { GuideCard, HikingEvent, SafetyCategory, TrailCard as TrailCardType } from '@/lib/types';
 import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, REGION_LABELS, formatXAF } from '@/lib/format';
 import { TrailCard } from '@/components/TrailCard';
+import { AdBanner } from '@/components/AdBanner';
 import { DifficultyChip, SectionHeading, Stars } from '@/components/ui';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { RegionPlacePicker } from '@/components/RegionPlacePicker';
@@ -135,6 +136,10 @@ export default async function HomePage() {
           </p>
         </div>
       </section>
+
+      <div className="section pt-8">
+        <AdBanner placement="home-hero" />
+      </div>
 
       {/* ------------------------------------------------ popular trails */}
       <section className="py-16">
