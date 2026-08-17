@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
+import { T } from './T';
 
 /**
  * Wraps TrailFilters (or anything else) so it behaves as a static sidebar on
@@ -21,7 +22,7 @@ export function FilterDrawer({ children, activeCount = 0 }: { children: ReactNod
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M7 12h10M10 18h4" />
         </svg>
-        Filters
+        <T k="filters.title" />
         {activeCount > 0 && (
           <span className="chip bg-forest-700 text-white ring-forest-700">{activeCount}</span>
         )}

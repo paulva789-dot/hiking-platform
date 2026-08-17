@@ -1,27 +1,30 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
+import { useCallback, type ReactNode } from 'react';
 import { ALL_DIFFICULTIES, ALL_REGIONS, DIFFICULTY_LABELS, REGION_LABELS } from '@/lib/format';
+import { useLanguage } from '@/lib/i18n/language-context';
+import type { TranslationKey } from '@/lib/i18n/translations';
+import { T } from './T';
 
 export interface Facets {
   regions: { value: string; count: number }[];
   difficulties: { value: string; count: number }[];
 }
 
-export const DURATION_OPTIONS = [
-  { value: '240', label: 'Half day (under 4 h)' },
-  { value: '600', label: 'Full day (under 10 h)' },
-  { value: '2880', label: 'Up to 2 days' },
-  { value: '10080', label: 'Multi-day' },
+export const DURATION_OPTIONS: { value: string; labelKey: TranslationKey }[] = [
+  { value: '240', labelKey: 'filters.duration.half' },
+  { value: '600', labelKey: 'filters.duration.full' },
+  { value: '2880', labelKey: 'filters.duration.twoDays' },
+  { value: '10080', labelKey: 'filters.duration.multi' },
 ];
 
-export const SORT_OPTIONS = [
-  { value: 'popular', label: 'Most viewed' },
-  { value: 'rating', label: 'Highest rated' },
-  { value: 'distance', label: 'Shortest first' },
-  { value: 'newest', label: 'Recently added' },
-  { value: 'name', label: 'A–Z' },
+export const SORT_OPTIONS: { value: string; labelKey: TranslationKey }[] = [
+  { value: 'popular', labelKey: 'filters.sort.popular' },
+  { value: 'rating', labelKey: 'filters.sort.rating' },
+  { value: 'distance', labelKey: 'filters.sort.distance' },
+  { value: 'newest', labelKey: 'filters.sort.newest' },
+  { value: 'name', labelKey: 'filters.sort.name' },
 ];
 
 /**
@@ -33,6 +36,7 @@ export const SORT_OPTIONS = [
 export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets; basePath?: string }) {
   const router = useRouter();
   const params = useSearchParams();
+  const { t } = useLanguage();
 
   const countFor = (list: { value: string; count: number }[], value: string) =>
     list.find((f) => f.value === value)?.count ?? 0;
@@ -56,19 +60,21 @@ export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets;
   return (
     <aside className="space-y-6" aria-label="Trail filters">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Filters</h2>
+        <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">
+          <T k="filters.title" />
+        </h2>
         {activeCount > 0 && (
           <button
             type="button"
             onClick={() => router.push(basePath)}
             className="text-xs font-semibold text-terracotta-700 hover:underline"
           >
-            Clear all ({activeCount})
+            <T k="filters.clearAll" params={{ n: activeCount }} />
           </button>
         )}
       </div>
 
-      <FilterGroup label="Sort by">
+      <FilterGroup label={<T k="filters.sortBy" />}>
         <select
           value={params.get('sort') ?? 'popular'}
           onChange={(e) => setParam('sort', e.target.value === 'popular' ? null : e.target.value)}
@@ -76,13 +82,13 @@ export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets;
         >
           {SORT_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
-              {o.label}
+              {t(o.labelKey)}
             </option>
           ))}
         </select>
       </FilterGroup>
 
-      <FilterGroup label="Difficulty">
+      <FilterGroup label={<T k="filters.difficulty" />}>
         <div className="space-y-1.5">
           {ALL_DIFFICULTIES.map((level) => {
             const active = params.get('difficulty') === level;
@@ -107,7 +113,7 @@ export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets;
         </div>
       </FilterGroup>
 
-      <FilterGroup label="Region">
+      <FilterGroup label={<T k="filters.region" />}>
         <div className="max-h-72 space-y-1 overflow-y-auto pr-1">
           {ALL_REGIONS.map((region) => {
             const active = params.get('region') === region;
@@ -132,7 +138,7 @@ export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets;
         </div>
       </FilterGroup>
 
-      <FilterGroup label="Time needed">
+      <FilterGroup label={<T k="filters.timeNeeded" />}>
         <div className="space-y-1.5">
           {DURATION_OPTIONS.map((opt) => {
             const active = params.get('maxDurationMinutes') === opt.value;
@@ -145,7 +151,7 @@ export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets;
                   active ? 'bg-forest-700 font-semibold text-white' : 'text-basalt-700 dark:text-basalt-300 hover:bg-basalt-100'
                 }`}
               >
-                {opt.label}
+                {t(opt.labelKey)}
               </button>
             );
           })}
@@ -155,7 +161,7 @@ export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets;
   );
 }
 
-function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
+function FilterGroup({ label, children }: { label: ReactNode; children: ReactNode }) {
   return (
     <div>
       <p className="mb-2 text-xs font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-300">{label}</p>

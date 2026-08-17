@@ -91,34 +91,39 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-basalt-600 dark:text-basalt-300">
               <span className="font-semibold text-basalt-900 dark:text-basalt-50">{pagination.total}</span>{' '}
-              {pagination.total === 1 ? 'destination' : 'destinations'}
-              {activeFilters.length > 0 && <> matching {activeFilters.join(' · ')}</>}
+              <T k={pagination.total === 1 ? 'trailsPage.destination.one' : 'trailsPage.destination.other'} />
+              {activeFilters.length > 0 && (
+                <>
+                  {' '}
+                  <T k="trailsPage.matching" params={{ filters: activeFilters.join(' · ') }} />
+                </>
+              )}
             </p>
             <Link href={`/map${buildQuery({ region: query.region, difficulty: query.difficulty, maxDurationMinutes: query.maxDurationMinutes, sort: query.sort })}`} className="btn-secondary text-xs">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
                 <path strokeLinejoin="round" d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" />
                 <path d="M9 4v14M15 6v14" />
               </svg>
-              View on map
+              <T k="trailsPage.viewOnMap" />
             </Link>
           </div>
 
           {trails.length === 0 ? (
             <>
               <EmptyState
-                title={query.q ? `No trails match “${query.q}”` : 'No trails match those filters'}
-                message={
-                  query.q
-                    ? 'Check the spelling, or try just the place name — "Kupe" instead of "Mount Kupe", for example.'
-                    : 'Try widening the difficulty or region filter — there are 17 destinations on the platform in total, so narrow searches can run out fast.'
+                title={
+                  query.q ? <T k="trailsPage.noMatchQuery" params={{ q: query.q }} /> : <T k="trailsPage.noMatchFilters" />
                 }
-                action={{ href: '/trails', label: 'Clear filters' }}
+                message={
+                  query.q ? <T k="trailsPage.noMatchQueryHint" /> : <T k="trailsPage.noMatchFiltersHint" />
+                }
+                action={{ href: '/trails', label: <T k="trailsPage.clearFilters" /> }}
               />
 
               {suggestions && suggestions.length > 0 && (
                 <div className="mt-8">
                   <p className="mb-4 text-xs font-bold uppercase tracking-wide text-basalt-500 dark:text-basalt-400">
-                    Popular destinations instead
+                    <T k="trailsPage.popularInstead" />
                   </p>
                   <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                     {suggestions.map((trail) => (

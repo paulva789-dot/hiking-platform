@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState, type FormEvent } from 'react';
+import { useLanguage } from '@/lib/i18n/language-context';
 
 interface Props {
   variant?: 'hero' | 'default';
@@ -11,6 +12,7 @@ function SearchInner({ variant = 'default' }: Props) {
   const router = useRouter();
   const params = useSearchParams();
   const [q, setQ] = useState(params.get('q') ?? '');
+  const { t } = useLanguage();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -42,13 +44,13 @@ function SearchInner({ variant = 'default' }: Props) {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search a trail, peak or town — Mount Cameroon, Buea, waterfall…"
-          aria-label="Search trails"
+          placeholder={t('search.placeholder')}
+          aria-label={t('search.ariaLabel')}
           className={`input pl-11 ${isHero ? 'py-3.5 text-base shadow-lg ring-0' : ''}`}
         />
       </div>
       <button type="submit" className={isHero ? 'btn-accent px-6 py-3.5' : 'btn-primary'}>
-        Search
+        {t('search.button')}
       </button>
     </form>
   );

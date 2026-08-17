@@ -5,10 +5,12 @@ import { LOCALES, TRANSLATIONS, type Locale, type TranslationKey } from './trans
 
 const STORAGE_KEY = 'trek-cameroon-locale';
 
+type Params = Record<string, string | number>;
+
 interface LanguageState {
   locale: Locale;
   setLocale: (l: Locale) => void;
-  t: (key: TranslationKey) => string;
+  t: (key: TranslationKey, params?: Params) => string;
 }
 
 const LanguageContext = createContext<LanguageState | null>(null);
@@ -37,9 +39,18 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = l;
   }, []);
 
-  const t = useCallback((key: TranslationKey) => TRANSLATIONS[locale][key] ?? TRANSLATIONS.en[key] ?? key, [
-    locale,
-  ]);
+  const t = useCallback(
+    (key: TranslationKey, params?: Params) => {
+      let str = TRANSLATIONS[locale][key] ?? TRANSLATIONS.en[key] ?? key;
+      if (params) {
+        for (const [k, v] of Object.entries(params)) {
+          str = str.replaceAll(`{{${k}}}`, String(v));
+        }
+      }
+      return str;
+    },
+    [locale]
+  );
 
   const value = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t]);
 

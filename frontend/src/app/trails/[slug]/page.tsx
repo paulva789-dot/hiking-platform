@@ -27,6 +27,7 @@ import { TrailCard } from '@/components/TrailCard';
 import { ReviewSection } from '@/components/trail/ReviewSection';
 import { FavoriteButton, OfflinePackButton } from '@/components/trail/TrailActions';
 import { Alert, DifficultyBadge, SectionHeading, Stars } from '@/components/ui';
+import { T } from '@/components/T';
 
 export const revalidate = 300;
 
@@ -104,11 +105,11 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
         <div className="section relative pb-10 pt-8">
           <nav aria-label="Breadcrumb" className="mb-6 text-xs text-basalt-300">
             <Link href="/" className="hover:text-white">
-              Home
+              <T k="common.home" />
             </Link>
             <span className="mx-2">/</span>
             <Link href="/trails" className="hover:text-white">
-              Trails
+              <T k="nav.trails" />
             </Link>
             <span className="mx-2">/</span>
             <Link href={`/trails?region=${trail.region}`} className="hover:text-white">
@@ -123,12 +124,12 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             </span>
             {trail.permitRequired && (
               <span className="chip bg-amber-400/20 text-amber-100 ring-amber-300/40">
-                Permit required
+                <T k="trailDetail.permitRequiredBadge" />
               </span>
             )}
             {trail.summitM && (
               <span className="chip bg-white/15 text-white ring-white/25">
-                Summit {trail.summitM.toLocaleString()} m
+                <T k="trailDetail.summitBadge" params={{ n: trail.summitM.toLocaleString() }} />
               </span>
             )}
           </div>
@@ -143,17 +144,21 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 
           <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-basalt-300">
             <Stars rating={trail.ratingAvg} count={trail.ratingCount} />
-            <span>Nearest town: {trail.nearestTown}</span>
-            <span>{trail._count.favorites} saved</span>
+            <span>
+              <T k="trailCard.nearestTown" params={{ town: trail.nearestTown }} />
+            </span>
+            <span>
+              <T k="trailDetail.saved" params={{ n: trail._count.favorites }} />
+            </span>
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
             <FavoriteButton trailId={trail.id} slug={trail.slug} />
             <a href="#book" className="btn bg-white/10 text-white ring-1 ring-inset ring-white/25 hover:bg-white/20">
-              Book a guided tour
+              <T k="trailDetail.bookTour" />
             </a>
             <a href="#map" className="btn bg-white/10 text-white ring-1 ring-inset ring-white/25 hover:bg-white/20">
-              See the route
+              <T k="trailDetail.seeRoute" />
             </a>
           </div>
         </div>
@@ -162,19 +167,25 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
       {/* -------------------------------------------------------- key facts */}
       <section className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <dl className="section grid grid-cols-2 divide-basalt-200 py-6 sm:grid-cols-4 sm:divide-x">
-          <KeyFact label="Distance" value={formatDistance(trail.distanceKm)} sub="round trip" />
+          <KeyFact label={<T k="trailCard.distance" />} value={formatDistance(trail.distanceKm)} sub={<T k="trailDetail.roundTrip" />} />
           <KeyFact
-            label="Time needed"
+            label={<T k="filters.timeNeeded" />}
             value={formatDuration(trail.durationMinutes)}
-            sub="moderately fit hiker"
+            sub={<T k="trailDetail.moderatelyFitHiker" />}
           />
           <KeyFact
-            label="Total ascent"
+            label={<T k="trailDetail.totalAscent" />}
             value={`${trail.elevationGainM.toLocaleString()} m`}
-            sub={trail.summitM ? `to ${trail.summitM.toLocaleString()} m` : 'cumulative'}
+            sub={
+              trail.summitM ? (
+                <T k="trailDetail.toSummit" params={{ n: trail.summitM.toLocaleString() }} />
+              ) : (
+                <T k="trailDetail.cumulative" />
+              )
+            }
           />
           <KeyFact
-            label="Difficulty"
+            label={<T k="filters.difficulty" />}
             value={DIFFICULTY_LABELS[trail.difficulty]}
             sub={DIFFICULTY_MEANING[trail.difficulty]}
           />
@@ -186,7 +197,9 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
         <div className="space-y-12">
           <Reveal>
             <section className="card animate-fade-up p-6 motion-reduce:animate-none sm:p-8">
-              <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">About this hike</h2>
+              <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
+                <T k="trailDetail.aboutHike" />
+              </h2>
               <div className="prose-trail mt-4">
                 <TranslatedTrailProse english={trail.description} translations={trail.translations} />
               </div>
@@ -197,8 +210,8 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
           <Reveal>
           <section id="map" className="scroll-mt-24 animate-fade-up motion-reduce:animate-none">
             <SectionHeading
-              title="Route and waypoints"
-              description="Drawn from the standard route. Waypoints are numbered in walking order — tap a pin for what to expect there."
+              title={<T k="trailDetail.routeWaypoints" />}
+              description={<T k="trailDetail.routeWaypointsDesc" />}
             />
             <div className="overflow-hidden rounded-xl border border-basalt-200">
               <SingleTrailMap trail={trail} waypoints={trail.waypoints} height="440px" />
@@ -207,7 +220,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             {trail.waypoints.length >= 2 && (
               <div className="card mt-4 p-4">
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-basalt-500 dark:text-basalt-400">
-                  Elevation profile
+                  <T k="trailDetail.elevationProfile" />
                 </p>
                 <ElevationProfile waypoints={trail.waypoints} color={DIFFICULTY_MAP_COLOR[trail.difficulty]} />
               </div>
@@ -244,15 +257,15 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
           <Reveal>
           <section className="animate-fade-up motion-reduce:animate-none">
             <SectionHeading
-              title="Hazards, water and permits"
-              description="The specifics for this trail. Read them with the general safety guidance."
+              title={<T k="trailDetail.hazardsTitle" />}
+              description={<T k="trailDetail.hazardsDesc" />}
             />
 
             <div className="grid gap-4 sm:grid-cols-2">
               {trail.hazards.length > 0 && (
                 <div className="card border-red-200 bg-red-50 p-5 dark:border-red-800/60 dark:bg-red-950/40 sm:col-span-2">
                   <h3 className="font-display text-base font-semibold text-red-900 dark:text-red-200">
-                    Known hazards on this trail
+                    <T k="trailDetail.knownHazards" />
                   </h3>
                   <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                     <TranslatedHazards english={trail.hazards} translations={trail.translations} />
@@ -262,7 +275,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 
               {trail.waterSources && (
                 <InfoCard
-                  title="Water"
+                  title={<T k="trailDetail.water" />}
                   body={
                     <TranslatedTrailText
                       english={trail.waterSources}
@@ -274,7 +287,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               )}
               {trail.permitInfo && (
                 <InfoCard
-                  title={trail.permitRequired ? 'Permit — required' : 'Permit'}
+                  title={<T k={trail.permitRequired ? 'trailDetail.permitRequired' : 'trailDetail.permit'} />}
                   body={
                     <TranslatedTrailText
                       english={trail.permitInfo}
@@ -287,7 +300,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               )}
               {trail.gettingThere && (
                 <InfoCard
-                  title="Getting there"
+                  title={<T k="trailDetail.gettingThere" />}
                   body={
                     <TranslatedTrailText
                       english={trail.gettingThere}
@@ -301,7 +314,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               {trail.bestMonths.length > 0 && (
                 <div className="card p-5 sm:col-span-2">
                   <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
-                    Best months to hike
+                    <T k="trailDetail.bestMonths" />
                   </h3>
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {trail.bestMonths.map((month) => (
@@ -315,7 +328,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             </div>
 
             <Link href="/safety" className="mt-4 inline-block text-sm font-semibold text-forest-700 hover:underline">
-              Read the full safety guidelines →
+              <T k="trailDetail.readSafety" />
             </Link>
           </section>
           </Reveal>
@@ -324,19 +337,18 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
           <Reveal>
           <section id="book" className="scroll-mt-24 animate-fade-up motion-reduce:animate-none">
             <SectionHeading
-              eyebrow="Book it"
-              title="Guided tours on this trail"
-              description="Run by guides we have verified. You reserve a seat here; payment and meeting point are arranged with the guide."
+              eyebrow={<T k="trailDetail.bookIt" />}
+              title={<T k="trailDetail.guidedTours" />}
+              description={<T k="trailDetail.guidedToursDesc" />}
             />
 
             {trail.tours.length === 0 ? (
               <div className="card p-6">
                 <p className="text-sm text-basalt-600 dark:text-basalt-300">
-                  No guide currently lists a scheduled tour for this trail. Browse the guide
-                  directory and contact someone covering {REGION_LABELS[trail.region]} directly.
+                  <T k="trailDetail.noTours" params={{ region: REGION_LABELS[trail.region] }} />
                 </p>
                 <Link href={`/guides?region=${trail.region}`} className="btn-secondary mt-4">
-                  Guides in {REGION_LABELS[trail.region]}
+                  <T k="trailDetail.guidesInRegion" params={{ region: REGION_LABELS[trail.region] }} />
                 </Link>
               </div>
             ) : (
@@ -349,9 +361,10 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                           {tour.title}
                         </h3>
                         <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
-                          With {tour.guide.user.name} ·{' '}
-                          {tour.durationDays} day{tour.durationDays > 1 ? 's' : ''} · max{' '}
-                          {tour.maxGroupSize} people
+                          <T k="trailDetail.withGuide" params={{ name: tour.guide.user.name }} /> ·{' '}
+                          {tour.durationDays}{' '}
+                          <T k={tour.durationDays > 1 ? 'trailDetail.day.other' : 'trailDetail.day.one'} /> ·{' '}
+                          <T k="trailDetail.maxPeople" params={{ n: tour.maxGroupSize }} />
                         </p>
                         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">
                           {tour.description}
@@ -366,7 +379,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                             ))}
                             {tour.includes.length > 4 && (
                               <span className="chip bg-basalt-100 text-basalt-600 dark:text-basalt-300 ring-basalt-200">
-                                +{tour.includes.length - 4} more
+                                <T k="trailDetail.moreCount" params={{ n: tour.includes.length - 4 }} />
                               </span>
                             )}
                           </div>
@@ -374,7 +387,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 
                         {tour.schedules.length > 0 && (
                           <p className="mt-3 text-xs text-basalt-600 dark:text-basalt-300">
-                            Next departures:{' '}
+                            <T k="trailDetail.nextDepartures" />{' '}
                             {tour.schedules
                               .slice(0, 2)
                               .map((s) => formatDateRange(s.startDate, s.endDate))
@@ -387,9 +400,11 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                         <p className="font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">
                           {formatXAF(tour.priceXAF)}
                         </p>
-                        <p className="text-xs text-basalt-600 dark:text-basalt-300">per person</p>
+                        <p className="text-xs text-basalt-600 dark:text-basalt-300">
+                          <T k="trailDetail.perPerson" />
+                        </p>
                         <Link href={`/tours/${tour.id}`} className="btn-accent mt-3">
-                          View & book
+                          <T k="trailDetail.viewBook" />
                         </Link>
                       </div>
                     </div>
@@ -405,11 +420,11 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
             <Reveal>
             <section className="animate-fade-up motion-reduce:animate-none">
               <SectionHeading
-                title="Photos from this trail"
-                description="Uploaded by hikers and photographers. Some are available to licence."
+                title={<T k="trailDetail.photosTitle" />}
+                description={<T k="trailDetail.photosDesc" />}
                 action={
                   <Link href={`/gallery?trail=${trail.id}`} className="btn-secondary">
-                    All photos
+                    <T k="trailDetail.allPhotos" />
                   </Link>
                 }
               />
@@ -426,7 +441,9 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                     <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
                       <p className="font-medium">{photo.user.name}</p>
                       {photo.forSale && photo.priceXAF && (
-                        <p className="text-amber-300">Licence from {formatXAF(photo.priceXAF)}</p>
+                        <p className="text-amber-300">
+                          <T k="trailDetail.licenceFrom" params={{ price: formatXAF(photo.priceXAF) }} />
+                        </p>
                       )}
                     </figcaption>
                   </figure>
@@ -458,7 +475,9 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
           </div>
 
           <div className="card p-5">
-            <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">Trailhead</h3>
+            <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
+              <T k="trailDetail.trailhead" />
+            </h3>
             <p className="mt-2 font-mono text-sm text-basalt-700 dark:text-basalt-300">
               {trail.startLat.toFixed(4)}, {trail.startLng.toFixed(4)}
             </p>
@@ -468,19 +487,21 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
               rel="noopener noreferrer"
               className="btn-secondary mt-3 w-full text-xs"
             >
-              Open in OpenStreetMap
+              <T k="trailDetail.openOsm" />
             </a>
           </div>
 
           {nearbyStays.length > 0 && (
             <div className="card p-5">
               <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50">
-                Where to stay nearby
+                <T k="trailDetail.whereToStay" />
               </h3>
               <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
-                {trail.difficulty === 'EXPERT' || trail.difficulty === 'HARD'
-                  ? 'For this one, plan around a camp or lodge close to the trailhead.'
-                  : `In ${REGION_LABELS[trail.region]}, suggested for this trail:`}
+                {trail.difficulty === 'EXPERT' || trail.difficulty === 'HARD' ? (
+                  <T k="trailDetail.stayHintHard" />
+                ) : (
+                  <T k="trailDetail.stayHintEasy" params={{ region: REGION_LABELS[trail.region] }} />
+                )}
               </p>
               <ul className="mt-3 space-y-3">
                 {nearbyStays.slice(0, 3).map((listing) => (
@@ -498,14 +519,13 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
                 ))}
               </ul>
               <Link href={`/stay?region=${trail.region}`} className="btn-secondary mt-4 w-full text-xs">
-                See all stays in {REGION_LABELS[trail.region]}
+                <T k="trailDetail.seeAllStays" params={{ region: REGION_LABELS[trail.region] }} />
               </Link>
             </div>
           )}
 
-          <Alert tone="warn" title="Before you set off">
-            Tell someone your route and a turnaround time. There is no mountain rescue service in
-            Cameroon — on the high trails, evacuation means your guide carrying you down.
+          <Alert tone="warn" title={<T k="trailDetail.beforeYouSetOff" />}>
+            <T k="trailDetail.beforeYouSetOffBody" />
           </Alert>
         </aside>
       </div>
@@ -514,8 +534,8 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
       {nearby.trails.length > 0 && (
         <section className="section mt-16">
           <SectionHeading
-            title={`More in ${REGION_LABELS[trail.region]}`}
-            description="Other destinations in the same region, so you can build a trip rather than a day."
+            title={<T k="trailDetail.moreInRegion" params={{ region: REGION_LABELS[trail.region] }} />}
+            description={<T k="trailDetail.moreInRegionDesc" />}
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {nearby.trails.map((t, i) => (
@@ -532,7 +552,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
   );
 }
 
-function KeyFact({ label, value, sub }: { label: string; value: string; sub?: string }) {
+function KeyFact({ label, value, sub }: { label: ReactNode; value: string; sub?: ReactNode }) {
   return (
     <div className="px-2 py-2 text-center sm:px-4">
       <dt className="text-[11px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>
@@ -548,7 +568,7 @@ function InfoCard({
   tone = 'default',
   className = '',
 }: {
-  title: string;
+  title: ReactNode;
   body: ReactNode;
   tone?: 'default' | 'warn';
   className?: string;

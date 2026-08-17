@@ -114,9 +114,111 @@ const en = {
   'page.map.title': 'Trail map',
   'page.guides.title': 'Registered guides',
   'page.safety.title': 'Safety guidelines for hiking in Cameroon',
+
+  // trail card (used on home, trails list, sites, nearby)
+  'trailCard.permit': 'Permit',
+  'trailCard.nearestTown': 'Nearest town: {{town}}',
+  'trailCard.distance': 'Distance',
+  'trailCard.time': 'Time',
+  'trailCard.ascent': 'Ascent',
+  'trailCard.details': 'Details →',
+
+  // trail filters / search
+  'filters.title': 'Filters',
+  'filters.clearAll': 'Clear all ({{n}})',
+  'filters.sortBy': 'Sort by',
+  'filters.difficulty': 'Difficulty',
+  'filters.region': 'Region',
+  'filters.timeNeeded': 'Time needed',
+  'filters.sort.popular': 'Most viewed',
+  'filters.sort.rating': 'Highest rated',
+  'filters.sort.distance': 'Shortest first',
+  'filters.sort.newest': 'Recently added',
+  'filters.sort.name': 'A–Z',
+  'filters.duration.half': 'Half day (under 4 h)',
+  'filters.duration.full': 'Full day (under 10 h)',
+  'filters.duration.twoDays': 'Up to 2 days',
+  'filters.duration.multi': 'Multi-day',
+  'search.placeholder': 'Search a trail, peak or town — Mount Cameroon, Buea, waterfall…',
+  'search.ariaLabel': 'Search trails',
+  'search.button': 'Search',
+
+  // trails list page
+  'trailsPage.destination.one': 'destination',
+  'trailsPage.destination.other': 'destinations',
+  'trailsPage.matching': 'matching {{filters}}',
+  'trailsPage.viewOnMap': 'View on map',
+  'trailsPage.noMatchQuery': 'No trails match “{{q}}”',
+  'trailsPage.noMatchFilters': 'No trails match those filters',
+  'trailsPage.noMatchQueryHint':
+    'Check the spelling, or try just the place name — "Kupe" instead of "Mount Kupe", for example.',
+  'trailsPage.noMatchFiltersHint':
+    'Try widening the difficulty or region filter — there are 17 destinations on the platform in total, so narrow searches can run out fast.',
+  'trailsPage.clearFilters': 'Clear filters',
+  'trailsPage.popularInstead': 'Popular destinations instead',
+
+  // trail detail page chrome (deep content itself is translated separately, see TrailTranslation)
+  'common.home': 'Home',
+  'trailDetail.summitBadge': 'Summit {{n}} m',
+  'trailDetail.permitRequiredBadge': 'Permit required',
+  'trailDetail.saved': '{{n}} saved',
+  'trailDetail.bookTour': 'Book a guided tour',
+  'trailDetail.seeRoute': 'See the route',
+  'trailDetail.roundTrip': 'round trip',
+  'trailDetail.moderatelyFitHiker': 'moderately fit hiker',
+  'trailDetail.totalAscent': 'Total ascent',
+  'trailDetail.cumulative': 'cumulative',
+  'trailDetail.toSummit': 'to {{n}} m',
+  'trailDetail.aboutHike': 'About this hike',
+  'trailDetail.routeWaypoints': 'Route and waypoints',
+  'trailDetail.routeWaypointsDesc':
+    'Drawn from the standard route. Waypoints are numbered in walking order — tap a pin for what to expect there.',
+  'trailDetail.elevationProfile': 'Elevation profile',
+  'trailDetail.hazardsTitle': 'Hazards, water and permits',
+  'trailDetail.hazardsDesc': 'The specifics for this trail. Read them with the general safety guidance.',
+  'trailDetail.knownHazards': 'Known hazards on this trail',
+  'trailDetail.water': 'Water',
+  'trailDetail.permitRequired': 'Permit — required',
+  'trailDetail.permit': 'Permit',
+  'trailDetail.gettingThere': 'Getting there',
+  'trailDetail.bestMonths': 'Best months to hike',
+  'trailDetail.readSafety': 'Read the full safety guidelines →',
+  'trailDetail.bookIt': 'Book it',
+  'trailDetail.guidedTours': 'Guided tours on this trail',
+  'trailDetail.guidedToursDesc':
+    'Run by guides we have verified. You reserve a seat here; payment and meeting point are arranged with the guide.',
+  'trailDetail.noTours':
+    'No guide currently lists a scheduled tour for this trail. Browse the guide directory and contact someone covering {{region}} directly.',
+  'trailDetail.guidesInRegion': 'Guides in {{region}}',
+  'trailDetail.withGuide': 'With {{name}}',
+  'trailDetail.maxPeople': 'max {{n}} people',
+  'trailDetail.day.one': 'day',
+  'trailDetail.day.other': 'days',
+  'trailDetail.moreCount': '+{{n}} more',
+  'trailDetail.nextDepartures': 'Next departures:',
+  'trailDetail.perPerson': 'per person',
+  'trailDetail.viewBook': 'View & book',
+  'trailDetail.photosTitle': 'Photos from this trail',
+  'trailDetail.photosDesc': 'Uploaded by hikers and photographers. Some are available to licence.',
+  'trailDetail.allPhotos': 'All photos',
+  'trailDetail.licenceFrom': 'Licence from {{price}}',
+  'trailDetail.trailhead': 'Trailhead',
+  'trailDetail.openOsm': 'Open in OpenStreetMap',
+  'trailDetail.whereToStay': 'Where to stay nearby',
+  'trailDetail.stayHintHard': 'For this one, plan around a camp or lodge close to the trailhead.',
+  'trailDetail.stayHintEasy': 'In {{region}}, suggested for this trail:',
+  'trailDetail.seeAllStays': 'See all stays in {{region}}',
+  'trailDetail.beforeYouSetOff': 'Before you set off',
+  'trailDetail.beforeYouSetOffBody':
+    'Tell someone your route and a turnaround time. There is no mountain rescue service in Cameroon — on the high trails, evacuation means your guide carrying you down.',
+  'trailDetail.moreInRegion': 'More in {{region}}',
+  'trailDetail.moreInRegionDesc': 'Other destinations in the same region, so you can build a trip rather than a day.',
 };
 
-const fr: Record<TranslationKey, string> = {
+/** Partial, not exhaustive: a key missing here falls back to English at lookup time
+ * (see language-context.tsx) — new keys don't have to be translated into all four
+ * languages before they can ship. */
+const fr: Partial<Record<TranslationKey, string>> = {
   'nav.trails': 'Sentiers',
   'nav.map': 'Carte',
   'nav.sites': 'Sites du Cameroun',
@@ -193,9 +295,104 @@ const fr: Record<TranslationKey, string> = {
   'page.map.title': 'Carte des sentiers',
   'page.guides.title': 'Guides enregistrés',
   'page.safety.title': 'Consignes de sécurité pour la randonnée au Cameroun',
+
+  'trailCard.permit': 'Permis',
+  'trailCard.nearestTown': 'Ville la plus proche : {{town}}',
+  'trailCard.distance': 'Distance',
+  'trailCard.time': 'Durée',
+  'trailCard.ascent': 'Dénivelé',
+  'trailCard.details': 'Détails →',
+
+  'filters.title': 'Filtres',
+  'filters.clearAll': 'Tout effacer ({{n}})',
+  'filters.sortBy': 'Trier par',
+  'filters.difficulty': 'Difficulté',
+  'filters.region': 'Région',
+  'filters.timeNeeded': 'Durée nécessaire',
+  'filters.sort.popular': 'Les plus vus',
+  'filters.sort.rating': 'Les mieux notés',
+  'filters.sort.distance': 'Les plus courts',
+  'filters.sort.newest': 'Ajoutés récemment',
+  'filters.sort.name': 'A–Z',
+  'filters.duration.half': 'Demi-journée (moins de 4 h)',
+  'filters.duration.full': 'Journée complète (moins de 10 h)',
+  'filters.duration.twoDays': "Jusqu'à 2 jours",
+  'filters.duration.multi': 'Plusieurs jours',
+  'search.placeholder': 'Rechercher un sentier, un sommet ou une ville — Mont Cameroun, Buea, cascade…',
+  'search.ariaLabel': 'Rechercher des sentiers',
+  'search.button': 'Rechercher',
+
+  'trailsPage.destination.one': 'destination',
+  'trailsPage.destination.other': 'destinations',
+  'trailsPage.matching': 'correspondant à {{filters}}',
+  'trailsPage.viewOnMap': 'Voir sur la carte',
+  'trailsPage.noMatchQuery': 'Aucun sentier ne correspond à « {{q}} »',
+  'trailsPage.noMatchFilters': 'Aucun sentier ne correspond à ces filtres',
+  'trailsPage.noMatchQueryHint':
+    'Vérifiez l\'orthographe, ou essayez juste le nom du lieu — « Kupé » plutôt que « Mont Kupé », par exemple.',
+  'trailsPage.noMatchFiltersHint':
+    "Essayez d'élargir le filtre de difficulté ou de région — il y a 17 destinations au total sur la plateforme, donc une recherche trop précise peut vite ne plus rien donner.",
+  'trailsPage.clearFilters': 'Effacer les filtres',
+  'trailsPage.popularInstead': 'Destinations populaires à la place',
+
+  'common.home': 'Accueil',
+  'trailDetail.summitBadge': 'Sommet {{n}} m',
+  'trailDetail.permitRequiredBadge': 'Permis requis',
+  'trailDetail.saved': '{{n}} enregistrements',
+  'trailDetail.bookTour': 'Réserver un circuit guidé',
+  'trailDetail.seeRoute': "Voir l'itinéraire",
+  'trailDetail.roundTrip': 'aller-retour',
+  'trailDetail.moderatelyFitHiker': 'randonneur en forme moyenne',
+  'trailDetail.totalAscent': 'Dénivelé total',
+  'trailDetail.cumulative': 'cumulé',
+  'trailDetail.toSummit': "jusqu'à {{n}} m",
+  'trailDetail.aboutHike': 'À propos de cette randonnée',
+  'trailDetail.routeWaypoints': 'Itinéraire et points de passage',
+  'trailDetail.routeWaypointsDesc':
+    "D'après l'itinéraire standard. Les points de passage sont numérotés dans l'ordre de marche — touchez un repère pour savoir à quoi vous attendre.",
+  'trailDetail.elevationProfile': 'Profil altimétrique',
+  'trailDetail.hazardsTitle': 'Dangers, eau et permis',
+  'trailDetail.hazardsDesc': 'Les spécificités de ce sentier. À lire avec les consignes de sécurité générales.',
+  'trailDetail.knownHazards': 'Dangers connus sur ce sentier',
+  'trailDetail.water': 'Eau',
+  'trailDetail.permitRequired': 'Permis — requis',
+  'trailDetail.permit': 'Permis',
+  'trailDetail.gettingThere': 'Comment y aller',
+  'trailDetail.bestMonths': 'Meilleurs mois pour randonner',
+  'trailDetail.readSafety': 'Lire toutes les consignes de sécurité →',
+  'trailDetail.bookIt': 'Réserver',
+  'trailDetail.guidedTours': 'Circuits guidés sur ce sentier',
+  'trailDetail.guidedToursDesc':
+    'Organisés par des guides que nous avons vérifiés. Vous réservez une place ici ; le paiement et le point de rendez-vous se règlent avec le guide.',
+  'trailDetail.noTours':
+    "Aucun guide ne propose actuellement de circuit programmé sur ce sentier. Parcourez l'annuaire des guides et contactez directement quelqu'un couvrant {{region}}.",
+  'trailDetail.guidesInRegion': 'Guides en {{region}}',
+  'trailDetail.withGuide': 'Avec {{name}}',
+  'trailDetail.maxPeople': 'max {{n}} personnes',
+  'trailDetail.day.one': 'jour',
+  'trailDetail.day.other': 'jours',
+  'trailDetail.moreCount': '+{{n}} autres',
+  'trailDetail.nextDepartures': 'Prochains départs :',
+  'trailDetail.perPerson': 'par personne',
+  'trailDetail.viewBook': 'Voir et réserver',
+  'trailDetail.photosTitle': 'Photos de ce sentier',
+  'trailDetail.photosDesc': 'Envoyées par des randonneurs et photographes. Certaines sont disponibles à la licence.',
+  'trailDetail.allPhotos': 'Toutes les photos',
+  'trailDetail.licenceFrom': 'Licence à partir de {{price}}',
+  'trailDetail.trailhead': 'Départ du sentier',
+  'trailDetail.openOsm': 'Ouvrir dans OpenStreetMap',
+  'trailDetail.whereToStay': 'Où loger à proximité',
+  'trailDetail.stayHintHard': "Pour celui-ci, prévoyez un camp ou un lodge proche du départ du sentier.",
+  'trailDetail.stayHintEasy': 'En {{region}}, suggéré pour ce sentier :',
+  'trailDetail.seeAllStays': 'Voir tous les hébergements en {{region}}',
+  'trailDetail.beforeYouSetOff': 'Avant de partir',
+  'trailDetail.beforeYouSetOffBody':
+    "Indiquez votre itinéraire et une heure de retour à quelqu'un. Il n'existe pas de service de secours en montagne au Cameroun — sur les sentiers d'altitude, l'évacuation signifie être porté par votre guide.",
+  'trailDetail.moreInRegion': 'Plus de sentiers en {{region}}',
+  'trailDetail.moreInRegionDesc': 'D\'autres destinations dans la même région, pour construire un voyage plutôt qu\'une simple journée.',
 };
 
-const es: Record<TranslationKey, string> = {
+const es: Partial<Record<TranslationKey, string>> = {
   'nav.trails': 'Senderos',
   'nav.map': 'Mapa',
   'nav.sites': 'Sitios de Camerún',
@@ -274,7 +471,7 @@ const es: Record<TranslationKey, string> = {
   'page.safety.title': 'Guía de seguridad para el senderismo en Camerún',
 };
 
-const pt: Record<TranslationKey, string> = {
+const pt: Partial<Record<TranslationKey, string>> = {
   'nav.trails': 'Trilhas',
   'nav.map': 'Mapa',
   'nav.sites': 'Locais dos Camarões',
@@ -353,4 +550,4 @@ const pt: Record<TranslationKey, string> = {
   'page.safety.title': 'Diretrizes de segurança para caminhadas nos Camarões',
 };
 
-export const TRANSLATIONS: Record<Locale, Record<TranslationKey, string>> = { en, fr, es, pt };
+export const TRANSLATIONS: Record<Locale, Partial<Record<TranslationKey, string>>> = { en, fr, es, pt };

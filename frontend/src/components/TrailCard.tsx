@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import type { TrailCard as TrailCardType } from '@/lib/types';
 import {
   REGION_LABELS,
@@ -7,6 +8,7 @@ import {
   formatDuration,
   trailFallbackImage,
 } from '@/lib/format';
+import { T } from './T';
 import { DifficultyBadge, Stars } from './ui';
 
 export function TrailCard({ trail, priority = false }: { trail: TrailCardType; priority?: boolean }) {
@@ -29,7 +31,9 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
           <DifficultyBadge difficulty={trail.difficulty} />
           {trail.permitRequired && (
-            <span className="chip bg-white/95 text-basalt-800 ring-white/60">Permit</span>
+            <span className="chip bg-white/95 text-basalt-800 ring-white/60">
+              <T k="trailCard.permit" />
+            </span>
           )}
         </div>
 
@@ -47,25 +51,29 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
         <h3 className="font-display text-base font-semibold leading-snug text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
           {trail.name}
         </h3>
-        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">Nearest town: {trail.nearestTown}</p>
+        <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
+          <T k="trailCard.nearestTown" params={{ town: trail.nearestTown }} />
+        </p>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{trail.summary}</p>
 
         <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-basalt-100 pt-3 text-center">
-          <Metric label="Distance" value={formatDistance(trail.distanceKm)} />
-          <Metric label="Time" value={formatDuration(trail.durationMinutes)} />
-          <Metric label="Ascent" value={`${trail.elevationGainM.toLocaleString()} m`} />
+          <Metric label={<T k="trailCard.distance" />} value={formatDistance(trail.distanceKm)} />
+          <Metric label={<T k="trailCard.time" />} value={formatDuration(trail.durationMinutes)} />
+          <Metric label={<T k="trailCard.ascent" />} value={`${trail.elevationGainM.toLocaleString()} m`} />
         </dl>
 
         <div className="mt-3 flex items-center justify-between border-t border-basalt-100 pt-3">
           <Stars rating={trail.ratingAvg} count={trail.ratingCount} />
-          <span className="text-xs font-semibold text-forest-700 group-hover:underline">Details →</span>
+          <span className="text-xs font-semibold text-forest-700 group-hover:underline">
+            <T k="trailCard.details" />
+          </span>
         </div>
       </div>
     </Link>
   );
 }
 
-function Metric({ label, value }: { label: string; value: string }) {
+function Metric({ label, value }: { label: ReactNode; value: string }) {
   return (
     <div>
       <dt className="text-[10px] font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">{label}</dt>

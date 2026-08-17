@@ -80,9 +80,9 @@ export function EmptyState({
   message,
   action,
 }: {
-  title: string;
-  message: string;
-  action?: { href: string; label: string };
+  title: ReactNode;
+  message: ReactNode;
+  action?: { href: string; label: ReactNode };
 }) {
   return (
     <div className="card flex flex-col items-center gap-3 px-6 py-12 text-center">
@@ -109,7 +109,7 @@ export function Alert({
   children,
 }: {
   tone?: 'info' | 'warn' | 'danger' | 'success';
-  title?: string;
+  title?: ReactNode;
   children: ReactNode;
 }) {
   const tones = {
@@ -132,9 +132,9 @@ export function SectionHeading({
   description,
   action,
 }: {
-  eyebrow?: string;
-  title: string;
-  description?: string;
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  description?: ReactNode;
   action?: ReactNode;
 }) {
   return (
