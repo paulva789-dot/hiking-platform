@@ -49,11 +49,13 @@ const en = {
   'hero.badge': 'All ten regions of Cameroon',
   'hero.title': 'Hiking in Cameroon, with the information you actually need',
   'hero.body':
-    'Most people who want to hike here never start, because what they can find is vague, wrong or missing. This is the fix: real distances and durations, difficulty ratings that mean something specific, live weather that tells you when not to go, permit rules, and registered local guides you can book directly.',
+    "Real distances and durations, difficulty ratings that mean something specific, live weather that tells you when not to go, permit rules, and registered local guides you can book directly. Most people who want to hike here never start, because what they could find before was vague, wrong or missing.",
   'hero.stat.destinations': 'Trails, all checked',
   'hero.stat.regions': 'Regions covered',
   'hero.stat.summit': 'Highest summit — Fako',
   'hero.stat.currency': 'Prices in local currency',
+  'hero.statLine': '{{summit}} — Fako, and the {{n}} routes we\'ve measured.',
+  'hero.difficultyLink': 'How difficulty works',
 
   // what is hiking
   'whatIsHiking.eyebrow': 'New to this?',
@@ -78,9 +80,10 @@ const en = {
   'picker.title': 'Pick a region, then a place',
   'picker.body':
     "Choose one of Cameroon's ten regions, then a landmark inside it — trip planning stays limited to destinations within the country.",
-  'picker.chooseRegion': 'Choose a region',
-  'picker.selectRegionFirst': 'Select a region first',
-  'picker.viewPlace': 'View place',
+  'picker.siteCount.one': '{{n}} site',
+  'picker.siteCount.other': '{{n}} sites',
+  'picker.noneListed': 'No landmark listed yet for',
+  'picker.checkTrails': 'check the trails in this region instead',
 
   // footer
   'footer.tagline':
@@ -236,11 +239,13 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'hero.badge': 'Les dix régions du Cameroun',
   'hero.title': "La randonnée au Cameroun, avec l'information dont vous avez vraiment besoin",
   'hero.body':
-    "La plupart des gens qui veulent randonner ici ne commencent jamais, car ce qu'ils trouvent est vague, faux ou incomplet. Voici la solution : distances et durées réelles, niveaux de difficulté précis, météo en direct qui vous dit quand ne pas partir, règles de permis, et guides locaux enregistrés réservables directement.",
+    "Distances et durées réelles, niveaux de difficulté précis, météo en direct qui vous dit quand ne pas partir, règles de permis, et guides locaux enregistrés réservables directement. La plupart des gens qui veulent randonner ici ne commencent jamais, car ce qu'ils trouvaient avant était vague, faux ou incomplet.",
   'hero.stat.destinations': 'Sentiers, tous vérifiés',
   'hero.stat.regions': 'Régions couvertes',
   'hero.stat.summit': 'Sommet le plus haut — Fako',
   'hero.stat.currency': 'Prix en monnaie locale',
+  'hero.statLine': "{{summit}} — Fako, et les {{n}} itinéraires que nous avons mesurés.",
+  'hero.difficultyLink': 'Comment fonctionnent les niveaux de difficulté',
 
   'whatIsHiking.eyebrow': 'Nouveau ici ?',
   'whatIsHiking.title': "Ce qu'est vraiment la randonnée, et ce qu'elle demande",
@@ -263,9 +268,10 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'picker.title': "Choisissez une région, puis un lieu",
   'picker.body':
     "Choisissez l'une des dix régions du Cameroun, puis un site à l'intérieur — la planification reste limitée aux destinations du pays.",
-  'picker.chooseRegion': 'Choisir une région',
-  'picker.selectRegionFirst': "Sélectionnez d'abord une région",
-  'picker.viewPlace': 'Voir le lieu',
+  'picker.siteCount.one': '{{n}} site',
+  'picker.siteCount.other': '{{n}} sites',
+  'picker.noneListed': "Aucun site répertorié pour l'instant en",
+  'picker.checkTrails': 'consultez plutôt les sentiers de cette région',
 
   'footer.tagline':
     'Des informations honnêtes et vérifiées sur la randonnée au Cameroun — vraies distances, vrais temps, vrais dangers, et les guides locaux qui connaissent le terrain. Du Mont Mbankolo avant le travail à quatre jours dans la Dja — et des circuits guidés réservables dans toute la zone CEMAC.',
@@ -411,7 +417,7 @@ const es: Partial<Record<TranslationKey, string>> = {
   'hero.badge': 'Las diez regiones de Camerún',
   'hero.title': 'Senderismo en Camerún, con la información que realmente necesitas',
   'hero.body':
-    'La mayoría de quienes quieren hacer senderismo aquí nunca empiezan, porque lo que encuentran es vago, erróneo o incompleto. Esta es la solución: distancias y duraciones reales, niveles de dificultad claros, clima en vivo que te dice cuándo no salir, normas de permisos y guías locales registrados que puedes reservar directamente.',
+    'Distancias y duraciones reales, niveles de dificultad claros, clima en vivo que te dice cuándo no salir, normas de permisos y guías locales registrados que puedes reservar directamente. La mayoría de quienes quieren hacer senderismo aquí nunca empiezan, porque lo que encontraban antes era vago, erróneo o incompleto.',
   'hero.stat.destinations': 'Senderos, todos verificados',
   'hero.stat.regions': 'Regiones cubiertas',
   'hero.stat.summit': 'Cumbre más alta — Fako',
@@ -438,9 +444,6 @@ const es: Partial<Record<TranslationKey, string>> = {
   'picker.title': 'Elige una región y luego un lugar',
   'picker.body':
     'Elige una de las diez regiones de Camerún y luego un sitio dentro de ella — la planificación se limita a destinos dentro del país.',
-  'picker.chooseRegion': 'Elegir una región',
-  'picker.selectRegionFirst': 'Selecciona primero una región',
-  'picker.viewPlace': 'Ver lugar',
 
   'footer.tagline':
     'Información honesta y verificada sobre el senderismo en Camerún — distancias reales, tiempos reales, peligros reales, y los guías locales que conocen el terreno. Desde el Mont Mbankolo antes del trabajo hasta cuatro días en la Dja — y tours guiados reservables en toda la región CEMAC.',
@@ -491,7 +494,7 @@ const pt: Partial<Record<TranslationKey, string>> = {
   'hero.badge': 'As dez regiões dos Camarões',
   'hero.title': 'Caminhadas nos Camarões, com a informação que você realmente precisa',
   'hero.body':
-    'A maioria das pessoas que querem caminhar aqui nunca começa, porque o que encontram é vago, errado ou incompleto. Esta é a solução: distâncias e durações reais, níveis de dificuldade claros, clima ao vivo que diz quando não ir, regras de licenças, e guias locais registrados que você pode reservar diretamente.',
+    'Distâncias e durações reais, níveis de dificuldade claros, clima ao vivo que diz quando não ir, regras de licenças, e guias locais registrados que você pode reservar diretamente. A maioria das pessoas que querem caminhar aqui nunca começa, porque o que encontravam antes era vago, errado ou incompleto.',
   'hero.stat.destinations': 'Trilhas, todas verificadas',
   'hero.stat.regions': 'Regiões cobertas',
   'hero.stat.summit': 'Pico mais alto — Fako',
@@ -518,9 +521,6 @@ const pt: Partial<Record<TranslationKey, string>> = {
   'picker.title': 'Escolha uma região e depois um lugar',
   'picker.body':
     'Escolha uma das dez regiões dos Camarões e depois um marco dentro dela — o planejamento fica limitado a destinos dentro do país.',
-  'picker.chooseRegion': 'Escolher uma região',
-  'picker.selectRegionFirst': 'Selecione uma região primeiro',
-  'picker.viewPlace': 'Ver local',
 
   'footer.tagline':
     'Informação honesta e verificada sobre caminhadas nos Camarões — distâncias reais, tempos reais, perigos reais, e os guias locais que conhecem o terreno. Do Monte Mbankolo antes do trabalho a quatro dias na Dja — e passeios guiados reserváveis em toda a região CEMAC.',

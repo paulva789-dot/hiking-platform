@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { serverFetch } from '@/lib/api';
 import type { GuideCard, HikingEvent, SafetyCategory, TrailCard as TrailCardType } from '@/lib/types';
-import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, REGION_LABELS } from '@/lib/format';
+import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, REGION_LABELS, formatXAF } from '@/lib/format';
 import { TrailCard } from '@/components/TrailCard';
 import { DifficultyChip, SectionHeading, Stars } from '@/components/ui';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
@@ -117,12 +117,217 @@ export default async function HomePage() {
             <TrailSearchBar variant="hero" />
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
-            <HeroStat value={String(totalTrails || 17)} labelKey="hero.stat.destinations" />
-            <HeroStat value="10" labelKey="hero.stat.regions" />
-            <HeroStat value="4,040 m" labelKey="hero.stat.summit" />
-            <HeroStat value="XAF" labelKey="hero.stat.currency" />
+          <a
+            href="#difficulty"
+            className="mt-4 inline-block text-sm font-semibold text-basalt-300 hover:text-white hover:underline"
+          >
+            <T k="hero.difficultyLink" /> →
+          </a>
+
+          <p className="mt-8 max-w-2xl font-mono text-sm tabular-nums text-basalt-300">
+            <T k="hero.statLine" params={{ summit: '4,040 m', n: totalTrails || 17 }} />
+          </p>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------ popular trails */}
+      <section className="py-16">
+        <div className="section">
+          <SectionHeading
+            eyebrow="Trails"
+            title="Where people are hiking"
+            description={`Volcanic summits, crater lakes, rainforest and savannah — spread across ${regionsCovered || 10} regions.`}
+            action={
+              <Link href="/trails" className="btn-secondary">
+                All {totalTrails || 17} trails
+              </Link>
+            }
+          />
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {popular.map((trail, i) => (
+              <TrailCard key={trail.id} trail={trail} priority={i < 3} />
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- first hikes */}
+      {easy.length > 0 && (
+        <section className="bg-basalt-100 py-16 dark:bg-basalt-900">
+          <div className="section">
+            <SectionHeading
+              eyebrow="Never hiked before?"
+              title="Start with one of these"
+              description="Under four hours, clear paths, and reachable in a day from Douala or Yaoundé. Do these before you book Mount Cameroon."
+            />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {easy.map((trail) => (
+                <TrailCard key={trail.id} trail={trail} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* --------------------------------------------------------- guides */}
+      {guides.length > 0 && (
+        <section className="py-16">
+          <div className="section">
+            <SectionHeading
+              eyebrow="Registered guides"
+              title="Booked directly, verified by us"
+              description="Every guide on the platform is checked before their tours go live. Rates are theirs; we take a transparent commission on bookings. Booking is not limited to Cameroon — some guides run tours across Central Africa."
+              action={
+                <Link href="/guides" className="btn-secondary">
+                  All guides
+                </Link>
+              }
+            />
+
+            <div className="grid gap-5 md:grid-cols-3">
+              {guides.map((guide) => (
+                <Link
+                  key={guide.id}
+                  href={`/guides/${guide.id}`}
+                  className="card group p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                >
+                  <div className="flex items-center gap-3">
+                    {guide.user.avatarUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={guide.user.avatarUrl}
+                        alt=""
+                        className="h-12 w-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <span className="grid h-12 w-12 place-items-center rounded-full bg-forest-700 font-semibold text-white">
+                        {guide.user.name.split(' ').map((p) => p[0]).slice(0, 2).join('')}
+                      </span>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <p className="truncate font-semibold text-basalt-900 dark:text-basalt-50">{guide.user.name}</p>
+                        <span
+                          className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-forest-100 text-forest-700 dark:bg-forest-900/50 dark:text-forest-400"
+                          title="Verified guide"
+                          aria-label="Verified guide"
+                        >
+                          <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3">
+                            <path
+                              fillRule="evenodd"
+                              d="M10 1.5l2.1 1.9 2.8-.4.9 2.7 2.7.9-.4 2.8 1.9 2.1-1.9 2.1.4 2.8-2.7.9-.9 2.7-2.8-.4-2.1 1.9-2.1-1.9-2.8.4-.9-2.7-2.7-.9.4-2.8-1.9-2.1 1.9-2.1-.4-2.8 2.7-.9.9-2.7 2.8.4z"
+                              clipRule="evenodd"
+                            />
+                            <path
+                              fill="#fff"
+                              d="M8.6 12.4L6.4 10.2l-1 1 3.2 3.2 5.5-5.5-1-1z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <Stars rating={guide.ratingAvg} count={guide.ratingCount} />
+                    </div>
+                  </div>
+
+                  <p className="mt-3 line-clamp-2 text-sm font-medium leading-snug text-basalt-800 dark:text-basalt-200">
+                    {guide.headline}
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {guide.regions.slice(0, 3).map((r) => (
+                      <span key={r} className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+                        {REGION_LABELS[r]}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-3 flex items-end justify-between border-t border-basalt-100 pt-3 dark:border-basalt-800">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">
+                        From
+                      </p>
+                      <p className="font-mono text-sm font-semibold tabular-nums text-basalt-900 dark:text-basalt-50">
+                        {formatXAF(guide.dayRateXAF)}
+                        <span className="font-sans font-normal text-basalt-500 dark:text-basalt-400"> /day</span>
+                      </p>
+                    </div>
+                    <p className="text-xs text-basalt-600 dark:text-basalt-300">
+                      Speaks {guide.languages.slice(0, 2).join(', ')}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ------------------------------------------------- difficulty key */}
+      <section id="difficulty" className="scroll-mt-16 bg-basalt-100 py-16 dark:bg-basalt-900">
+        <div className="section">
+          <SectionHeading
+            eyebrow="Ratings you can trust"
+            title="What our difficulty levels mean"
+            description="These are not vibes. Each level is a specific commitment about time, terrain and consequence, and every trail is rated against it."
+          />
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {ALL_DIFFICULTIES.map((level) => (
+              <Link
+                key={level}
+                href={`/trails?difficulty=${level}`}
+                className="card group p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                <DifficultyChip difficulty={level} />
+                <p className="mt-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{DIFFICULTY_MEANING[level]}</p>
+                <p className="mt-3 text-xs font-semibold text-forest-700 group-hover:underline">
+                  See {DIFFICULTY_LABELS[level].toLowerCase()} trails →
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- what we fix */}
+      <section className="border-b border-basalt-200 bg-white py-14 dark:border-basalt-800 dark:bg-basalt-900">
+        <div className="section">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Why this exists"
+              title="Bad information keeps people off the trail"
+              description="Every problem below is one we heard from people who wanted to hike in Cameroon and gave up. Each one has a specific answer on this site."
+            />
+          </Reveal>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            <ProblemCard
+              problem="&ldquo;How long does it actually take?&rdquo;"
+              answer="Every trail carries a measured distance, ascent and realistic duration for a moderately fit hiker — plus what the difficulty rating commits to."
+              href="/trails"
+              cta="Browse trails"
+            />
+            <ProblemCard
+              problem="&ldquo;Is it safe right now?&rdquo;"
+              answer="Live conditions on every trail page, read as a plain verdict: good to go, take care, or not advisable. Plus hazards, water, and regional security notes."
+              href="/safety"
+              cta="Read safety guidance"
+            />
+            <ProblemCard
+              problem="&ldquo;Who do I even ask?&rdquo;"
+              answer="Registered guides with verified profiles, real day rates, languages spoken, and departure dates you can book without a phone call."
+              href="/guides"
+              cta="Find a guide"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- trip picker */}
+      <section className="border-b border-basalt-200 bg-white py-14 dark:border-basalt-800 dark:bg-basalt-900">
+        <div className="section">
+          <RegionPlacePicker />
         </div>
       </section>
 
@@ -168,177 +373,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ---------------------------------------------------- trip picker */}
-      <section className="border-b border-basalt-200 bg-white py-14 dark:border-basalt-800 dark:bg-basalt-900">
-        <div className="section">
-          <RegionPlacePicker />
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- what we fix */}
-      <section className="border-b border-basalt-200 bg-white py-14 dark:border-basalt-800 dark:bg-basalt-900">
-        <div className="section">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Why this exists"
-              title="Bad information keeps people off the trail"
-              description="Every problem below is one we heard from people who wanted to hike in Cameroon and gave up. Each one has a specific answer on this site."
-            />
-          </Reveal>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            <ProblemCard
-              problem="&ldquo;How long does it actually take?&rdquo;"
-              answer="Every trail carries a measured distance, ascent and realistic duration for a moderately fit hiker — plus what the difficulty rating commits to."
-              href="/trails"
-              cta="Browse trails"
-            />
-            <ProblemCard
-              problem="&ldquo;Is it safe right now?&rdquo;"
-              answer="Live conditions on every trail page, read as a plain verdict: good to go, take care, or not advisable. Plus hazards, water, and regional security notes."
-              href="/safety"
-              cta="Read safety guidance"
-            />
-            <ProblemCard
-              problem="&ldquo;Who do I even ask?&rdquo;"
-              answer="Registered guides with verified profiles, real day rates, languages spoken, and departure dates you can book without a phone call."
-              href="/guides"
-              cta="Find a guide"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------ popular trails */}
-      <section className="py-16">
-        <div className="section">
-          <SectionHeading
-            eyebrow="Trails"
-            title="Where people are hiking"
-            description={`Volcanic summits, crater lakes, rainforest and savannah — spread across ${regionsCovered || 10} regions.`}
-            action={
-              <Link href="/trails" className="btn-secondary">
-                All {totalTrails || 17} trails
-              </Link>
-            }
-          />
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {popular.map((trail, i) => (
-              <TrailCard key={trail.id} trail={trail} priority={i < 3} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------- difficulty key */}
-      <section className="bg-basalt-100 py-16 dark:bg-basalt-900">
-        <div className="section">
-          <SectionHeading
-            eyebrow="Ratings you can trust"
-            title="What our difficulty levels mean"
-            description="These are not vibes. Each level is a specific commitment about time, terrain and consequence, and every trail is rated against it."
-          />
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {ALL_DIFFICULTIES.map((level) => (
-              <Link
-                key={level}
-                href={`/trails?difficulty=${level}`}
-                className="card group p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-              >
-                <DifficultyChip difficulty={level} />
-                <p className="mt-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{DIFFICULTY_MEANING[level]}</p>
-                <p className="mt-3 text-xs font-semibold text-forest-700 group-hover:underline">
-                  See {DIFFICULTY_LABELS[level].toLowerCase()} trails →
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- first hikes */}
-      {easy.length > 0 && (
-        <section className="py-16">
-          <div className="section">
-            <SectionHeading
-              eyebrow="Never hiked before?"
-              title="Start with one of these"
-              description="Under four hours, clear paths, and reachable in a day from Douala or Yaoundé. Do these before you book Mount Cameroon."
-            />
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {easy.map((trail) => (
-                <TrailCard key={trail.id} trail={trail} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* --------------------------------------------------------- guides */}
-      {guides.length > 0 && (
-        <section className="bg-white py-16 dark:bg-basalt-900">
-          <div className="section">
-            <SectionHeading
-              eyebrow="Registered guides"
-              title="Booked directly, verified by us"
-              description="Every guide on the platform is checked before their tours go live. Rates are theirs; we take a transparent commission on bookings. Booking is not limited to Cameroon — some guides run tours across Central Africa."
-              action={
-                <Link href="/guides" className="btn-secondary">
-                  All guides
-                </Link>
-              }
-            />
-
-            <div className="grid gap-5 md:grid-cols-3">
-              {guides.map((guide) => (
-                <Link
-                  key={guide.id}
-                  href={`/guides/${guide.id}`}
-                  className="card group p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-                >
-                  <div className="flex items-center gap-3">
-                    {guide.user.avatarUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={guide.user.avatarUrl}
-                        alt=""
-                        className="h-12 w-12 rounded-full object-cover"
-                      />
-                    ) : (
-                      <span className="grid h-12 w-12 place-items-center rounded-full bg-forest-700 font-semibold text-white">
-                        {guide.user.name.split(' ').map((p) => p[0]).slice(0, 2).join('')}
-                      </span>
-                    )}
-                    <div className="min-w-0">
-                      <p className="truncate font-semibold text-basalt-900 dark:text-basalt-50">{guide.user.name}</p>
-                      <Stars rating={guide.ratingAvg} count={guide.ratingCount} />
-                    </div>
-                  </div>
-
-                  <p className="mt-3 line-clamp-2 text-sm font-medium leading-snug text-basalt-800 dark:text-basalt-200">
-                    {guide.headline}
-                  </p>
-
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {guide.regions.slice(0, 3).map((r) => (
-                      <span key={r} className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
-                        {REGION_LABELS[r]}
-                      </span>
-                    ))}
-                  </div>
-
-                  <p className="mt-3 border-t border-basalt-100 pt-3 text-xs text-basalt-600 dark:text-basalt-300">
-                    {guide.yearsExperience} years guiding · speaks {guide.languages.slice(0, 3).join(', ')}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* --------------------------------------------------- safety teaser */}
       {safety.length > 0 && (
@@ -443,17 +477,6 @@ export default async function HomePage() {
         </div>
       </section>
     </>
-  );
-}
-
-function HeroStat({ value, labelKey }: { value: string; labelKey: TranslationKey }) {
-  return (
-    <div>
-      <p className="font-mono text-2xl font-semibold tabular-nums text-white">{value}</p>
-      <p className="mt-0.5 text-xs uppercase tracking-wide text-basalt-300">
-        <T k={labelKey} />
-      </p>
-    </div>
   );
 }
 
