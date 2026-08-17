@@ -93,7 +93,7 @@ export default function AdminAnalytics() {
       <section>
         <SectionHeading
           title="Revenue"
-          description={`Booking commission is charged at ${bookings.commissionPct}% of every paid booking.`}
+          description={`Hikers pay a ${bookings.depositPct}% deposit online (commission is charged at ${bookings.commissionPct}% of that deposit); the balance is settled in cash at the trailhead.`}
         />
 
         <div className="grid gap-4 lg:grid-cols-3">
@@ -131,6 +131,11 @@ export default function AdminAnalytics() {
             </p>
             <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
               {formatXAF(bookings.last30Days.grossVolumeXAF)} in the last 30 days
+            </p>
+            <p className="mt-3 text-xs text-basalt-600 dark:text-basalt-300">
+              Of which {formatXAF(bookings.depositsCollectedXAF)} actually collected as deposits
+              ({formatXAF(bookings.last30Days.depositsCollectedXAF)} in the last 30 days) — the rest
+              settles in cash at the trailhead.
             </p>
 
             <div className="mt-5 space-y-2">

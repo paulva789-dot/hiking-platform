@@ -1,6 +1,13 @@
 import type { AccommodationType, Difficulty, Region, TrailCategory } from './types';
 
 /**
+ * Mirrors the backend's default BOOKING_DEPOSIT_PCT (backend/src/config.js)
+ * so the pre-booking form can estimate the deposit before a real Booking
+ * record — with its exact server-computed depositXAF — exists yet.
+ */
+export const BOOKING_DEPOSIT_PCT = 20;
+
+/**
  * Guides and tours are not limited to Cameroon — bookings can cover any of
  * these Central African (ECCAS/CEMAC) countries. Trail content stays
  * Cameroon-only, since that's the only country we have real, checked route

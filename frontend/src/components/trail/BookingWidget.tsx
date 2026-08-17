@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
 import { api, ApiError } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
-import { formatDateRange, formatXAF } from '@/lib/format';
+import { BOOKING_DEPOSIT_PCT, formatDateRange, formatXAF } from '@/lib/format';
 import type { Booking, TourSchedule } from '@/lib/types';
 import { Alert, Spinner } from '@/components/ui';
 import { PaymentPanel } from '@/components/PaymentPanel';
@@ -75,6 +75,8 @@ export function BookingWidget({
   const selected = openSchedules.find((s) => s.id === scheduleId);
   const seatsLeft = selected ? selected.capacity - selected.seatsBooked : 0;
   const subtotal = priceXAF * participants;
+  const estimatedDeposit = Math.round((subtotal * BOOKING_DEPOSIT_PCT) / 100);
+  const estimatedBalance = subtotal - estimatedDeposit;
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -106,10 +108,12 @@ export function BookingWidget({
     return (
       <div className="card space-y-4 border-forest-300 bg-forest-50 p-6 dark:border-forest-800 dark:bg-forest-950/40">
         <p className="text-xs font-bold uppercase tracking-wide text-forest-700 dark:text-forest-300">
-          Paid and confirmed
+          Deposit paid — seat confirmed
         </p>
         <p className="text-sm text-basalt-700 dark:text-basalt-300">
-          The guide will contact you on {booking.contactPhone} to arrange the meeting point.
+          The guide will contact you on {booking.contactPhone} to arrange the meeting point. Bring{' '}
+          <strong>{formatXAF(booking.balanceDueXAF)}</strong> in cash to pay the guide directly at the
+          trailhead.
         </p>
         <button type="button" onClick={() => router.push('/dashboard/bookings')} className="btn-primary w-full">
           Go to my bookings
@@ -127,10 +131,14 @@ export function BookingWidget({
           </p>
           <h3 className="mt-1 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50">{tourTitle}</h3>
         </div>
+        <p className="text-sm text-basalt-600 dark:text-basalt-300">
+          A {formatXAF(booking.depositXAF)} deposit holds your seat. The remaining{' '}
+          {formatXAF(booking.balanceDueXAF)} is paid in cash to the guide at the trailhead.
+        </p>
         <PaymentPanel
           purpose="BOOKING"
           extra={{ bookingId: booking.id }}
-          amountXAF={booking.totalXAF}
+          amountXAF={booking.depositXAF}
           onSuccess={() => setPaid(true)}
           onCancel={() => setPaying(false)}
         />
@@ -153,18 +161,21 @@ export function BookingWidget({
             value={formatDateRange(booking.schedule.startDate, booking.schedule.endDate)}
           />
           <Row label="People" value={String(booking.participants)} />
-          <Row label="Total" value={<strong>{formatXAF(booking.totalXAF)}</strong>} />
+          <Row label="Trip total" value={formatXAF(booking.totalXAF)} />
+          <Row label="Deposit due now" value={<strong>{formatXAF(booking.depositXAF)}</strong>} />
+          <Row label="Balance in cash at trailhead" value={formatXAF(booking.balanceDueXAF)} />
         </dl>
 
         <Alert tone="info">
-          Your seat is held but not yet paid. Pay by MTN Mobile Money or Orange Money now, or later
-          from your bookings page — the guide will contact you on {booking.contactPhone} to arrange
-          the meeting point either way.
+          Your seat is held but the deposit isn&apos;t paid yet. Pay it by MTN Mobile Money or Orange
+          Money now, or later from your bookings page — the guide will contact you on{' '}
+          {booking.contactPhone} to arrange the meeting point either way. The remaining{' '}
+          {formatXAF(booking.balanceDueXAF)} is paid in cash directly to the guide at the trailhead.
         </Alert>
 
         <div className="flex flex-wrap gap-2">
           <button type="button" onClick={() => setPaying(true)} className="btn-accent">
-            Pay {formatXAF(booking.totalXAF)} now
+            Pay {formatXAF(booking.depositXAF)} deposit now
           </button>
           <button type="button" onClick={() => router.push('/dashboard/bookings')} className="btn-secondary">
             Pay later
@@ -284,9 +295,11 @@ export function BookingWidget({
       <dl className="space-y-1.5 border-t border-basalt-100 pt-4 text-sm">
         <Row label={`${formatXAF(priceXAF)} × ${participants}`} value={formatXAF(subtotal)} />
         <div className="flex justify-between border-t border-basalt-100 pt-2 font-semibold text-basalt-900 dark:text-basalt-50">
-          <dt>Total</dt>
+          <dt>Trip total</dt>
           <dd>{formatXAF(subtotal)}</dd>
         </div>
+        <Row label={`Deposit to reserve (~${BOOKING_DEPOSIT_PCT}%)`} value={formatXAF(estimatedDeposit)} />
+        <Row label="Balance in cash at trailhead" value={formatXAF(estimatedBalance)} />
       </dl>
 
       {error && <Alert tone="danger">{error}</Alert>}
@@ -297,8 +310,9 @@ export function BookingWidget({
       </button>
 
       <p className="text-xs leading-relaxed text-basalt-600 dark:text-basalt-300">
-        You pay nothing now. Reserving holds the seats; the guide confirms and arranges the meeting
-        point. Free cancellation from your bookings page.
+        You pay nothing now. Reserving holds the seats; you&apos;ll then pay a small deposit by MTN
+        Mobile Money or Orange Money to confirm, and settle the rest in cash with the guide at the
+        trailhead. Free cancellation from your bookings page.
       </p>
     </form>
   );

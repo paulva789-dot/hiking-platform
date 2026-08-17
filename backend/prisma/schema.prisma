@@ -390,6 +390,12 @@ model Booking {
   subtotalXAF    Int
   commissionXAF  Int
   totalXAF       Int
+  /** What's actually charged via MTN MoMo / Orange Money at booking time --
+   * the rest (balanceDueXAF) is paid in cash to the guide at the trailhead.
+   * commissionXAF always fits inside depositXAF (see booking.routes.js), so
+   * the platform's full cut clears the moment the deposit does. */
+  depositXAF     Int           @default(0)
+  balanceDueXAF  Int           @default(0)
   status         BookingStatus @default(PENDING)
   paymentStatus  PaymentStatus @default(UNPAID)
   contactPhone   String?

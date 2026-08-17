@@ -113,6 +113,14 @@ router.post(
 
     const subtotalXAF = schedule.tour.priceXAF * participants;
     const commissionXAF = Math.round((subtotalXAF * config.commission.booking) / 100);
+    // The deposit always covers at least the commission, even if depositPct
+    // were ever misconfigured below commission.booking or rounding on a
+    // tiny booking pushed it under -- the platform's cut must clear.
+    const depositXAF = Math.max(
+      commissionXAF,
+      Math.round((subtotalXAF * config.booking.depositPct) / 100)
+    );
+    const balanceDueXAF = subtotalXAF - depositXAF;
 
     const booking = await prisma.$transaction(async (tx) => {
       const claimed = await tx.$queryRaw`
@@ -141,6 +149,8 @@ router.post(
           // Platform revenue: commission is recorded per booking, not derived later.
           commissionXAF,
           totalXAF: subtotalXAF,
+          depositXAF,
+          balanceDueXAF,
           contactPhone,
           notes,
         },
@@ -151,7 +161,11 @@ router.post(
       });
     });
 
-    res.status(201).json({ booking, commissionPct: config.commission.booking });
+    res.status(201).json({
+      booking,
+      commissionPct: config.commission.booking,
+      depositPct: config.booking.depositPct,
+    });
   })
 );
 

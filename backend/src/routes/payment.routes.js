@@ -45,19 +45,21 @@ router.post(
       if (!booking) throw notFound('Booking not found');
       if (booking.userId !== req.user.id) throw forbidden('That booking is not yours');
       if (booking.status === 'CANCELLED') throw badRequest('That booking was cancelled');
-      if (booking.paymentStatus === 'PAID') throw badRequest('That booking is already paid');
+      if (booking.paymentStatus === 'PAID') throw badRequest('The deposit on that booking is already paid');
       const existing = await prisma.payment.findFirst({ where: { bookingId: booking.id, status: 'PENDING' } });
       if (existing) {
         throw badRequest('A payment for this booking is already in progress — check its status before starting another');
       }
     }
 
+    // BOOKING only ever charges the deposit online -- the balance is settled
+    // in cash with the guide at the trailhead (see booking.routes.js).
     const amountXAF =
       purpose === 'PREMIUM_MEMBERSHIP'
         ? priceForPremium(req.body.months)
         : purpose === 'GUIDE_PLAN'
           ? priceForGuidePlan(req.body.guidePlan, req.body.months)
-          : booking.totalXAF;
+          : booking.depositXAF;
 
     const reference = makeReference();
 

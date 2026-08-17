@@ -320,6 +320,11 @@ function GuideBookings({ bookings, onChange }: { bookings: Booking[]; onChange: 
                 <p className="mt-0.5 text-xs font-semibold text-forest-700">
                   {formatXAF(b.totalXAF - b.commissionXAF)} to you
                 </p>
+                {b.status !== 'CANCELLED' && (
+                  <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
+                    Collect {formatXAF(b.balanceDueXAF)} cash at the trailhead
+                  </p>
+                )}
 
                 {b.status !== 'CANCELLED' && b.status !== 'COMPLETED' && (
                   <div className="mt-3 flex flex-col gap-2">

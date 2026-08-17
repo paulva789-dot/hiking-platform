@@ -59,12 +59,12 @@ router.get(
       prisma.booking.groupBy({ by: ['status'], _count: true }),
       prisma.booking.aggregate({
         where: { paymentStatus: 'PAID' },
-        _sum: { totalXAF: true, commissionXAF: true },
+        _sum: { totalXAF: true, depositXAF: true, commissionXAF: true },
         _count: true,
       }),
       prisma.booking.aggregate({
         where: { paymentStatus: 'PAID', createdAt: { gte: thirtyDaysAgo } },
-        _sum: { totalXAF: true, commissionXAF: true },
+        _sum: { totalXAF: true, depositXAF: true, commissionXAF: true },
       }),
       prisma.trail.groupBy({ by: ['region'], _count: true }),
       prisma.trail.groupBy({ by: ['difficulty'], _count: true }),
@@ -116,12 +116,18 @@ router.get(
         byStatus: bookings.map((b) => ({ status: b.status, count: b._count })),
         paidCount: revenue._count,
         grossVolumeXAF: revenue._sum.totalXAF ?? 0,
+        // Deposits are the only booking money that actually moves through the
+        // platform -- the rest is settled in cash at the trailhead, so this
+        // (not grossVolumeXAF) is the real cash-flow figure.
+        depositsCollectedXAF: revenue._sum.depositXAF ?? 0,
         commissionEarnedXAF: revenue._sum.commissionXAF ?? 0,
         last30Days: {
           grossVolumeXAF: recentRevenue._sum.totalXAF ?? 0,
+          depositsCollectedXAF: recentRevenue._sum.depositXAF ?? 0,
           commissionEarnedXAF: recentRevenue._sum.commissionXAF ?? 0,
         },
         commissionPct: config.commission.booking,
+        depositPct: config.booking.depositPct,
       },
       revenueStreams: {
         bookingCommissionXAF: revenue._sum.commissionXAF ?? 0,

@@ -237,6 +237,10 @@ export interface Booking {
   subtotalXAF: number;
   commissionXAF: number;
   totalXAF: number;
+  /** Charged via MTN MoMo / Orange Money at booking time. */
+  depositXAF: number;
+  /** Paid in cash to the guide at the trailhead. */
+  balanceDueXAF: number;
   status: BookingStatus;
   paymentStatus: PaymentStatus;
   contactPhone: string | null;
@@ -393,9 +397,11 @@ export interface Analytics {
     byStatus: { status: BookingStatus; count: number }[];
     paidCount: number;
     grossVolumeXAF: number;
+    depositsCollectedXAF: number;
     commissionEarnedXAF: number;
-    last30Days: { grossVolumeXAF: number; commissionEarnedXAF: number };
+    last30Days: { grossVolumeXAF: number; depositsCollectedXAF: number; commissionEarnedXAF: number };
     commissionPct: number;
+    depositPct: number;
   };
   revenueStreams: {
     bookingCommissionXAF: number;

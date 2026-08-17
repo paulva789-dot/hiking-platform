@@ -27,7 +27,9 @@ export async function activateGuidePlan(userId, plan, months) {
   });
 }
 
-/** Marks the booking a successful payment was for as paid and confirmed. Safe to call more than once. */
+/** Marks the booking a successful payment was for as paid and confirmed --
+ * "paid" means the deposit cleared; the balance is settled in cash at the
+ * trailhead. Safe to call more than once. */
 export async function confirmBookingPayment(bookingId) {
   if (!bookingId) return;
   const booking = await prisma.booking.findUnique({ where: { id: bookingId } });

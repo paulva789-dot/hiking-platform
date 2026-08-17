@@ -38,9 +38,10 @@ export default function AdminBookingsPage() {
   const totals = bookings.reduce(
     (acc, b) => ({
       gross: acc.gross + b.totalXAF,
+      deposits: acc.deposits + b.depositXAF,
       commission: acc.commission + b.commissionXAF,
     }),
-    { gross: 0, commission: 0 }
+    { gross: 0, deposits: 0, commission: 0 }
   );
 
   return (
@@ -83,6 +84,7 @@ export default function AdminBookingsPage() {
                   <Th>Dates</Th>
                   <Th className="text-center">Pax</Th>
                   <Th className="text-right">Total</Th>
+                  <Th className="text-right">Deposit</Th>
                   <Th className="text-right">Commission</Th>
                   <Th>Status</Th>
                 </tr>
@@ -110,6 +112,9 @@ export default function AdminBookingsPage() {
                     <Td className="text-center text-basalt-700 dark:text-basalt-300">{b.participants}</Td>
                     <Td className="whitespace-nowrap text-right font-semibold text-basalt-900 dark:text-basalt-50">
                       {formatXAF(b.totalXAF)}
+                    </Td>
+                    <Td className="whitespace-nowrap text-right text-basalt-700 dark:text-basalt-300">
+                      {formatXAF(b.depositXAF)}
                     </Td>
                     <Td className="whitespace-nowrap text-right font-semibold text-forest-700">
                       {formatXAF(b.commissionXAF)}
@@ -140,6 +145,9 @@ export default function AdminBookingsPage() {
                   </Td>
                   <Td className="whitespace-nowrap text-right text-basalt-900 dark:text-basalt-50">
                     {formatXAF(totals.gross)}
+                  </Td>
+                  <Td className="whitespace-nowrap text-right text-basalt-700 dark:text-basalt-300">
+                    {formatXAF(totals.deposits)}
                   </Td>
                   <Td className="whitespace-nowrap text-right text-forest-700">
                     {formatXAF(totals.commission)}

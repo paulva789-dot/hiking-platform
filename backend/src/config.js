@@ -35,6 +35,14 @@ export const config = {
     photo: num(process.env.PHOTO_COMMISSION_PCT, 20),
   },
 
+  // Deposit-only booking: hikers pay this share of the trip price via MTN
+  // MoMo / Orange Money to hold their seats; the rest is paid in cash to the
+  // guide at the trailhead. Must stay above commission.booking so the
+  // platform's cut always clears within the deposit itself.
+  booking: {
+    depositPct: num(process.env.BOOKING_DEPOSIT_PCT, 20),
+  },
+
   // MTN Mobile Money / Orange Money collection, via either gateway.
   flutterwave: {
     secretKey: process.env.FLUTTERWAVE_SECRET_KEY || '',

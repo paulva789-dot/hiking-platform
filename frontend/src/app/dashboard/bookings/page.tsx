@@ -134,10 +134,14 @@ export default function BookingsPage() {
                 </svg>
               </button>
             </div>
+            <p className="mb-3 text-sm text-basalt-600 dark:text-basalt-300">
+              A {formatXAF(payingBooking.depositXAF)} deposit confirms your seat. The remaining{' '}
+              {formatXAF(payingBooking.balanceDueXAF)} is paid in cash to the guide at the trailhead.
+            </p>
             <PaymentPanel
               purpose="BOOKING"
               extra={{ bookingId: payingBooking.id }}
-              amountXAF={payingBooking.totalXAF}
+              amountXAF={payingBooking.depositXAF}
               onSuccess={() => {
                 setPayingBooking(null);
                 void load();
@@ -218,6 +222,13 @@ function BookingRow({
           <p className="text-xs text-basalt-600 dark:text-basalt-300">
             {formatXAF(booking.subtotalXAF / booking.participants)} pp
           </p>
+          {booking.status !== 'CANCELLED' && (
+            <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
+              {booking.paymentStatus === 'UNPAID'
+                ? `${formatXAF(booking.depositXAF)} deposit + ${formatXAF(booking.balanceDueXAF)} cash`
+                : `${formatXAF(booking.balanceDueXAF)} cash at trailhead`}
+            </p>
+          )}
 
           {!readOnly && booking.status !== 'CANCELLED' && (
             <div className="mt-3 flex flex-col gap-2">
@@ -229,7 +240,7 @@ function BookingRow({
                   className="btn-accent text-xs"
                 >
                   {busy && <Spinner className="h-3 w-3" />}
-                  Confirm payment
+                  Pay deposit
                 </button>
               )}
               <button
