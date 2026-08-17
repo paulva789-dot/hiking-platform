@@ -41,6 +41,11 @@ export const config = {
   // platform's cut always clears within the deposit itself.
   booking: {
     depositPct: num(process.env.BOOKING_DEPOSIT_PCT, 20),
+    // Premium perk: a standing discount off the deposit, absorbed by the
+    // platform's own commission rather than the guide's take (guide still
+    // collects subtotal - commission, just more of it as cash at the
+    // trailhead and less via the deposit).
+    premiumDepositDiscountPct: num(process.env.BOOKING_PREMIUM_DISCOUNT_PCT, 15),
   },
 
   // MTN Mobile Money / Orange Money collection, via either gateway.

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
 import { api, ApiError } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
-import { BOOKING_DEPOSIT_PCT, formatDateRange, formatXAF } from '@/lib/format';
+import { BOOKING_DEPOSIT_PCT, PREMIUM_DEPOSIT_DISCOUNT_PCT, formatDateRange, formatXAF } from '@/lib/format';
 import type { Booking, TourSchedule } from '@/lib/types';
 import { Alert, Spinner } from '@/components/ui';
 import { PaymentPanel } from '@/components/PaymentPanel';
@@ -39,7 +39,7 @@ export function BookingWidget({
   guideName?: string;
   trailSlug?: string;
 }) {
-  const { user } = useAuth();
+  const { user, isPremium } = useAuth();
   const router = useRouter();
 
   const openSchedules = schedules.filter((s) => !s.cancelled && s.capacity - s.seatsBooked > 0);
@@ -75,7 +75,10 @@ export function BookingWidget({
   const selected = openSchedules.find((s) => s.id === scheduleId);
   const seatsLeft = selected ? selected.capacity - selected.seatsBooked : 0;
   const subtotal = priceXAF * participants;
-  const estimatedDeposit = Math.round((subtotal * BOOKING_DEPOSIT_PCT) / 100);
+  const baseEstimatedDeposit = Math.round((subtotal * BOOKING_DEPOSIT_PCT) / 100);
+  const estimatedDeposit = isPremium
+    ? Math.round((baseEstimatedDeposit * (100 - PREMIUM_DEPOSIT_DISCOUNT_PCT)) / 100)
+    : baseEstimatedDeposit;
   const estimatedBalance = subtotal - estimatedDeposit;
 
   const submit = async (e: FormEvent) => {
@@ -298,7 +301,14 @@ export function BookingWidget({
           <dt>Trip total</dt>
           <dd>{formatXAF(subtotal)}</dd>
         </div>
-        <Row label={`Deposit to reserve (~${BOOKING_DEPOSIT_PCT}%)`} value={formatXAF(estimatedDeposit)} />
+        <Row
+          label={
+            isPremium
+              ? `Deposit to reserve (Premium: ${PREMIUM_DEPOSIT_DISCOUNT_PCT}% off)`
+              : `Deposit to reserve (~${BOOKING_DEPOSIT_PCT}%)`
+          }
+          value={formatXAF(estimatedDeposit)}
+        />
         <Row label="Balance in cash at trailhead" value={formatXAF(estimatedBalance)} />
       </dl>
 

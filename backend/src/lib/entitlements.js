@@ -1,5 +1,11 @@
 import { prisma } from './prisma.js';
 
+/** Whether a user's Premium membership is currently active (tier flips back
+ * to FREE only lazily -- tierExpires is the real source of truth). */
+export function isPremiumActive(user) {
+  return user.tier === 'PREMIUM' && (!user.tierExpires || user.tierExpires > new Date());
+}
+
 /** Extends (or starts) a user's Premium membership by N months from whichever is later: now, or their current expiry. */
 export async function extendPremiumMembership(userId, months) {
   const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });

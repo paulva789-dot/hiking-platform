@@ -5,6 +5,7 @@ import { prisma } from '../lib/prisma.js';
 import { asyncHandler, badRequest, conflict, notFound } from '../lib/errors.js';
 import { requireAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
+import { isPremiumActive } from '../lib/entitlements.js';
 
 const router = Router();
 
@@ -238,9 +239,7 @@ router.get(
   '/offline-pack/:slug',
   requireAuth,
   asyncHandler(async (req, res) => {
-    const premium =
-      req.user.tier === 'PREMIUM' && (!req.user.tierExpires || req.user.tierExpires > new Date());
-    if (!premium && req.user.role !== 'ADMIN') {
+    if (!isPremiumActive(req.user) && req.user.role !== 'ADMIN') {
       throw badRequest('Offline maps are a Premium feature');
     }
 

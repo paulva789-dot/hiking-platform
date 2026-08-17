@@ -15,6 +15,10 @@ const PLANS = [
 
 const FEATURES = [
   {
+    title: '15% off every booking deposit',
+    body: 'Guided tours are deposit-only — a share paid online now, the rest in cash at the trailhead. Premium takes 15% off the online deposit on every tour you book, automatically, for as long as your membership is active.',
+  },
+  {
     title: 'Offline trail packs',
     body: 'Download the route, numbered waypoints, hazards, permit notes and emergency numbers for any trail as a file on your phone. Above 2,000 m on Mount Cameroon and Mount Oku there is no signal — this is the difference between having the information and not.',
   },

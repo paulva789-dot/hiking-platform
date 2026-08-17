@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma.js';
 import { verifyToken } from '../lib/token.js';
 import { forbidden, unauthorized } from '../lib/errors.js';
+import { isPremiumActive } from '../lib/entitlements.js';
 
 const extractToken = (req) => {
   const header = req.headers.authorization;
@@ -59,8 +60,7 @@ export const requireRole =
 export const requirePremium = (req, _res, next) => {
   if (!req.user) return next(unauthorized());
   if (req.user.role === 'ADMIN') return next();
-  const active = req.user.tier === 'PREMIUM' && (!req.user.tierExpires || req.user.tierExpires > new Date());
-  if (!active) {
+  if (!isPremiumActive(req.user)) {
     return next(forbidden('Starting a group is a Premium feature — free accounts can apply to join one instead'));
   }
   return next();

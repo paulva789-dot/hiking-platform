@@ -7,6 +7,10 @@ import type { AccommodationType, Difficulty, Region, TrailCategory } from './typ
  */
 export const BOOKING_DEPOSIT_PCT = 20;
 
+/** Mirrors the backend's default BOOKING_PREMIUM_DISCOUNT_PCT -- the standing
+ * discount Premium members get off their booking deposit. */
+export const PREMIUM_DEPOSIT_DISCOUNT_PCT = 15;
+
 /**
  * Guides and tours are not limited to Cameroon — bookings can cover any of
  * these Central African (ECCAS/CEMAC) countries. Trail content stays

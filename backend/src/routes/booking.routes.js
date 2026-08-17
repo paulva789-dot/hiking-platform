@@ -8,6 +8,7 @@ import { requireAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import { bookingSchema } from '../lib/schemas.js';
 import { refundBookingPayment } from '../lib/refunds.js';
+import { isPremiumActive } from '../lib/entitlements.js';
 
 const router = Router();
 
@@ -116,10 +117,19 @@ router.post(
     // The deposit always covers at least the commission, even if depositPct
     // were ever misconfigured below commission.booking or rounding on a
     // tiny booking pushed it under -- the platform's cut must clear.
-    const depositXAF = Math.max(
+    const baseDepositXAF = Math.max(
       commissionXAF,
       Math.round((subtotalXAF * config.booking.depositPct) / 100)
     );
+    // Premium members get a standing discount off the deposit -- capped so
+    // it never eats into the commission the platform still needs to clear.
+    const premiumDiscountXAF = isPremiumActive(req.user)
+      ? Math.min(
+          Math.round((baseDepositXAF * config.booking.premiumDepositDiscountPct) / 100),
+          baseDepositXAF - commissionXAF
+        )
+      : 0;
+    const depositXAF = baseDepositXAF - premiumDiscountXAF;
     const balanceDueXAF = subtotalXAF - depositXAF;
 
     const booking = await prisma.$transaction(async (tx) => {
@@ -165,6 +175,7 @@ router.post(
       booking,
       commissionPct: config.commission.booking,
       depositPct: config.booking.depositPct,
+      premiumDiscountXAF,
     });
   })
 );
