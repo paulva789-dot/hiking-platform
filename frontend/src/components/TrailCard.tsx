@@ -2,13 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { TrailCard as TrailCardType } from '@/lib/types';
-import {
-  REGION_LABELS,
-  formatDistance,
-  formatDuration,
-  trailFallbackImage,
-} from '@/lib/format';
+import { REGION_LABELS, formatDistance, formatDuration } from '@/lib/format';
 import { T } from './T';
+import { TrailImageFallback } from './TrailImageFallback';
 import { DifficultyChip, Stars } from './ui';
 
 export function TrailCard({ trail, priority = false }: { trail: TrailCardType; priority?: boolean }) {
@@ -18,14 +14,18 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
       className="group card animate-fade-up overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus-visible:shadow-md"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-basalt-200">
-        <Image
-          src={trail.coverImage ?? trailFallbackImage(trail.difficulty)}
-          alt=""
-          fill
-          priority={priority}
-          sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        {trail.coverImage ? (
+          <Image
+            src={trail.coverImage}
+            alt=""
+            fill
+            priority={priority}
+            sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <TrailImageFallback difficulty={trail.difficulty} />
+        )}
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
 
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">

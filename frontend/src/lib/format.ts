@@ -181,9 +181,3 @@ export const titleCase = (value: string) =>
     .split(/[\s_]+/)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
-
-/** Fallback cover so an unillustrated trail card never renders as a hole. */
-export const trailFallbackImage = (difficulty: Difficulty) => {
-  const tint = { EASY: '3a7f5d', MODERATE: '0369a1', HARD: '9c4a2e', EXPERT: '991b1b' }[difficulty];
-  return `https://placehold.co/800x600/${tint}/ffffff?text=Trek+Cameroon`;
-};

@@ -16,7 +16,6 @@ import {
   formatDistance,
   formatDuration,
   formatXAF,
-  trailFallbackImage,
 } from '@/lib/format';
 import { SingleTrailMap } from '@/components/map/LazyMaps';
 import { ElevationProfile } from '@/components/trail/ElevationProfile';
@@ -24,6 +23,7 @@ import { TranslatedHazards, TranslatedTrailProse, TranslatedTrailText } from '@/
 import { Reveal } from '@/components/Reveal';
 import { WeatherPanel } from '@/components/WeatherPanel';
 import { TrailCard } from '@/components/TrailCard';
+import { TrailImageFallback } from '@/components/TrailImageFallback';
 import { ReviewSection } from '@/components/trail/ReviewSection';
 import { FavoriteButton, OfflinePackButton } from '@/components/trail/TrailActions';
 import { Alert, DifficultyChip, SectionHeading, Stars } from '@/components/ui';
@@ -92,13 +92,11 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
       {/* ------------------------------------------------------------ hero */}
       <header className="relative bg-forest-950 text-white">
         <div className="absolute inset-0">
-          <Image
-            src={trail.coverImage ?? trailFallbackImage(trail.difficulty)}
-            alt=""
-            fill
-            priority
-            className="object-cover opacity-45"
-          />
+          {trail.coverImage ? (
+            <Image src={trail.coverImage} alt="" fill priority className="object-cover opacity-45" />
+          ) : (
+            <TrailImageFallback difficulty={trail.difficulty} className="opacity-45" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/70 to-forest-950/40" />
         </div>
 
