@@ -63,6 +63,19 @@ export const config = {
     callbackSecret: process.env.INTOUCH_CALLBACK_SECRET || '',
   },
 
+  // Africa's Talking SMS -- used for the Premium safety check-in alert
+  // (backend/src/lib/sms.js). Chosen over Twilio for CEMAC-region coverage.
+  africasTalking: {
+    apiKey: process.env.AFRICASTALKING_API_KEY || '',
+    username: process.env.AFRICASTALKING_USERNAME || '',
+    senderId: process.env.AFRICASTALKING_SENDER_ID || '',
+    baseUrl: process.env.AFRICASTALKING_BASE_URL || 'https://api.africastalking.com/version1',
+  },
+
+  // Safety check-in: how often the server sweeps for overdue Premium
+  // check-ins and alerts the emergency contact (backend/src/lib/safety-sweep.js).
+  safetySweepIntervalMs: num(process.env.SAFETY_SWEEP_INTERVAL_MS, 5 * 60 * 1000),
+
   seed: {
     adminEmail: process.env.SEED_ADMIN_EMAIL || 'admin@trekcameroon.cm',
     adminPassword: process.env.SEED_ADMIN_PASSWORD || 'Admin@12345',

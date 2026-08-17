@@ -159,6 +159,7 @@ model User {
   ownedGroups  HikingGroup[]  @relation("GroupOwner")
   tickets      EventTicket[]
   payments     Payment[]
+  checkIns     SafetyCheckIn[]
 
   @@index([role])
 }
@@ -491,6 +492,38 @@ model SafetyGuideline {
   updatedAt DateTime @updatedAt
 
   @@index([category, order])
+}
+
+/** Premium perk: "I'm heading out, alert my contact if I'm not back by X."
+ * A background sweep (safety-sweep.js) flips ACTIVE rows past dueBackAt to
+ * OVERDUE and SMS's the emergency contact via Africa's Talking (sms.js). */
+enum CheckInStatus {
+  ACTIVE
+  CHECKED_IN
+  OVERDUE
+  ALERTED
+  CANCELLED
+}
+
+model SafetyCheckIn {
+  id                    String        @id @default(cuid())
+  userId                String
+  user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /** Free text, not a Trail relation -- covers routes and variants that
+   * aren't in the trail catalogue at all. */
+  planLabel             String
+  emergencyContactName  String
+  emergencyContactPhone String
+  dueBackAt             DateTime
+  status                CheckInStatus @default(ACTIVE)
+  checkedInAt           DateTime?
+  alertedAt             DateTime?
+  alertFailureReason    String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  @@index([status, dueBackAt])
+  @@index([userId])
 }
 
 // ---------------------------------------------------------------- monetization: partners, gear, events, ads

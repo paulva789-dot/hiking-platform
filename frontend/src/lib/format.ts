@@ -161,6 +161,17 @@ export const formatDate = (iso: string | Date | null | undefined) => {
   });
 };
 
+export const formatDateTime = (iso: string | Date | null | undefined) => {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
 export const formatDateRange = (start: string, end: string) => {
   const a = new Date(start);
   const b = new Date(end);

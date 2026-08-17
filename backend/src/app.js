@@ -22,6 +22,7 @@ import weatherRoutes from './routes/weather.routes.js';
 import contentRoutes from './routes/content.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
+import safetyCheckinRoutes from './routes/safety-checkin.routes.js';
 
 export const createApp = () => {
   const app = express();
@@ -82,6 +83,7 @@ export const createApp = () => {
   app.use('/api/content', contentRoutes);
   app.use('/api/admin', adminRoutes);
   app.use('/api/payments', paymentRoutes);
+  app.use('/api/checkins', safetyCheckinRoutes);
   // Review routes carry their own /trails/:id/reviews and /reviews/:id paths.
   app.use('/api', reviewRoutes);
 

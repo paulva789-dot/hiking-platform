@@ -6,6 +6,7 @@ export type BookingStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
 export type PaymentStatus = 'UNPAID' | 'PAID' | 'REFUNDED' | 'REFUND_PENDING';
 export type MembershipTier = 'FREE' | 'PREMIUM';
 export type GuidePlan = 'NONE' | 'BASIC' | 'PRO';
+export type CheckInStatus = 'ACTIVE' | 'CHECKED_IN' | 'OVERDUE' | 'ALERTED' | 'CANCELLED';
 
 export type Region =
   | 'ADAMAWA'
@@ -256,6 +257,19 @@ export interface Booking {
   };
   schedule: { startDate: string; endDate: string; cancelled?: boolean };
   user?: { id: string; name: string; email: string; phone?: string | null; avatarUrl?: string | null };
+}
+
+export interface SafetyCheckIn {
+  id: string;
+  planLabel: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  dueBackAt: string;
+  status: CheckInStatus;
+  checkedInAt: string | null;
+  alertedAt: string | null;
+  alertFailureReason: string | null;
+  createdAt: string;
 }
 
 export interface HikingGroup {

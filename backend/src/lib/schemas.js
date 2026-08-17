@@ -209,6 +209,19 @@ export const groupSchema = z.object({
   isPrivate: z.boolean().default(false),
 });
 
+// ------------------------------------------------------------------ safety check-in
+
+export const checkInSchema = z.object({
+  planLabel: z.string().trim().min(3).max(200),
+  emergencyContactName: z.string().trim().min(2).max(120),
+  // Not restricted to Cameroon numbers -- an emergency contact is often
+  // diaspora family abroad.
+  emergencyContactPhone: z.string().trim().min(6).max(30),
+  dueBackAt: z.coerce.date().refine((d) => d > new Date(), {
+    message: 'dueBackAt must be in the future',
+  }),
+});
+
 // ------------------------------------------------------------------ payments
 
 /** Cameroonian MSISDN — accepts +237, 237 or local 6XXXXXXXX/2XXXXXXXX forms. */

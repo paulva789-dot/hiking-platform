@@ -10,6 +10,7 @@ const TABS = [
   { href: '/dashboard', label: 'Overview' },
   { href: '/dashboard/favorites', label: 'Saved trails' },
   { href: '/dashboard/bookings', label: 'Bookings' },
+  { href: '/dashboard/safety', label: 'Safety check-in' },
   { href: '/dashboard/reviews', label: 'My reviews' },
   { href: '/dashboard/photos', label: 'My photos' },
   { href: '/dashboard/profile', label: 'Profile' },
