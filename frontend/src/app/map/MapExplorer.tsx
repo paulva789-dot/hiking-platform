@@ -66,7 +66,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-basalt-600 dark:text-basalt-300">
             <span className="font-semibold text-basalt-900 dark:text-basalt-50">{filtered.length}</span> of{' '}
-            {trails.length} destinations shown
+            {trails.length} trails shown
           </p>
           <Link href={`/trails${listQs ? `?${listQs}` : ''}`} className="btn-secondary text-xs">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
@@ -116,7 +116,7 @@ export function MapExplorer({ trails }: { trails: MapTrail[] }) {
 
         {filtered.length === 0 && (
           <p className="card p-5 text-sm text-basalt-600 dark:text-basalt-300">
-            No destinations match that combination. Clear a filter to see the rest.
+            No trails match that combination. Clear a filter to see the rest.
           </p>
         )}
       </aside>

@@ -214,12 +214,12 @@ export default async function HomePage() {
       <section className="py-16">
         <div className="section">
           <SectionHeading
-            eyebrow="Destinations"
+            eyebrow="Trails"
             title="Where people are hiking"
             description={`Volcanic summits, crater lakes, rainforest and savannah — spread across ${regionsCovered || 10} regions.`}
             action={
               <Link href="/trails" className="btn-secondary">
-                All {totalTrails || 17} destinations
+                All {totalTrails || 17} trails
               </Link>
             }
           />

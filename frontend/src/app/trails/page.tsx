@@ -14,8 +14,7 @@ import { T } from '@/components/T';
 
 export const metadata: Metadata = {
   title: 'All hiking trails',
-  description:
-    'Search 17 checked hiking destinations across all ten regions of Cameroon by difficulty, region and time needed.',
+  description: 'Search checked hiking trails across all ten regions of Cameroon by difficulty, region and time needed.',
 };
 
 interface Facets {
@@ -55,6 +54,10 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
   ]);
 
   const { trails, pagination, suggestions } = result;
+  // Unfiltered platform-wide count, for copy that talks about the whole
+  // catalogue rather than the current (possibly filtered) result set —
+  // difficulty facets always cover every published trail exactly once.
+  const platformTotal = facets.difficulties.reduce((sum, d) => sum + d.count, 0) || 17;
   const activeFilters = [
     query.region && REGION_LABELS[query.region as keyof typeof REGION_LABELS],
     query.difficulty && DIFFICULTY_LABELS[query.difficulty as keyof typeof DIFFICULTY_LABELS],
@@ -70,7 +73,7 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
             <T k="page.trails.title" />
           </h1>
           <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
-            <T k="page.trails.subtitle" />
+            <T k="page.trails.subtitle" params={{ n: platformTotal }} />
           </p>
           <div className="mt-6 max-w-2xl">
             <Suspense fallback={<div className="skeleton h-11 w-full" />}>
@@ -91,7 +94,7 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-basalt-600 dark:text-basalt-300">
               <span className="font-semibold text-basalt-900 dark:text-basalt-50">{pagination.total}</span>{' '}
-              <T k={pagination.total === 1 ? 'trailsPage.destination.one' : 'trailsPage.destination.other'} />
+              <T k={pagination.total === 1 ? 'trailsPage.trail.one' : 'trailsPage.trail.other'} />
               {activeFilters.length > 0 && (
                 <>
                   {' '}
@@ -115,7 +118,11 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
                   query.q ? <T k="trailsPage.noMatchQuery" params={{ q: query.q }} /> : <T k="trailsPage.noMatchFilters" />
                 }
                 message={
-                  query.q ? <T k="trailsPage.noMatchQueryHint" /> : <T k="trailsPage.noMatchFiltersHint" />
+                  query.q ? (
+                    <T k="trailsPage.noMatchQueryHint" />
+                  ) : (
+                    <T k="trailsPage.noMatchFiltersHint" params={{ n: platformTotal }} />
+                  )
                 }
                 action={{ href: '/trails', label: <T k="trailsPage.clearFilters" /> }}
               />

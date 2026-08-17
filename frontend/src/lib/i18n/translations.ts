@@ -56,7 +56,7 @@ const en = {
   'hero.title': 'Hiking in Cameroon, with the information you actually need',
   'hero.body':
     'Most people who want to hike here never start, because what they can find is vague, wrong or missing. This is the fix: real distances and durations, difficulty ratings that mean something specific, live weather that tells you when not to go, permit rules, and registered local guides you can book directly.',
-  'hero.stat.destinations': 'Destinations, all checked',
+  'hero.stat.destinations': 'Trails, all checked',
   'hero.stat.regions': 'Regions covered',
   'hero.stat.summit': 'Highest summit — Fako',
   'hero.stat.currency': 'Prices in local currency',
@@ -105,9 +105,9 @@ const en = {
   'common.loading': 'Loading…',
 
   // page headers
-  'page.trails.title': 'Hiking destinations',
+  'page.trails.title': 'Hiking trails',
   'page.trails.subtitle':
-    "Seventeen destinations, at least one in each of Cameroon's ten regions. Every distance, ascent and duration below is for the standard route and a moderately fit hiker.",
+    "{{n}} trails, at least one in each of Cameroon's ten regions. Every distance, ascent and duration below is for the standard route and a moderately fit hiker.",
   'page.sites.title': 'Cameroon sites & history',
   'page.map.subtitle':
     'Toggle Streets / Satellite in the top-right of the map, or use "Zoom to my location" to fly the satellite view in on wherever you are right now.',
@@ -144,8 +144,8 @@ const en = {
   'search.button': 'Search',
 
   // trails list page
-  'trailsPage.destination.one': 'destination',
-  'trailsPage.destination.other': 'destinations',
+  'trailsPage.trail.one': 'trail',
+  'trailsPage.trail.other': 'trails',
   'trailsPage.matching': 'matching {{filters}}',
   'trailsPage.viewOnMap': 'View on map',
   'trailsPage.noMatchQuery': 'No trails match “{{q}}”',
@@ -153,9 +153,9 @@ const en = {
   'trailsPage.noMatchQueryHint':
     'Check the spelling, or try just the place name — "Kupe" instead of "Mount Kupe", for example.',
   'trailsPage.noMatchFiltersHint':
-    'Try widening the difficulty or region filter — there are 17 destinations on the platform in total, so narrow searches can run out fast.',
+    'Try widening the difficulty or region filter — there are {{n}} trails on the platform in total, so narrow searches can run out fast.',
   'trailsPage.clearFilters': 'Clear filters',
-  'trailsPage.popularInstead': 'Popular destinations instead',
+  'trailsPage.popularInstead': 'Popular trails instead',
 
   // trail detail page chrome (deep content itself is translated separately, see TrailTranslation)
   'common.home': 'Home',
@@ -212,7 +212,7 @@ const en = {
   'trailDetail.beforeYouSetOffBody':
     'Tell someone your route and a turnaround time. There is no mountain rescue service in Cameroon — on the high trails, evacuation means your guide carrying you down.',
   'trailDetail.moreInRegion': 'More in {{region}}',
-  'trailDetail.moreInRegionDesc': 'Other destinations in the same region, so you can build a trip rather than a day.',
+  'trailDetail.moreInRegionDesc': 'Other trails in the same region, so you can build a trip rather than a day.',
 };
 
 /** Partial, not exhaustive: a key missing here falls back to English at lookup time
@@ -242,7 +242,7 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'hero.title': "La randonnée au Cameroun, avec l'information dont vous avez vraiment besoin",
   'hero.body':
     "La plupart des gens qui veulent randonner ici ne commencent jamais, car ce qu'ils trouvent est vague, faux ou incomplet. Voici la solution : distances et durées réelles, niveaux de difficulté précis, météo en direct qui vous dit quand ne pas partir, règles de permis, et guides locaux enregistrés réservables directement.",
-  'hero.stat.destinations': 'Destinations, toutes vérifiées',
+  'hero.stat.destinations': 'Sentiers, tous vérifiés',
   'hero.stat.regions': 'Régions couvertes',
   'hero.stat.summit': 'Sommet le plus haut — Fako',
   'hero.stat.currency': 'Prix en monnaie locale',
@@ -286,9 +286,9 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'common.bookNow': 'Réserver',
   'common.loading': 'Chargement…',
 
-  'page.trails.title': 'Destinations de randonnée',
+  'page.trails.title': 'Sentiers de randonnée',
   'page.trails.subtitle':
-    "Dix-sept destinations, au moins une dans chacune des dix régions du Cameroun. Chaque distance, dénivelé et durée ci-dessous correspond à l'itinéraire standard pour un randonneur en forme moyenne.",
+    "{{n}} sentiers, au moins un dans chacune des dix régions du Cameroun. Chaque distance, dénivelé et durée ci-dessous correspond à l'itinéraire standard pour un randonneur en forme moyenne.",
   'page.sites.title': 'Sites et histoire du Cameroun',
   'page.map.subtitle':
     'Basculez Rues / Satellite en haut à droite de la carte, ou utilisez « Zoomer sur ma position » pour centrer la vue satellite là où vous êtes.',
@@ -322,8 +322,8 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'search.ariaLabel': 'Rechercher des sentiers',
   'search.button': 'Rechercher',
 
-  'trailsPage.destination.one': 'destination',
-  'trailsPage.destination.other': 'destinations',
+  'trailsPage.trail.one': 'sentier',
+  'trailsPage.trail.other': 'sentiers',
   'trailsPage.matching': 'correspondant à {{filters}}',
   'trailsPage.viewOnMap': 'Voir sur la carte',
   'trailsPage.noMatchQuery': 'Aucun sentier ne correspond à « {{q}} »',
@@ -331,9 +331,9 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'trailsPage.noMatchQueryHint':
     'Vérifiez l\'orthographe, ou essayez juste le nom du lieu — « Kupé » plutôt que « Mont Kupé », par exemple.',
   'trailsPage.noMatchFiltersHint':
-    "Essayez d'élargir le filtre de difficulté ou de région — il y a 17 destinations au total sur la plateforme, donc une recherche trop précise peut vite ne plus rien donner.",
+    "Essayez d'élargir le filtre de difficulté ou de région — il y a {{n}} sentiers au total sur la plateforme, donc une recherche trop précise peut vite ne plus rien donner.",
   'trailsPage.clearFilters': 'Effacer les filtres',
-  'trailsPage.popularInstead': 'Destinations populaires à la place',
+  'trailsPage.popularInstead': 'Sentiers populaires à la place',
 
   'common.home': 'Accueil',
   'trailDetail.summitBadge': 'Sommet {{n}} m',
@@ -389,7 +389,7 @@ const fr: Partial<Record<TranslationKey, string>> = {
   'trailDetail.beforeYouSetOffBody':
     "Indiquez votre itinéraire et une heure de retour à quelqu'un. Il n'existe pas de service de secours en montagne au Cameroun — sur les sentiers d'altitude, l'évacuation signifie être porté par votre guide.",
   'trailDetail.moreInRegion': 'Plus de sentiers en {{region}}',
-  'trailDetail.moreInRegionDesc': 'D\'autres destinations dans la même région, pour construire un voyage plutôt qu\'une simple journée.',
+  'trailDetail.moreInRegionDesc': 'D\'autres sentiers dans la même région, pour construire un voyage plutôt qu\'une simple journée.',
 };
 
 const es: Partial<Record<TranslationKey, string>> = {
@@ -416,7 +416,7 @@ const es: Partial<Record<TranslationKey, string>> = {
   'hero.title': 'Senderismo en Camerún, con la información que realmente necesitas',
   'hero.body':
     'La mayoría de quienes quieren hacer senderismo aquí nunca empiezan, porque lo que encuentran es vago, erróneo o incompleto. Esta es la solución: distancias y duraciones reales, niveles de dificultad claros, clima en vivo que te dice cuándo no salir, normas de permisos y guías locales registrados que puedes reservar directamente.',
-  'hero.stat.destinations': 'Destinos, todos verificados',
+  'hero.stat.destinations': 'Senderos, todos verificados',
   'hero.stat.regions': 'Regiones cubiertas',
   'hero.stat.summit': 'Cumbre más alta — Fako',
   'hero.stat.currency': 'Precios en moneda local',
@@ -460,9 +460,9 @@ const es: Partial<Record<TranslationKey, string>> = {
   'common.bookNow': 'Reservar ahora',
   'common.loading': 'Cargando…',
 
-  'page.trails.title': 'Destinos de senderismo',
+  'page.trails.title': 'Senderos de Camerún',
   'page.trails.subtitle':
-    'Diecisiete destinos, al menos uno en cada una de las diez regiones de Camerún. Cada distancia, desnivel y duración a continuación corresponde a la ruta estándar para un senderista de forma física media.',
+    '{{n}} senderos, al menos uno en cada una de las diez regiones de Camerún. Cada distancia, desnivel y duración a continuación corresponde a la ruta estándar para un senderista de forma física media.',
   'page.sites.title': 'Sitios e historia de Camerún',
   'page.map.subtitle':
     'Alterna Calles / Satélite en la esquina superior derecha del mapa, o usa "Ir a mi ubicación" para centrar la vista satelital donde te encuentras.',
@@ -495,7 +495,7 @@ const pt: Partial<Record<TranslationKey, string>> = {
   'hero.title': 'Caminhadas nos Camarões, com a informação que você realmente precisa',
   'hero.body':
     'A maioria das pessoas que querem caminhar aqui nunca começa, porque o que encontram é vago, errado ou incompleto. Esta é a solução: distâncias e durações reais, níveis de dificuldade claros, clima ao vivo que diz quando não ir, regras de licenças, e guias locais registrados que você pode reservar diretamente.',
-  'hero.stat.destinations': 'Destinos, todos verificados',
+  'hero.stat.destinations': 'Trilhas, todas verificadas',
   'hero.stat.regions': 'Regiões cobertas',
   'hero.stat.summit': 'Pico mais alto — Fako',
   'hero.stat.currency': 'Preços em moeda local',
@@ -539,9 +539,9 @@ const pt: Partial<Record<TranslationKey, string>> = {
   'common.bookNow': 'Reservar agora',
   'common.loading': 'Carregando…',
 
-  'page.trails.title': 'Destinos de caminhada',
+  'page.trails.title': 'Trilhas de Camarões',
   'page.trails.subtitle':
-    'Dezessete destinos, pelo menos um em cada uma das dez regiões dos Camarões. Cada distância, ganho de altitude e duração abaixo corresponde à rota padrão para um caminhante com condicionamento médio.',
+    '{{n}} trilhas, pelo menos uma em cada uma das dez regiões dos Camarões. Cada distância, ganho de altitude e duração abaixo corresponde à rota padrão para um caminhante com condicionamento médio.',
   'page.sites.title': 'Locais e história dos Camarões',
   'page.map.subtitle':
     'Alterne Ruas / Satélite no canto superior direito do mapa, ou use "Ir para minha localização" para centralizar a vista de satélite onde você está.',

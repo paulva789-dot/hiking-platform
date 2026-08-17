@@ -4,7 +4,7 @@ import { GalleryBrowser } from './GalleryBrowser';
 export const metadata: Metadata = {
   title: 'Photo gallery',
   description:
-    "Photographs of Cameroon's hiking destinations, uploaded by hikers and photographers. Landscape prints and drone footage available to licence.",
+    "Photographs of Cameroon's hiking trails, uploaded by hikers and photographers. Landscape prints and drone footage available to licence.",
 };
 
 export default function GalleryPage() {

@@ -8,7 +8,7 @@ import { T } from '@/components/T';
 export const metadata: Metadata = {
   title: 'Interactive trail map',
   description:
-    'Every hiking destination in Cameroon on one map — routes, trailheads and difficulty, across all ten regions.',
+    'Every hiking trail in Cameroon on one map — routes, trailheads and difficulty, across all ten regions.',
 };
 
 export const revalidate = 600;
@@ -26,7 +26,7 @@ export default async function MapPage() {
             <T k="page.map.title" />
           </h1>
           <p className="mt-2 max-w-2xl text-basalt-600 dark:text-basalt-300">
-            All {trails.length} destinations plotted on OpenStreetMap. Line colour is the difficulty
+            All {trails.length} trails plotted on OpenStreetMap. Line colour is the difficulty
             rating; click any pin for the numbers and a link to the full trail page.
           </p>
         </div>

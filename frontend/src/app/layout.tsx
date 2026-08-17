@@ -54,11 +54,11 @@ const LOCALE_INIT_SCRIPT = `
 
 export const metadata: Metadata = {
   title: {
-    default: 'Trek Cameroon — Hiking trails, guides and sight-seeing across Cameroon & Central Africa',
+    default: 'Trek Cameroon — Hiking trails & sights in Cameroon, guides across Central Africa',
     template: '%s · Trek Cameroon',
   },
   description:
-    'Correct, checked information on hiking in Cameroon: destinations across all ten regions, real distances and durations, difficulty ratings that mean something, weather, safety guidance, and registered guides bookable across Cameroon and the wider CEMAC region.',
+    'Correct, checked information on hiking in Cameroon: trails across all ten regions, real distances and durations, difficulty ratings that mean something, weather, safety guidance, and registered guides bookable across Cameroon and the wider CEMAC region.',
   keywords: [
     'Cameroon hiking',
     'Mount Cameroon',
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Trek Cameroon',
-    description: 'Hiking trails, registered guides and sight-seeing across Cameroon and Central Africa.',
+    description: 'Hiking trails and sights across Cameroon, plus registered guides bookable across Central Africa.',
     type: 'website',
   },
 };
