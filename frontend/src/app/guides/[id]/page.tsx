@@ -158,7 +158,7 @@ export default async function GuideDetailPage({ params }: { params: Params }) {
                               {open.slice(0, 3).map((s) => (
                                 <span
                                   key={s.id}
-                                  className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200"
+                                  className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200"
                                 >
                                   {formatDateRange(s.startDate, s.endDate)} ·{' '}
                                   {s.capacity - s.seatsBooked} left

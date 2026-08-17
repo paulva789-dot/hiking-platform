@@ -571,8 +571,12 @@ function KeyFact({
         }`}
       >
         {value}
+        {sub && (
+          <span className="mt-0.5 block text-xs font-normal leading-snug text-basalt-600 dark:text-basalt-300">
+            {sub}
+          </span>
+        )}
       </dd>
-      {sub && <p className="mt-0.5 text-xs leading-snug text-basalt-600 dark:text-basalt-300">{sub}</p>}
     </div>
   );
 }

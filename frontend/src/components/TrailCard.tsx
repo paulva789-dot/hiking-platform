@@ -66,7 +66,7 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
 
         <div className="mt-3 flex items-center justify-between border-t border-basalt-100 pt-3">
           <Stars rating={trail.ratingAvg} count={trail.ratingCount} />
-          <span className="text-xs font-semibold text-forest-700 group-hover:underline">
+          <span className="text-xs font-semibold text-forest-700 group-hover:underline dark:text-forest-400">
             <T k="trailCard.details" />
           </span>
         </div>

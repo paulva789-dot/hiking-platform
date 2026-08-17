@@ -57,7 +57,7 @@ export default async function TourPage({ params }: { params: Params }) {
             <span className="chip bg-terracotta-100 text-terracotta-800 ring-terracotta-200">
               {tour.durationDays} day{tour.durationDays > 1 ? 's' : ''}
             </span>
-            <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+            <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
               Max {tour.maxGroupSize} people
             </span>
             {tour.trail?.region && (

@@ -76,6 +76,7 @@ export function TrailFilters({ facets, basePath = '/trails' }: { facets: Facets;
 
       <FilterGroup label={<T k="filters.sortBy" />}>
         <select
+          aria-label={t('filters.sortBy')}
           value={params.get('sort') ?? 'popular'}
           onChange={(e) => setParam('sort', e.target.value === 'popular' ? null : e.target.value)}
           className="input"

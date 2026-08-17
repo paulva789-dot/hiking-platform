@@ -14,16 +14,32 @@ export function LogoMark({ className = 'h-5 w-5' }: { className?: string }) {
       <path
         d="M9 3.2 L9.4 4.44 L10.71 4.44 L9.65 5.21 L10.06 6.46 L9 5.69 L7.94 6.46 L8.35 5.21 L7.29 4.44 L8.6 4.44 Z"
         fill="#FCD116"
-        className="animate-star-twinkle"
+        className="animate-star-twinkle motion-reduce:animate-none"
       />
     </svg>
   );
 }
 
-export function LogoText({ className = '' }: { className?: string }) {
+export function LogoText({
+  className = '',
+  surface = 'auto',
+}: {
+  className?: string;
+  /**
+   * Which background this sits on. Flag-green (cameroon-green) reads
+   * clearly on a light surface but fails contrast against the dark forest
+   * sections — and header vs. footer need different rules here, since the
+   * header's background actually flips with the site's own light/dark
+   * theme toggle while the footer is always dark regardless of it.
+   * `"auto"` (header) tracks that toggle via the `dark:` variant;
+   * `"dark"` (footer) is a background that's dark unconditionally.
+   */
+  surface?: 'auto' | 'dark';
+}) {
+  const greenClass = surface === 'dark' ? 'text-forest-400' : 'text-cameroon-green dark:text-forest-400';
   return (
     <span className={className}>
-      Trek <span className="text-cameroon-green">Cameroon</span>
+      Trek <span className={greenClass}>Cameroon</span>
     </span>
   );
 }

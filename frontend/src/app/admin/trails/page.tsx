@@ -134,10 +134,10 @@ export default function AdminTrailsPage() {
                       >
                         {trail.published ? 'Published' : 'Draft'}
                       </span>
-                      <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+                      <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
                         {REGION_LABELS[trail.region]}
                       </span>
-                      <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+                      <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
                         {DIFFICULTY_LABELS[trail.difficulty]}
                       </span>
                     </div>

@@ -242,7 +242,7 @@ export default async function HomePage() {
 
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {guide.regions.slice(0, 3).map((r) => (
-                      <span key={r} className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+                      <span key={r} className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
                         {REGION_LABELS[r]}
                       </span>
                     ))}
@@ -287,7 +287,7 @@ export default async function HomePage() {
               >
                 <DifficultyChip difficulty={level} />
                 <p className="mt-3 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{DIFFICULTY_MEANING[level]}</p>
-                <p className="mt-3 text-xs font-semibold text-forest-700 group-hover:underline">
+                <p className="mt-3 text-xs font-semibold text-forest-700 group-hover:underline dark:text-forest-400">
                   See {DIFFICULTY_LABELS[level].toLowerCase()} trails →
                 </p>
               </Link>
@@ -341,7 +341,7 @@ export default async function HomePage() {
       <section className="border-b border-basalt-200 bg-basalt-100 py-14 dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start">
           <Reveal>
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-forest-700">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-forest-700 dark:text-forest-400">
               <T k="whatIsHiking.eyebrow" />
             </p>
             <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50 sm:text-3xl">
@@ -502,7 +502,7 @@ function ProblemCard({
     <div className="card flex flex-col p-6">
       <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{problem}</p>
       <p className="mt-3 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{answer}</p>
-      <Link href={href} className="mt-4 text-sm font-semibold text-forest-700 hover:underline">
+      <Link href={href} className="mt-4 text-sm font-semibold text-forest-700 hover:underline dark:text-forest-400">
         {cta} →
       </Link>
     </div>

@@ -30,7 +30,7 @@ export default function SitesPage() {
 
       <header className="border-b border-basalt-200 bg-white dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section py-10">
-          <p className="mb-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cameroon-green">
+          <p className="mb-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cameroon-green dark:text-forest-400">
             <span
               className="h-2 w-3 rounded-[1px] bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow"
               aria-hidden

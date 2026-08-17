@@ -20,7 +20,7 @@ export function RegionPlacePicker() {
 
   return (
     <div className="card p-6">
-      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cameroon-green">
+      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cameroon-green dark:text-forest-400">
         <span
           className="h-2 w-3 rounded-[1px] bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow"
           aria-hidden
@@ -51,7 +51,7 @@ export function RegionPlacePicker() {
               {REGION_LABELS[r]}
               <span
                 className={`block font-mono text-[11px] font-normal tabular-nums ${
-                  active ? 'text-forest-100' : 'text-basalt-500 dark:text-basalt-400'
+                  active ? 'text-forest-100' : 'text-basalt-600 dark:text-basalt-300'
                 }`}
               >
                 {t(count === 1 ? 'picker.siteCount.one' : 'picker.siteCount.other', { n: count })}

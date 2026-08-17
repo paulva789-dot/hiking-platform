@@ -134,7 +134,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
                       {formatXAF(guide.dayRateXAF)}
                     </p>
                   </div>
-                  <span className="text-xs font-semibold text-forest-700 group-hover:underline">
+                  <span className="text-xs font-semibold text-forest-700 group-hover:underline dark:text-forest-400">
                     Profile →
                   </span>
                 </div>
@@ -149,8 +149,8 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
 
         <div className="mt-12 rounded-2xl bg-forest-950 p-8 text-white sm:p-10">
           <SectionHeading
-            eyebrow="For guides"
-            title="List your services on Trek Cameroon"
+            eyebrow={<span className="text-forest-400">For guides</span>}
+            title={<span className="text-forest-300">List your services on Trek Cameroon</span>}
           />
           <p className="-mt-2 max-w-2xl text-basalt-300">
             Create a profile, get verified, publish tours with real departure dates, and take

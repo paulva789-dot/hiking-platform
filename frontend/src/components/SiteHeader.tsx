@@ -65,7 +65,7 @@ export function SiteHeader() {
               className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 isActive(item.href)
                   ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
-                  : 'text-basalt-600 dark:text-basalt-300 hover:bg-basalt-100 hover:text-basalt-900 dark:text-basalt-600 dark:text-basalt-400 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
+                  : 'text-basalt-600 dark:text-basalt-400 hover:bg-basalt-100 hover:text-basalt-900 dark:hover:bg-basalt-800 dark:hover:text-basalt-100'
               }`}
             >
               {t(item.key)}

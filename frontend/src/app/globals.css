@@ -38,6 +38,24 @@
   }
 }
 
+/* Global reduced-motion kill switch. The site leans on hover-lift cards
+   (`hover:-translate-y-1 transition-*`) in dozens of places — rather than
+   hunting down every Tailwind combination individually, this catches all of
+   them plus anything added later, collapsing every animation/transition to
+   effectively instant rather than removing the end state. `scroll-behavior`
+   is included since `html { scroll-behavior: smooth }` above drives every
+   anchor jump (like the hero's "How difficulty works" link) on the page. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer components {
   .btn {
     @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg px-4 py-2.5 text-sm font-semibold
@@ -110,7 +128,7 @@
   }
 
   .skeleton::after {
-    @apply absolute inset-0 -translate-x-full animate-shimmer
+    @apply absolute inset-0 -translate-x-full animate-shimmer motion-reduce:animate-none
            bg-gradient-to-r from-transparent via-white/60 to-transparent;
     content: '';
   }
@@ -118,9 +136,10 @@
   /* ---- Cameroon flag accents ------------------------------------------
      A thin animated tricolour bar used as a brand accent (header top edge,
      section dividers, card highlights) plus a small twinkling star badge
-     that echoes the star on the flag.                                    */
+     that echoes the star on the flag. Both freeze to their static frame
+     under prefers-reduced-motion rather than looping forever.            */
   .flag-bar {
-    @apply h-[3px] w-full bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow;
+    @apply h-[3px] w-full bg-flag-flow-gradient bg-[length:200%_100%] animate-flag-flow motion-reduce:animate-none;
   }
 
   .flag-bar-static {
@@ -128,7 +147,7 @@
   }
 
   .flag-star {
-    @apply inline-grid h-4 w-4 shrink-0 animate-star-twinkle place-items-center text-cameroon-yellow;
+    @apply inline-grid h-4 w-4 shrink-0 animate-star-twinkle motion-reduce:animate-none place-items-center text-cameroon-yellow;
   }
 
   .flag-chip {
@@ -201,6 +220,13 @@
   border-radius: 9999px;
   background: #2563eb;
   animation: locate-pulse 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .user-location-marker .pulse {
+    animation: none;
+    opacity: 0.35;
+  }
 }
 
 .locate-btn {

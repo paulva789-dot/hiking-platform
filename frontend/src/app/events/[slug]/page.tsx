@@ -48,7 +48,7 @@ export default async function EventPage({ params }: { params: Params }) {
                 {REGION_LABELS[event.region]}
               </span>
             )}
-            <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+            <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
               {formatDateRange(event.startDate, event.endDate)}
             </span>
           </div>

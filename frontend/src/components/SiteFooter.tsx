@@ -4,6 +4,12 @@ import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n/language-context';
 import { LogoMark, LogoText } from './Logo';
 
+const EMERGENCY_NUMBERS = [
+  { labelKey: 'footer.emergency.police', number: '117' },
+  { labelKey: 'footer.emergency.fire', number: '118' },
+  { labelKey: 'footer.emergency.ambulance', number: '119' },
+] as const;
+
 const COLUMNS = [
   {
     title: 'Explore',
@@ -52,10 +58,21 @@ export function SiteFooter() {
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-forest-600 text-white" aria-hidden>
               <LogoMark />
             </span>
-            <LogoText className="font-display text-lg font-semibold text-white" />
+            <LogoText className="font-display text-lg font-semibold text-white" surface="dark" />
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">{t('footer.tagline')}</p>
-          <p className="mt-4 text-xs text-basalt-600 dark:text-basalt-400">{t('footer.emergency')}</p>
+          <p className="mt-4 text-xs text-basalt-400">
+            {t('footer.emergencyLabel')}{' '}
+            {EMERGENCY_NUMBERS.map((e, i) => (
+              <span key={e.number}>
+                {i > 0 && ' · '}
+                {t(e.labelKey)}{' '}
+                <a href={`tel:${e.number}`} className="font-semibold text-white underline underline-offset-2 hover:text-forest-300">
+                  {e.number}
+                </a>
+              </span>
+            ))}
+          </p>
         </div>
 
         {COLUMNS.map((col) => (
@@ -77,7 +94,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="section flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-basalt-600 dark:text-basalt-400">
+        <div className="section flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-basalt-400">
           <p>© {new Date().getFullYear()} Trek Cameroon. {t('footer.rights')}</p>
           <p>{t('footer.mapCredit')}</p>
         </div>

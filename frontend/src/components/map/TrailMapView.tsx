@@ -67,6 +67,19 @@ const pinIcon = (color: string, opts: { label?: string; glyph?: string } = {}) =
   });
 };
 
+/**
+ * Leaflet's `alt` marker option only ever lands as the `.alt` DOM property,
+ * which is meaningless on the `<div>` a divIcon renders (only `<img>` reads
+ * it) — so a divIcon marker's `role="button"` wrapper has no accessible
+ * name no matter what `alt` is set to. Setting `aria-label` directly on the
+ * real element once Leaflet creates it is the one path that actually works.
+ */
+const markerA11y = (label: string) => ({
+  add: (e: L.LeafletEvent) => {
+    (e.target as L.Marker).getElement()?.setAttribute('aria-label', label);
+  },
+});
+
 /** Zooms the map to fit whatever was passed in, once, after mount. */
 function FitBounds({ points }: { points: [number, number][] }) {
   const map = useMap();
@@ -159,9 +172,10 @@ function LocateControl({
           iconSize: [16, 16],
           iconAnchor: [8, 8],
         });
-        L.marker([latitude, longitude], { icon, zIndexOffset: 1000 })
+        const youAreHereMarker = L.marker([latitude, longitude], { icon, zIndexOffset: 1000, alt: 'Your location' })
           .addTo(map)
           .bindPopup(`You are here${accuracy ? ` &plusmn; ${Math.round(accuracy)} m` : ''}`);
+        youAreHereMarker.getElement()?.setAttribute('aria-label', 'Your location');
         setStatus('found');
       },
       () => setStatus('error'),
@@ -256,6 +270,8 @@ export function TrailsOverviewMap({
             key={trail.id}
             position={[trail.startLat, trail.startLng]}
             icon={pinIcon(DIFFICULTY_MAP_COLOR[trail.difficulty], { glyph: CATEGORY_GLYPH[trail.category] })}
+            alt={trail.name}
+            eventHandlers={markerA11y(trail.name)}
           >
             <Popup>
               <div className="p-3">
@@ -323,7 +339,13 @@ export function SingleTrailMap({
       )}
 
       {waypoints.map((wp, index) => (
-        <Marker key={wp.id} position={[wp.lat, wp.lng]} icon={pinIcon(color, { label: String(index + 1) })}>
+        <Marker
+          key={wp.id}
+          position={[wp.lat, wp.lng]}
+          icon={pinIcon(color, { label: String(index + 1) })}
+          alt={`Waypoint ${index + 1}: ${wp.name}`}
+          eventHandlers={markerA11y(`Waypoint ${index + 1}: ${wp.name}`)}
+        >
           <Popup>
             <div className="p-3">
               <p className="text-[10px] font-bold uppercase tracking-wider text-forest-700">
@@ -383,6 +405,8 @@ export function CameroonSitesMap({ sites, height = '480px' }: { sites: SitePoint
             key={site.slug}
             position={[site.lat, site.lng]}
             icon={pinIcon('#CE1126', { glyph: SCENE_GLYPH[site.sceneType ?? 'none'] })}
+            alt={site.name}
+            eventHandlers={markerA11y(site.name)}
           >
             <Popup>
               <div className="p-3">

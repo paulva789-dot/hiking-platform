@@ -88,7 +88,10 @@ const en = {
   // footer
   'footer.tagline':
     'Honest, checked information about hiking in Cameroon — real distances, real times, real hazards, and the local guides who know the ground. From Mont Mbankolo before work to four days in the Dja — and guided tours booked across the wider CEMAC region.',
-  'footer.emergency': 'Emergency numbers in Cameroon — Police 117 · Fire 118 · Ambulance 119',
+  'footer.emergencyLabel': 'Emergency numbers in Cameroon —',
+  'footer.emergency.police': 'Police',
+  'footer.emergency.fire': 'Fire',
+  'footer.emergency.ambulance': 'Ambulance',
   'footer.explore': 'Explore',
   'footer.plan': 'Plan',
   'footer.community': 'Community',
@@ -275,7 +278,10 @@ const fr: Partial<Record<TranslationKey, string>> = {
 
   'footer.tagline':
     'Des informations honnêtes et vérifiées sur la randonnée au Cameroun — vraies distances, vrais temps, vrais dangers, et les guides locaux qui connaissent le terrain. Du Mont Mbankolo avant le travail à quatre jours dans la Dja — et des circuits guidés réservables dans toute la zone CEMAC.',
-  'footer.emergency': 'Numéros d\'urgence au Cameroun — Police 117 · Pompiers 118 · Ambulance 119',
+  'footer.emergencyLabel': 'Numéros d\'urgence au Cameroun —',
+  'footer.emergency.police': 'Police',
+  'footer.emergency.fire': 'Pompiers',
+  'footer.emergency.ambulance': 'Ambulance',
   'footer.explore': 'Explorer',
   'footer.plan': 'Planifier',
   'footer.community': 'Communauté',
@@ -447,7 +453,6 @@ const es: Partial<Record<TranslationKey, string>> = {
 
   'footer.tagline':
     'Información honesta y verificada sobre el senderismo en Camerún — distancias reales, tiempos reales, peligros reales, y los guías locales que conocen el terreno. Desde el Mont Mbankolo antes del trabajo hasta cuatro días en la Dja — y tours guiados reservables en toda la región CEMAC.',
-  'footer.emergency': 'Números de emergencia en Camerún — Policía 117 · Bomberos 118 · Ambulancia 119',
   'footer.explore': 'Explorar',
   'footer.plan': 'Planificar',
   'footer.community': 'Comunidad',
@@ -524,7 +529,6 @@ const pt: Partial<Record<TranslationKey, string>> = {
 
   'footer.tagline':
     'Informação honesta e verificada sobre caminhadas nos Camarões — distâncias reais, tempos reais, perigos reais, e os guias locais que conhecem o terreno. Do Monte Mbankolo antes do trabalho a quatro dias na Dja — e passeios guiados reserváveis em toda a região CEMAC.',
-  'footer.emergency': 'Números de emergência nos Camarões — Polícia 117 · Bombeiros 118 · Ambulância 119',
   'footer.explore': 'Explorar',
   'footer.plan': 'Planejar',
   'footer.community': 'Comunidade',

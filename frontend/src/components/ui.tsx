@@ -29,7 +29,11 @@ export function DifficultyChip({
       ? { gap: 'gap-1.5', pip: 'text-xs', text: 'text-xs', pad: 'px-2 py-1' }
       : { gap: 'gap-2', pip: 'text-sm', text: 'text-sm', pad: 'px-2.5 py-1.5' };
   return (
+    // role="group" rather than a bare span: a plain generic element doesn't
+    // expose aria-label to assistive tech at all, since it carries no
+    // semantics for a screen reader to attach the label to.
     <span
+      role="group"
       className={`inline-flex items-center ${sizes.gap} rounded-full bg-white/95 ring-1 ring-inset ring-basalt-200 ${sizes.pad} font-semibold dark:bg-basalt-900 dark:ring-basalt-700`}
       aria-label={`${DIFFICULTY_LABELS[difficulty]} — ${DIFFICULTY_MEANING[difficulty]}`}
     >
@@ -175,7 +179,7 @@ export function SectionHeading({
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
         {eyebrow && (
-          <p className="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-forest-700">{eyebrow}</p>
+          <p className="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-forest-700 dark:text-forest-400">{eyebrow}</p>
         )}
         <h2 className="font-display text-2xl font-semibold text-forest-800 dark:text-forest-400 sm:text-3xl">{title}</h2>
         {description && <p className="mt-2 max-w-2xl text-sm text-basalt-600 dark:text-basalt-300">{description}</p>}
@@ -204,7 +208,7 @@ export function Skeleton({ className = 'h-4 w-full' }: { className?: string }) {
 
 export function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">{children}</span>
+    <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">{children}</span>
   );
 }
 

@@ -106,7 +106,7 @@ function SafetyManager() {
             <li key={item.id} className="card flex flex-wrap items-start justify-between gap-4 p-4">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+                  <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
                     {item.category}
                   </span>
                   <span className="text-xs text-basalt-600 dark:text-basalt-400">order {item.order}</span>
@@ -321,7 +321,7 @@ function ListingManager() {
             <li key={l.id} className="card flex flex-wrap items-start justify-between gap-4 p-4">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+                  <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
                     {l.kind === 'ACCOMMODATION' ? 'Stay' : 'Gear'}
                   </span>
                   {l.featured && (
@@ -934,7 +934,7 @@ function AdManager() {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="font-semibold text-basalt-900 dark:text-basalt-50">{ad.advertiser}</p>
-                  <span className="chip bg-basalt-100 text-basalt-700 dark:text-basalt-300 ring-basalt-200">
+                  <span className="chip bg-basalt-100 text-basalt-700 dark:bg-basalt-800 dark:text-basalt-300 ring-basalt-200">
                     {ad.placement}
                   </span>
                   {!ad.active && (

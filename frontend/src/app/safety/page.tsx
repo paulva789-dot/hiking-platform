@@ -156,12 +156,12 @@ export default async function SafetyPage() {
               </a>
             ))}
           </div>
-          <p className="mt-3 text-xs text-basalt-600 dark:text-basalt-400">Free from any Cameroonian mobile.</p>
+          <p className="mt-3 text-xs text-basalt-400">Free from any Cameroonian mobile.</p>
         </div>
       </header>
 
       {/* ------------------------------------------------ difficulty meaning */}
-      <section className="border-b border-basalt-200 bg-white py-12">
+      <section className="border-b border-basalt-200 bg-white py-12 dark:border-basalt-800 dark:bg-basalt-950">
         <div className="section">
           <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">
             What our difficulty ratings commit to
@@ -199,7 +199,7 @@ export default async function SafetyPage() {
       </section>
 
       {/* ------------------------------------------------------ equipment & risks */}
-      <section className="border-b border-basalt-200 bg-basalt-50 py-12">
+      <section className="border-b border-basalt-200 bg-basalt-50 py-12 dark:border-basalt-800 dark:bg-basalt-900">
         <div className="section grid gap-10 lg:grid-cols-2">
           <div>
             <h2 className="font-display text-2xl font-semibold text-basalt-900 dark:text-basalt-50">Equipment you actually need</h2>
