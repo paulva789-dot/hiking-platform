@@ -29,6 +29,11 @@ interface DashboardData {
     platformCommissionXAF: number;
     netPayoutXAF: number;
   } | null;
+  toolkit: {
+    profileViews: number;
+    totalBookings: number;
+    conversionPct: number;
+  } | null;
 }
 
 const TABS = ['Overview', 'Tours', 'Bookings', 'Profile', 'Membership'] as const;
@@ -48,7 +53,7 @@ export default function GuideWorkspace() {
       // A guide with no profile has nothing to see but the application form.
       if (!res.profile) setTab('Profile');
     } catch {
-      setData({ profile: null, bookings: [], earnings: null });
+      setData({ profile: null, bookings: [], earnings: null, toolkit: null });
     } finally {
       setLoading(false);
     }
@@ -73,6 +78,7 @@ export default function GuideWorkspace() {
   const profile = data?.profile ?? null;
   const bookings = data?.bookings ?? [];
   const earnings = data?.earnings;
+  const toolkit = data?.toolkit;
 
   const upcomingBookings = bookings.filter(
     (b) => b.status !== 'CANCELLED' && new Date(b.schedule.startDate) >= new Date()
@@ -178,6 +184,31 @@ export default function GuideWorkspace() {
                     hint={`after ${formatXAF(earnings?.platformCommissionXAF ?? 0)} platform commission`}
                   />
                 </div>
+
+                <section>
+                  <SectionHeading
+                    title="Guide toolkit"
+                    description="How often hikers find your profile, and how many of them actually book."
+                  />
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <Stat label="Profile views" value={toolkit?.profileViews ?? 0} />
+                    <Stat label="Bookings" value={toolkit?.totalBookings ?? 0} />
+                    <Stat
+                      label="View-to-booking rate"
+                      value={`${toolkit?.conversionPct ?? 0}%`}
+                      hint={
+                        profile.plan !== 'PRO'
+                          ? 'Pro members rank above Basic and unpaid profiles in search'
+                          : undefined
+                      }
+                    />
+                  </div>
+                  {profile.plan !== 'PRO' && (
+                    <button type="button" onClick={() => setTab('Membership')} className="btn-secondary mt-4 text-xs">
+                      See Pro placement →
+                    </button>
+                  )}
+                </section>
 
                 <section>
                   <SectionHeading title="Next departures" />

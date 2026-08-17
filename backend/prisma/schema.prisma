@@ -186,6 +186,10 @@ model GuideProfile {
   planExpires     DateTime?
   ratingAvg       Float          @default(0)
   ratingCount     Int            @default(0)
+  /** Guide toolkit: how many times the public profile has been viewed --
+   * paired with booking count in the dashboard as a rough lead-conversion
+   * signal, the same way Trail.viewCount already works for hikers. */
+  profileViews    Int            @default(0)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 

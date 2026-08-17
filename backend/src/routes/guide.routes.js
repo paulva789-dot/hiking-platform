@@ -94,6 +94,12 @@ router.get(
     });
 
     if (!guide || guide.status !== 'APPROVED') throw notFound('Guide not found');
+
+    // Fire-and-forget view counter; a failure here must not break the page.
+    prisma.guideProfile
+      .update({ where: { id: guide.id }, data: { profileViews: { increment: 1 } } })
+      .catch(() => {});
+
     res.json({ guide });
   })
 );
@@ -175,6 +181,13 @@ router.get(
         grossXAF: paid._sum.subtotalXAF ?? 0,
         platformCommissionXAF: paid._sum.commissionXAF ?? 0,
         netPayoutXAF: (paid._sum.subtotalXAF ?? 0) - (paid._sum.commissionXAF ?? 0),
+      },
+      // Guide toolkit: a rough view-to-booking conversion signal.
+      toolkit: {
+        profileViews: profile.profileViews,
+        totalBookings: bookings.length,
+        conversionPct:
+          profile.profileViews > 0 ? Math.round((bookings.length / profile.profileViews) * 1000) / 10 : 0,
       },
     });
   })
