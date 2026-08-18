@@ -397,6 +397,49 @@ router.get(
   })
 );
 
+// ------------------------------------------------------- group / corporate inquiries
+
+/** GET /api/admin/group-inquiries */
+router.get(
+  '/group-inquiries',
+  validate(
+    paginationQuery.extend({ status: z.enum(['NEW', 'CONTACTED', 'CLOSED']).optional() }),
+    'query'
+  ),
+  asyncHandler(async (req, res) => {
+    const { page, limit, status } = req.query;
+    const where = status ? { status } : {};
+
+    const [total, inquiries] = await prisma.$transaction([
+      prisma.groupInquiry.count({ where }),
+      prisma.groupInquiry.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+    ]);
+
+    res.json({ inquiries, pagination: { page, limit, total, pages: Math.ceil(total / limit) || 1 } });
+  })
+);
+
+/** PATCH /api/admin/group-inquiries/:id — move a lead through NEW → CONTACTED → CLOSED. */
+router.patch(
+  '/group-inquiries/:id',
+  validate(z.object({ status: z.enum(['NEW', 'CONTACTED', 'CLOSED']) })),
+  asyncHandler(async (req, res) => {
+    const inquiry = await prisma.groupInquiry.findUnique({ where: { id: req.params.id } });
+    if (!inquiry) throw notFound('Inquiry not found');
+
+    const updated = await prisma.groupInquiry.update({
+      where: { id: inquiry.id },
+      data: { status: req.body.status },
+    });
+    res.json({ inquiry: updated });
+  })
+);
+
 // ------------------------------------------------------- users
 
 /** GET /api/admin/users */

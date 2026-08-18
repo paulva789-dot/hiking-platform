@@ -621,6 +621,33 @@ model EventTicket {
   @@index([eventId])
 }
 
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+/**
+ * Demand-side lead capture for groups larger than a single Tour's
+ * maxGroupSize, or a custom/corporate itinerary -- no account required to
+ * submit, since a company contact may not want to register just to ask.
+ */
+model GroupInquiry {
+  id              String        @id @default(cuid())
+  name            String
+  email           String
+  phone           String?
+  organization    String?
+  groupSize       Int
+  preferredRegion Region?
+  message         String
+  status          InquiryStatus @default(NEW)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([status, createdAt])
+}
+
 model AdSlot {
   id          String    @id @default(cuid())
   placement   String

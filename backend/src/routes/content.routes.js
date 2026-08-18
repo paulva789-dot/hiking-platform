@@ -6,6 +6,7 @@ import { asyncHandler, badRequest, conflict, notFound } from '../lib/errors.js';
 import { requireAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import { isPremiumActive } from '../lib/entitlements.js';
+import { groupInquirySchema } from '../lib/schemas.js';
 
 const router = Router();
 
@@ -223,6 +224,22 @@ router.get(
 
     await prisma.adSlot.update({ where: { id: ad.id }, data: { clicks: { increment: 1 } } });
     res.redirect(302, ad.targetUrl);
+  })
+);
+
+// ------------------------------------------------------- group / corporate inquiries
+
+/**
+ * POST /api/content/group-inquiries — leads for groups bigger than a single
+ * Tour's maxGroupSize, or a custom itinerary. No account required; an admin
+ * follows up manually (GET/PATCH under /api/admin/group-inquiries).
+ */
+router.post(
+  '/group-inquiries',
+  validate(groupInquirySchema),
+  asyncHandler(async (req, res) => {
+    const inquiry = await prisma.groupInquiry.create({ data: req.body });
+    res.status(201).json({ inquiry: { id: inquiry.id } });
   })
 );
 

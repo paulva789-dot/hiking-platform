@@ -261,6 +261,21 @@ export interface Booking {
   user?: { id: string; name: string; email: string; phone?: string | null; avatarUrl?: string | null };
 }
 
+export type InquiryStatus = 'NEW' | 'CONTACTED' | 'CLOSED';
+
+export interface GroupInquiry {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  organization: string | null;
+  groupSize: number;
+  preferredRegion: Region | null;
+  message: string;
+  status: InquiryStatus;
+  createdAt: string;
+}
+
 export interface AdCreative {
   id: string;
   advertiser: string;

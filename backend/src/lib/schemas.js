@@ -225,6 +225,18 @@ export const checkInSchema = z.object({
   }),
 });
 
+// ------------------------------------------------------------------ group / corporate inquiries
+
+export const groupInquirySchema = z.object({
+  name: z.string().trim().min(2).max(120),
+  email: z.string().trim().toLowerCase().email(),
+  phone: z.string().trim().max(30).optional(),
+  organization: z.string().trim().max(160).optional(),
+  groupSize: z.coerce.number().int().min(1).max(500),
+  preferredRegion: regionEnum.optional(),
+  message: z.string().trim().min(10).max(2000),
+});
+
 // ------------------------------------------------------------------ payments
 
 /** Cameroonian MSISDN — accepts +237, 237 or local 6XXXXXXXX/2XXXXXXXX forms. */

@@ -28,6 +28,7 @@ const COLUMNS = [
       { href: '/guides', label: 'Find a guide' },
       { href: '/stay', label: 'Where to stay' },
       { href: '/gear', label: 'Gear checklist' },
+      { href: '/corporate', label: 'Group & corporate hikes' },
     ],
   },
   {

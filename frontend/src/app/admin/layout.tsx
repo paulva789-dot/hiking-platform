@@ -12,6 +12,7 @@ const TABS = [
   { href: '/admin/guides', label: 'Guide approvals' },
   { href: '/admin/moderation', label: 'Moderation' },
   { href: '/admin/bookings', label: 'Bookings' },
+  { href: '/admin/inquiries', label: 'Group inquiries' },
   { href: '/admin/users', label: 'Users' },
   { href: '/admin/content', label: 'Content' },
 ];
