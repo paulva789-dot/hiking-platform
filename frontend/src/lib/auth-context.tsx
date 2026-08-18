@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from 'react';
 import { api, tokenStore } from './api';
-import type { GuideProfile, User } from './types';
+import type { GuideProfile, TravelerSegment, User } from './types';
 
 interface MeResponse {
   user: User;
@@ -36,6 +36,7 @@ export interface RegisterInput {
   password: string;
   phone?: string;
   region?: string;
+  travelerSegment?: TravelerSegment;
   asGuide?: boolean;
 }
 

@@ -76,6 +76,13 @@ export const config = {
   // check-ins and alerts the emergency contact (backend/src/lib/safety-sweep.js).
   safetySweepIntervalMs: num(process.env.SAFETY_SWEEP_INTERVAL_MS, 5 * 60 * 1000),
 
+  // Premium segment pricing: self-declared INTERNATIONAL members pay this
+  // multiple of the LOCAL price (backend/src/lib/pricing.js). Diaspora and
+  // international visitors have materially higher XAF-equivalent purchasing
+  // power; this mirrors the resident/non-resident pricing already standard
+  // at Cameroonian national parks and museums.
+  premiumInternationalMultiplier: num(process.env.PREMIUM_INTERNATIONAL_MULTIPLIER, 2.5),
+
   seed: {
     adminEmail: process.env.SEED_ADMIN_EMAIL || 'admin@trekcameroon.cm',
     adminPassword: process.env.SEED_ADMIN_PASSWORD || 'Admin@12345',

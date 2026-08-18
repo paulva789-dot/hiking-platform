@@ -1,4 +1,4 @@
-// Trek Cameroon — Prisma schema
+// Travesía Cameroon — Prisma schema
 // Database: PostgreSQL
 
 generator client {
@@ -41,7 +41,9 @@ enum Difficulty {
   EXPERT
 }
 
-/** What kind of place the trail actually is — drives the map marker glyph. */
+/**
+ * What kind of place the trail actually is — drives the map marker glyph.
+ */
 enum TrailCategory {
   SUMMIT
   WATERFALL
@@ -69,16 +71,29 @@ enum PaymentStatus {
   UNPAID
   PAID
   REFUNDED
-  /** A paid booking was cancelled but the automatic refund call failed or
+  /**
+   * A paid booking was cancelled but the automatic refund call failed or
    * isn't supported for that payment's provider -- needs a human to
    * actually send the money back, rather than the UI silently claiming
-   * REFUNDED when nothing moved. */
+   * REFUNDED when nothing moved.
+   */
   REFUND_PENDING
 }
 
 enum MembershipTier {
   FREE
   PREMIUM
+}
+
+/**
+ * Self-declared at signup or in profile settings -- drives Premium's
+ * segment pricing (see backend/src/lib/pricing.js). Not detected via
+ * geolocation or any other inference; LOCAL is the default so nobody who
+ * skips the question is silently charged the higher tier.
+ */
+enum TravelerSegment {
+  LOCAL
+  INTERNATIONAL
 }
 
 enum GuidePlan {
@@ -98,9 +113,11 @@ enum ListingKind {
   EQUIPMENT
 }
 
-/** What kind of place an ACCOMMODATION listing actually is — drives the
+/**
+ * What kind of place an ACCOMMODATION listing actually is — drives the
  * "what to book near this trail" suggestion (a remote wilderness trail
- * should lead with a campsite, not a spa hotel). Not set on EQUIPMENT. */
+ * should lead with a campsite, not a spa hotel). Not set on EQUIPMENT.
+ */
 enum AccommodationType {
   CAMPSITE
   GUESTHOUSE
@@ -125,7 +142,9 @@ enum PaymentPurpose {
   BOOKING
 }
 
-/** Named PaymentAttemptStatus, not PaymentStatus, to avoid colliding with the existing booking PaymentStatus enum. */
+/**
+ * Named PaymentAttemptStatus, not PaymentStatus, to avoid colliding with the existing booking PaymentStatus enum.
+ */
 enum PaymentAttemptStatus {
   PENDING
   SUCCESSFUL
@@ -135,20 +154,21 @@ enum PaymentAttemptStatus {
 // ---------------------------------------------------------------- users
 
 model User {
-  id           String         @id @default(cuid())
-  email        String         @unique
-  passwordHash String
-  name         String
-  role         Role           @default(USER)
-  avatarUrl    String?
-  bio          String?
-  phone        String?
-  region       Region?
-  tier         MembershipTier @default(FREE)
-  tierExpires  DateTime?
-  isActive     Boolean        @default(true)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  id              String          @id @default(cuid())
+  email           String          @unique
+  passwordHash    String
+  name            String
+  role            Role            @default(USER)
+  avatarUrl       String?
+  bio             String?
+  phone           String?
+  region          Region?
+  tier            MembershipTier  @default(FREE)
+  tierExpires     DateTime?
+  travelerSegment TravelerSegment @default(LOCAL)
+  isActive        Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 
   guideProfile GuideProfile?
   reviews      Review[]
@@ -156,7 +176,7 @@ model User {
   photos       Photo[]
   bookings     Booking[]
   groups       GroupMember[]
-  ownedGroups  HikingGroup[]  @relation("GroupOwner")
+  ownedGroups  HikingGroup[]   @relation("GroupOwner")
   tickets      EventTicket[]
   payments     Payment[]
   checkIns     SafetyCheckIn[]
@@ -174,7 +194,9 @@ model GuideProfile {
   languages       String[]       @default([])
   certifications  String[]       @default([])
   regions         Region[]       @default([])
-  /** Central African countries this guide runs tours in — booking is not limited to Cameroon. */
+  /**
+   * Central African countries this guide runs tours in — booking is not limited to Cameroon.
+   */
   countries       String[]       @default(["Cameroon"])
   dayRateXAF      Int            @default(0)
   phone           String?
@@ -186,9 +208,11 @@ model GuideProfile {
   planExpires     DateTime?
   ratingAvg       Float          @default(0)
   ratingCount     Int            @default(0)
-  /** Guide toolkit: how many times the public profile has been viewed --
+  /**
+   * Guide toolkit: how many times the public profile has been viewed --
    * paired with booking count in the dashboard as a rough lead-conversion
-   * signal, the same way Trail.viewCount already works for hikers. */
+   * signal, the same way Trail.viewCount already works for hikers.
+   */
   profileViews    Int            @default(0)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
@@ -201,8 +225,8 @@ model GuideProfile {
 // ---------------------------------------------------------------- trails
 
 model Trail {
-  id              String     @id @default(cuid())
-  slug            String     @unique
+  id              String        @id @default(cuid())
+  slug            String        @unique
   name            String
   summary         String
   description     String
@@ -218,19 +242,19 @@ model Trail {
   startLng        Float
   // GeoJSON LineString of the route, drawn on the Leaflet map
   routeGeoJson    Json?
-  bestMonths      String[]   @default([])
-  hazards         String[]   @default([])
+  bestMonths      String[]      @default([])
+  hazards         String[]      @default([])
   waterSources    String?
-  permitRequired  Boolean    @default(false)
+  permitRequired  Boolean       @default(false)
   permitInfo      String?
   gettingThere    String?
   coverImage      String?
-  published       Boolean    @default(true)
-  ratingAvg       Float      @default(0)
-  ratingCount     Int        @default(0)
-  viewCount       Int        @default(0)
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
+  published       Boolean       @default(true)
+  ratingAvg       Float         @default(0)
+  ratingCount     Int           @default(0)
+  viewCount       Int           @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   waypoints    Waypoint[]
   reviews      Review[]
@@ -243,10 +267,12 @@ model Trail {
   @@index([published])
 }
 
-/** ISO 639-1 codes for the languages this platform's UI chrome already
+/**
+ * ISO 639-1 codes for the languages this platform's UI chrome already
  * switches between (see frontend/src/lib/i18n) -- English itself isn't a
  * row here, it lives on Trail directly and every field below falls back to
- * it when a translation is missing or incomplete. */
+ * it when a translation is missing or incomplete.
+ */
 enum ContentLocale {
   FR
   ES
@@ -316,24 +342,24 @@ model Favorite {
 // ---------------------------------------------------------------- gallery / photo marketplace
 
 model Photo {
-  id        String         @id @default(cuid())
-  userId    String
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  trailId   String?
-  trail     Trail?         @relation(fields: [trailId], references: [id], onDelete: SetNull)
-  url       String
-  publicId  String
-  width     Int?
-  height    Int?
-  caption   String?
-  takenAt   DateTime?
-  status    ApprovalStatus @default(PENDING)
+  id         String         @id @default(cuid())
+  userId     String
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trailId    String?
+  trail      Trail?         @relation(fields: [trailId], references: [id], onDelete: SetNull)
+  url        String
+  publicId   String
+  width      Int?
+  height     Int?
+  caption    String?
+  takenAt    DateTime?
+  status     ApprovalStatus @default(PENDING)
   // photography marketplace
-  forSale   Boolean        @default(false)
-  priceXAF  Int?
-  licence   String?
-  salesCount Int           @default(0)
-  createdAt DateTime       @default(now())
+  forSale    Boolean        @default(false)
+  priceXAF   Int?
+  licence    String?
+  salesCount Int            @default(0)
+  createdAt  DateTime       @default(now())
 
   @@index([status, createdAt])
   @@index([trailId])
@@ -342,24 +368,26 @@ model Photo {
 // ---------------------------------------------------------------- tours & bookings
 
 model Tour {
-  id            String   @id @default(cuid())
-  guideId       String
-  guide         GuideProfile @relation(fields: [guideId], references: [id], onDelete: Cascade)
-  trailId       String?
-  trail         Trail?   @relation(fields: [trailId], references: [id], onDelete: SetNull)
-  title         String
-  description   String
-  /** Which CEMAC country this specific tour runs in — a guide's tours aren't all in the same one. */
-  country       String   @default("Cameroon")
-  priceXAF      Int
-  maxGroupSize  Int      @default(8)
-  durationDays  Int      @default(1)
-  includes      String[] @default([])
-  excludes      String[] @default([])
-  meetingPoint  String?
-  published     Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id           String       @id @default(cuid())
+  guideId      String
+  guide        GuideProfile @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  trailId      String?
+  trail        Trail?       @relation(fields: [trailId], references: [id], onDelete: SetNull)
+  title        String
+  description  String
+  /**
+   * Which CEMAC country this specific tour runs in — a guide's tours aren't all in the same one.
+   */
+  country      String       @default("Cameroon")
+  priceXAF     Int
+  maxGroupSize Int          @default(8)
+  durationDays Int          @default(1)
+  includes     String[]     @default([])
+  excludes     String[]     @default([])
+  meetingPoint String?
+  published    Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   schedules TourSchedule[]
   bookings  Booking[]
@@ -383,30 +411,32 @@ model TourSchedule {
 }
 
 model Booking {
-  id             String        @id @default(cuid())
-  reference      String        @unique
-  userId         String
-  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tourId         String
-  tour           Tour          @relation(fields: [tourId], references: [id], onDelete: Cascade)
-  scheduleId     String
-  schedule       TourSchedule  @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
-  participants   Int           @default(1)
-  subtotalXAF    Int
-  commissionXAF  Int
-  totalXAF       Int
-  /** What's actually charged via MTN MoMo / Orange Money at booking time --
+  id            String        @id @default(cuid())
+  reference     String        @unique
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tourId        String
+  tour          Tour          @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  scheduleId    String
+  schedule      TourSchedule  @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  participants  Int           @default(1)
+  subtotalXAF   Int
+  commissionXAF Int
+  totalXAF      Int
+  /**
+   * What's actually charged via MTN MoMo / Orange Money at booking time --
    * the rest (balanceDueXAF) is paid in cash to the guide at the trailhead.
    * commissionXAF always fits inside depositXAF (see booking.routes.js), so
-   * the platform's full cut clears the moment the deposit does. */
-  depositXAF     Int           @default(0)
-  balanceDueXAF  Int           @default(0)
-  status         BookingStatus @default(PENDING)
-  paymentStatus  PaymentStatus @default(UNPAID)
-  contactPhone   String?
-  notes          String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+   * the platform's full cut clears the moment the deposit does.
+   */
+  depositXAF    Int           @default(0)
+  balanceDueXAF Int           @default(0)
+  status        BookingStatus @default(PENDING)
+  paymentStatus PaymentStatus @default(UNPAID)
+  contactPhone  String?
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   // Not one-to-one: a failed attempt can be retried, so a booking may have
   // more than one Payment row over time (at most one PENDING at a time).
@@ -498,9 +528,11 @@ model SafetyGuideline {
   @@index([category, order])
 }
 
-/** Premium perk: "I'm heading out, alert my contact if I'm not back by X."
+/**
+ * Premium perk: "I'm heading out, alert my contact if I'm not back by X."
  * A background sweep (safety-sweep.js) flips ACTIVE rows past dueBackAt to
- * OVERDUE and SMS's the emergency contact via Africa's Talking (sms.js). */
+ * OVERDUE and SMS's the emergency contact via Africa's Talking (sms.js).
+ */
 enum CheckInStatus {
   ACTIVE
   CHECKED_IN
@@ -513,8 +545,10 @@ model SafetyCheckIn {
   id                    String        @id @default(cuid())
   userId                String
   user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  /** Free text, not a Trail relation -- covers routes and variants that
-   * aren't in the trail catalogue at all. */
+  /**
+   * Free text, not a Trail relation -- covers routes and variants that
+   * aren't in the trail catalogue at all.
+   */
   planLabel             String
   emergencyContactName  String
   emergencyContactPhone String
@@ -533,22 +567,22 @@ model SafetyCheckIn {
 // ---------------------------------------------------------------- monetization: partners, gear, events, ads
 
 model Listing {
-  id           String      @id @default(cuid())
-  kind         ListingKind
+  id                String             @id @default(cuid())
+  kind              ListingKind
   accommodationType AccommodationType?
-  name         String
-  description  String
-  imageUrl     String?
-  region       Region?
-  town         String?
-  priceFromXAF Int?
-  affiliateUrl String
-  partnerName  String?
-  commissionPct Float      @default(10)
-  featured     Boolean     @default(false)
-  published    Boolean     @default(true)
-  clickCount   Int         @default(0)
-  createdAt    DateTime    @default(now())
+  name              String
+  description       String
+  imageUrl          String?
+  region            Region?
+  town              String?
+  priceFromXAF      Int?
+  affiliateUrl      String
+  partnerName       String?
+  commissionPct     Float              @default(10)
+  featured          Boolean            @default(false)
+  published         Boolean            @default(true)
+  clickCount        Int                @default(0)
+  createdAt         DateTime           @default(now())
 
   @@index([kind, published])
 }
@@ -588,17 +622,17 @@ model EventTicket {
 }
 
 model AdSlot {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   placement   String
   advertiser  String
   imageUrl    String
   targetUrl   String
-  weight      Int      @default(1)
-  startsAt    DateTime @default(now())
+  weight      Int       @default(1)
+  startsAt    DateTime  @default(now())
   endsAt      DateTime?
-  impressions Int      @default(0)
-  clicks      Int      @default(0)
-  active      Boolean  @default(true)
+  impressions Int       @default(0)
+  clicks      Int       @default(0)
+  active      Boolean   @default(true)
 
   @@index([placement, active])
 }

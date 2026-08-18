@@ -13,6 +13,7 @@ export default function ProfilePage() {
   const [bio, setBio] = useState('');
   const [phone, setPhone] = useState('');
   const [region, setRegion] = useState('');
+  const [travelerSegment, setTravelerSegment] = useState<'LOCAL' | 'INTERNATIONAL'>('LOCAL');
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +25,7 @@ export default function ProfilePage() {
     setBio(user.bio ?? '');
     setPhone(user.phone ?? '');
     setRegion(user.region ?? '');
+    setTravelerSegment(user.travelerSegment);
   }, [user]);
 
   const save = async (e: FormEvent) => {
@@ -37,6 +39,7 @@ export default function ProfilePage() {
         bio: bio || undefined,
         phone: phone || undefined,
         region: region || undefined,
+        travelerSegment,
       });
       await refresh();
       setSaved(true);
@@ -123,6 +126,24 @@ export default function ProfilePage() {
                 ))}
               </select>
             </div>
+          </div>
+
+          <div>
+            <label htmlFor="travelerSegment" className="label">
+              Hiking as a local, or visiting from abroad?
+            </label>
+            <select
+              id="travelerSegment"
+              value={travelerSegment}
+              onChange={(e) => setTravelerSegment(e.target.value as 'LOCAL' | 'INTERNATIONAL')}
+              className="input"
+            >
+              <option value="LOCAL">Local / CEMAC resident</option>
+              <option value="INTERNATIONAL">Visiting from outside CEMAC</option>
+            </select>
+            <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
+              Only affects Premium pricing.
+            </p>
           </div>
 
           {error && <Alert tone="danger">{error}</Alert>}

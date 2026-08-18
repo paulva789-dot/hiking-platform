@@ -32,6 +32,7 @@ export const CENTRAL_AFRICA_COUNTRIES = [
 ];
 
 export const regionEnum = z.enum(REGIONS);
+export const travelerSegmentEnum = z.enum(['LOCAL', 'INTERNATIONAL']);
 export const difficultyEnum = z.enum(DIFFICULTIES);
 export const countryEnum = z.enum(CENTRAL_AFRICA_COUNTRIES);
 
@@ -58,6 +59,7 @@ export const registerSchema = z.object({
   password: strongPassword,
   phone: z.string().trim().max(30).optional(),
   region: regionEnum.optional(),
+  travelerSegment: travelerSegmentEnum.optional(),
   // Someone signing up as a guide still lands in the PENDING queue.
   asGuide: z.boolean().optional().default(false),
 });
@@ -72,6 +74,7 @@ export const updateProfileSchema = z.object({
   bio: z.string().trim().max(1000).optional(),
   phone: z.string().trim().max(30).optional(),
   region: regionEnum.optional(),
+  travelerSegment: travelerSegmentEnum.optional(),
   avatarUrl: z.string().url().optional(),
 });
 

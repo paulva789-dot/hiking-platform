@@ -56,7 +56,7 @@ router.post(
     // in cash with the guide at the trailhead (see booking.routes.js).
     const amountXAF =
       purpose === 'PREMIUM_MEMBERSHIP'
-        ? priceForPremium(req.body.months)
+        ? priceForPremium(req.body.months, req.user.travelerSegment)
         : purpose === 'GUIDE_PLAN'
           ? priceForGuidePlan(req.body.guidePlan, req.body.months)
           : booking.depositXAF;

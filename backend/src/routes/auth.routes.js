@@ -39,7 +39,7 @@ router.post(
   authLimiter,
   validate(registerSchema),
   asyncHandler(async (req, res) => {
-    const { name, email, password, phone, region, asGuide } = req.body;
+    const { name, email, password, phone, region, travelerSegment, asGuide } = req.body;
 
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) throw conflict('An account with that email already exists');
@@ -52,6 +52,7 @@ router.post(
         passwordHash,
         phone,
         region,
+        travelerSegment,
         // The GUIDE role is granted now, but tours stay invisible until an
         // admin approves the guide profile.
         role: asGuide ? 'GUIDE' : 'USER',

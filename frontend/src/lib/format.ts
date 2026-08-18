@@ -11,6 +11,11 @@ export const BOOKING_DEPOSIT_PCT = 20;
  * discount Premium members get off their booking deposit. */
 export const PREMIUM_DEPOSIT_DISCOUNT_PCT = 15;
 
+/** Mirrors the backend's default PREMIUM_INTERNATIONAL_MULTIPLIER -- for
+ * display only, so the price shown before checkout matches what
+ * priceForPremium() will actually charge. */
+export const PREMIUM_INTERNATIONAL_MULTIPLIER = 2.5;
+
 /**
  * Guides and tours are not limited to Cameroon — bookings can cover any of
  * these Central African (ECCAS/CEMAC) countries. Trail content stays

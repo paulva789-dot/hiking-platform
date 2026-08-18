@@ -5,6 +5,7 @@ export type ApprovalStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 export type BookingStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
 export type PaymentStatus = 'UNPAID' | 'PAID' | 'REFUNDED' | 'REFUND_PENDING';
 export type MembershipTier = 'FREE' | 'PREMIUM';
+export type TravelerSegment = 'LOCAL' | 'INTERNATIONAL';
 export type GuidePlan = 'NONE' | 'BASIC' | 'PRO';
 export type CheckInStatus = 'ACTIVE' | 'CHECKED_IN' | 'OVERDUE' | 'ALERTED' | 'CANCELLED';
 
@@ -29,6 +30,7 @@ export interface User {
   bio: string | null;
   phone: string | null;
   region: Region | null;
+  travelerSegment: TravelerSegment;
   tier: MembershipTier;
   tierExpires: string | null;
   createdAt: string;

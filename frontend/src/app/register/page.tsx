@@ -25,6 +25,7 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [region, setRegion] = useState('');
+  const [travelerSegment, setTravelerSegment] = useState<'LOCAL' | 'INTERNATIONAL'>('LOCAL');
   const [asGuide, setAsGuide] = useState(params.get('guide') === '1');
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -42,6 +43,7 @@ function RegisterForm() {
         password,
         phone: phone || undefined,
         region: region || undefined,
+        travelerSegment,
         asGuide,
       });
       router.push(asGuide ? '/guide' : '/dashboard');
@@ -166,6 +168,25 @@ function RegisterForm() {
                   ))}
                 </select>
               </div>
+            </div>
+
+            <div>
+              <label htmlFor="travelerSegment" className="label">
+                Hiking as a local, or visiting from abroad?
+              </label>
+              <select
+                id="travelerSegment"
+                value={travelerSegment}
+                onChange={(e) => setTravelerSegment(e.target.value as 'LOCAL' | 'INTERNATIONAL')}
+                className="input"
+              >
+                <option value="LOCAL">Local / CEMAC resident</option>
+                <option value="INTERNATIONAL">Visiting from outside CEMAC</option>
+              </select>
+              <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
+                Only affects Premium pricing — everything else on the site is the same either way.
+                Change it any time in your profile.
+              </p>
             </div>
 
             <label className="flex items-start gap-2.5 rounded-lg bg-basalt-50 p-3.5 text-sm text-basalt-700 dark:text-basalt-300">

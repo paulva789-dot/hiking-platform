@@ -18,6 +18,7 @@ export const publicUser = (user) => ({
   bio: user.bio,
   phone: user.phone,
   region: user.region,
+  travelerSegment: user.travelerSegment,
   tier: user.tier,
   tierExpires: user.tierExpires,
   createdAt: user.createdAt,

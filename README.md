@@ -1,4 +1,4 @@
-# Trek Cameroon — Hiking & Sight-Seeing Guide Platform
+# Travesía Cameroon — Hiking & Sight-Seeing Guide Platform
 
 A full-stack platform for hiking in Cameroon. The problem it solves is narrow and specific: people
 who want to hike here don't, because the information available is vague, wrong or missing. So every

@@ -4,14 +4,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
-import { formatDate, formatXAF } from '@/lib/format';
+import { PREMIUM_INTERNATIONAL_MULTIPLIER, formatDate, formatXAF } from '@/lib/format';
 import { PaymentPanel } from '@/components/PaymentPanel';
 
-const PLANS = [
+const LOCAL_PLANS = [
   { months: 1, priceXAF: 3500, label: 'Monthly' },
   { months: 6, priceXAF: 18000, label: '6 months', save: '14%' },
   { months: 12, priceXAF: 30000, label: '12 months', save: '29%' },
 ];
+
+/** Mirrors priceForPremium() server-side so the price shown here is what
+ * checkout will actually charge. */
+const plansFor = (segment: 'LOCAL' | 'INTERNATIONAL') =>
+  LOCAL_PLANS.map((p) => ({
+    ...p,
+    priceXAF: segment === 'INTERNATIONAL' ? Math.round(p.priceXAF * PREMIUM_INTERNATIONAL_MULTIPLIER) : p.priceXAF,
+  }));
 
 const FEATURES = [
   {
@@ -43,7 +51,9 @@ const FEATURES = [
 export default function PremiumPage() {
   const { user, isPremium, refresh } = useAuth();
   const router = useRouter();
-  const [selected, setSelected] = useState(PLANS[1]);
+  const PLANS = plansFor(user?.travelerSegment ?? 'LOCAL');
+  const [selectedMonths, setSelectedMonths] = useState(6);
+  const selected = PLANS.find((p) => p.months === selectedMonths) ?? PLANS[1];
   const [paying, setPaying] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -164,13 +174,23 @@ export default function PremiumPage() {
             ) : (
               <>
                 <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">Choose a plan</h2>
+                {user && (
+                  <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">
+                    {user.travelerSegment === 'INTERNATIONAL'
+                      ? 'International/diaspora pricing shown.'
+                      : 'Local/CEMAC pricing shown.'}{' '}
+                    <Link href="/dashboard/profile" className="font-semibold text-forest-700 hover:underline">
+                      Change this
+                    </Link>
+                  </p>
+                )}
 
                 <div className="mt-4 space-y-2">
                   {PLANS.map((plan) => (
                     <button
                       key={plan.months}
                       type="button"
-                      onClick={() => setSelected(plan)}
+                      onClick={() => setSelectedMonths(plan.months)}
                       aria-pressed={selected.months === plan.months}
                       className={`flex w-full items-center justify-between rounded-lg border-2 px-4 py-3 text-left transition-colors ${
                         selected.months === plan.months
