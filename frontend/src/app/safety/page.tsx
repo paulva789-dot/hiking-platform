@@ -125,9 +125,9 @@ const RISKS: { title: string; level: 'Common' | 'Serious' | 'Regional'; body: st
 ];
 
 export default async function SafetyPage() {
-  const { categories } = await serverFetch<{ categories: SafetyCategory[] }>(
-    '/content/safety'
-  ).catch(() => ({ categories: FALLBACK_SAFETY }));
+  const live = await serverFetch<{ categories: SafetyCategory[] }>('/content/safety').catch(() => null);
+  // Bundled guidance when the API is down or its database is unseeded.
+  const categories = live?.categories.length ? live.categories : FALLBACK_SAFETY;
 
   return (
     <div className="pb-20">

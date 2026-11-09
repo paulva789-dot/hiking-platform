@@ -17,7 +17,7 @@ import {
   formatDuration,
   formatXAF,
 } from '@/lib/format';
-import { fallbackNearby, fallbackTrailDetail } from '@/lib/fallback-trails';
+import { fallbackNearby, fallbackTrailDetail, liveCatalogueAvailable } from '@/lib/fallback-trails';
 import { SingleTrailMap } from '@/components/map/LazyMaps';
 import { ElevationProfile } from '@/components/trail/ElevationProfile';
 import { TranslatedHazards, TranslatedTrailProse, TranslatedTrailText } from '@/components/trail/TranslatedTrailText';
@@ -46,10 +46,13 @@ async function getTrail(slug: string) {
   try {
     return await serverFetch<TrailResponse>(`/trails/${slug}`);
   } catch (err) {
-    if (err instanceof ApiError && err.status === 404) return null;
-    // API unreachable or erroring: serve the bundled copy of the seeded trail if we have one.
+    const is404 = err instanceof ApiError && err.status === 404;
+    // A 404 from a healthy API with real trails is a genuine "no such trail".
+    if (is404 && (await liveCatalogueAvailable())) return null;
+    // Otherwise the API is down, misrouted or empty: serve the bundled copy if we have one.
     const offline = fallbackTrailDetail(slug);
     if (offline) return offline;
+    if (is404) return null;
     throw err;
   }
 }

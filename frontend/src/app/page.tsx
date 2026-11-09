@@ -72,19 +72,19 @@ async function getHomeData() {
   // blank the whole landing page.
   const settle = <R,>(p: Promise<R>, fallback: R) => p.catch(() => fallback);
 
-  const [popular, easy, guides, events, safety] = await Promise.all([
-    settle(
-      serverFetch<{ trails: TrailCardType[]; pagination: { total: number } }>('/trails?sort=popular&limit=7'),
-      fallbackTrailList({ sort: 'popular', limit: 7 })
-    ),
-    settle(
-      serverFetch<{ trails: TrailCardType[] }>('/trails?difficulty=EASY&limit=3'),
-      fallbackTrailList({ difficulty: 'EASY', limit: 3 })
-    ),
+  const [popularLive, easyLive, guides, events, safety] = await Promise.all([
+    settle(serverFetch<{ trails: TrailCardType[]; pagination: { total: number } }>('/trails?sort=popular&limit=7'), null),
+    settle(serverFetch<{ trails: TrailCardType[] }>('/trails?difficulty=EASY&limit=3'), null),
     settle(serverFetch<{ guides: GuideCard[] }>('/guides?limit=3'), { guides: [] }),
     settle(serverFetch<{ events: HikingEvent[] }>('/content/events'), { events: [] }),
     settle(serverFetch<{ categories: SafetyCategory[] }>('/content/safety'), { categories: FALLBACK_SAFETY }),
   ]);
+
+  // No live trails at all (API down, or an unseeded database): use the bundled catalogue.
+  const offline = !popularLive || popularLive.trails.length === 0;
+  const popular = offline ? fallbackTrailList({ sort: 'popular', limit: 7 }) : popularLive;
+  const easy = offline ? fallbackTrailList({ difficulty: 'EASY', limit: 3 }) : (easyLive ?? { trails: [] });
+  const safetyCategories = safety.categories.length > 0 ? safety.categories : FALLBACK_SAFETY;
 
   return {
     popular: popular.trails,
@@ -92,7 +92,7 @@ async function getHomeData() {
     easy: easy.trails,
     guides: guides.guides,
     events: events.events.slice(0, 2),
-    safety: safety.categories.flatMap((c) => c.items).slice(0, 3),
+    safety: safetyCategories.flatMap((c) => c.items).slice(0, 3),
   };
 }
 

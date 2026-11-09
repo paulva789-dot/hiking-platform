@@ -1,3 +1,4 @@
+import { serverFetch } from './api';
 import type { Difficulty, Pagination, Region, SafetyCategory, Trail, TrailCard } from './types';
 import cards from './trail-cards.fallback.json';
 import details from './trail-details.fallback.json';
@@ -5,10 +6,26 @@ import safety from './safety.fallback.json';
 
 /**
  * Bundled copy of the seeded trails (regenerate from backend/prisma/trails.data.js
- * when that file changes). Used only when the API is unreachable, so the site
- * still shows real trails instead of empty sections.
+ * when that file changes). Used only when the live catalogue is unavailable, so
+ * the site still shows real trails instead of empty sections.
  */
 export const FALLBACK_TRAILS = cards as TrailCard[];
+
+/**
+ * Whether the live API is up *and* has published trails. When it isn't, every
+ * trail surface serves the bundled catalogue instead. A dead or misrouted API
+ * host can answer every path with 404 (a deleted Railway app does exactly
+ * that) and an unseeded database answers with empty lists; neither one means
+ * "this trail doesn't exist".
+ */
+export async function liveCatalogueAvailable(): Promise<boolean> {
+  try {
+    const { difficulties } = await serverFetch<{ difficulties: { count: number }[] }>('/trails/facets', 600);
+    return difficulties.some((d) => d.count > 0);
+  } catch {
+    return false;
+  }
+}
 
 interface FallbackQuery {
   q?: string;

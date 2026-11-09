@@ -52,17 +52,21 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
     limit: 12,
   };
 
-  const [result, facets] = await Promise.all([
+  const [live, liveFacets] = await Promise.all([
     serverFetch<{ trails: TrailCardType[]; pagination: Pagination; suggestions?: TrailCardType[] }>(
       `/trails${buildQuery(query)}`,
       60
-    ).catch(() => ({
-      // API unreachable: filter the bundled trail list instead of showing nothing.
-      ...fallbackTrailList(query),
-      suggestions: [] as TrailCardType[],
-    })),
-    serverFetch<Facets>('/trails/facets', 600).catch(() => fallbackFacets()),
+    ).catch(() => null),
+    serverFetch<Facets>('/trails/facets', 600).catch(() => null),
   ]);
+
+  // Use the bundled trails when the API is down or its whole catalogue is empty
+  // (an unseeded database). Filters that legitimately match nothing still show
+  // the normal "no matches" state, because the facets prove trails exist.
+  const catalogueEmpty = liveFacets !== null && liveFacets.difficulties.every((d) => d.count === 0);
+  const offline = live === null || catalogueEmpty;
+  const result = offline ? { ...fallbackTrailList(query), suggestions: [] as TrailCardType[] } : live;
+  const facets = offline || liveFacets === null ? fallbackFacets() : liveFacets;
 
   const { trails, pagination, suggestions } = result;
   // Unfiltered platform-wide count, for copy that talks about the whole
