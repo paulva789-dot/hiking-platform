@@ -1,6 +1,7 @@
-import type { Difficulty, Pagination, Region, Trail, TrailCard } from './types';
+import type { Difficulty, Pagination, Region, SafetyCategory, Trail, TrailCard } from './types';
 import cards from './trail-cards.fallback.json';
 import details from './trail-details.fallback.json';
+import safety from './safety.fallback.json';
 
 /**
  * Bundled copy of the seeded trails (regenerate from backend/prisma/trails.data.js
@@ -72,3 +73,6 @@ export function fallbackNearby(slug: string): TrailCard[] {
     .sort((a, b) => Number(b.region === current?.region) - Number(a.region === current?.region))
     .slice(0, 3);
 }
+
+/** Bundled safety guidance, grouped like the /content/safety response. Static advice, so safe to serve offline. */
+export const FALLBACK_SAFETY = safety as SafetyCategory[];

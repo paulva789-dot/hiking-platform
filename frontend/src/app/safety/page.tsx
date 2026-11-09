@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { serverFetch } from '@/lib/api';
+import { FALLBACK_SAFETY } from '@/lib/fallback-trails';
 import type { SafetyCategory } from '@/lib/types';
 import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING } from '@/lib/format';
 import { Alert } from '@/components/ui';
@@ -126,7 +127,7 @@ const RISKS: { title: string; level: 'Common' | 'Serious' | 'Regional'; body: st
 export default async function SafetyPage() {
   const { categories } = await serverFetch<{ categories: SafetyCategory[] }>(
     '/content/safety'
-  ).catch(() => ({ categories: [] as SafetyCategory[] }));
+  ).catch(() => ({ categories: FALLBACK_SAFETY }));
 
   return (
     <div className="pb-20">

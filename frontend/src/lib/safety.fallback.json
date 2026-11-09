@@ -1,0 +1,117 @@
+[
+  {
+    "category": "Before you go",
+    "items": [
+      {
+        "id": "safety-0",
+        "title": "Tell someone your plan, and give them a turnaround time",
+        "body": "Write down your route, your guide's name and phone number, and the time you expect to be back. Leave it with someone who is not on the hike. Above 2,000 m on Mount Cameroon and Mount Oku there is no reliable mobile coverage, so nobody will know you are overdue unless you arranged for them to notice.",
+        "order": 0
+      },
+      {
+        "id": "safety-1",
+        "title": "Hire a registered local guide",
+        "body": "On Mount Cameroon, in Bénoué and in the Dja reserve a guide or ranger is legally required and enforced at the gate. Everywhere else it is still the right call: highland paths braid into dozens of identical cattle tracks, forest paths disappear in a season, and a guide is the difference between a good day and a search party. It also keeps the money in the communities that maintain the trails.",
+        "order": 1
+      },
+      {
+        "id": "safety-2",
+        "title": "Match the trail to your actual fitness",
+        "body": "Difficulty ratings on this site mean something specific. EASY is under 4 hours on a clear path. MODERATE means a half to full day with real climbing. HARD means a long day, sustained steep ground and a level of fitness you have to build. EXPERT means multi-day, high altitude or big-game country, with consequences if it goes wrong. Do Mont Fébé and Ekom-Nkam before you book Mount Cameroon.",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "items": [
+      {
+        "id": "safety-3",
+        "title": "Malaria and vaccinations",
+        "body": "Malaria is present across Cameroon and is the most likely thing to actually harm you. Take prophylaxis, sleep under a net, and use repellent at dusk. Yellow fever vaccination is required for entry and you will be asked for the certificate. Typhoid, hepatitis A and tetanus cover are all sensible. See a travel clinic at least six weeks before you fly.",
+        "order": 0
+      },
+      {
+        "id": "safety-4",
+        "title": "Altitude sickness above 2,500 m",
+        "body": "Mount Cameroon (4,040 m), Mount Oku (3,011 m) and Bamboutos (2,740 m) are all high enough to make people ill. Headache, nausea, dizziness and loss of appetite are the early signs. The only reliable treatment is to go down. Do not push a summit day for someone showing symptoms — descending 500 m fixes it, continuing up does not.",
+        "order": 1
+      },
+      {
+        "id": "safety-5",
+        "title": "Water: carry it, or treat it",
+        "body": "No surface water in Cameroon is safe to drink untreated, including highland streams that look clean. Carry a filter or purification tablets. Volumes that actually work: 4 L per person per day on Mount Cameroon and in the Far North, 3 L on the Bamboutos ridge and in Bénoué, 2 L on the shorter highland walks. Dehydration is far more common than any exotic risk.",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "category": "On the trail",
+    "items": [
+      {
+        "id": "safety-6",
+        "title": "The weather changes faster than you will believe",
+        "body": "Buea can be 28 °C while Hut 2 on the same mountain is 6 °C in driving rain. Highland cloud rolls in most afternoons and can cut visibility to a few metres in minutes. Always carry a waterproof shell and a warm layer, even on a hot morning, and check the trail weather panel on this site before you set off — it flags conditions that make a route unsafe rather than just uncomfortable.",
+        "order": 0
+      },
+      {
+        "id": "safety-7",
+        "title": "Start at dawn",
+        "body": "This is the single most useful habit in Cameroonian hiking. In the Far North and in Bénoué, walking after 10:00 in the hot season is dangerous rather than merely unpleasant. In the highlands, dawn is when you actually get the view before cloud builds. On Mount Cameroon, summit day starts at 04:00 for exactly this reason.",
+        "order": 1
+      },
+      {
+        "id": "safety-8",
+        "title": "Wildlife: keep the ranger between you and it",
+        "body": "In Bénoué the buffalo are why your ranger is armed. In the Dja, forest elephant are more dangerous than gorilla or chimpanzee and are usually heard before they are seen. Hippo and crocodile mean you do not approach river edges away from designated points. Stay in single file, stay quiet, and do exactly what your guide says without discussion.",
+        "order": 2
+      },
+      {
+        "id": "safety-9",
+        "title": "Wet rock is the most under-rated hazard here",
+        "body": "Most injuries on Cameroonian trails are slips, not dramatic events. The rock stairway at Ekom-Nkam, the root-covered path up Kupe and the descent to the Manengouba lakes are all permanently wet and genuinely slippery. Boots with real tread are not optional, and going down takes longer and more care than coming up.",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "category": "Respect and access",
+    "items": [
+      {
+        "id": "safety-10",
+        "title": "Sacred sites are access conditions, not folklore",
+        "body": "Lake Oku and the Manengouba twin lakes are sacred to the communities that own the land you are walking on, and there are days and areas that are closed for traditional reasons. Mount Kupe has parts of its forest treated the same way. Ask your guide what the restrictions are and follow them — permission to be there depends on it.",
+        "order": 0
+      },
+      {
+        "id": "safety-11",
+        "title": "Ask before photographing people",
+        "body": "The Kapsiki compounds around Rhumsiki and the villages in the Bamenda Highlands are places people live, not a set. Ask first, accept no, and if you photograph someone, send them the picture. If you sell an image of an identifiable person through the marketplace on this site, they should have agreed to that.",
+        "order": 1
+      },
+      {
+        "id": "safety-12",
+        "title": "Check regional security advisories",
+        "body": "Conditions in the North-West and South-West regions and in the Far North near the Nigerian border have been affected by insecurity and change over time. This site lists trails in those regions because they are worth hiking, not because conditions are guaranteed. Check your government's current travel advice and speak to guides on the ground in Bamenda, Buea or Maroua before you commit to a trip.",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "category": "Emergencies",
+    "items": [
+      {
+        "id": "safety-13",
+        "title": "Numbers, and what to do when there is no signal",
+        "body": "Police 117, fire brigade 118, ambulance 119 — all free from any Cameroonian mobile. Note that ambulance response outside the major cities is very limited and mountain rescue as such does not exist; on Mount Cameroon, evacuation means your guide and porters carrying you down. That is precisely why the turnaround time you left with someone matters, and why you go down early rather than pushing on.",
+        "order": 0
+      },
+      {
+        "id": "safety-14",
+        "title": "What to carry, every single time",
+        "body": "Waterproof shell, warm layer, head torch with spare batteries, 2 L minimum of water plus treatment, food for longer than you plan to be out, a small first aid kit with blister plasters and rehydration salts, a whistle, a fully charged phone plus a power bank, and cash in small notes. Premium members can download the offline pack for a trail, which puts the route, waypoints and these numbers on your phone before you lose signal.",
+        "order": 1
+      }
+    ]
+  }
+]

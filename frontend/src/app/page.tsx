@@ -13,7 +13,7 @@ import {
   formatDuration,
   formatXAF,
 } from '@/lib/format';
-import { fallbackTrailList } from '@/lib/fallback-trails';
+import { FALLBACK_SAFETY, fallbackTrailList } from '@/lib/fallback-trails';
 import { TrailCard } from '@/components/TrailCard';
 import { AdBanner } from '@/components/AdBanner';
 import { DifficultyChip, EmptyState, SectionHeading, Stars } from '@/components/ui';
@@ -83,7 +83,7 @@ async function getHomeData() {
     ),
     settle(serverFetch<{ guides: GuideCard[] }>('/guides?limit=3'), { guides: [] }),
     settle(serverFetch<{ events: HikingEvent[] }>('/content/events'), { events: [] }),
-    settle(serverFetch<{ categories: SafetyCategory[] }>('/content/safety'), { categories: [] }),
+    settle(serverFetch<{ categories: SafetyCategory[] }>('/content/safety'), { categories: FALLBACK_SAFETY }),
   ]);
 
   return {
