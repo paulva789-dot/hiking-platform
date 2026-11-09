@@ -50,7 +50,7 @@ export function TrailCard({ trail, priority = false }: { trail: TrailCardType; p
       </div>
 
       <div className="p-4">
-        <h3 className="font-display text-base font-semibold leading-snug text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
+        <h3 className="font-display text-base font-semibold leading-snug text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800 dark:group-hover:text-forest-300">
           {trail.name}
         </h3>
         <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">

@@ -48,12 +48,12 @@ export function DifficultyChip({
 }
 
 const STATUS_CLASSES: Record<ApprovalStatus | BookingStatus, string> = {
-  PENDING: 'bg-amber-100 text-amber-900 ring-amber-200',
-  APPROVED: 'bg-forest-100 text-forest-800 ring-forest-200',
-  REJECTED: 'bg-red-100 text-red-900 ring-red-200',
-  CONFIRMED: 'bg-forest-100 text-forest-800 ring-forest-200',
-  CANCELLED: 'bg-basalt-200 text-basalt-700 dark:text-basalt-300 ring-basalt-300',
-  COMPLETED: 'bg-blue-100 text-blue-900 ring-blue-200',
+  PENDING: 'bg-amber-100 text-amber-900 ring-amber-200 dark:bg-amber-950/60 dark:text-amber-200 dark:ring-amber-800/60',
+  APPROVED: 'bg-forest-100 text-forest-800 ring-forest-200 dark:bg-forest-900/50 dark:text-forest-200 dark:ring-forest-700/60',
+  REJECTED: 'bg-red-100 text-red-900 ring-red-200 dark:bg-red-950/60 dark:text-red-200 dark:ring-red-800/60',
+  CONFIRMED: 'bg-forest-100 text-forest-800 ring-forest-200 dark:bg-forest-900/50 dark:text-forest-200 dark:ring-forest-700/60',
+  CANCELLED: 'bg-basalt-200 text-basalt-700 ring-basalt-300 dark:bg-basalt-800 dark:text-basalt-300 dark:ring-basalt-700',
+  COMPLETED: 'bg-blue-100 text-blue-900 ring-blue-200 dark:bg-blue-950/60 dark:text-blue-200 dark:ring-blue-800/60',
 };
 
 export function StatusBadge({ status }: { status: ApprovalStatus | BookingStatus }) {
@@ -74,7 +74,7 @@ export function Stars({ rating, count }: { rating: number; count?: number }) {
             <defs>
               <linearGradient id={`star-${i}-${rounded}`}>
                 <stop offset={`${Math.max(0, Math.min(1, rounded - i + 1)) * 100}%`} stopColor="currentColor" />
-                <stop offset={`${Math.max(0, Math.min(1, rounded - i + 1)) * 100}%`} stopColor="#e2e8f0" />
+                <stop offset={`${Math.max(0, Math.min(1, rounded - i + 1)) * 100}%`} stopColor="currentColor" stopOpacity={0.22} />
               </linearGradient>
             </defs>
             <path
@@ -124,7 +124,7 @@ export function EmptyState({
 }) {
   return (
     <div className="card flex flex-col items-center gap-3 px-6 py-12 text-center">
-      <div className="rounded-full bg-forest-100 p-3 text-forest-700" aria-hidden>
+      <div className="rounded-full bg-forest-100 p-3 text-forest-700 dark:bg-forest-900/50 dark:text-forest-300" aria-hidden>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="h-6 w-6">
           <path strokeLinecap="round" strokeLinejoin="round" d="M3 19l6-9 4 6 2-3 6 6H3z" />
           <circle cx="7" cy="6" r="2" />

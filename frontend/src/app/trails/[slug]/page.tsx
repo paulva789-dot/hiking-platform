@@ -17,6 +17,7 @@ import {
   formatDuration,
   formatXAF,
 } from '@/lib/format';
+import { fallbackNearby, fallbackTrailDetail } from '@/lib/fallback-trails';
 import { SingleTrailMap } from '@/components/map/LazyMaps';
 import { ElevationProfile } from '@/components/trail/ElevationProfile';
 import { TranslatedHazards, TranslatedTrailProse, TranslatedTrailText } from '@/components/trail/TranslatedTrailText';
@@ -46,6 +47,9 @@ async function getTrail(slug: string) {
     return await serverFetch<TrailResponse>(`/trails/${slug}`);
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) return null;
+    // API unreachable or erroring: serve the bundled copy of the seeded trail if we have one.
+    const offline = fallbackTrailDetail(slug);
+    if (offline) return offline;
     throw err;
   }
 }
@@ -74,7 +78,7 @@ export default async function TrailDetailPage({ params }: { params: Params }) {
 
   const { trail, ratingBreakdown } = data;
   const nearby = await serverFetch<{ trails: TrailCardType[] }>(`/trails/${slug}/nearby`).catch(
-    () => ({ trails: [] })
+    () => ({ trails: fallbackNearby(slug) })
   );
   const nearbyStays = await serverFetch<{ listings: Listing[] }>(
     `/content/listings${buildQuery({ kind: 'ACCOMMODATION', region: trail.region })}`

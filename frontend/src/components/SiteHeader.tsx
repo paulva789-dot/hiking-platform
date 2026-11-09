@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
 import { useLanguage } from '@/lib/i18n/language-context';
 import type { TranslationKey } from '@/lib/i18n/translations';
@@ -44,10 +44,33 @@ export function SiteHeader() {
     setCommunityOpen(false);
   }, [pathname]);
 
+  // Dropdowns close on Escape or a click outside the header, like native menus.
+  const headerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!menuOpen && !communityOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setMenuOpen(false);
+      setCommunityOpen(false);
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+        setCommunityOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onPointer);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onPointer);
+    };
+  }, [menuOpen, communityOpen]);
+
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-basalt-200 bg-white/95 backdrop-blur dark:border-basalt-800 dark:bg-basalt-950/95">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-basalt-200 bg-white/95 backdrop-blur dark:border-basalt-800 dark:bg-basalt-950/95">
       <div className="flag-bar" aria-hidden />
       <div className="section flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex shrink-0 items-center gap-2">
@@ -108,13 +131,13 @@ export function SiteHeader() {
           <LanguageSwitcher />
           <ThemeToggle />
           {loading ? (
-            <div className="h-9 w-24 animate-pulse rounded-lg bg-basalt-200" />
+            <div className="h-9 w-24 animate-pulse rounded-lg bg-basalt-200 dark:bg-basalt-800" aria-hidden />
           ) : user ? (
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setMenuOpen((v) => !v)}
-                className="flex items-center gap-2 rounded-lg p-1 pr-2 hover:bg-basalt-100"
+                className="flex items-center gap-2 rounded-lg p-1 pr-2 hover:bg-basalt-100 dark:hover:bg-basalt-800"
                 aria-expanded={menuOpen}
                 aria-haspopup="menu"
               >
@@ -123,7 +146,7 @@ export function SiteHeader() {
                   {user.name.split(' ')[0]}
                 </span>
                 {isPremium && (
-                  <span className="chip bg-amber-100 text-amber-900 ring-amber-200">Premium</span>
+                  <span className="chip bg-amber-100 text-amber-900 ring-amber-200 dark:bg-amber-950/60 dark:text-amber-200 dark:ring-amber-800/60">Premium</span>
                 )}
               </button>
 
@@ -176,6 +199,7 @@ export function SiteHeader() {
             className="btn-ghost px-2 lg:hidden"
             aria-label="Toggle navigation"
             aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
               <path
@@ -189,7 +213,8 @@ export function SiteHeader() {
 
       {mobileOpen && (
         <nav
-          className="border-t border-basalt-200 bg-white px-4 py-3 dark:border-basalt-800 dark:bg-basalt-950 lg:hidden"
+          id="mobile-nav"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-basalt-200 bg-white px-4 py-3 dark:border-basalt-800 dark:bg-basalt-950 lg:hidden"
           aria-label="Mobile"
         >
           <div className="grid grid-cols-2 gap-1">
@@ -200,7 +225,7 @@ export function SiteHeader() {
                 className={`rounded-lg px-3 py-2.5 text-sm font-medium ${
                   isActive(item.href)
                     ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
-                    : 'text-basalt-700 dark:text-basalt-300 dark:text-basalt-300'
+                    : 'text-basalt-700 dark:text-basalt-300'
                 }`}
               >
                 {t(item.key)}
@@ -219,7 +244,7 @@ export function SiteHeader() {
                 className={`rounded-lg px-3 py-2.5 text-sm font-medium ${
                   isActive(item.href)
                     ? 'bg-forest-50 text-forest-800 dark:bg-forest-900/40 dark:text-forest-300'
-                    : 'text-basalt-700 dark:text-basalt-300 dark:text-basalt-300'
+                    : 'text-basalt-700 dark:text-basalt-300'
                 }`}
               >
                 {item.key ? t(item.key) : item.label}
@@ -272,7 +297,7 @@ function MenuLink({ href, children }: { href: string; children: React.ReactNode 
     <Link
       href={href}
       role="menuitem"
-      className="block px-4 py-2.5 text-sm text-basalt-700 dark:text-basalt-300 hover:bg-basalt-50 dark:text-basalt-300 dark:hover:bg-basalt-800"
+      className="block px-4 py-2.5 text-sm text-basalt-700  hover:bg-basalt-50 dark:text-basalt-300 dark:hover:bg-basalt-800"
     >
       {children}
     </Link>

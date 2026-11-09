@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { serverFetch } from '@/lib/api';
 import type { MapTrail } from '@/lib/types';
+import fallbackTrails from '@/lib/map-trails.fallback.json';
 import { MapExplorer } from './MapExplorer';
 import { T } from '@/components/T';
 
@@ -14,9 +15,10 @@ export const metadata: Metadata = {
 export const revalidate = 600;
 
 export default async function MapPage() {
-  const { trails } = await serverFetch<{ trails: MapTrail[] }>('/trails/map').catch(() => ({
-    trails: [] as MapTrail[],
-  }));
+  // If the API is down or returns nothing, plot the bundled copy of the seeded
+  // trails so the map is never empty. Regenerate the JSON when trails.data.js changes.
+  const live = await serverFetch<{ trails: MapTrail[] }>('/trails/map').catch(() => null);
+  const trails = live?.trails?.length ? live.trails : (fallbackTrails as MapTrail[]);
 
   return (
     <div className="bg-basalt-50 dark:bg-basalt-950">

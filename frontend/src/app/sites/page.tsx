@@ -91,7 +91,7 @@ export default function SitesPage() {
             </div>
 
             <div className="flex flex-1 flex-col p-5">
-              <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
+              <h2 className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800 dark:group-hover:text-forest-300">
                 {site.name}
               </h2>
               <p className="mt-1.5 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">

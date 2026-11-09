@@ -48,7 +48,7 @@ export default function MyReviewsPage() {
                   {review.trail && (
                     <Link
                       href={`/trails/${review.trail.slug}`}
-                      className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50 hover:text-forest-800"
+                      className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50 hover:text-forest-800 dark:hover:text-forest-300"
                     >
                       {review.trail.name}
                     </Link>

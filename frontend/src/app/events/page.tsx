@@ -79,7 +79,7 @@ export default async function EventsPage() {
                         )}
                       </div>
 
-                      <h2 className="mt-2 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
+                      <h2 className="mt-2 font-display text-xl font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800 dark:group-hover:text-forest-300">
                         {event.title}
                       </h2>
                       <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">

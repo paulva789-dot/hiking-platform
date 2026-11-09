@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { buildQuery, serverFetch } from '@/lib/api';
 import type { Pagination, TrailCard as TrailCardType } from '@/lib/types';
 import { DIFFICULTY_LABELS, REGION_LABELS } from '@/lib/format';
+import { FALLBACK_TRAILS, fallbackTrailList } from '@/lib/fallback-trails';
 import { TrailCard } from '@/components/TrailCard';
 import { Reveal } from '@/components/Reveal';
 import { TrailFilters } from '@/components/TrailFilters';
@@ -20,6 +21,16 @@ export const metadata: Metadata = {
 interface Facets {
   regions: { value: string; count: number }[];
   difficulties: { value: string; count: number }[];
+}
+
+/** Facet counts computed from the bundled trails, for when /trails/facets is unreachable. */
+function fallbackFacets(): Facets {
+  const count = (pick: (t: (typeof FALLBACK_TRAILS)[number]) => string) => {
+    const map = new Map<string, number>();
+    for (const t of FALLBACK_TRAILS) map.set(pick(t), (map.get(pick(t)) ?? 0) + 1);
+    return [...map].map(([value, n]) => ({ value, count: n }));
+  };
+  return { regions: count((t) => t.region), difficulties: count((t) => t.difficulty) };
 }
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -46,11 +57,11 @@ export default async function TrailsPage({ searchParams }: { searchParams: Searc
       `/trails${buildQuery(query)}`,
       60
     ).catch(() => ({
-      trails: [] as TrailCardType[],
-      pagination: { page: 1, limit: 12, total: 0, pages: 1 },
+      // API unreachable: filter the bundled trail list instead of showing nothing.
+      ...fallbackTrailList(query),
       suggestions: [] as TrailCardType[],
     })),
-    serverFetch<Facets>('/trails/facets', 600).catch(() => ({ regions: [], difficulties: [] })),
+    serverFetch<Facets>('/trails/facets', 600).catch(() => fallbackFacets()),
   ]);
 
   const { trails, pagination, suggestions } = result;

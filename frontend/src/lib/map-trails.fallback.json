@@ -1,0 +1,664 @@
+[
+  {
+    "id": "mount-cameroon-guinness-route",
+    "slug": "mount-cameroon-guinness-route",
+    "name": "Mount Cameroon — Guinness Route to Fako Summit",
+    "region": "SOUTH_WEST",
+    "difficulty": "EXPERT",
+    "category": "SUMMIT",
+    "distanceKm": 36,
+    "durationMinutes": 2880,
+    "startLat": 4.1561,
+    "startLng": 9.241,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Mount%20fako%20(mount%20Cameroon).jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          9.241,
+          4.1561
+        ],
+        [
+          9.2255,
+          4.1698
+        ],
+        [
+          9.2098,
+          4.1802
+        ],
+        [
+          9.1955,
+          4.1889
+        ],
+        [
+          9.1822,
+          4.1948
+        ],
+        [
+          9.1706,
+          4.2033
+        ]
+      ]
+    }
+  },
+  {
+    "id": "mount-kupe-nyasoso",
+    "slug": "mount-kupe-nyasoso",
+    "name": "Mount Kupe from Nyasoso",
+    "region": "SOUTH_WEST",
+    "difficulty": "HARD",
+    "category": "SUMMIT",
+    "distanceKm": 11,
+    "durationMinutes": 480,
+    "startLat": 4.8231,
+    "startLng": 9.6889,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Mount%20Kupe%20Muanenguba.jpeg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          9.6889,
+          4.8231
+        ],
+        [
+          9.6862,
+          4.8156
+        ],
+        [
+          9.6841,
+          4.8082
+        ],
+        [
+          9.6833,
+          4.8
+        ]
+      ]
+    }
+  },
+  {
+    "id": "manengouba-twin-lakes",
+    "slug": "manengouba-twin-lakes",
+    "name": "Manengouba Crater and the Twin Lakes",
+    "region": "LITTORAL",
+    "difficulty": "MODERATE",
+    "category": "LAKE",
+    "distanceKm": 14,
+    "durationMinutes": 420,
+    "startLat": 5.0442,
+    "startLng": 9.8478,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Manengouba-Tombel.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          9.8478,
+          5.0442
+        ],
+        [
+          9.8422,
+          5.0361
+        ],
+        [
+          9.8367,
+          5.028
+        ],
+        [
+          9.8333,
+          5.0167
+        ]
+      ]
+    }
+  },
+  {
+    "id": "ekom-nkam-falls-trail",
+    "slug": "ekom-nkam-falls-trail",
+    "name": "Ekom-Nkam Falls Forest Walk",
+    "region": "LITTORAL",
+    "difficulty": "EASY",
+    "category": "WATERFALL",
+    "distanceKm": 2.8,
+    "durationMinutes": 150,
+    "startLat": 4.9231,
+    "startLng": 9.9314,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Chutes%20Ekom%20Nkam.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          9.9314,
+          4.9231
+        ],
+        [
+          9.9298,
+          4.9212
+        ],
+        [
+          9.9285,
+          4.9196
+        ]
+      ]
+    }
+  },
+  {
+    "id": "mount-oku-kilum-ijim",
+    "slug": "mount-oku-kilum-ijim",
+    "name": "Mount Oku and the Kilum-Ijim Forest",
+    "region": "NORTH_WEST",
+    "difficulty": "HARD",
+    "category": "SUMMIT",
+    "distanceKm": 18,
+    "durationMinutes": 540,
+    "startLat": 6.2244,
+    "startLng": 10.4761,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Oku%20Cameroon.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          10.4761,
+          6.2244
+        ],
+        [
+          10.4722,
+          6.2158
+        ],
+        [
+          10.4689,
+          6.2072
+        ],
+        [
+          10.4667,
+          6.2
+        ]
+      ]
+    }
+  },
+  {
+    "id": "lake-awing-crater-walk",
+    "slug": "lake-awing-crater-walk",
+    "name": "Lake Awing Crater Walk",
+    "region": "NORTH_WEST",
+    "difficulty": "EASY",
+    "category": "LAKE",
+    "distanceKm": 9,
+    "durationMinutes": 240,
+    "startLat": 5.9528,
+    "startLng": 10.2492,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Kuk%20in%20the%20Northwest%20Region%20of%20Cameroon.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          10.2492,
+          5.9528
+        ],
+        [
+          10.2531,
+          5.9481
+        ],
+        [
+          10.2508,
+          5.9427
+        ],
+        [
+          10.2451,
+          5.9449
+        ],
+        [
+          10.2492,
+          5.9528
+        ]
+      ]
+    }
+  },
+  {
+    "id": "mount-bamboutos-ridge",
+    "slug": "mount-bamboutos-ridge",
+    "name": "Mount Bamboutos Ridge Traverse",
+    "region": "WEST",
+    "difficulty": "HARD",
+    "category": "SUMMIT",
+    "distanceKm": 22,
+    "durationMinutes": 600,
+    "startLat": 5.6289,
+    "startLng": 10.2528,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Mont%20Batchingou%20(2098m).jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          10.2528,
+          5.6289
+        ],
+        [
+          10.1892,
+          5.6341
+        ],
+        [
+          10.1204,
+          5.6372
+        ],
+        [
+          10.05,
+          5.6333
+        ]
+      ]
+    }
+  },
+  {
+    "id": "mont-febe-yaounde",
+    "slug": "mont-febe-yaounde",
+    "name": "Mont Fébé Circuit, Yaoundé",
+    "region": "CENTRE",
+    "difficulty": "EASY",
+    "category": "FOREST",
+    "distanceKm": 7,
+    "durationMinutes": 150,
+    "startLat": 3.8908,
+    "startLng": 11.5061,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Lac%20municipal%20de%20Yaounde.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          11.5061,
+          3.8908
+        ],
+        [
+          11.5022,
+          3.8954
+        ],
+        [
+          11.4989,
+          3.9002
+        ],
+        [
+          11.5031,
+          3.9028
+        ],
+        [
+          11.5061,
+          3.8908
+        ]
+      ]
+    }
+  },
+  {
+    "id": "rhumsiki-kapsiki-peaks",
+    "slug": "rhumsiki-kapsiki-peaks",
+    "name": "Rhumsiki and the Kapsiki Peaks",
+    "region": "FAR_NORTH",
+    "difficulty": "MODERATE",
+    "category": "CULTURAL",
+    "distanceKm": 12,
+    "durationMinutes": 300,
+    "startLat": 10.5347,
+    "startLng": 13.6178,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Rhumsiki%20Peak.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          13.6178,
+          10.5347
+        ],
+        [
+          13.6089,
+          10.5412
+        ],
+        [
+          13.5981,
+          10.5468
+        ],
+        [
+          13.5892,
+          10.5521
+        ]
+      ]
+    }
+  },
+  {
+    "id": "benoue-park-buffalo-trail",
+    "slug": "benoue-park-buffalo-trail",
+    "name": "Bénoué National Park Buffalo Trail",
+    "region": "NORTH",
+    "difficulty": "MODERATE",
+    "category": "WILDLIFE",
+    "distanceKm": 10,
+    "durationMinutes": 270,
+    "startLat": 8.3667,
+    "startLng": 13.8333,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/B%C3%A9nou%C3%A9NP4.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          13.8333,
+          8.3667
+        ],
+        [
+          13.8412,
+          8.3589
+        ],
+        [
+          13.8498,
+          8.3521
+        ],
+        [
+          13.8571,
+          8.3462
+        ]
+      ]
+    }
+  },
+  {
+    "id": "ngaoundaba-crater-lake-loop",
+    "slug": "ngaoundaba-crater-lake-loop",
+    "name": "Ngaoundaba Crater Lake Loop",
+    "region": "ADAMAWA",
+    "difficulty": "MODERATE",
+    "category": "LAKE",
+    "distanceKm": 11,
+    "durationMinutes": 270,
+    "startLat": 7.0492,
+    "startLng": 13.6042,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Paysage%20de%20Ngaoundaba.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          13.6042,
+          7.0492
+        ],
+        [
+          13.5981,
+          7.0441
+        ],
+        [
+          13.5919,
+          7.0398
+        ],
+        [
+          13.5962,
+          7.0352
+        ],
+        [
+          13.6042,
+          7.0492
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dja-reserve-forest-trek",
+    "slug": "dja-reserve-forest-trek",
+    "name": "Dja Faunal Reserve Forest Trek",
+    "region": "EAST",
+    "difficulty": "EXPERT",
+    "category": "WILDLIFE",
+    "distanceKm": 45,
+    "durationMinutes": 4320,
+    "startLat": 3.3672,
+    "startLng": 12.7189,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Dja%20Faunal%20Reserve-109438.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          12.7189,
+          3.3672
+        ],
+        [
+          12.7302,
+          3.3481
+        ],
+        [
+          12.7418,
+          3.3269
+        ],
+        [
+          12.7561,
+          3.3042
+        ],
+        [
+          12.7689,
+          3.2801
+        ]
+      ]
+    }
+  },
+  {
+    "id": "campo-maan-ebodje-coast",
+    "slug": "campo-maan-ebodje-coast",
+    "name": "Campo Ma'an Coastal and Forest Walk",
+    "region": "SOUTH",
+    "difficulty": "EASY",
+    "category": "COASTAL",
+    "distanceKm": 16,
+    "durationMinutes": 330,
+    "startLat": 2.5842,
+    "startLng": 9.8611,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Lob%C3%A9%20beach%20kribi%20Cameroon.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          9.8611,
+          2.5842
+        ],
+        [
+          9.8589,
+          2.5681
+        ],
+        [
+          9.8562,
+          2.5498
+        ],
+        [
+          9.8541,
+          2.5312
+        ]
+      ]
+    }
+  },
+  {
+    "id": "lobeke-bai-forest-trek",
+    "slug": "lobeke-bai-forest-trek",
+    "name": "Lobéké National Park Bai Forest Trek",
+    "region": "EAST",
+    "difficulty": "EXPERT",
+    "category": "WILDLIFE",
+    "distanceKm": 28,
+    "durationMinutes": 5760,
+    "startLat": 2.2606,
+    "startLng": 15.7783,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Clairi%C3%A8re%20dans%20le%20Parc%20National%20de%20Lob%C3%A9k%C3%A9.JPG?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          15.7783,
+          2.2606
+        ],
+        [
+          15.7912,
+          2.2481
+        ],
+        [
+          15.8058,
+          2.2339
+        ],
+        [
+          15.8201,
+          2.2178
+        ]
+      ]
+    }
+  },
+  {
+    "id": "chutes-de-la-metche",
+    "slug": "chutes-de-la-metche",
+    "name": "Chutes de la Métché",
+    "region": "WEST",
+    "difficulty": "EASY",
+    "category": "WATERFALL",
+    "distanceKm": 2.2,
+    "durationMinutes": 90,
+    "startLat": 5.5325,
+    "startLng": 10.3297,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Chutes%20de%20la%20M%C3%A9tch%C3%A9%20-%203.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          10.3297,
+          5.5325
+        ],
+        [
+          10.3271,
+          5.5318
+        ],
+        [
+          10.3252,
+          5.5309
+        ]
+      ]
+    }
+  },
+  {
+    "id": "waza-park-walking-safari",
+    "slug": "waza-park-walking-safari",
+    "name": "Waza National Park Walking Safari",
+    "region": "FAR_NORTH",
+    "difficulty": "MODERATE",
+    "category": "WILDLIFE",
+    "distanceKm": 9,
+    "durationMinutes": 240,
+    "startLat": 11.3536,
+    "startLng": 14.5978,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Waza-NP-Giraffes.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          14.5978,
+          11.3536
+        ],
+        [
+          14.6089,
+          11.3467
+        ],
+        [
+          14.6212,
+          11.339
+        ],
+        [
+          14.6344,
+          11.3328
+        ]
+      ]
+    }
+  },
+  {
+    "id": "lac-tison-vina-falls",
+    "slug": "lac-tison-vina-falls",
+    "name": "Lac Tison and the Vina Falls",
+    "region": "ADAMAWA",
+    "difficulty": "EASY",
+    "category": "WATERFALL",
+    "distanceKm": 13,
+    "durationMinutes": 270,
+    "startLat": 7.3167,
+    "startLng": 13.5833,
+    "coverImage": "https://commons.wikimedia.org/wiki/Special:FilePath/Les%20chutes%20d'eau%20de%20la%20Vina%20%C3%A0%20Ngaound%C3%A9r%C3%A9.jpg?width=1600",
+    "ratingAvg": 0,
+    "ratingCount": 0,
+    "viewCount": 0,
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "routeGeoJson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          13.5833,
+          7.3167
+        ],
+        [
+          13.5811,
+          7.2942
+        ],
+        [
+          13.585,
+          7.2703
+        ],
+        [
+          13.5851,
+          7.2092
+        ]
+      ]
+    }
+  }
+]

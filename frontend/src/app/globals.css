@@ -240,11 +240,12 @@
 }
 
 .map-layer-toggle {
-  @apply flex overflow-hidden rounded-lg shadow-md ring-1 ring-basalt-300;
+  @apply flex overflow-hidden rounded-lg shadow-md ring-1 ring-basalt-300 dark:ring-basalt-700;
 }
 
 .map-layer-toggle button {
-  @apply bg-white px-3 py-2 text-xs font-semibold text-basalt-700 transition-colors hover:bg-basalt-50;
+  @apply bg-white px-3 py-2 text-xs font-semibold text-basalt-700 transition-colors hover:bg-basalt-50
+         dark:bg-basalt-900 dark:text-basalt-200 dark:hover:bg-basalt-800;
 }
 
 .map-layer-toggle button.is-active {

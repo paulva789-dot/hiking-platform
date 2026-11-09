@@ -3,10 +3,20 @@ import Link from 'next/link';
 import heroPhoto from '@/assets/hero-rhumsiki.jpg';
 import { serverFetch } from '@/lib/api';
 import type { GuideCard, HikingEvent, SafetyCategory, TrailCard as TrailCardType } from '@/lib/types';
-import { ALL_DIFFICULTIES, DIFFICULTY_LABELS, DIFFICULTY_MEANING, REGION_LABELS, formatXAF } from '@/lib/format';
+import {
+  ALL_DIFFICULTIES,
+  CATEGORY_LABELS,
+  DIFFICULTY_LABELS,
+  DIFFICULTY_MEANING,
+  REGION_LABELS,
+  formatDistance,
+  formatDuration,
+  formatXAF,
+} from '@/lib/format';
+import { fallbackTrailList } from '@/lib/fallback-trails';
 import { TrailCard } from '@/components/TrailCard';
 import { AdBanner } from '@/components/AdBanner';
-import { DifficultyChip, SectionHeading, Stars } from '@/components/ui';
+import { DifficultyChip, EmptyState, SectionHeading, Stars } from '@/components/ui';
 import { TrailSearchBar } from '@/components/TrailSearchBar';
 import { RegionPlacePicker } from '@/components/RegionPlacePicker';
 import { CloudDrift } from '@/components/SceneOverlay';
@@ -63,11 +73,14 @@ async function getHomeData() {
   const settle = <R,>(p: Promise<R>, fallback: R) => p.catch(() => fallback);
 
   const [popular, easy, guides, events, safety] = await Promise.all([
-    settle(serverFetch<{ trails: TrailCardType[]; pagination: { total: number } }>('/trails?sort=popular&limit=6'), {
-      trails: [],
-      pagination: { total: 0 },
-    }),
-    settle(serverFetch<{ trails: TrailCardType[] }>('/trails?difficulty=EASY&limit=3'), { trails: [] }),
+    settle(
+      serverFetch<{ trails: TrailCardType[]; pagination: { total: number } }>('/trails?sort=popular&limit=7'),
+      fallbackTrailList({ sort: 'popular', limit: 7 })
+    ),
+    settle(
+      serverFetch<{ trails: TrailCardType[] }>('/trails?difficulty=EASY&limit=3'),
+      fallbackTrailList({ difficulty: 'EASY', limit: 3 })
+    ),
     settle(serverFetch<{ guides: GuideCard[] }>('/guides?limit=3'), { guides: [] }),
     settle(serverFetch<{ events: HikingEvent[] }>('/content/events'), { events: [] }),
     settle(serverFetch<{ categories: SafetyCategory[] }>('/content/safety'), { categories: [] }),
@@ -84,8 +97,10 @@ async function getHomeData() {
 }
 
 export default async function HomePage() {
-  const { popular, totalTrails, easy, guides, events, safety } = await getHomeData();
-  const regionsCovered = new Set(popular.map((t) => t.region)).size;
+  const { popular: popularAll, totalTrails, easy, guides, events, safety } = await getHomeData();
+  // The first trail gets its own spotlight; the rest fill the grid.
+  const [spotlight, ...popular] = popularAll;
+  const regionsCovered = new Set(popularAll.map((t) => t.region)).size;
 
   return (
     <>
@@ -104,7 +119,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-950/80 to-forest-950" />
           <CloudDrift />
         </div>
-        <p className="absolute bottom-1.5 right-3 z-10 text-[10px] text-basalt-400">
+        <p className="absolute bottom-1.5 right-3 z-10 text-[11px] text-basalt-300">
           Rhumsiki Peak, Far North — Wikimedia Commons
         </p>
 
@@ -124,16 +139,31 @@ export default async function HomePage() {
             <TrailSearchBar variant="hero" />
           </div>
 
-          <a
-            href="#difficulty"
-            className="mt-4 inline-block text-sm font-semibold text-basalt-300 hover:text-white hover:underline"
-          >
-            <T k="hero.difficultyLink" /> →
-          </a>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <Link href="/trails" className="btn-accent">
+              Browse all trails
+            </Link>
+            <Link href="/map" className="btn bg-white/10 text-white ring-1 ring-inset ring-white/25 hover:bg-white/20">
+              Open the map
+            </Link>
+            <a href="#difficulty" className="px-2 py-2.5 text-sm font-semibold text-basalt-200 hover:text-white hover:underline">
+              <T k="hero.difficultyLink" /> →
+            </a>
+          </div>
 
-          <p className="mt-8 max-w-2xl font-mono text-sm tabular-nums text-basalt-300">
-            <T k="hero.statLine" params={{ summit: '4,040 m', n: totalTrails || 17 }} />
-          </p>
+          <dl className="mt-12 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/10 ring-1 ring-white/15 sm:grid-cols-4">
+            {[
+              { value: String(totalTrails || 17), label: 'Checked trails' },
+              { value: '10', label: 'Regions covered' },
+              { value: '4,040 m', label: 'Highest summit' },
+              { value: '4', label: 'Honest difficulty levels' },
+            ].map((stat) => (
+              <div key={stat.label} className="bg-forest-950/70 px-4 py-4 backdrop-blur-sm">
+                <dd className="font-display text-2xl font-semibold tabular-nums text-white">{stat.value}</dd>
+                <dt className="mt-0.5 text-xs text-basalt-300">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
@@ -141,12 +171,15 @@ export default async function HomePage() {
         <AdBanner placement="home-hero" />
       </div>
 
+      {/* ---------------------------------------------------- spotlight */}
+      {spotlight && <FeaturedTrail trail={spotlight} />}
+
       {/* ------------------------------------------------ popular trails */}
       <section className="py-16">
         <div className="section">
           <SectionHeading
             eyebrow="Trails"
-            title="Where people are hiking"
+            title="More places to hike"
             description={`Volcanic summits, crater lakes, rainforest and savannah — spread across ${regionsCovered || 10} regions.`}
             action={
               <Link href="/trails" className="btn-secondary">
@@ -155,11 +188,19 @@ export default async function HomePage() {
             }
           />
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {popular.map((trail, i) => (
-              <TrailCard key={trail.id} trail={trail} priority={i < 3} />
-            ))}
-          </div>
+          {popularAll.length > 0 ? (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {popular.map((trail, i) => (
+                <TrailCard key={trail.id} trail={trail} priority={i < 3} />
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="Trails are taking a moment to load"
+              message="We couldn't reach the trail database just now. The interactive map still lists every trail, or try the full trail list."
+              action={{ href: '/map', label: 'Open the trail map' }}
+            />
+          )}
         </div>
       </section>
 
@@ -314,18 +355,21 @@ export default async function HomePage() {
 
           <div className="grid gap-5 md:grid-cols-3">
             <ProblemCard
+              step={1}
               problem="&ldquo;How long does it actually take?&rdquo;"
               answer="Every trail carries a measured distance, ascent and realistic duration for a moderately fit hiker — plus what the difficulty rating commits to."
               href="/trails"
               cta="Browse trails"
             />
             <ProblemCard
+              step={2}
               problem="&ldquo;Is it safe right now?&rdquo;"
               answer="Live conditions on every trail page, read as a plain verdict: good to go, take care, or not advisable. Plus hazards, water, and regional security notes."
               href="/safety"
               cta="Read safety guidance"
             />
             <ProblemCard
+              step={3}
               problem="&ldquo;Who do I even ask?&rdquo;"
               answer="Registered guides with verified profiles, real day rates, languages spoken, and departure dates you can book without a phone call."
               href="/guides"
@@ -336,7 +380,7 @@ export default async function HomePage() {
       </section>
 
       {/* ---------------------------------------------------- trip picker */}
-      <section className="border-b border-basalt-200 bg-white py-14 dark:border-basalt-800 dark:bg-basalt-900">
+      <section className="border-b border-basalt-200 py-14 dark:border-basalt-800">
         <div className="section">
           <RegionPlacePicker />
         </div>
@@ -449,7 +493,7 @@ export default async function HomePage() {
                     </span>
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800">
+                    <h3 className="font-display text-base font-semibold text-basalt-900 dark:text-basalt-50 group-hover:text-forest-800 dark:group-hover:text-forest-300">
                       {event.title}
                     </h3>
                     <p className="mt-1 text-xs text-basalt-600 dark:text-basalt-300">{event.location}</p>
@@ -478,7 +522,7 @@ export default async function HomePage() {
               numbers — for when the signal goes, which on these mountains it will.
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <Link href="/register" className="btn bg-white text-terracotta-700 hover:bg-terracotta-50">
               Create free account
             </Link>
@@ -493,23 +537,103 @@ export default async function HomePage() {
 }
 
 function ProblemCard({
+  step,
   problem,
   answer,
   href,
   cta,
 }: {
+  step: number;
   problem: string;
   answer: string;
   href: string;
   cta: string;
 }) {
   return (
-    <div className="card flex flex-col p-6">
+    <div className="card flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+      <span
+        className="mb-4 grid h-8 w-8 place-items-center rounded-full bg-terracotta-100 font-mono text-sm font-bold text-terracotta-700 dark:bg-terracotta-900/50 dark:text-terracotta-200"
+        aria-hidden
+      >
+        {step}
+      </span>
       <p className="font-display text-lg font-semibold text-basalt-900 dark:text-basalt-50">{problem}</p>
       <p className="mt-3 flex-1 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300">{answer}</p>
       <Link href={href} className="mt-4 text-sm font-semibold text-forest-700 hover:underline dark:text-forest-400">
         {cta} →
       </Link>
     </div>
+  );
+}
+
+function FeaturedTrail({ trail }: { trail: TrailCardType }) {
+  return (
+    <section className="pt-16">
+      <div className="section">
+        <div className="card grid overflow-hidden lg:grid-cols-[1.15fr_1fr]">
+          <Link
+            href={`/trails/${trail.slug}`}
+            className="group relative block min-h-[260px] overflow-hidden bg-forest-900 lg:min-h-[420px]"
+            tabIndex={-1}
+            aria-hidden
+          >
+            {trail.coverImage && (
+              <Image
+                src={trail.coverImage}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 640px, 100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-transparent to-transparent" />
+            <p className="absolute bottom-4 left-5 text-xs font-semibold uppercase tracking-wider text-white/90">
+              {REGION_LABELS[trail.region]} · {CATEGORY_LABELS[trail.category]}
+            </p>
+          </Link>
+
+          <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-terracotta-700 dark:text-terracotta-400">
+              Featured hike
+            </p>
+            <h2 className="font-display text-2xl font-semibold leading-tight text-basalt-900 dark:text-basalt-50 sm:text-3xl">
+              {trail.name}
+            </h2>
+            <div className="mt-3">
+              <DifficultyChip difficulty={trail.difficulty} />
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-basalt-600 dark:text-basalt-300 sm:text-base">
+              {trail.summary}
+            </p>
+
+            <dl className="mt-6 grid grid-cols-3 gap-3 border-y border-basalt-100 py-4 dark:border-basalt-800">
+              {[
+                { label: 'Distance', value: formatDistance(trail.distanceKm) },
+                { label: 'Time', value: formatDuration(trail.durationMinutes) },
+                { label: 'Ascent', value: `${trail.elevationGainM.toLocaleString()} m` },
+              ].map((m) => (
+                <div key={m.label}>
+                  <dt className="text-[10px] font-semibold uppercase tracking-wide text-basalt-600 dark:text-basalt-400">
+                    {m.label}
+                  </dt>
+                  <dd className="mt-0.5 font-mono text-base font-semibold tabular-nums text-basalt-900 dark:text-basalt-50">
+                    {m.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href={`/trails/${trail.slug}`} className="btn-primary">
+                View trail
+              </Link>
+              <Link href="/map" className="btn-secondary">
+                See it on the map
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
